@@ -123,7 +123,11 @@ body {
 }
 
 .padding-top {
-    padding: 6rem 0;
+    padding: 4.2rem 0;
+}
+
+.margin-bottom-xsmall {
+    margin-bottom: var(--spacing-xsmall);
 }
 
 /* FONTS */
@@ -223,7 +227,7 @@ body {
 	font-size: 5.2rem;
 	font-weight: 700;
 	font-style: normal;
-	line-height: 125%;
+	line-height: 110%;
 	letter-spacing: -3.5px;
 	text-decoration: none;
 	text-transform: none;
@@ -233,7 +237,7 @@ body {
 	font-size: 6.2rem;
 	font-weight: 700;
 	font-style: normal;
-	line-height: 125%;
+	line-height: 110%;
 	letter-spacing: -3.5px;
 	text-decoration: none;
 	text-transform: none;

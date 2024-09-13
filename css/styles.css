@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-medium) var(--spacing-3xl);
+    background-color: rgba(245, 245, 245, 0.25);
+
 }
 
 .logo {
@@ -131,11 +133,112 @@
     gap: 3.2rem;
 }
 
+.flex-hero {
+    align-items:flex-end;
+}
+
+.flex-numbers {
+    justify-content: space-evenly;
+    text-align: center;
+    background-color: rgba(60,136,242,0.25);
+    background: linear-gradient(130deg, rgba(177, 207, 250, 0.15)
+    , rgba(14, 97, 212, 0.15)
+    , rgba(158,0,255,0.15));
+    
+    padding: 1.2rem 0;
+    /* border-radius: 30px; */
+    gap: 1.2rem;
+}
+
+.tag {
+    font-weight: 600;
+    color: var(--color-neutral600);
+    padding: 1.5rem;
+    background-color: rgba(255,255,255,0.25);
+    background-color: rgba(60, 136, 242, 0.25);
+    background-color: rgba(60, 136, 242, 0.25);
+
+    border-radius: 30px;
+    display: inline-block;
+    border: 1px solid rgba(60, 136, 242, 0.25);
+    transition: all 0.3s;
+}
+
+.tag:hover {
+    cursor: pointer;
+    background-color: rgba(60, 136, 242, 0.35);
+}
+
+.flex-tag {
+    justify-content: center;
+    gap: 1.2rem;
+}
+
 .hero-img {
     width: 100%;
     height: 100%;
     
 }
+
+.main-heading {
+    margin-bottom: var(--spacing-large);
+}
+
+.main-description {
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-neutral500);
+}
+
+.box-description {
+    color: var(--color-neutral500);
+}
+
+.main-buttons {
+    margin-bottom: var(--spacing-large);
+}
+
+.strong-degraded {
+    background: linear-gradient(90deg, #b1cffa, #0e61d4, rgba(158,0,255,0.50));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-animation 5s infinite alternate;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 100%;
+    }
+}
+
+/* Initial style for the "o" */
+.letter {
+    display: inline-block;
+    font-style: italic;
+    transition: font-style 0.3s ease;
+}
+
+/* Hover effect: change font-style to normal and add shake effect */
+.letter:hover  {
+    animation: italicToNormal 0.8s ease forwards;
+}
+
+@keyframes italicToNormal {
+    0% {
+        font-style: italic;
+    }
+    50% {
+        font-style: normal;
+    }
+    100% {
+        font-style: italic;
+    }
+}
+
+
 
 /* General button styles */
 .btn:link,
@@ -149,7 +252,7 @@
     position: relative;
     overflow: hidden; /* Necessary for the hover effect */
     transition: color 650ms ease-in-out;
-    z-index: 1;
+    z-index: 3;
 }
 
 /* Full button */
@@ -200,74 +303,61 @@
     border-color: var(--color-primary500);
 }
 
+/* Hero section */
 .hero-section {
-    background-color: #f0f4f8;
     position: relative;
     overflow: hidden;
 }
 
-.floating-shape {
+.hero-container-text {
+    padding: 2.4rem 4.8rem;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Shapes */
+.shape {
     position: absolute;
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    animation: float 10s ease-in-out infinite;
-    top: 30%;
+    background: linear-gradient(90deg, rgba(60,136,242,0.15) 0%, rgba(59,9,121,0.10) 35%, rgba(158,0,255,0.10) 80%);
+    width: 50vmax;
+    height: 50vmax;
+    animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+    will-change: border-radius, transform;
+    pointer-events: none;
+    transform-origin: center;
+}
+
+/* First shape */
+.shape1 {
     left: 10%;
+    top: 10%;
+    z-index: -2;
 }
 
-@keyframes float {
+/* Second shape */
+.shape2 {
+    background: linear-gradient(90deg, rgba(185,220,246,0.25) 0%, rgba(53,119,222,0.10) 35%, rgba(91,21,230,0.10) 80%);
+    right: 10%;
+    bottom: 10%;
+    animation: morph 10s linear infinite alternate, spin 26s linear infinite reverse;
+    transform-origin: 20% 20%;
+    z-index: -2;
+    width: 50vmin;
+    height: 50vmin;
+}
+
+/* Animation of changing shape (morph) */
+@keyframes morph {
     0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
+        border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
     }
     100% {
-        transform: translateY(0);
+        border-radius: 40% 60%;
     }
 }
 
-
-
-
-/* 
-.hero-section {
-    background: linear-gradient(135deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-    background: linear-gradient(135deg, rgba(34,193,195,0.15) 0%, rgba(253,187,45,0.15) 100%);
-    animation: gradientBackground 3s ease infinite;
-}
-
-@keyframes gradientBackground {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
- */
-
-
-.hero-section {
-    position: relative;
-    background: linear-gradient(45deg, rgba(34,193,195,0.1), rgba(253,187,45,0.1));
-    background-size: 400% 400%; /* Aumentamos el tamaño para el efecto de movimiento */
-    animation: gradientAnimation 10s ease infinite; /* Animación continua de 10s */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-  /* Definimos la animación */
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
+/* Animation of rotation (spin) */
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
     }
 }
