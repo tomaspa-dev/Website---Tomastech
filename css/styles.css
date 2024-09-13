@@ -1,18 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    /* font-size: 10px */
-    /* 10 / 16 = 0.625 = 62.5% */
-    /* Percentage of user's browser font-size setting */
-    font-size: 62.5%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,6 +6,7 @@ html {
 
 .logo {
     height: var(--spacing-xl);
+    height: 3.6rem;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -90,6 +76,7 @@ html {
     transition: background 0.6s ease 0.4s, color 0.6s ease 0.4s;
 }
 
+
 /* Pseudo-elementos para crear el borde */
 .nav-cta:before, 
 .nav-cta:after, 
@@ -97,7 +84,7 @@ html {
 .nav-cta span:after {
     content: '';
     position: absolute;
-    background: var(--color-primary900); /* Color del borde */
+    background: var(--color-primary900);
     transition: all 0.4s ease;
 }
 
@@ -128,25 +115,159 @@ html {
 
 .nav-cta:hover span:before, 
 .nav-cta:hover:before {
-    width: 100%; /* Expansión horizontal del borde */
+    width: 100%; 
     transition: .4s 0s;
 }
 
 .nav-cta:hover:after, 
 .nav-cta:hover span:after {
-    height: 100%; /* Expansión vertical del borde */
+    height: 100%;
     transition: .4s 0s;
 }
 
-/* .main-nav-link.nav-cta::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
+
+/* HERO-SECTION */
+.flex-hero {
+    gap: 3.2rem;
+}
+
+.hero-img {
     width: 100%;
     height: 100%;
-    background: linear-gradient(120deg,transparent,rgba(255, 255, 255, 0.2),transparent);
-    animation: shine 1.5s ease-in-out infinite;
-} */
+    
+}
+
+/* General button styles */
+.btn:link,
+.btn:visited {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 2rem;
+    margin-right: var(--spacing-small); 
+    padding: var(--spacing-small) var(--spacing-medium);
+    position: relative;
+    overflow: hidden; /* Necessary for the hover effect */
+    transition: color 650ms ease-in-out;
+    z-index: 1;
+}
+
+/* Full button */
+.btn--full {
+    color: var(--color-basewhite);
+    background-color: var(--color-primary500);
+}
+
+/* Outline button */
+.btn--outline {
+    color: var(--color-neutral600);
+    background-color: var(--color-neutral100);
+    border: 2px solid var(--color-neutral200);
+}
+
+/* Circle hover effect */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 0.8s cubic-bezier(0, 0.96, 0.58, 1.1);
+    z-index: -1;
+}
+
+.btn--full::after {
+    background-color: var(--color-primary600);
+}
+
+.btn--outline::after {
+    background-color: var(--color-primary100);
+}
+
+.btn:hover::after {
+    clip-path: circle(100% at 50% 50%);
+}
+
+.btn:hover {
+    color: var(--color-basewhite);
+}
+
+/* Outline button hover */
+.btn--outline:hover {
+    color: var(--color-primary500);
+    border-color: var(--color-primary500);
+}
+
+.hero-section {
+    background-color: #f0f4f8;
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-shape {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite;
+    top: 30%;
+    left: 10%;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
 
 
+
+
+/* 
+.hero-section {
+    background: linear-gradient(135deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    background: linear-gradient(135deg, rgba(34,193,195,0.15) 0%, rgba(253,187,45,0.15) 100%);
+    animation: gradientBackground 3s ease infinite;
+}
+
+@keyframes gradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+ */
+
+
+.hero-section {
+    position: relative;
+    background: linear-gradient(45deg, rgba(34,193,195,0.1), rgba(253,187,45,0.1));
+    background-size: 400% 400%; /* Aumentamos el tamaño para el efecto de movimiento */
+    animation: gradientAnimation 10s ease infinite; /* Animación continua de 10s */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+  /* Definimos la animación */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

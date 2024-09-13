@@ -85,11 +85,199 @@
     --color-error1000: #4c000c;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* font-size: 10px */
+    /* 10 / 16 = 0.625 = 62.5% */
+    /* Percentage of user's browser font-size setting */
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Poppins", "Rubik", sans-serif;
     line-height: 1;
     font-weight: 400;
     color: var(--color-neutral600);
+    background-color: rgba(216, 231, 252, 0.55);
     background-color: var(--color-neutral100);
     overflow-x: hidden;
+}
+
+/** UTILITIES **/
+.container {
+    width: 120rem;
+    height: auto;
+    padding:  0 3.2rem;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.padding-top {
+    padding: 6rem 0;
+}
+
+/* FONTS */
+.text-xsmall {
+	font-size: 1.2rem;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-small {
+	font-size: 1.4rem;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-medium {
+	font-size: 1.6rem;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+
+.text-large {
+	font-size: 1.8rem;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-2xl {
+	font-size: 2rem;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-3xl {
+	font-size: 2.4rem;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-4xl {
+	font-size: 2.8rem;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-5xl {
+	font-size: 3.6rem;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-6xl {
+	font-size: 4.2rem;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-7xl {
+	font-size: 4.8rem;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 125%;
+	letter-spacing: -3.5px;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-8xl {
+	font-size: 5.2rem;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 125%;
+	letter-spacing: -3.5px;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-9xl {
+	font-size: 6.2rem;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 125%;
+	letter-spacing: -3.5px;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.text-10xl {
+	font-size: 7.2rem;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 125%;
+	letter-spacing: -3.5px;
+	text-decoration: none;
+	text-transform: none;
+}
+
+/* COLORS */
+.background-primary {
+	color: var(--color-basewhite); 
+}
+
+.heading-primary {
+	color: var(--color-neutral900);
+}
+
+.heading-secondary {
+	color: var(--color-primary900);
+}
+
+.subheading-primary{
+	color: var(--color-neutral800);
+}
+
+.subheading-secondary {
+	color: var(--color-primary800);
+}
+
+.text-description {
+	color: var(--color-neutral600);
+}
+
+.text-primary {
+	color: var(--color-neutral500);
+}
+
+.text-secondary {
+	color: var(--color-primary400);
 }
