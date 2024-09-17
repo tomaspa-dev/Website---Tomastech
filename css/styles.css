@@ -508,8 +508,14 @@
     content: "";
     position: absolute;
     width: 60%;
-    background-color: rgba(14, 97, 212, 0.5);
+    background-color: rgba(99, 160, 244, 0.3);
     animation: scrollLine 1.5s linear infinite;
+}
+
+.card:nth-of-type(2) .scroll-lines:nth-child(2),
+.card:nth-of-type(3) .scroll-lines:nth-child(1), 
+.card:nth-of-type(4) .scroll-lines:nth-child(3) {
+    background-color: rgba(158,0,255,0.05);
 }
 
 /* Variations for the 1st card */
@@ -593,7 +599,13 @@
 .card:hover .scroll-lines:nth-child(2),
 .card:hover .scroll-lines:nth-child(3),
 .card:hover .scroll-lines:nth-child(4) {
-    background-color: rgba(14, 97, 212, 0.9);
+    background-color: rgba(14, 97, 212, 0.5);
+}
+
+.card:hover:nth-of-type(2) .scroll-lines:nth-child(2),
+.card:hover:nth-of-type(3) .scroll-lines:nth-child(1), 
+.card:hover:nth-of-type(4) .scroll-lines:nth-child(3) {
+    background-color: rgba(158,0,255,0.25);
 }
 
 
@@ -703,7 +715,8 @@
     transform: translateY(0);
 }
 
-.button-container {
+.button-container,
+.button-container-custom {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
@@ -712,12 +725,18 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.button-container-custom {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .card:hover .button-container {
     opacity: 1;
     transform: scale(1);
 }
 
-.action-button {
+.action-button,
+.action-button-custom {
     text-decoration: none;
     font-size: 3.2rem;
     color: #fff;
@@ -729,6 +748,10 @@
     align-items: center;
     background-color: var(--color-primary600);
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.action-button-custom {
+    background-color: var(--color-primary600);
 }
 
 .action-button:hover {
