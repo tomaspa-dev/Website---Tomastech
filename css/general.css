@@ -285,3 +285,8 @@ body {
 .text-secondary {
 	color: var(--color-primary400);
 }
+
+/* Utilities */
+.center {
+    text-align: center;
+}

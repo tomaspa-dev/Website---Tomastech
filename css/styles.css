@@ -368,7 +368,6 @@
     border-color: var(--color-primary500);
 }
 
-/* Hero section */
 .hero-section {
     position: relative;
     overflow: hidden;
@@ -425,4 +424,84 @@
     to {
         transform: rotate(1turn);
     }
+}
+
+/* OUR SERVICES SECTION */
+.sub-heading {
+    margin-bottom: var(--spacing-large);
+    margin-top: var(--spacing-xl);
+}
+
+.description {
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-neutral500);
+}
+
+/* Cards */
+
+.card {
+    width: 250px;
+    height: 300px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+/* Sección superior de la card con el ícono o imagen */
+.card-header {
+    background-color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Ícono de la sección superior */
+.card-header img {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.5s ease;
+}
+
+/* Sección inferior de la card (title y descripción) */
+.card-body {
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.card-body h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-body p {
+    font-size: 1rem;
+    color: #555;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Efecto al hacer hover sobre la card */
+.card:hover {
+    grid-template-rows: 1fr 2fr;
+}
+
+/* Efecto al hacer hover en la imagen */
+.card:hover .card-header img {
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* Mostrar descripción al hacer hover */
+.card:hover .card-body p {
+    opacity: 1;
+    transform: translateY(0);
 }
