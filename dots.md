@@ -22,6 +22,12 @@ Conoce más sobre nosotros / Learn more about us
 Ver proyectos realizados / See completed projects
 
 
+Our Services:
+We create custom and optimized web solutions for your business.
+
+Web Development, Web Design, Seo
+
+
 --
 Our Services
 --

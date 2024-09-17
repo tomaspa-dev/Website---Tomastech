@@ -130,6 +130,10 @@ body {
     margin-bottom: var(--spacing-xsmall);
 }
 
+.margin-bottom-4xl {
+    margin-bottom: var(--spacing-4xl);
+}
+
 /* FONTS */
 .text-xsmall {
 	font-size: 1.2rem;

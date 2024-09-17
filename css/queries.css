@@ -9,7 +9,7 @@
 
     .flex-hero {
         display: grid;
-        grid-template-columns: minmax(1fr, 300px);
+        grid-template-columns: 1fr;
     }
 
     
@@ -18,4 +18,17 @@
     height: auto;
     
 }
+
+/* OUR SERVICES */
+
+.flex-services {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr
+}
+
+.sub-heading {
+    text-align: left;
+}
+
 }
