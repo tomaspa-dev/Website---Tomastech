@@ -21,14 +21,30 @@
 
 /* OUR SERVICES */
 
-.flex-services {
+.flex-services,
+.cards {
     display: grid;
     justify-content: center;
     grid-template-columns: 1fr;
 }
+
+.cards:hover > .card:not(:hover) {
+    filter: none;
+    opacity: 1;
+} 
 
 .sub-heading {
     text-align: left;
 }
 
 }
+
+
+
+/* 
+@media (hover: none) {
+    .flex-services > .card {
+        filter: none; 
+        pointer-events: auto;
+    }
+} */

@@ -130,6 +130,18 @@ body {
     margin-bottom: var(--spacing-xsmall);
 }
 
+.margin-bottom-large {
+    margin-bottom: var(--spacing-large);
+}
+
+.margin-bottom-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+.margin-bottom-2xl {
+    margin-bottom: var(--spacing-2xl);
+}
+
 .margin-bottom-4xl {
     margin-bottom: var(--spacing-4xl);
 }
