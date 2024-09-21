@@ -130,6 +130,10 @@ body {
     margin-bottom: var(--spacing-xsmall);
 }
 
+.margin-bottom-medium {
+    margin-bottom: var(--spacing-medium);
+}
+
 .margin-bottom-large {
     margin-bottom: var(--spacing-large);
 }

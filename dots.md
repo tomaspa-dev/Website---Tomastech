@@ -25,7 +25,57 @@ Ver proyectos realizados / See completed projects
 Our Services:
 We create custom and optimized web solutions for your business.
 
-Web Development, Web Design, Seo
+Web Development, Web Design, Technical Seo
+
++Web Development
+Fast, Secure, Custom
+
+We build fast, secure, and scalable websites.
+
++Web Design
+Stunning, Functional, Optimized
+
+We design visually stunning, functional, and optimized websites.
+
++Technical Seo
+Fast, Secure, Scalable
+
+Boost your online presence with SEO strategies that increase your visibility.
+
+
+Web Development: Fast, Secure, Custom
+1. Fast: Speed that Engages
+Subtítulo: Lightning-Fast Load Times
+Descripción:
+A slow website means losing visitors. We prioritize optimizing load times by using the latest technology and performance practices, ensuring that your site loads quickly on all devices. A fast website not only improves user experience but also ranks higher in search engines, increasing visibility.
+
+Puntos adicionales:
+
+Page load optimization for better SEO
+Seamless experience on both mobile and desktop
+Utilization of CDN and caching for global speed
+2. Secure: Robust Protection
+Subtítulo: Built with Security in Mind
+Descripción:
+Cybersecurity is more important than ever. We integrate cutting-edge security features into every website, including SSL encryption, firewalls, and regular vulnerability testing. Your data and your users’ information are protected, allowing you to operate with confidence and peace of mind.
+
+Puntos adicionales:
+
+SSL encryption for safe browsing
+Firewalls and threat detection systems
+Regular security audits and updates
+Protection against DDoS attacks
+3. Custom: Tailored to Your Needs
+Subtítulo: Fully Customizable Solutions
+Descripción:
+No two businesses are the same, and neither are their websites. We create fully customized websites that align with your brand, goals, and specific functionalities. Whether you need custom e-commerce solutions, integrations, or advanced features, we deliver a website that is uniquely yours.
+
+Puntos adicionales:
+
+Tailored design for unique brand identity
+Custom-built functionalities for your industry
+Flexible scalability for future growth
+Third-party API integrations and custom tools
 
 
 --
