@@ -43,6 +43,48 @@ Fast, Secure, Scalable
 Boost your online presence with SEO strategies that increase your visibility.
 
 
+
+                        <!-- <div>Custom Websites</div>
+                        <div>Landing Pages</div>
+                        <div>Corporate Websites</div>
+                        <div>Webflow & WordPress Websites</div> -->
+
+
+
+                                    <div>
+                <div class="">Web Development</div>
+                <div>
+                    <div>Custom Websites</div>
+                    <div>Landing Pages</div>
+                    <div>Corporate Websites</div>
+                    <div>Webflow & WordPress Websites</div>
+                </div>
+            </div>
+
+            <div>
+                <div>Web Design</div>
+                <div>
+                    <div>Wireframes</div>
+                    <div>Responsive Design</div>
+                    <div>UI/UX Design</div>
+                    <div>Webflow & WordPress Websites</div>
+                </div>
+            </div>
+
+            <div>
+                <div>Technical SEO</div>
+                <div>
+                    <div>Meta Data</div>
+                    <div>On-Site Content</div>
+                    <div>Page Performance</div>
+                    <div>Blogging</div>
+                    <div>Keyword Research</div>
+                </div>
+            </div>
+
+
+
+
 Web Development: Fast, Secure, Custom
 1. Fast: Speed that Engages
 Subtítulo: Lightning-Fast Load Times
