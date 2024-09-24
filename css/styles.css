@@ -580,7 +580,11 @@
     justify-content: center;
     align-items: flex-start;
     position: relative;
-    gap: 12rem;
+    gap:6rem;
+}
+
+.phone-container {
+    width: 300px;
 }
 
 .device-container {
@@ -669,7 +673,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
-    width: 45rem;
+    width: 42rem;
     /* justify-content: flex-start; */
 }
 
@@ -692,16 +696,18 @@
     font-size: 1.6rem;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
+    justify-content: flex-start;
 }
 
 .circle-backg,
 .circle-ex {
     height: 2.5rem;
     width: 2.5rem;
+    min-width: 2.5rem;
     background-color: var(--color-success400);
     background-color: var( --color-primary500);
-    border-radius: 999px;
+    border-radius: 50%; /* Cambio a 50% para círculos perfectos */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -709,10 +715,6 @@
 
 .circle-ex {
     background-color: var(--color-error400);
-}
-
-.ex {
-    color: var(--color-neutral100);
 }
 
 .flex-lighthouse {
@@ -750,3 +752,5 @@
     border-radius: 50%;
     z-index: 0;
 }
+
+

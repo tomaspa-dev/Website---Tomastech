@@ -20,3 +20,5 @@ function incrementNumber(element, start, end, increment, duration) {
     incrementNumber("number2", 0, 20, 2, 1000); // Incremento de 2 5en 2 hasta 200
     incrementNumber("number3", 0, 10, 1, 1500); // Incremento de 1 en 1 hasta 40
     
+
+//2 - 
