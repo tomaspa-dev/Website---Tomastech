@@ -76,10 +76,8 @@ rightArrow.addEventListener('mouseup', handleMouseUpOrLeave);
 rightArrow.addEventListener('mouseleave', handleMouseUpOrLeave);
 
 
-//4-
-  // Animación de flotación
-  // Animación de flotación para el iPhone
-  gsap.to(".iphone-device", {
+//4- Animación de flotación para el iPhone
+gsap.to(".iphone-device", {
     duration: 4,
     y: "-20px",
     rotationX: 15,
@@ -87,12 +85,13 @@ rightArrow.addEventListener('mouseleave', handleMouseUpOrLeave);
     repeat: -1,
     yoyo: true,
     ease: "power1.inOut"
-  });
+});
 
-  // Animación de flotación para los AirPods
-  gsap.to(".airpods-device", {
+// Animación de flotación para los AirPods
+gsap.to(".airpods-device", {
     duration: 5,
-    y: "-15px", // Un movimiento más sutil que el del iPhone
+    y: "-15px", 
+    x: "5px",
     rotationX: 10,
     rotationY: -10,
     repeat: -1,

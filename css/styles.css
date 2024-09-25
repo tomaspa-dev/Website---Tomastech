@@ -837,21 +837,7 @@
 }
 
 
-/* pricing */
-.iphone-container {
-    max-width: 100%;
-    perspective: 1000px; /* Añade perspectiva para un efecto 3D */
-}
-
-.iphone-device {
-    width: 30rem;
-    height: auto;
-    display: block;
-    transform-style: preserve-3d;
-    transform: rotateX(15deg) rotateY(-15deg);
-}
-
-
+/* Web Design */
 .iphone-container {
     max-width: 100%;
     position: relative; /* Para posicionar los AirPods detrás */
@@ -864,7 +850,7 @@
     height: auto;
     display: block;
     position: relative;
-    z-index: 4; /* Asegúrate de que el iPhone esté por delante */
+    z-index: 4; /*iPhone esté por delante */
     transform-style: preserve-3d;
     transform: rotateX(15deg) rotateY(-15deg);
 }
@@ -873,15 +859,16 @@
 /* Estilos para los AirPods */
 .airpods-device {
     position: absolute;
-    top: -25px; /* Ajusta la posición de los AirPods detrás del iPhone */
-    right: -65px; /* Ajusta la posición lateral */
-    width: 20rem; /* Haz que los AirPods sean un poco más pequeños */
-    z-index: 3; /* Colócalos detrás del iPhone */
+    top: -25px;
+    right: -65px;
+    width: 20rem; 
+    z-index: 3; /* detrás del iPhone */
 }
 
 .airpods-image {
     width: 100%;
     height: auto;
-    opacity: 1; /* Añade algo de transparencia para el efecto */
+    opacity: 1;
 }
 
+/* tehcnical seo */
