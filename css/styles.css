@@ -1098,6 +1098,13 @@
     transform: rotate(0deg);
 }
 
+.faq-illustration {
+    width: 50rem;
+    height: auto;
+    transform: translateY(-40px); /* Ajusta el valor para mover el GIF verticalmente */
+}
+
+
 .grid-text {
     grid-column: 2/4;
 }
