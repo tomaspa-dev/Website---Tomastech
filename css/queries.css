@@ -48,3 +48,9 @@
         pointer-events: auto;
     }
 } */
+@media (max-width: 768px) {
+    .pricing-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
