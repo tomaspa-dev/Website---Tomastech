@@ -1513,11 +1513,11 @@
     left: 10%;
     transform: translateX(-50%);
     background-color: var(--color-primary100);
-    color: var(--color-primary600);
-    font-weight: 600;
+    color: var(--color-primary700);
+    font-weight: 500;
     padding: var(--spacing-xsmall) var(--spacing-small);
     border-radius: var(--radius-xsmall);
-    font-size: var(--spacing-small);
+    font-size: var(--spacing-medium);
     margin-top: var(--spacing-xxsmall);
     z-index: 99;
 }
