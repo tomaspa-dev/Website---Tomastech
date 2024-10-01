@@ -100,3 +100,29 @@ gsap.to(".airpods-device", {
 });
 
 
+//5 - Copiar datos de contacto
+document.querySelectorAll('.copy-icon').forEach(icon => {
+    icon.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Obtener el texto que se va a copiar del atributo data-copy-text
+        const textToCopy = this.getAttribute('data-copy-text');
+
+        // Usar la API del Portapapeles para copiar
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                // Mostrar el mensaje de confirmación
+                const confirmationBox = document.getElementById('copy-confirmation');
+                confirmationBox.innerHTML = `${textToCopy} <br><span style="display: inline-block; margin-top: 8px;">copiado al portapapeles</span>`;
+                confirmationBox.classList.add('show');
+
+                // Ocultar el mensaje después de 2 segundos
+                setTimeout(() => {
+                    confirmationBox.classList.remove('show');
+                }, 4000);
+            })
+            .catch(err => {
+                console.error('Error al copiar al portapapeles: ', err);
+            });
+    });
+});
