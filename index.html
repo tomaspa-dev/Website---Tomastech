@@ -16,6 +16,8 @@
     <script defer src="/js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script rel="preconnect"
+        src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
@@ -667,8 +669,61 @@
     </section>
 
     <section class="work-section" id="work">
-        <div class="container">
-            <h2 class="text-5xl heading-primary margin-bottom-xl">Work</h2>
+        <div class="container screen-max-width">
+            <h2 class="text-5xl heading-primary margin-bottom-xl">Our process</h2>
+
+
+            <div class="carousel-container">
+                <div class="video-slider">
+                    <div class="video-card active">
+                        <video id="video1" src="img/video1.mp4" muted></video>
+                        <div class="video-text">
+                            <p>Titanium. So strong. So light. So Pro.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video id="video2" src="img/video2.mp4" muted></video>
+                        <div class="video-text">
+                            <p>iPhone 15 Pro Max has the longest optical zoom in iPhone ever. Far out.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video id="video3" src="img/video3.mp4" muted></video>
+                        <div class="video-text">
+                            <p>iPhone 15 Pro Max has the longest optical zoom in iPhone ever. Far out.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video id="video4" src="img/video4.mp4" muted></video>
+                        <div class="video-text">
+                            <p>iPhone 15 Pro Max has the longest optical zoom in iPhone ever. Far out.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="progress-slider">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <button id="playPauseBtn">
+                        <i class="icon-pause"></i>
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
         </div>
     </section>
 
@@ -940,7 +995,7 @@
                 email:</p>
 
             <div class="flex-contact">
-                <a class="grid-link btn btn--full" href="mailto:blord.dev@gmail.com">Start your project</a>
+                <a class="grid-link btn btn--full btn-effect" href="mailto:blord.dev@gmail.com">Start your project</a>
             </div>
 
 

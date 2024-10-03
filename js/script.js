@@ -126,3 +126,80 @@ document.querySelectorAll('.copy-icon').forEach(icon => {
             });
     });
 });
+
+
+// 6 - Efectos, Animaciones en  boton confetti
+document.querySelector(".btn-effect").addEventListener("mouseover", () => {
+    if (document.querySelector(".btn-effect").classList.contains('confetti-triggered')) {
+        return;
+    }
+
+    document.querySelector(".btn-effect").classList.add('confetti-triggered');
+
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#0a4495', '#b1cffa', '#3c88f2', '#0e61d4', '#d8e7fc']
+    });
+
+    setTimeout(() => {
+        document.querySelector(".btn-effect").classList.remove('confetti-triggered');
+    }, 2000); // Ajuste la frecuencia con la que se puede activar el confeti.
+});
+
+
+// 7 - Carousel video
+let currentVideoIndex = 0;
+const videos = document.querySelectorAll('.video-card video');
+const progressBar = document.querySelector('.progress-bar');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const dots = document.querySelectorAll('.dot');
+let isPlaying = true;
+let interval;
+
+function playVideo(video) {
+    video.play();
+    updateProgress(video);
+}
+
+function updateProgress(video) {
+    interval = setInterval(() => {
+        const progress = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        if (video.ended) {
+            clearInterval(interval);
+            nextVideo();
+        }
+    }, 500);
+}
+
+function nextVideo() {
+    videos[currentVideoIndex].pause();
+    videos[currentVideoIndex].currentTime = 0;
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+    updateDots();
+    document.querySelector('.video-slider').style.transform = `translateX(-${currentVideoIndex * 90}%)`; 
+    playVideo(videos[currentVideoIndex]);
+}
+
+function updateDots() {
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentVideoIndex);
+    });
+}
+
+playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        videos[currentVideoIndex].pause();
+        clearInterval(interval);
+        playPauseBtn.innerHTML = '<i class="icon-play"></i>';
+    } else {
+        playVideo(videos[currentVideoIndex]);
+        playPauseBtn.innerHTML = '<i class="icon-pause"></i>';
+    }
+    isPlaying = !isPlaying;
+});
+
+playVideo(videos[currentVideoIndex]); // Play the first video on load
+updateDots();
