@@ -1329,51 +1329,64 @@
     min-width: 85%; /* Ajuste del ancho */
     height: 100%;
     margin-right: 5%; /* Separación */
+    border-radius: 20px; /* Agregar bordes redondeados */
     
 }
 
 .video-card video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que los videos tengan el mismo tamaño */
+    height: 440px;
+    object-fit: cover;
+
+    border-radius: 20px;
+    border: 2px solid white; /* Bordes blancos alrededor del video */
 }
 
 .video-text {
     position: absolute;
-    top: 10%;
+    top: 70%;
     left: 5%;
-    color: white;
+    color: var(--color-basewhite);
     font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    gap: 2rem;
 }
 
 .controls {
     position: absolute;
     bottom: 10px;
-    width: 100%;
+    width: 40%;
+    left: 25%;
     display: flex;
-    justify-content: center; /* Centrar los controles */
+    justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5); /* Fondo gris transparente */
-    padding: 10px;
-    border-radius: 8px;
-    gap: 20px; /* Espaciado entre los elementos */
+    padding: 5px; /* Reducir el padding para hacer más pequeño el fondo */
+    padding: 2px 0px 2px 0px;
+    border-radius: 25px;
+    gap: 10px; /* Reducir el gap entre los elementos */
 }
+
 
 .dots {
     display: flex;
     gap: 10px;
 }
 
-.dot {
+.dot-video {
     width: 10px;
     height: 10px;
-    background-color: gray;
+    background-color: var(--color-basewhite);
     border-radius: 50%;
     transition: background-color 0.3s;
 }
 
-.dot.active {
-    background-color: white;
+.dot-video.active {
+    background-color: var(--color-primary300);
 }
 
 .progress-slider {
@@ -1393,26 +1406,17 @@
 
 button#playPauseBtn {
     background-color: var(--color-primary300);
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 3.6rem;
+    width: 3.6rem;
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--color-basewhite);
     border-radius: 50%;
 }
 
 button#playPauseBtn i {
     font-size: 1.2rem;
 }
-
-.icon-pause::before {
-    content: '❚❚'; /* Icono de pausa */
-}
-
-.icon-play::before {
-    content: '▶'; /* Icono de play */
-}
-
 
 
 

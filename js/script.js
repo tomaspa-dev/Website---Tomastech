@@ -154,52 +154,76 @@ let currentVideoIndex = 0;
 const videos = document.querySelectorAll('.video-card video');
 const progressBar = document.querySelector('.progress-bar');
 const playPauseBtn = document.getElementById('playPauseBtn');
-const dots = document.querySelectorAll('.dot');
+const dots = document.querySelectorAll('.dot-video');
 let isPlaying = true;
 let interval;
 
+// Función para reproducir el video
 function playVideo(video) {
     video.play();
     updateProgress(video);
 }
 
+// Función para actualizar la barra de progreso
 function updateProgress(video) {
     interval = setInterval(() => {
         const progress = (video.currentTime / video.duration) * 100;
         progressBar.style.width = `${progress}%`;
+
         if (video.ended) {
             clearInterval(interval);
-            nextVideo();
+            nextVideo(); // Cambiar al siguiente video cuando termine el actual
         }
     }, 500);
 }
 
+// Función para avanzar al siguiente video
 function nextVideo() {
     videos[currentVideoIndex].pause();
     videos[currentVideoIndex].currentTime = 0;
+
+    // Actualizar el índice del video actual
     currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+
+    // Actualizar los dots para reflejar el nuevo video activo
     updateDots();
-    document.querySelector('.video-slider').style.transform = `translateX(-${currentVideoIndex * 90}%)`; 
+
+    // Mover el slider al nuevo video
+    document.querySelector('.video-slider').style.transform = `translateX(-${currentVideoIndex * 90}%)`;
+
+    // Reproducir el siguiente video
     playVideo(videos[currentVideoIndex]);
 }
 
+// Función para actualizar los dots
 function updateDots() {
+    console.log(`Actualizando dots. Índice del video activo: ${currentVideoIndex}`); // Verificar si la función se llama correctamente
+    // Recorrer los dots y actualizar su estado según el índice del video actual
     dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentVideoIndex);
+        if (index === currentVideoIndex) {
+            dot.classList.add('active');  // Colorea el dot del video activo
+        } else {
+            dot.classList.remove('active');  // Los demás dots vuelven a gris
+        }
     });
 }
 
+// Evento de play/pause con el botón
 playPauseBtn.addEventListener('click', () => {
     if (isPlaying) {
         videos[currentVideoIndex].pause();
         clearInterval(interval);
-        playPauseBtn.innerHTML = '<i class="icon-play"></i>';
+        playPauseBtn.classList.remove('pause'); // Quita la clase pause
+        playPauseBtn.classList.add('play');     // Agrega la clase play
     } else {
         playVideo(videos[currentVideoIndex]);
-        playPauseBtn.innerHTML = '<i class="icon-pause"></i>';
+        playPauseBtn.classList.remove('play');  // Quita la clase play
+        playPauseBtn.classList.add('pause');    // Agrega la clase pause
     }
     isPlaying = !isPlaying;
 });
 
-playVideo(videos[currentVideoIndex]); // Play the first video on load
+
+// Iniciar la reproducción del primer video y activar el primer dot
+playVideo(videos[currentVideoIndex]);
 updateDots();
