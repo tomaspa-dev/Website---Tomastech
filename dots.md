@@ -84,6 +84,17 @@ Boost your online presence with SEO strategies that increase your visibility.
 
 
 
+"Samsung Galaxy S22 Ultra" (https://skfb.ly/osHVT) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+"Samsung Galaxy S21 Ultra" (https://skfb.ly/6YtLJ) by DatSketch is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+"Apple iPhone 13 Pro Max" (https://skfb.ly/o7nDN) by DatSketch is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+"Apple iPad Pro" (https://skfb.ly/6WNFL) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+"Galaxy Tab S8 Ultra" (https://skfb.ly/o9HZp) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
+"iMac 2021" (https://skfb.ly/o6poS) by DatSketch is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
+
+
+
+
 
 Web Development: Fast, Secure, Custom
 1. Fast: Speed that Engages

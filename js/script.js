@@ -197,7 +197,6 @@ function nextVideo() {
 
 // Función para actualizar los dots
 function updateDots() {
-    console.log(`Actualizando dots. Índice del video activo: ${currentVideoIndex}`); // Verificar si la función se llama correctamente
     // Recorrer los dots y actualizar su estado según el índice del video actual
     dots.forEach((dot, index) => {
         if (index === currentVideoIndex) {
@@ -227,3 +226,88 @@ playPauseBtn.addEventListener('click', () => {
 // Iniciar la reproducción del primer video y activar el primer dot
 playVideo(videos[currentVideoIndex]);
 updateDots();
+
+//8 - 3d Model
+// Configurar escena y cámara 
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 2;
+
+// Configurar renderer con fondo transparente
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('iphoneCanvas'), alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Ajustar tamaño del canvas al redimensionar ventana
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+
+// Agregar controles Orbit
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; // Activa la amortiguación (rotación suave)
+controls.dampingFactor = 0.05;
+controls.minDistance = 2; // Ajusta la distancia mínima
+controls.maxDistance = 5; // Ajusta la distancia máxima
+controls.enableZoom = false; // Desactiva el zoom con scroll
+
+// Cargar modelos de dispositivos GLTF
+const loader = new THREE.GLTFLoader();
+const devices = ['asset/iphone_13_pro_max.glb', 'asset/samsung_galaxy_s21_ultra.glb']; // Agrega los modelos de los dispositivos
+let currentModel = null;
+let currentDeviceIndex = 0;
+
+// Función para cargar el dispositivo
+function loadDevice(index) {
+    loader.load(devices[index], function (gltf) {
+        if (currentModel) {
+            scene.remove(currentModel); // Remueve el modelo anterior
+        }
+        currentModel = gltf.scene;
+        scene.add(currentModel);
+        currentModel.position.set(0, 0, 0);
+        currentModel.scale.set(1.5, 1.5, 1.5); 
+    });
+}
+
+// Cargar el primer dispositivo
+loadDevice(currentDeviceIndex);
+
+// Botones de color
+const colors = ['#ffffff', '#111111', '#555555'];  // Ejemplo de colores
+const colorButtons = document.getElementById('colorButtons');
+
+// Crear botones para cambiar el color
+colors.forEach(color => {
+    const button = document.createElement('button');
+    button.style.backgroundColor = color;
+    button.addEventListener('click', () => changeColor(color));
+    colorButtons.appendChild(button);
+});
+
+// Cambiar color del dispositivo
+function changeColor(color) {
+    if (currentModel) {
+        currentModel.traverse((child) => {
+            if (child.isMesh) {
+                child.material.color.set(color);
+            }
+        });
+    }
+}
+
+// Botón para cambiar de dispositivo
+const rotateBtn = document.getElementById('rotateDevice');
+rotateBtn.addEventListener('click', () => {
+    currentDeviceIndex = (currentDeviceIndex + 1) % devices.length; // Cambia al siguiente dispositivo
+    loadDevice(currentDeviceIndex);
+});
+
+// Animación del render
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
