@@ -1431,9 +1431,12 @@ button#playPauseBtn i {
 }
 
 #iphoneCanvas {
-    width: 70vw;
-    height: 70vh;
+    width: 33vw; /* Reducir el ancho a un 33% de la ventana */
+    height: auto; /* Mantener la proporción automáticamente */
     background: transparent;
+    display: block;
+    margin: 0 auto; /* Centrar el canvas */
+    /* cursor: grab; */
 }
 
 .device-controls {

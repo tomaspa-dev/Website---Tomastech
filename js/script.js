@@ -228,51 +228,130 @@ playVideo(videos[currentVideoIndex]);
 updateDots();
 
 //8 - 3d Model
-// Configurar escena y cámara 
+// Configurar escena y cámara
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 2;
 
-// Configurar renderer con fondo transparente
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('iphoneCanvas'), alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+// Configurar renderer con fondo transparente y antialiasing para mejorar la calidad
+const renderer = new THREE.WebGLRenderer({ 
+    canvas: document.getElementById('iphoneCanvas'), 
+    alpha: true, 
+    antialias: true 
+});
+renderer.setPixelRatio(window.devicePixelRatio);  // Mejorar la resolución para pantallas de alta densidad
+renderer.setSize(window.innerWidth, window.innerHeight);  // Ajustar el tamaño correctamente
 
 // Ajustar tamaño del canvas al redimensionar ventana
 window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    camera.aspect = aspectRatio;
     camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);  // Mantener la proporción al redimensionar
 });
 
 // Agregar controles Orbit
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Activa la amortiguación (rotación suave)
+controls.enableDamping = true;  // Activa la amortiguación (rotación suave)
 controls.dampingFactor = 0.05;
-controls.minDistance = 2; // Ajusta la distancia mínima
-controls.maxDistance = 5; // Ajusta la distancia máxima
-controls.enableZoom = false; // Desactiva el zoom con scroll
+controls.minDistance = 2;  // Ajusta la distancia mínima
+controls.maxDistance = 5;  // Ajusta la distancia máxima
+controls.enableZoom = false;  // Desactiva el zoom con scroll
+
+// Añadir luces a la escena
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);  // Luz ambiental suave
+scene.add(ambientLight);
+
+// Luz direccional desde arriba
+const topLight = new THREE.DirectionalLight(0xffffff, 1.5);  // Luz direccional para reflejos desde arriba
+topLight.position.set(0, 5, 5);  // Posicionada arriba y hacia un lado
+scene.add(topLight);
+
+// Nueva luz direccional desde el frente
+const frontLight = new THREE.DirectionalLight(0xffffff, 1.2);  // Luz direccional desde el frente
+frontLight.position.set(0, 0, 5);  // Directamente en frente del objeto
+scene.add(frontLight);
+
+// Luz puntual desde el frente (opcional si necesitas un punto de luz más concentrado)
+// const pointLight = new THREE.PointLight(0xffffff, 1.0, 100);  // Luz puntual en frente del dispositivo
+// pointLight.position.set(0, 0, 3);  // Directamente en frente
+// scene.add(pointLight);
 
 // Cargar modelos de dispositivos GLTF
 const loader = new THREE.GLTFLoader();
-const devices = ['asset/iphone_13_pro_max.glb', 'asset/samsung_galaxy_s21_ultra.glb']; // Agrega los modelos de los dispositivos
+const devices = ['asset/iphone_13_pro_max.glb', 'asset/samsung_galaxy_s21_ultra.glb']; // Modelos de los dispositivos
 let currentModel = null;
 let currentDeviceIndex = 0;
 
-// Función para cargar el dispositivo
+// Función para asegurar que la escala del dispositivo sea correcta
+function setDeviceScale(model) {
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    const desiredHeight = 1.5;
+    const scaleFactor = desiredHeight / size.y;  // Factor de escala en función de la altura
+    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, 0);
+}
+
+// Función para cargar el dispositivo con transición suave
 function loadDevice(index) {
-    loader.load(devices[index], function (gltf) {
-        if (currentModel) {
-            scene.remove(currentModel); // Remueve el modelo anterior
+    if (currentModel) {
+        gsap.to(currentModel.position, {
+            x: -5,  // Mover el dispositivo actual hacia la izquierda
+            duration: 0.5,
+            onComplete: () => {
+                scene.remove(currentModel);  // Eliminar el modelo anterior
+                loader.load(devices[index], function (gltf) {
+                    currentModel = gltf.scene;
+                    currentModel.position.set(5, 0, 0);  // Iniciar el nuevo dispositivo desde la derecha
+                    setDeviceScale(currentModel);
+                    enhanceDeviceMaterials(currentModel);  // Mejorar materiales del dispositivo
+                    scene.add(currentModel);
+                    gsap.to(currentModel.position, { x: 0, duration: 0.5 });  // Mover el nuevo dispositivo al centro
+                });
+            }
+        });
+    } else {
+        loader.load(devices[index], function (gltf) {
+            currentModel = gltf.scene;
+            setDeviceScale(currentModel);
+            enhanceDeviceMaterials(currentModel);  // Mejorar materiales del dispositivo
+            scene.add(currentModel);
+        });
+    }
+}
+
+// Cargar el primer dispositivo al inicio
+loadDevice(currentDeviceIndex);
+
+// Función para mejorar los materiales del dispositivo (reflejos y metalización)
+function enhanceDeviceMaterials(model) {
+    model.traverse((child) => {
+        if (child.isMesh) {
+            // Aumentar reflejos y metalización en las partes metálicas
+            if (child.name.includes('Body_Body_0')) {  // Cambiar solo la carcasa trasera
+                child.material.roughness = 0.4;  // Valor más bajo = más reflejos
+                child.material.metalness = 0.8;  // Aumenta el efecto metálico
+            } else if (child.name.includes('metal') || child.name.includes('edge')) {  // Partes metálicas
+                child.material.roughness = 0.2;
+                child.material.metalness = 1.0;  // Metalización más fuerte en bordes metálicos
+            }
         }
-        currentModel = gltf.scene;
-        scene.add(currentModel);
-        currentModel.position.set(0, 0, 0);
-        currentModel.scale.set(1.5, 1.5, 1.5); 
     });
 }
 
-// Cargar el primer dispositivo
-loadDevice(currentDeviceIndex);
+// Función para preservar el color de la pantalla del dispositivo y cambiar solo la carcasa
+function changeColor(color) {
+    if (currentModel) {
+        currentModel.traverse((child) => {
+            if (child.isMesh && child.name === 'Body_Body_0') {  // Afectar solo la carcasa trasera
+                child.material.color.set(color);  // Cambiar el color de la carcasa
+                child.material.needsUpdate = true;  // Asegurar que el cambio se refleje
+            }
+        });
+    }
+}
 
 // Botones de color
 const colors = ['#ffffff', '#111111', '#555555'];  // Ejemplo de colores
@@ -286,21 +365,10 @@ colors.forEach(color => {
     colorButtons.appendChild(button);
 });
 
-// Cambiar color del dispositivo
-function changeColor(color) {
-    if (currentModel) {
-        currentModel.traverse((child) => {
-            if (child.isMesh) {
-                child.material.color.set(color);
-            }
-        });
-    }
-}
-
 // Botón para cambiar de dispositivo
 const rotateBtn = document.getElementById('rotateDevice');
 rotateBtn.addEventListener('click', () => {
-    currentDeviceIndex = (currentDeviceIndex + 1) % devices.length; // Cambia al siguiente dispositivo
+    currentDeviceIndex = (currentDeviceIndex + 1) % devices.length;  // Cambia al siguiente dispositivo
     loadDevice(currentDeviceIndex);
 });
 
