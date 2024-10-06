@@ -234,52 +234,59 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.z = 2;
 
 // Configurar renderer con fondo transparente y antialiasing para mejorar la calidad
-const renderer = new THREE.WebGLRenderer({ 
-    canvas: document.getElementById('iphoneCanvas'), 
-    alpha: true, 
-    antialias: true 
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('iphoneCanvas'),
+    alpha: true,
+    antialias: true
 });
-renderer.setPixelRatio(window.devicePixelRatio);  // Mejorar la resolución para pantallas de alta densidad
-renderer.setSize(window.innerWidth, window.innerHeight);  // Ajustar el tamaño correctamente
+renderer.setPixelRatio(window.devicePixelRatio); // Mejorar la resolución para pantallas de alta densidad
+renderer.setSize(window.innerWidth, window.innerHeight); // Ajustar el tamaño correctamente
 
 // Ajustar tamaño del canvas al redimensionar ventana
 window.addEventListener('resize', () => {
     const aspectRatio = window.innerWidth / window.innerHeight;
     camera.aspect = aspectRatio;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);  // Mantener la proporción al redimensionar
+    renderer.setSize(window.innerWidth, window.innerHeight); // Mantener la proporción al redimensionar
 });
 
 // Agregar controles Orbit
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;  // Activa la amortiguación (rotación suave)
+controls.enableDamping = true; // Activa la amortiguación (rotación suave)
+controls.enablePan = false;
 controls.dampingFactor = 0.05;
-controls.minDistance = 2;  // Ajusta la distancia mínima
-controls.maxDistance = 5;  // Ajusta la distancia máxima
-controls.enableZoom = false;  // Desactiva el zoom con scroll
+controls.minDistance = 2; // Ajusta la distancia mínima
+controls.maxDistance = 5; // Ajusta la distancia máxima
+controls.enableZoom = false; // Desactiva el zoom con scroll
 
-// Añadir luces a la escena
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);  // Luz ambiental suave
-scene.add(ambientLight);
+// Función para agregar luces al entorno
+function addEnvironmentLights() {
+    // Luz ambiental suave para iluminar toda la escena
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3.5); 
+    scene.add(ambientLight);
 
-// Luz direccional desde arriba
-const topLight = new THREE.DirectionalLight(0xffffff, 1.5);  // Luz direccional para reflejos desde arriba
-topLight.position.set(0, 5, 5);  // Posicionada arriba y hacia un lado
-scene.add(topLight);
+    // Luz direccional desde arriba para simular iluminación del entorno
+    const topLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    topLight.position.set(0, 5, 5); 
+    scene.add(topLight);
 
-// Nueva luz direccional desde el frente
-const frontLight = new THREE.DirectionalLight(0xffffff, 1.2);  // Luz direccional desde el frente
-frontLight.position.set(0, 0, 5);  // Directamente en frente del objeto
-scene.add(frontLight);
+    // Luz direccional desde el frente para iluminar los objetos desde un ángulo más frontal
+    const frontLight = new THREE.DirectionalLight(0xffffff, 0.2);
+    frontLight.position.set(0, 0, 5);
+    scene.add(frontLight);
 
-// Luz puntual desde el frente (opcional si necesitas un punto de luz más concentrado)
-// const pointLight = new THREE.PointLight(0xffffff, 1.0, 100);  // Luz puntual en frente del dispositivo
-// pointLight.position.set(0, 0, 3);  // Directamente en frente
-// scene.add(pointLight);
+    // Luz puntual (opcional) para crear focos de luz más concentrados si es necesario
+    const pointLight = new THREE.PointLight(0xffffff, 1.0, 50);
+    pointLight.position.set(0, 0, 3); 
+    scene.add(pointLight);
+}
+
+// Llamada para agregar las luces del entorno
+addEnvironmentLights();
 
 // Cargar modelos de dispositivos GLTF
 const loader = new THREE.GLTFLoader();
-const devices = ['asset/iphone_13_pro_max.glb', 'asset/samsung_galaxy_s21_ultra.glb']; // Modelos de los dispositivos
+const devices = ['asset/iphone_13_pro_max.glb', 'asset/ipad_pro.glb']; // Modelos de los dispositivos
 let currentModel = null;
 let currentDeviceIndex = 0;
 
@@ -287,7 +294,7 @@ let currentDeviceIndex = 0;
 function setDeviceScale(model) {
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
-    const desiredHeight = 1.5;
+    const desiredHeight = 1.8;
     const scaleFactor = desiredHeight / size.y;  // Factor de escala en función de la altura
     model.scale.set(scaleFactor, scaleFactor, scaleFactor);
     const center = box.getCenter(new THREE.Vector3());
@@ -329,11 +336,10 @@ loadDevice(currentDeviceIndex);
 function enhanceDeviceMaterials(model) {
     model.traverse((child) => {
         if (child.isMesh) {
-            // Aumentar reflejos y metalización en las partes metálicas
-            if (child.name.includes('Body_Body_0')) {  // Cambiar solo la carcasa trasera
-                child.material.roughness = 0.4;  // Valor más bajo = más reflejos
+            if (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0' || child.name === 'Apple_Pencil_apple_pencil_0') {  // Cambiar solo la carcasa trasera
+                child.material.roughness = 0.7;  // Valor más bajo = más reflejos
                 child.material.metalness = 0.8;  // Aumenta el efecto metálico
-            } else if (child.name.includes('metal') || child.name.includes('edge')) {  // Partes metálicas
+            } else if (child.name.includes('Bezels') || child.name.includes('edge')) {  // Partes metálicas
                 child.material.roughness = 0.2;
                 child.material.metalness = 1.0;  // Metalización más fuerte en bordes metálicos
             }
@@ -345,7 +351,7 @@ function enhanceDeviceMaterials(model) {
 function changeColor(color) {
     if (currentModel) {
         currentModel.traverse((child) => {
-            if (child.isMesh && child.name === 'Body_Body_0') {  // Afectar solo la carcasa trasera
+            if (child.isMesh && (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0')) {  // Afectar solo la carcasa trasera
                 child.material.color.set(color);  // Cambiar el color de la carcasa
                 child.material.needsUpdate = true;  // Asegurar que el cambio se refleje
             }
@@ -354,7 +360,7 @@ function changeColor(color) {
 }
 
 // Botones de color
-const colors = ['#ffffff', '#111111', '#555555'];  // Ejemplo de colores
+const colors = ['#b50721', '#c0892b', '#0fa356'];  // Ejemplo de colores
 const colorButtons = document.getElementById('colorButtons');
 
 // Crear botones para cambiar el color
