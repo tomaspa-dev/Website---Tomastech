@@ -1458,16 +1458,48 @@ button#playPauseBtn i {
     cursor: pointer;
 }
 
-.rotate-button {
+
+#rotateDevice.rotate-button {
+    /* Estilos base del botón */
     margin-left: 20px;
     padding: 10px 20px;
+    background-color: #262626;
+    color: var(--color-basewhite);
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#rotateDevice.rotate-button:hover {
+    background-color: #525252; /* Cambiar color al hacer hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Efecto de sombra sin escalar */
+}
+
+#rotateDevice.rotate-button:active {
+    box-shadow: none;
 }
 
 
 
+#colorButtons button {
+    /* Estilos base de los botones */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
 
+#colorButtons button:hover {
+    transform: scale(1.1); /* Agrandar ligeramente al hacer hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Añadir una sombra */
+}
 
+#colorButtons button:active {
+    transform: scale(0.9); /* Reducir tamaño al hacer click */
+}
 
 
 /* BLOG SECTION */

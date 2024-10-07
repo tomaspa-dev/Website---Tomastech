@@ -739,11 +739,19 @@
             </div>
 
             <div>
-                <h3 class="text-5xl subheading-primary center">Think Responsively</h3>
+                <h3 class="text-5xl subheading-primary center margin-bottom-small">Think Responsively</h3>
+                <p class="text-2xl text-primary subheading-primary center">Optimized for various screens: Phones,
+                    Tablets, PCs.</p>
             </div>
 
             <div class="phones-container">
                 <canvas id="iphoneCanvas"></canvas>
+                <video id="videoTexture" src="img/video-largo.mp4" loop muted playsinline style="display: none;">
+                </video>
+                <!-- <video id="videoTexture2" src="img/none.mp4" loop muted playsinline style="display: none;">
+                </video> -->
+
+
                 <div class="device-controls margin-top-medium">
                     <div id="colorButtons"></div>
                     <button id="rotateDevice" class="rotate-button">Change Device</button>

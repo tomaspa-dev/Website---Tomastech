@@ -231,8 +231,9 @@ updateDots();
 //8 - 3d Model
 // Configurar escena y cámara
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Relación de aspecto 1 para mantener cuadrado
 camera.position.z = 2;
+
 
 // Configurar renderer con fondo transparente y antialiasing para mejorar la calidad
 const renderer = new THREE.WebGLRenderer({
@@ -241,15 +242,16 @@ const renderer = new THREE.WebGLRenderer({
     antialias: true
 });
 renderer.setPixelRatio(window.devicePixelRatio); // Mejorar la resolución para pantallas de alta densidad
-renderer.setSize(window.innerWidth, window.innerHeight); // Ajustar el tamaño correctamente
+const container = document.querySelector('.phones-container');
+renderer.setSize(container.clientWidth, container.clientHeight); 
 
 // Ajustar tamaño del canvas al redimensionar ventana
 window.addEventListener('resize', () => {
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    camera.aspect = aspectRatio;
+    camera.aspect = 1; // Mantener la proporción cuadrada
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight); // Mantener la proporción al redimensionar
+    renderer.setSize(container.clientWidth, container.clientHeight);
 });
+
 
 // Agregar controles Orbit
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -308,28 +310,71 @@ let currentDeviceIndex = 0;
 function setDeviceScale(model) {
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
-    const desiredHeight = 1.8;
+    const desiredHeight = 2;
     const scaleFactor = desiredHeight / size.y;  // Factor de escala en función de la altura
     model.scale.set(scaleFactor, scaleFactor, scaleFactor);
     const center = box.getCenter(new THREE.Vector3());
     model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, 0);
 }
 
+function addVideoTexture(model) {
+    const video = document.getElementById('videoTexture');
+    video.play(); // Iniciar la reproducción del video
+
+    const texture = new THREE.VideoTexture(video);
+    model.traverse((child) => {
+        if (child.isMesh && child.name === 'Body_Wallpaper_0') {
+            child.material.map = texture; // Asignar la textura del video al mesh
+            child.material.needsUpdate = true;
+        }
+    });
+}
+
+function addImageOrVideoTexture(model, isVideo = false) {
+    const textureLoader = new THREE.TextureLoader();
+    
+    const texture = isVideo
+        ? (function() {
+            const video = document.getElementById('videoTexture2');
+            video.play(); // Iniciar reproducción del video
+            return new THREE.VideoTexture(video);
+            })()
+        : textureLoader.load('/img/tablet-img.webp');
+
+    // Configurar rotación para ambos casos (imagen o video)
+    texture.center.set(0.5, 0.5); // Establecer el centro para rotar
+    texture.rotation = Math.PI; // Rotar 180 grados (ajusta si es necesario)
+
+    model.traverse((child) => {
+        if (child.isMesh && (child.name === 'iPad_Pro_2020_screen_0')) {
+            child.material = new THREE.MeshBasicMaterial({ map: texture });
+            child.material.needsUpdate = true;
+        }
+    });
+}
+
+
 // Función para cargar el dispositivo con transición suave
 function loadDevice(index) {
     if (currentModel) {
         gsap.to(currentModel.position, {
-            x: -5,  // Mover el dispositivo actual hacia la izquierda
+            x: -5,
             duration: 0.5,
             onComplete: () => {
-                scene.remove(currentModel);  // Eliminar el modelo anterior
+                scene.remove(currentModel);
                 loader.load(devices[index], function (gltf) {
                     currentModel = gltf.scene;
-                    currentModel.position.set(5, 0, 0);  // Iniciar el nuevo dispositivo desde la derecha
+                    currentModel.position.set(5, 0, 0);
                     setDeviceScale(currentModel);
-                    enhanceDeviceMaterials(currentModel);  // Mejorar materiales del dispositivo
+                    enhanceDeviceMaterials(currentModel);
+                    // Determinar si es un video o una imagen
+                    if (index === 0) { // Para el iPhone
+                        addVideoTexture(currentModel);
+                    } else if (index === 1) { // Para el iPad
+                        addImageOrVideoTexture(currentModel, false); // Usar imagen
+                    }
                     scene.add(currentModel);
-                    gsap.to(currentModel.position, { x: 0, duration: 0.5 });  // Mover el nuevo dispositivo al centro
+                    gsap.to(currentModel.position, { x: 0, duration: 0.5 });
                 });
             }
         });
@@ -337,7 +382,12 @@ function loadDevice(index) {
         loader.load(devices[index], function (gltf) {
             currentModel = gltf.scene;
             setDeviceScale(currentModel);
-            enhanceDeviceMaterials(currentModel);  // Mejorar materiales del dispositivo
+            enhanceDeviceMaterials(currentModel);
+            if (index === 0) {
+                addVideoTexture(currentModel);
+            } else if (index === 1) {
+                addImageOrVideoTexture(currentModel, false); // Usar imagen
+            }
             scene.add(currentModel);
         });
     }
