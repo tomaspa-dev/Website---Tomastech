@@ -1306,8 +1306,8 @@
 /* WORK SECTION */
 .work-section {
     padding: var(--spacing-xl) 0;
-    width: 100vw;
-    height: 100%;
+    /* width: 100vw;
+    height: 100%; */
     overflow: hidden;
 }
 
@@ -1425,21 +1425,21 @@ button#playPauseBtn i {
 /* 3D model */
 .phones-container {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    width: 600px;
+    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: transparent;
+    margin: 0 auto; /* Para centrar el contenedor */
+    cursor: grab; /* Establecer el cursor inicial */
 }
 
 #iphoneCanvas {
-    width: 33vw; /* Reducir el ancho a un 33% de la ventana */
-    height: auto; /* Mantener la proporción automáticamente */
+    width: 100%; /* Ajusta el canvas al tamaño del contenedor */
+    height: 100%; /* Mantener el tamaño completo del contenedor */
     background: transparent;
     display: block;
-    margin: 0 auto; /* Centrar el canvas */
-    /* cursor: grab; */
 }
 
 .device-controls {

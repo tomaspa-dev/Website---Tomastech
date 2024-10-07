@@ -227,6 +227,7 @@ playPauseBtn.addEventListener('click', () => {
 playVideo(videos[currentVideoIndex]);
 updateDots();
 
+
 //8 - 3d Model
 // Configurar escena y cámara
 const scene = new THREE.Scene();
@@ -258,6 +259,19 @@ controls.dampingFactor = 0.05;
 controls.minDistance = 2; // Ajusta la distancia mínima
 controls.maxDistance = 5; // Ajusta la distancia máxima
 controls.enableZoom = false; // Desactiva el zoom con scroll
+
+// Evento para cambiar el cursor a 'grabbing' cuando se interactúa con el canvas
+controls.addEventListener('start', () => {
+    document.querySelector('.phones-container').style.cursor = 'grabbing';
+});
+
+// Evento para volver a 'grab' cuando se termina la interacción
+controls.addEventListener('end', () => {
+    document.querySelector('.phones-container').style.cursor = 'grab';
+});
+
+// Inicialmente, establecer el cursor en 'grab'
+document.querySelector('.phones-container').style.cursor = 'grab';
 
 // Función para agregar luces al entorno
 function addEnvironmentLights() {
@@ -385,3 +399,4 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
