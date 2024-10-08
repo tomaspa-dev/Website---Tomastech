@@ -1,9 +1,23 @@
+.services-section, 
+.pricing-section, 
+.faq-section,
+.work-section,
+.blog-section,
+.about-section,
+.contact-section,
+.footer-section {
+    padding: var(--spacing-5xl) 0;
+}
+
+
 .header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-medium) var(--spacing-3xl);
+    padding-top: var(--spacing-large);
     background-color: rgba(245, 245, 245, 0.25);
-
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo {
@@ -126,6 +140,95 @@
     height: 100%;
     transition: .4s 0s;
 }
+
+
+/* Barra lateral sticky */
+
+.sticky-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(245, 245, 245, 0.75);
+    z-index: 999;
+}
+
+/* Ocultar el ícono vertical por defecto */
+.icon-vertical, .sidebar-toggle {
+    display: none;
+}
+
+.icon-horizontal:hover,
+.icon-vertical:hover {
+	background-color: var(--color-primary500);
+    transition: all 0.3s;
+}
+
+.icon-horizontal:hover,
+.icon-vertical:hover {
+	background-color: var(--color-primary500);
+}
+
+/* Estilos para la barra lateral */
+.flex-burguer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-large)
+}
+
+.sidebar {
+    height: 55%;
+    width: 0; /* Inicialmente, la barra está oculta */
+    position: fixed; /* Fija la barra en la izquierda */
+    z-index: 10;
+    top: 1;
+    left: 0;
+    background-color: var(--color-neutral700);
+    background-color: rgba(64, 64, 64, 0.85);
+    overflow-x: hidden; /* Desactiva el desplazamiento horizontal */
+    transition: 0.5s;
+    padding-top: 60px;
+    border-radius: 20px;
+    margin-left: 2px;
+}
+
+.sidebar a {
+    padding: 8px 8px 16px 32px;
+    text-decoration: none;
+    font-size: 2.4rem;
+    color: var(--color-basewhite);
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: var(--color-primary400);
+}
+
+.sidebar a:not(.closebtn):hover {
+    transform: translateX(10px);
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 5.2rem;
+    margin-left: 50px;
+    transition: all 0.3s;
+}
+
+.sidebar .closebtn:hover {
+    transform: scale(1.4);
+}
+
+.icon-horizontal,
+.icon-vertical {
+    font-size: 4.8rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
 
 
 /* HERO-SECTION */
@@ -369,6 +472,8 @@
 }
 
 .hero-section {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-5xl);
     position: relative;
     overflow: hidden;
 }
@@ -429,7 +534,6 @@
 /* OUR SERVICES SECTION */
 .sub-heading,
 .sub-heading-services {
-    margin-top: var(--spacing-xl);
     margin-bottom: var(--spacing-2xl);
 }
 
@@ -875,7 +979,6 @@
 
 /* PRICING SECTION */
 .pricing-section {
-    padding: 4rem 2rem;
     background-color: #f0f4f8;
 }
 
@@ -1130,10 +1233,6 @@
 }
 
 /* ABOUT SECTION */
-.about-section {
-    padding: var(--spacing-xl) 0;
-}
-
 .about-box-title {
     width: 100rem;
     margin: 0 auto;
@@ -1305,9 +1404,6 @@
 
 /* WORK SECTION */
 .work-section {
-    padding: var(--spacing-xl) 0;
-    /* width: 100vw;
-    height: 100%; */
     overflow: hidden;
 }
 
@@ -1503,10 +1599,6 @@ button#playPauseBtn i {
 
 
 /* BLOG SECTION */
-.blog-section {
-    padding: var(--spacing-xl) 0;
-}
-
 .blog-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1652,10 +1744,6 @@ button#playPauseBtn i {
 
 
 /** CONTACT SECTION **/
-.contact-section {
-    padding: var(--spacing-5xl) 0; 
-}
-
 .nav-icon {
     display: inline-block;
     width: 6.4rem;
@@ -1892,9 +1980,4 @@ button#playPauseBtn i {
 
 .footer-link-active {
 	color: var(--color-neutral400);
-}
-
-
-.footer-section {
-    padding: var(--spacing-5xl) 0; 
 }

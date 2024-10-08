@@ -36,16 +36,37 @@
         <div class="main-nav-logo">
             <a href="#"><img class="logo" src="/img/Logo-light.png" alt="tomastech logo"></a>
         </div>
+
+        <!-- Icono para abrir la barra lateral -->
+        <div class="flex-burguer">
+            <div class="sidebar-toggle" onclick="toggleSidebar()">
+                <span class="icon-horizontal"></span>
+                <span class="icon-vertical"></span>
+            </div>
+        </div>
+
+
         <nav class="main-nav-header">
             <ul class="main-nav-list">
                 <li><a class="main-nav-link" href="#">Home</a></li>
-                <li><a class="main-nav-link" href="#">Services</a></li>
-                <li><a class="main-nav-link" href="#">Work</a></li>
-                <li><a class="main-nav-link" href="#">About</a></li>
-                <li><a class="main-nav-link" href="#">Blog</a></li>
+                <li><a class="main-nav-link" href="#services">Services</a></li>
+                <li><a class="main-nav-link" href="#work">Work</a></li>
+                <li><a class="main-nav-link" href="#about">About</a></li>
+                <li><a class="main-nav-link" href="#blog">Blog</a></li>
                 <li><a class="main-nav-link nav-cta btn-anim" href="#cta">Start project<span></span></a></li>
             </ul>
         </nav>
+
+        <!-- Barra lateral -->
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeSidebar(); return false;" aria-label="Cerrar Sidebar">&times;</a>
+            <a href="#">Inicio</a>
+            <a href="#services">Services</a>
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#blog">Blog</a>
+            <a href="#cta">Start project</a>
+        </div>
     </header>
 
     <section class="hero-section padding-top">
@@ -61,9 +82,9 @@
                         look amazing but also perform perfectly to achieve your business goals.</p>
 
                     <div class="flex main-buttons">
-                        <a class="btn btn--full" href="#">Start your project
+                        <a class="btn btn--full" href="#cta">Start your project
                         </a>
-                        <a class="btn btn--outline" href="#">Explore our services</a>
+                        <a class="btn btn--outline" href="#services">Explore our services</a>
                     </div>
 
                     <div class="flex flex-numbers">
@@ -123,7 +144,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="services-section" id="services">
         <div class="container">
             <h2 class="text-5xl center heading-primary sub-heading">Our Services</h2>
 
@@ -138,7 +159,7 @@
                 </div>
             </div>
 
-            <div class="services-section">
+            <div class="services">
                 <div class="services-info margin-bottom-4xl">
                     <div class="service-block">
                         <div class="line"></div>
@@ -426,7 +447,7 @@
             </div>
     </section>
 
-    <section class="pricing-section margin-top margin-bottom-4xl">
+    <section class="pricing-section margin-top margin-bottom-4xl" id="pricing">
         <div class="container">
             <h2 class="text-5xl heading-primary sub-heading">Pricing</h2>
 
@@ -1027,7 +1048,7 @@
             </div>
     </section>
 
-    <section class="contact-section">
+    <section class="contact-section" id="cta">
         <div class="container">
             <h3 class="text-10xl center heading-primary margin-bottom-2xl">Have an Idea?</h3>
 
@@ -1059,7 +1080,7 @@
     </section>
 
 
-    <section class="footer-section">
+    <section class="footer-section" id="footer">
         <div class="container grid grid--footer">
             <div class="logo-col">
                 <div class="flex logo-footer margin-bottom-large">

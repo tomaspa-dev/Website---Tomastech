@@ -450,3 +450,48 @@ function animate() {
 }
 animate();
 
+// 9 - Sticky header
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const heroSection = document.querySelector('.hero-section');
+    const stickyPoint = heroSection.offsetTop + heroSection.offsetHeight - header.offsetHeight - 50; // Ajuste aquí
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY >= stickyPoint) {
+            header.classList.add('sticky-header');
+        } else {
+            header.classList.remove('sticky-header');
+        }
+    });
+});
+
+
+//10 - Sidebar Navigation Lateral
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const iconHorizontal = document.querySelector(".icon-horizontal");
+    const iconVertical = document.querySelector(".icon-vertical");
+
+    if (iconHorizontal.style.display !== "none") {
+        // Cambiar a ícono vertical y abrir sidebar
+        iconHorizontal.style.display = "none";
+        iconVertical.style.display = "inline-block";
+        sidebar.style.width = "200px";
+    } else {
+        // Cambiar a ícono horizontal y cerrar sidebar
+        closeSidebar();
+    }
+}
+
+function closeSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const iconHorizontal = document.querySelector(".icon-horizontal");
+    const iconVertical = document.querySelector(".icon-vertical");
+
+    // Cerrar el sidebar
+    sidebar.style.width = "0";
+    
+    // Cambiar de vuelta al ícono horizontal
+    iconVertical.style.display = "none";
+    iconHorizontal.style.display = "inline-block";
+}
