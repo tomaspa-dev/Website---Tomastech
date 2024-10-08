@@ -9,7 +9,6 @@
     padding: var(--spacing-5xl) 0;
 }
 
-
 .header {
     position: relative;
     display: flex;
@@ -143,7 +142,6 @@
 
 
 /* Barra lateral sticky */
-
 .sticky-header {
     position: fixed;
     top: 0;
@@ -183,13 +181,20 @@
     z-index: 10;
     top: 1;
     left: 0;
-    background-color: var(--color-neutral700);
     background-color: rgba(64, 64, 64, 0.85);
-    overflow-x: hidden; /* Desactiva el desplazamiento horizontal */
-    transition: 0.5s;
+    overflow-x: hidden;
+    transition: width 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
     padding-top: 60px;
     border-radius: 20px;
     margin-left: 2px;
+    opacity: 0; /* Para el efecto de fade */
+    visibility: hidden; /* Evita que se vea cuando está cerrado */
+}
+
+.sidebar.open {
+    width: 250px; /* Ajusta según tu diseño */
+    opacity: 1; /* Barra visible */
+    visibility: visible; /* Asegura que se pueda ver */
 }
 
 .sidebar a {
@@ -198,7 +203,8 @@
     font-size: 2.4rem;
     color: var(--color-basewhite);
     display: block;
-    transition: 0.3s;
+    transition: transform 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se rompa en múltiples líneas */
 }
 
 .sidebar a:hover {

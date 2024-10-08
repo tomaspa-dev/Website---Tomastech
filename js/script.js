@@ -495,3 +495,13 @@ function closeSidebar() {
     iconVertical.style.display = "none";
     iconHorizontal.style.display = "inline-block";
 }
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open'); // Alterna la clase 'open' para abrir o cerrar
+}
+
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.remove('open'); // Remueve la clase 'open' para cerrarla
+}
