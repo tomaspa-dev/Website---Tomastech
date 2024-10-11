@@ -7,20 +7,19 @@ function incrementNumber(element, start, end, increment, duration) {
     
     const timer = setInterval(() => {
         current += increment;
-        obj.textContent = current.toLocaleString(); // Formato con separador de miles
+        obj.textContent = current.toLocaleString();//Formato con separador de miles
         if (current >= end) {
         clearInterval(timer);
-        obj.textContent = end.toLocaleString(); // Asegura que termine exactamente en el número final
+        obj.textContent = end.toLocaleString();//Asegura que termine exactamente en el número final
         }
     }, stepTime);
     }
     
     // Llamada a la función con diferentes incrementos
-    incrementNumber("number1", 0, 2, 1, 1000);  // Incremento de 1 en 1 hasta 2
-    incrementNumber("number2", 0, 20, 2, 1000); // Incremento de 2 5en 2 hasta 200
-    incrementNumber("number3", 0, 10, 1, 1500); // Incremento de 1 en 1 hasta 40
+    incrementNumber("number1", 0, 2, 1, 1000);  //Incremento de 1 en 1 hasta 2
+    incrementNumber("number2", 0, 20, 2, 1000); //Incremento de 2 5en 2 hasta 20
+    incrementNumber("number3", 0, 10, 1, 1500); //Incremento de 1 en 1 hasta 10
     
-
 //2 - carousel Mover las cards con botones flechas izquierda y derecha
 document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.carousel-slide');
@@ -87,7 +86,7 @@ gsap.to(".iphone-device", {
     ease: "power1.inOut"
 });
 
-// Animación de flotación para los AirPods
+//Animación de flotación para los AirPods
 gsap.to(".airpods-device", {
     duration: 5,
     y: "-15px", 
@@ -99,24 +98,23 @@ gsap.to(".airpods-device", {
     ease: "power1.inOut"
 });
 
-
 //5 - Copiar datos de contacto
 document.querySelectorAll('.copy-icon').forEach(icon => {
     icon.addEventListener('click', function (e) {
         e.preventDefault();
 
-        // Obtener el texto que se va a copiar del atributo data-copy-text
+        //Obtener el texto que se va a copiar del atributo data-copy-text
         const textToCopy = this.getAttribute('data-copy-text');
 
-        // Usar la API del Portapapeles para copiar
+        //API del Portapapeles para copiar
         navigator.clipboard.writeText(textToCopy)
             .then(() => {
-                // Mostrar el mensaje de confirmación
+                //Mostrar el mensaje de confirmación
                 const confirmationBox = document.getElementById('copy-confirmation');
                 confirmationBox.innerHTML = `${textToCopy} <br><span style="display: inline-block; margin-top: 8px;">copiado al portapapeles</span>`;
                 confirmationBox.classList.add('show');
 
-                // Ocultar el mensaje después de 2 segundos
+                //Ocultar el mensaje después de 4 segundos
                 setTimeout(() => {
                     confirmationBox.classList.remove('show');
                 }, 4000);
@@ -127,8 +125,7 @@ document.querySelectorAll('.copy-icon').forEach(icon => {
     });
 });
 
-
-// 6 - Efectos, Animaciones en  boton confetti
+// 6 - Efectos, Animaciones en boton confetti
 document.querySelector(".btn-effect").addEventListener("mouseover", () => {
     if (document.querySelector(".btn-effect").classList.contains('confetti-triggered')) {
         return;
@@ -145,11 +142,10 @@ document.querySelector(".btn-effect").addEventListener("mouseover", () => {
 
     setTimeout(() => {
         document.querySelector(".btn-effect").classList.remove('confetti-triggered');
-    }, 2000); // Ajuste la frecuencia con la que se puede activar el confeti.
+    }, 2000); //Frecuencia con la que se puede activar el confeti.
 });
 
-
-// 7 - Carousel video
+//7 - Carousel video
 let currentVideoIndex = 0;
 const videos = document.querySelectorAll('.video-card video');
 const progressBar = document.querySelector('.progress-bar');
@@ -158,13 +154,13 @@ const dots = document.querySelectorAll('.dot-video');
 let isPlaying = true;
 let interval;
 
-// Función para reproducir el video
+//Función para reproducir el video
 function playVideo(video) {
     video.play();
     updateProgress(video);
 }
 
-// Función para actualizar la barra de progreso
+//Función para actualizar la barra de progreso
 function updateProgress(video) {
     interval = setInterval(() => {
         const progress = (video.currentTime / video.duration) * 100;
@@ -172,110 +168,106 @@ function updateProgress(video) {
 
         if (video.ended) {
             clearInterval(interval);
-            nextVideo(); // Cambiar al siguiente video cuando termine el actual
+            nextVideo();
         }
     }, 500);
 }
 
-// Función para avanzar al siguiente video
+//Función para avanzar al siguiente video
 function nextVideo() {
     videos[currentVideoIndex].pause();
     videos[currentVideoIndex].currentTime = 0;
 
-    // Actualizar el índice del video actual
+    //Actualizar el índice del video actual
     currentVideoIndex = (currentVideoIndex + 1) % videos.length;
 
-    // Actualizar los dots para reflejar el nuevo video activo
+    //Actualizar los dots para reflejar el nuevo video activo
     updateDots();
 
-    // Mover el slider al nuevo video
+    //Mover el slider al nuevo video
     document.querySelector('.video-slider').style.transform = `translateX(-${currentVideoIndex * 90}%)`;
 
-    // Reproducir el siguiente video
+    //Reproducir el siguiente video
     playVideo(videos[currentVideoIndex]);
 }
 
-// Función para actualizar los dots
+//Función para actualizar los dots
 function updateDots() {
-    // Recorrer los dots y actualizar su estado según el índice del video actual
+    //Recorrer los dots y actualizar su estado según el índice del video actual
     dots.forEach((dot, index) => {
         if (index === currentVideoIndex) {
-            dot.classList.add('active');  // Colorea el dot del video activo
+            dot.classList.add('active');  //Colorea el dot del video activo
         } else {
-            dot.classList.remove('active');  // Los demás dots vuelven a gris
+            dot.classList.remove('active'); //Los demás dots vuelven a gris
         }
     });
 }
 
-// Evento de play/pause con el botón
+// Evento de play / pause con el botón
 playPauseBtn.addEventListener('click', () => {
     if (isPlaying) {
         videos[currentVideoIndex].pause();
         clearInterval(interval);
-        playPauseBtn.classList.remove('pause'); // Quita la clase pause
-        playPauseBtn.classList.add('play');     // Agrega la clase play
+        playPauseBtn.classList.remove('pause'); //Quita la clase pause
+        playPauseBtn.classList.add('play');     //Agrega la clase play
     } else {
         playVideo(videos[currentVideoIndex]);
-        playPauseBtn.classList.remove('play');  // Quita la clase play
-        playPauseBtn.classList.add('pause');    // Agrega la clase pause
+        playPauseBtn.classList.remove('play');  //Quita la clase play
+        playPauseBtn.classList.add('pause');    //Agrega la clase pause
     }
     isPlaying = !isPlaying;
 });
 
-
-// Iniciar la reproducción del primer video y activar el primer dot
+//Iniciar la reproducción del primer video y activar el primer dot
 playVideo(videos[currentVideoIndex]);
 updateDots();
 
-
 //8 - 3d Model
-// Configurar escena y cámara
+//Configurar escena y cámara
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Relación de aspecto 1 para mantener cuadrado
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); //Relación de aspecto 1 para mantener cuadrado
 camera.position.z = 2;
 
-
-// Configurar renderer con fondo transparente y antialiasing para mejorar la calidad
+//Configurar renderer con fondo transparente y antialiasing para mejorar la calidad
 const renderer = new THREE.WebGLRenderer({
     canvas: document.getElementById('iphoneCanvas'),
     alpha: true,
     antialias: true
 });
-renderer.setPixelRatio(window.devicePixelRatio); // Mejorar la resolución para pantallas de alta densidad
+renderer.setPixelRatio(window.devicePixelRatio); //Mejorar la resolución para pantallas de alta densidad
 const container = document.querySelector('.phones-container');
 renderer.setSize(container.clientWidth, container.clientHeight); 
 
-// Ajustar tamaño del canvas al redimensionar ventana
+//Ajustar tamaño del canvas al redimensionar ventana
 window.addEventListener('resize', () => {
-    camera.aspect = 1; // Mantener la proporción cuadrada
+    camera.aspect = 1; //Mantener la proporción cuadrada
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
 });
 
-
-// Agregar controles Orbit
+//Agregar controles Orbit
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Activa la amortiguación (rotación suave)
+controls.enableDamping = true; //Activa la amortiguación (rotación suave)
 controls.enablePan = false;
 controls.dampingFactor = 0.05;
-controls.minDistance = 2; // Ajusta la distancia mínima
-controls.maxDistance = 5; // Ajusta la distancia máxima
-controls.enableZoom = false; // Desactiva el zoom con scroll
+controls.minDistance = 2;
+controls.maxDistance = 5;
+controls.enableZoom = false; //Desactiva el zoom con scroll
 
-// Evento para cambiar el cursor a 'grabbing' cuando se interactúa con el canvas
+//Evento para cambiar el cursor a 'grabbing' cuando se interactúa con el canvas
 controls.addEventListener('start', () => {
     document.querySelector('.phones-container').style.cursor = 'grabbing';
 });
 
-// Evento para volver a 'grab' cuando se termina la interacción
+//Evento para volver a 'grab' cuando se termina la interacción
 controls.addEventListener('end', () => {
     document.querySelector('.phones-container').style.cursor = 'grab';
 });
 
-// Inicialmente, establecer el cursor en 'grab'
+//Inicialmente, establecer el cursor en 'grab'
 document.querySelector('.phones-container').style.cursor = 'grab';
 
-// Función para agregar luces al entorno
+//Función para agregar luces al entorno
 function addEnvironmentLights() {
     // Luz ambiental suave para iluminar toda la escena
     const ambientLight = new THREE.AmbientLight(0xffffff, 3.5); 
@@ -300,18 +292,18 @@ function addEnvironmentLights() {
 // Llamada para agregar las luces del entorno
 addEnvironmentLights();
 
-// Cargar modelos de dispositivos GLTF
+//Cargar modelos de dispositivos GLTF
 const loader = new THREE.GLTFLoader();
-const devices = ['asset/iphone_13_pro_max.glb', 'asset/ipad_pro.glb']; // Modelos de los dispositivos
+const devices = ['asset/iphone_13_pro_max.glb', 'asset/ipad_pro.glb']; //Modelos de los dispositivos
 let currentModel = null;
 let currentDeviceIndex = 0;
 
-// Función para asegurar que la escala del dispositivo sea correcta
+//Función para asegurar que la escala del dispositivo sea correcta
 function setDeviceScale(model) {
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
     const desiredHeight = 2;
-    const scaleFactor = desiredHeight / size.y;  // Factor de escala en función de la altura
+    const scaleFactor = desiredHeight / size.y;  //Factor de escala en función de la altura
     model.scale.set(scaleFactor, scaleFactor, scaleFactor);
     const center = box.getCenter(new THREE.Vector3());
     model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, 0);
@@ -319,12 +311,12 @@ function setDeviceScale(model) {
 
 function addVideoTexture(model) {
     const video = document.getElementById('videoTexture');
-    video.play(); // Iniciar la reproducción del video
+    video.play(); //Iniciar la reproducción del video
 
     const texture = new THREE.VideoTexture(video);
     model.traverse((child) => {
         if (child.isMesh && child.name === 'Body_Wallpaper_0') {
-            child.material.map = texture; // Asignar la textura del video al mesh
+            child.material.map = texture; //Asignar la textura del video al mesh
             child.material.needsUpdate = true;
         }
     });
@@ -336,14 +328,14 @@ function addImageOrVideoTexture(model, isVideo = false) {
     const texture = isVideo
         ? (function() {
             const video = document.getElementById('videoTexture2');
-            video.play(); // Iniciar reproducción del video
+            video.play();
             return new THREE.VideoTexture(video);
             })()
         : textureLoader.load('/img/tablet-img.webp');
 
-    // Configurar rotación para ambos casos (imagen o video)
-    texture.center.set(0.5, 0.5); // Establecer el centro para rotar
-    texture.rotation = Math.PI; // Rotar 180 grados (ajusta si es necesario)
+    //Configurar rotación para ambos casos (imagen o video)
+    texture.center.set(0.5, 0.5); //Establecer el centro para rotar
+    texture.rotation = Math.PI; //Rotar 180 grados
 
     model.traverse((child) => {
         if (child.isMesh && (child.name === 'iPad_Pro_2020_screen_0')) {
@@ -353,8 +345,7 @@ function addImageOrVideoTexture(model, isVideo = false) {
     });
 }
 
-
-// Función para cargar el dispositivo con transición suave
+//Función para cargar el dispositivo con transición suave
 function loadDevice(index) {
     if (currentModel) {
         gsap.to(currentModel.position, {
@@ -368,10 +359,13 @@ function loadDevice(index) {
                     setDeviceScale(currentModel);
                     enhanceDeviceMaterials(currentModel);
                     // Determinar si es un video o una imagen
-                    if (index === 0) { // Para el iPhone
+                    // Para el iPhone
+                    if (index === 0) {
                         addVideoTexture(currentModel);
-                    } else if (index === 1) { // Para el iPad
-                        addImageOrVideoTexture(currentModel, false); // Usar imagen
+                    } 
+                    // Para el iPad
+                    else if (index === 1) { 
+                        addImageOrVideoTexture(currentModel, false); //Usar imagen
                     }
                     scene.add(currentModel);
                     gsap.to(currentModel.position, { x: 0, duration: 0.5 });
@@ -386,26 +380,27 @@ function loadDevice(index) {
             if (index === 0) {
                 addVideoTexture(currentModel);
             } else if (index === 1) {
-                addImageOrVideoTexture(currentModel, false); // Usar imagen
+                addImageOrVideoTexture(currentModel, false); //Usar imagen
             }
             scene.add(currentModel);
         });
     }
 }
 
-// Cargar el primer dispositivo al inicio
+//Cargar el primer dispositivo al inicio
 loadDevice(currentDeviceIndex);
 
-// Función para mejorar los materiales del dispositivo (reflejos y metalización)
+//Función para mejorar los materiales del dispositivo (reflejos y metalización)
 function enhanceDeviceMaterials(model) {
     model.traverse((child) => {
         if (child.isMesh) {
-            if (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0' || child.name === 'Apple_Pencil_apple_pencil_0') {  // Cambiar solo la carcasa trasera
-                child.material.roughness = 0.7;  // Valor más bajo = más reflejos
-                child.material.metalness = 0.8;  // Aumenta el efecto metálico
-            } else if (child.name.includes('Bezels') || child.name.includes('edge')) {  // Partes metálicas
-                child.material.roughness = 0.2;
-                child.material.metalness = 1.0;  // Metalización más fuerte en bordes metálicos
+            if (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0' || child.name === 'Apple_Pencil_apple_pencil_0') {  
+                //Cambiar solo la carcasa trasera
+                child.material.roughness = 0.7;  //Valor más bajo equivale a más reflejos
+                child.material.metalness = 0.8;  //Aumenta el efecto metálico
+            } else if (child.name.includes('Bezels') || child.name.includes('edge')) {  
+                child.material.roughness = 0.2; //Partes metálicas
+                child.material.metalness = 1.0;  //Metalización más fuerte en bordes metálicos
             }
         }
     });
@@ -415,30 +410,41 @@ function enhanceDeviceMaterials(model) {
 function changeColor(color) {
     if (currentModel) {
         currentModel.traverse((child) => {
-            if (child.isMesh && (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0')) {  // Afectar solo la carcasa trasera
-                child.material.color.set(color);  // Cambiar el color de la carcasa
-                child.material.needsUpdate = true;  // Asegurar que el cambio se refleje
+            if (child.isMesh && (child.name === 'Body_Body_0' || child.name === 'iPad_Pro_2020_Body_0')) {  //Afectar solo la carcasa trasera
+                child.material.color.set(color);  //Cambiar el color de la carcasa
+                child.material.needsUpdate = true;  //Asegurar que el cambio se refleje
             }
         });
     }
 }
 
 // Botones de color
-const colors = ['#b50721', '#c0892b', '#0fa356'];  // Ejemplo de colores
+const colors = ['#b50721', '#c0892b', '#0fa356'];
 const colorButtons = document.getElementById('colorButtons');
 
 // Crear botones para cambiar el color
 colors.forEach(color => {
     const button = document.createElement('button');
     button.style.backgroundColor = color;
+    button.setAttribute('aria-label', `Change color to ${colorName(color)}`);
     button.addEventListener('click', () => changeColor(color));
     colorButtons.appendChild(button);
 });
 
+// Función auxiliar para asignar nombres a los colores
+function colorName(hexColor) {
+    switch (hexColor) {
+        case '#b50721': return 'Red';
+        case '#c0892b': return 'Gold';
+        case '#0fa356': return 'Green';
+        default: return 'Unknown Color';
+    }
+}
+
 // Botón para cambiar de dispositivo
 const rotateBtn = document.getElementById('rotateDevice');
 rotateBtn.addEventListener('click', () => {
-    currentDeviceIndex = (currentDeviceIndex + 1) % devices.length;  // Cambia al siguiente dispositivo
+    currentDeviceIndex = (currentDeviceIndex + 1) % devices.length;  //Cambia al siguiente dispositivo
     loadDevice(currentDeviceIndex);
 });
 
@@ -450,11 +456,11 @@ function animate() {
 }
 animate();
 
-// 9 - Sticky header
+//9 - Sticky header
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     const heroSection = document.querySelector('.hero-section');
-    const stickyPoint = heroSection.offsetTop + heroSection.offsetHeight - header.offsetHeight - 50; // Ajuste aquí
+    const stickyPoint = heroSection.offsetTop + heroSection.offsetHeight - header.offsetHeight - 50; //Ajuste aquí
 
     window.addEventListener('scroll', function() {
         if (window.scrollY >= stickyPoint) {
@@ -472,7 +478,7 @@ function toggleSidebar() {
     const iconHorizontal = document.querySelector('.icon-horizontal');
     const iconVertical = document.querySelector('.icon-vertical');
 
-    sidebar.classList.toggle('open'); // Alterna la clase 'open' para abrir o cerrar el sidebar
+    sidebar.classList.toggle('open'); //Alterna la clase 'open' para abrir o cerrar el sidebar
 
     if (sidebar.classList.contains('open')) {
         // Cambiar a ícono vertical y mostrar el sidebar
@@ -489,11 +495,9 @@ function closeSidebar() {
     const iconHorizontal = document.querySelector('.icon-horizontal');
     const iconVertical = document.querySelector('.icon-vertical');
 
-    sidebar.classList.remove('open'); // Remueve la clase 'open' para cerrarla
+    sidebar.classList.remove('open'); //Remueve la clase 'open' para cerrarla
     
-    // Cambiar de vuelta al ícono horizontal
+    //Cambiar de vuelta al ícono horizontal
     iconVertical.style.display = 'none';
     iconHorizontal.style.display = 'inline-block';
 }
-
-//11-
