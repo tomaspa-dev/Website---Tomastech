@@ -501,3 +501,36 @@ function closeSidebar() {
     iconVertical.style.display = 'none';
     iconHorizontal.style.display = 'inline-block';
 }
+
+//11 - Optimizar carga de videos
+const CargaVideos = document.querySelectorAll('video');
+
+// Observador para manejar reproducción por visibilidad
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+    const video = entry.target;
+
+    if (entry.isIntersecting) {
+      // Si es un video de fondo o uno sin hover, reproducirlo
+        if (!video.classList.contains('hover-video')) {
+        video.play();
+        }
+    } else {
+        video.pause();
+    }
+    });
+});
+
+// Añadir todos los videos al observer
+CargaVideos.forEach(video => {
+    observer.observe(video);
+});
+
+// Reproducción de videos que se activan por hover
+const hoverVideos = document.querySelectorAll('.hover-video');
+
+hoverVideos.forEach(video => {
+  video.addEventListener('mouseenter', () => video.play());
+  video.addEventListener('mouseleave', () => video.pause());
+});
+
