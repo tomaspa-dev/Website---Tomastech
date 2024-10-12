@@ -1,3 +1,4 @@
-/* 
+/*
   Cache-Control: max-age=31536000
-  Content-Encoding: br, gzip
+  Content-Encoding: gzip
+  Content-Encoding: br
