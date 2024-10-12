@@ -7,45 +7,36 @@
         font-size: 56.25%;
     }
 
-    /* NAV */
-    .main-nav-header {
-        display: none;
-    }
-    
-    .sidebar-toggle {
-        display: block; /* Muestra el ícono para abrir la barra lateral */
+    /* HEADER */
+    .main-nav-list {
+        gap: var(--spacing-large);
     }
 
-    .flex-hero {
+    /* SERVICE SECTION */
+    .services-container-text,
+    .services-container-text span {
+        font-size: 2.4rem;
+    }
+
+    /* FAQ SECTION */
+    .text-faq {
+        font-size: 1.6rem;
+    }
+
+    /* BLOG SECTION */
+    .blog-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-small);
+        padding: var(--spacing-medium);
+    }
+
+    /* ABOUT SECTION */
+    /* team */
+    .flex-card-about {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 300px);
+    
     }
-
-    
-.hero-img-container {
-    max-width: 50%;
-    height: auto;
-    
-}
-
-/* OUR SERVICES */
-
-.flex-services,
-.cards {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr;
-}
-
-.cards:hover > .card:not(:hover) {
-    filter: none;
-    opacity: 1;
-} 
-
-.sub-heading {
-    text-align: left;
-}
-
 }
 
 
@@ -69,3 +60,43 @@
     }
     
 }
+
+
+/* 
+
+    .main-nav-header {
+        display: none;
+    }
+    
+    .sidebar-toggle {
+        display: block; 
+    }
+
+    .flex-hero {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    
+.hero-img-container {
+    max-width: 50%;
+    height: auto;
+    
+}
+
+
+.flex-services,
+.cards {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
+}
+
+.cards:hover > .card:not(:hover) {
+    filter: none;
+    opacity: 1;
+} 
+
+.sub-heading {
+    text-align: left;
+} */
