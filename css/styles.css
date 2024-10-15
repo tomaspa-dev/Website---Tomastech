@@ -211,7 +211,7 @@
 }
 
 .sidebar a:not(.closebtn):hover {
-    transform: translateX(var(--spacing-xsmall));
+    transform: translateX(var(--spacing-xxsmall));
 }
 
 .sidebar .closebtn {
@@ -1142,6 +1142,8 @@
 
 .faq-illustration {
     width: 50rem;
+    width: auto;
+    width: 30rem;
     height: auto;
     transform: translateY(-40px); /* Valor para mover el GIF verticalmente */
 }

@@ -502,6 +502,11 @@ function closeSidebar() {
     iconHorizontal.style.display = 'inline-block';
 }
 
+// Cerrar sidebar al hacer clic en los enlaces
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', closeSidebar);
+});
+
 //11 - Optimizar carga de videos
 const CargaVideos = document.querySelectorAll('video');
 
