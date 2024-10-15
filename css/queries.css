@@ -18,6 +18,11 @@
         padding-left: var(--spacing-xl);
     }
 
+    .text-10xl {
+        font-size: 6.2rem;
+        font-weight: 700;
+    }
+
     .text-9xl {
         font-size: 5.2rem;
         font-weight: 700;
@@ -98,10 +103,20 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         padding: var(--spacing-small);
+        justify-items: center;
     }
 
     .hero-container-text {
         padding: 0;
+    }
+
+    #bg-video {
+        width: 260px;
+    }
+
+    .text-10xl {
+        font-size: 5.2rem;
+        font-weight: 700;
     }
 
     .text-9xl {
@@ -109,10 +124,31 @@
         font-weight: 700;
     }
 
+    .text-6xl {
+        font-size: 3.6rem;
+    }
+    
+    .text-4xl {
+        font-size: 2.4rem;
+    }
+
+    .text-2xl {
+        font-size: 1.8rem;
+    }
+
+    .tag {
+        padding: 0.8rem;
+    }
+
+    .flex-tag {
+        gap: 0.2rem;
+    }
+
     /** General button styles **/
     .btn:link,
     .btn:visited {
         font-size: 1.6rem;
+        padding: var(--spacing-small) var(--spacing-xsmall);
     }
 
     /* FOOTER SECTION */
@@ -147,8 +183,12 @@
 
     /* OUR SERVICES SECTION */
     /** Samsung phone **/
+    .flex-video {
+        gap: var(--spacing-xl);
+    }
+
     .phone-container {
-        width: 300px;
+        width: 250px;
     }
     
     .device-container {
@@ -160,21 +200,48 @@
     .device-video {
         position: absolute;
         top: 1%; 
-        left: 6%;
+        left: 3%;
         object-fit: fill;
         z-index: 1;
         border-radius: 10px;
-        width: 276px;
-        height: 602px;
+        width: 226px;
+        height: 452px;
         overflow: hidden;
     }
 
     .device-image {
         position: relative;
         width: 100%;
-        width: 300px;
+        width: 240px;
         height: auto;
+        height: 462px;
         z-index: 2; /* La imagen está delante del video */
+    }
+
+    .carousel-controls {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+    }
+
+    .circle-indicator {
+        width: 130px;
+        height: 130px;
+    }
+
+    .circle-indicator {
+        width: 152px;
+        height: 152px;
+    }
+
+    
+    /** Estilos para los AirPods **/
+    .airpods-device {
+        position: absolute;
+        top: -55px;
+        right: -25px;
+        width: 20rem; 
+        z-index: 3; /* detrás del iPhone */
     }
 
     /** Iphone phone **/
@@ -193,5 +260,115 @@
         transform-style: preserve-3d;
         transform: rotateX(15deg) rotateY(-15deg);
     }
+
+    /* FAQ SECTION */
+    .grid-heading-secondary {
+        grid-template-columns: 1fr;
+        justify-items: start;
+    }
+
+    .grid-faq {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        row-gap: var(--spacing-small);
+    }    
+
+    .text-4xl {
+        font-size: 2rem;
+    }
+
+    .text-2xl {
+        font-size: 1.6rem;
+    }
 }
 
+/*******************************/
+/* BELOW 644px (Smartphones)*/
+/*******************************/
+@media (max-width: 40.25rem) {
+
+    .text-4xl {
+        font-size: 1.8rem;
+    }
+
+    .text-2xl {
+        font-size: 1.4rem;
+    }
+
+    /* HEADER */
+    .logo {
+        height: 3.0rem;
+    }
+
+    /* HERO SECTION */
+    .flex-hero {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    /* OUR SERVICES SECTION */
+    .services-info {
+        display: grid;
+        justify-content: center;
+    }
+
+    .controls {
+        bottom: 1px;
+        width: 75%;
+        left: 15%;
+        padding: var(--spacing-small) 0px var(--spacing-small) 0px;
+    }
+
+    /** 3D model **/
+    .phones-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        margin: 0 auto; /* Para centrar el contenedor */
+        cursor: grab; /* Establecer el cursor inicial */
+    }
+
+    /** Samsung phone **/
+    .flex-video {
+        grid-template-columns: 250px;
+        gap: var(--spacing-4xl);
+    }
+
+    /* BLOG SECTION */
+    .blog-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* ABOUT SECTION */
+    /* team */
+    .flex-card-about {
+        display: grid;
+        grid-template-columns: repeat(2, 250px);
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .stadistics-about {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    /* CONTACT SECTION */
+    .contact-icons {
+        display: flex;
+        gap: var(--spacing-small);
+        margin-top: var(--spacing-xl);
+    }
+
+    /* FOOTER SECTION */
+    .grid--footer {
+        grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
+        grid-template-columns: 250px repeat(3, 100px);
+        grid-template-columns: 250px;
+    }
+
+}

@@ -137,6 +137,7 @@ body {
     margin-top: var(--spacing-medium);
 }
 
+
 .margin-bottom-xsmall {
     margin-bottom: var(--spacing-xsmall);
 }
@@ -167,6 +168,10 @@ body {
 
 .margin-bottom-5xl {
     margin-bottom: var(--spacing-5xl);
+}
+
+.margin-bottom-6xl {
+    margin-bottom: var(--spacing-6xl);
 }
 
 /* FONTS */
