@@ -12,22 +12,21 @@
         gap: var(--spacing-large);
     }
 
-    /* SERVICE SECTION */
-    .services-container-text,
-    .services-container-text span {
-        font-size: 2.4rem;
+    /* HERO-SECTION */
+    .hero-container-text {
+        padding: var(--spacing-large) 0;
+        padding-left: var(--spacing-xl);
     }
 
-    /* FAQ SECTION */
-    .text-faq {
-        font-size: 1.6rem;
+    .text-9xl {
+        font-size: 5.2rem;
+        font-weight: 700;
     }
 
-    /* BLOG SECTION */
-    .blog-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-small);
-        padding: var(--spacing-medium);
+    /** General button styles **/
+    .btn:link,
+    .btn:visited {
+        font-size: 1.8rem;
     }
 
     /* ABOUT SECTION */
@@ -35,68 +34,164 @@
     .flex-card-about {
         display: grid;
         grid-template-columns: repeat(2, 300px);
-    
+    }
+
+    /* FAQ SECTION */
+    .grid-faq {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        row-gap: var(--spacing-small);
+    }    
+
+    /* PRICING SECTION */
+    .pricing-container {
+        row-gap: var(--spacing-large);
+    }
+
+    /* BLOG SECTION */
+    .blog-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-large);
+        padding: var(--spacing-medium);
+    }
+
+    /* OUR SERVICE SECTION */
+    .services-container-text,
+    .services-container-text span {
+        font-size: 2rem;
+    }
+
+    .title {
+        font-size: 2.4rem;
+    }
+
+    .sub-title, 
+    .phone-heading {
+        font-size: 1.6rem;
+    }
+
+    .line {
+        margin-left: 1.6rem;
     }
 }
 
-
-
-/* 
-@media (hover: none) {
-    .flex-services > .card {
-        filter: none; 
-        pointer-events: auto;
-    }
-} */
-@media (max-width: 768px) {
-    .pricing-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
+/*******************************/
+/* BELOW 944px (Tablets)*/
+/*******************************/
+@media (max-width: 59rem) {
     html {
         /* 8px / 16px = 0.5 */
         font-size: 50%;
     }
     
-}
-
-
-/* 
-
+    /* HEADER */
     .main-nav-header {
         display: none;
     }
     
     .sidebar-toggle {
         display: block; 
-    }
+    }    
 
+    /* HERO-SECTION */
     .flex-hero {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        padding: var(--spacing-small);
     }
 
+    .hero-container-text {
+        padding: 0;
+    }
+
+    .text-9xl {
+        font-size: 4.2rem;
+        font-weight: 700;
+    }
+
+    /** General button styles **/
+    .btn:link,
+    .btn:visited {
+        font-size: 1.6rem;
+    }
+
+    /* FOOTER SECTION */
+    .grid--footer {
+        grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
+        grid-template-columns: 250px repeat(3, 100px);
+        grid-template-columns: 250px 100px;
+    }
+
+    /* ABOUT SECTION */
+    /* team */
+    .flex-card-about {
+        display: grid;
+        grid-template-columns: repeat(2, 250px);
+        gap: var(--spacing-large);
+    }
+
+    .team-card {
+        width: 250px;
+    }
+
+    .stadistics-about {
+        display: grid;
+        grid-template-columns: repeat(2, 25rem);
+        gap: var(--spacing-large);
+        justify-content: center;
+    }
     
-.hero-img-container {
-    max-width: 50%;
-    height: auto;
+    .stadistics-numbers {
+        width: 25rem;
+    }
+
+    /* OUR SERVICES SECTION */
+    /** Samsung phone **/
+    .phone-container {
+        width: 300px;
+    }
     
+    .device-container {
+        position: relative;
+        width: 200px;
+        height: auto;
+    }
+    
+    .device-video {
+        position: absolute;
+        top: 1%; 
+        left: 6%;
+        object-fit: fill;
+        z-index: 1;
+        border-radius: 10px;
+        width: 276px;
+        height: 602px;
+        overflow: hidden;
+    }
+
+    .device-image {
+        position: relative;
+        width: 100%;
+        width: 300px;
+        height: auto;
+        z-index: 2; /* La imagen está delante del video */
+    }
+
+    /** Iphone phone **/
+    .iphone-container {
+        max-width: 100%;
+        position: relative; /* Para posicionar los AirPods detrás */
+        perspective: 1000px;
+    }
+
+    .iphone-device {
+        width: 30rem;
+        height: auto;
+        display: block;
+        position: relative;
+        z-index: 4;
+        transform-style: preserve-3d;
+        transform: rotateX(15deg) rotateY(-15deg);
+    }
 }
 
-
-.flex-services,
-.cards {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr;
-}
-
-.cards:hover > .card:not(:hover) {
-    filter: none;
-    opacity: 1;
-} 
-
-.sub-heading {
-    text-align: left;
-} */

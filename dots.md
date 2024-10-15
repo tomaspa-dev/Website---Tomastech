@@ -92,8 +92,12 @@ Boost your online presence with SEO strategies that increase your visibility.
 "iMac 2021" (https://skfb.ly/o6poS) by DatSketch is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 
+ffmpeg -i input.mp4 -vf "scale=1920:-1" -vcodec libvpx-vp9 -b:v 3M -acodec libvorbis video-1080p.webm
+ffmpeg -i input.mp4 -vf "scale=1280:-1" -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis video-720p.webm
+ffmpeg -i input.mp4 -vf "scale=854:-1" -vcodec libvpx-vp9 -b:v 700K -acodec libvorbis video-480p.webm
+ffmpeg -i input.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-360p.webm
 
-
+ffmpeg -i input.mp4 -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis output.webm
 
 
 

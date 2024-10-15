@@ -248,10 +248,8 @@
 }
 
 .flex-hero {
+    display: flex;
     gap: var(--spacing-large);
-}
-
-.flex-hero {
     align-items: flex-end;
 }
 
@@ -550,7 +548,7 @@
 
 .services-container-text {
     justify-content: center;
-    font-size: 2.8rem;
+    font-size: 2.4rem;
 	font-weight: 500;
 	font-style: normal;
 	line-height: 150%;
@@ -560,13 +558,14 @@
 
 .services-container-text span {
     color: var(--color-neutral700);
+    font-weight: 600;
 }
 
 .btn-secondary {
     color: var(--color-primary600);
     border: 2px solid var(--color-primary600);
     padding: 10px 20px;
-    font-size: 17px;
+    font-size: 1.7rem;
     cursor: pointer;
 }
 
@@ -1151,10 +1150,7 @@
 }
 
 /* ABOUT SECTION */
-.about-box-title {
-    width: 100rem;
-    margin: 0 auto;
-}
+
 
 .line-container {
     display: flex;
@@ -1744,7 +1740,10 @@ button#playPauseBtn i {
 /* FOOTER SECTION */
 .grid--footer {
     grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
+    grid-template-columns: 250px repeat(3, 100px);
+    justify-content: center;
     margin-bottom: var(--spacing-5xl);
+    column-gap: var(--spacing-xl);
 }
 
 .logo-col {

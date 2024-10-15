@@ -111,8 +111,8 @@ body {
 
 /* UTILITIES */
 .container {
-    width: 120rem;
-    height: auto;
+    max-width: 120rem;
+    /* height: auto; */
     padding:  0 3.2rem;
     margin: 0 auto;
 }
