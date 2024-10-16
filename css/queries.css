@@ -13,6 +13,10 @@
     }
 
     /* HERO-SECTION */
+    .grid-hero {
+        grid-template-columns: 50rem 1fr;
+    }
+
     .hero-container-text {
         padding: var(--spacing-large) 0;
         padding-left: var(--spacing-xl);
@@ -99,19 +103,18 @@
     }    
 
     /* HERO-SECTION */
-    .flex-hero {
-        display: grid;
+    .grid-hero {
         grid-template-columns: 1fr 1fr;
         padding: var(--spacing-small);
         justify-items: center;
     }
 
-    .hero-container-text {
-        padding: 0;
+    .hero-section {
+        padding-top: var(--spacing-xl);
     }
 
-    #bg-video {
-        width: 260px;
+    .hero-container-text {
+        padding: 0;
     }
 
     .text-10xl {
@@ -154,8 +157,17 @@
     /* FOOTER SECTION */
     .grid--footer {
         grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
-        grid-template-columns: 250px repeat(3, 100px);
-        grid-template-columns: 250px 100px;
+        grid-template-columns: 225px 100px;   
+        column-gap: var(--spacing-medium);    
+    }
+
+    .logo-col {
+        grid-column: 1 / 2;
+        grid-row: 2;
+    }
+
+    .resources-col {
+        grid-row: 2;
     }
 
     /* ABOUT SECTION */
@@ -220,20 +232,19 @@
 
     .carousel-controls {
         position: absolute;
-        bottom: 100px;
+        bottom: 150px;
         left: 50%;
     }
 
     .circle-indicator {
-        width: 130px;
-        height: 130px;
+        width: 102px;
+        height: 102px;
     }
 
-    .circle-indicator {
-        width: 152px;
-        height: 152px;
+    .circle-indicator::before {
+        width: 90px;
+        height: 90px;
     }
-
     
     /** Estilos para los AirPods **/
     .airpods-device {
@@ -286,7 +297,6 @@
 /* BELOW 644px (Smartphones)*/
 /*******************************/
 @media (max-width: 40.25rem) {
-
     .text-4xl {
         font-size: 1.8rem;
     }
@@ -300,10 +310,27 @@
         height: 3.0rem;
     }
 
+    .header {
+        padding: var(--spacing-small) var(--spacing-3xl);
+        padding-top: var(--spacing-small);
+    }
+
     /* HERO SECTION */
-    .flex-hero {
-        display: grid;
+    .grid-hero {
         grid-template-columns: 1fr;
+    }
+
+    .hero-section {
+        padding-top: var(--spacing-2xl);
+    }
+
+    .main-heading {
+        text-align: center;
+    }
+
+    .main-buttons {
+        justify-content: center;
+
     }
 
     /* OUR SERVICES SECTION */
@@ -312,11 +339,25 @@
         justify-content: center;
     }
 
+    .service-block {
+        min-height: 100px;
+        margin-bottom: var(--spacing-large);
+    }
+
+    .line {
+        width:  0.15px; /* Grosor de la línea */
+        height: 80px; /* Altura de la línea, ajustable */
+    }
+
     .controls {
         bottom: 1px;
         width: 75%;
         left: 15%;
         padding: var(--spacing-small) 0px var(--spacing-small) 0px;
+    }
+
+    .phote-title {
+        font-size: 6.2rem;
     }
 
     /** 3D model **/
@@ -357,6 +398,10 @@
         justify-items: center;
     }
 
+    .stadistics-numbers {
+        width: 35rem;
+    }
+
     /* CONTACT SECTION */
     .contact-icons {
         display: flex;
@@ -364,11 +409,33 @@
         margin-top: var(--spacing-xl);
     }
 
+    .copy-confirmation {
+        top: 100%;
+        left: 25%;
+        transform: translateX(-50%);
+    }
+
     /* FOOTER SECTION */
     .grid--footer {
         grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
-        grid-template-columns: 250px repeat(3, 100px);
-        grid-template-columns: 250px;
+        grid-template-columns: repeat(3, 85px);
+        column-gap: var(--spacing-medium); 
+        row-gap: var(--spacing-xl);     
     }
 
+    .logo-col {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .resources-col {
+        grid-row: 1;
+    }
+
+    /* FAQ SECTION */
+    .faq-illustration {
+        width: 35rem;
+        height: auto;
+        transform: translateY(-10px); /* Valor para mover el GIF verticalmente */
+    }
 }

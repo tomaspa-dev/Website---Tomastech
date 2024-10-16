@@ -247,9 +247,9 @@
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.flex-hero {
-    display: flex;
+.grid-hero {
     gap: var(--spacing-large);
+    grid-template-columns:  60rem 1fr;
     align-items: flex-end;
 }
 
@@ -354,6 +354,10 @@
 
 .main-heading {
     margin-bottom: var(--spacing-large);
+}
+
+.main-heading .line-break {
+    display: block;
 }
 
 .main-description {
@@ -729,6 +733,13 @@
     margin-top: var(--spacing-medium);
     transition: color 0.3s ease;
     align-self: center;
+
+    font-size: 2.8rem;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 150%;
+	text-decoration: none;
+	text-transform: none;
 }
 
 .good-list {
@@ -1141,11 +1152,14 @@
 }
 
 .faq-illustration {
-    width: 50rem;
     width: auto;
-    width: 30rem;
+    width: 40rem;
     height: auto;
-    transform: translateY(-40px); /* Valor para mover el GIF verticalmente */
+    transform: translateY(10px); /* Valor para mover el GIF verticalmente */
+}
+
+.video-faq {
+    text-align: center;
 }
 
 .grid-text {
@@ -1753,7 +1767,7 @@ button#playPauseBtn i {
     grid-template-columns: 250px repeat(3, 100px);
     justify-content: center;
     margin-bottom: var(--spacing-5xl);
-    column-gap: var(--spacing-xl);
+    column-gap: var(--spacing-large);
 }
 
 .logo-col {
