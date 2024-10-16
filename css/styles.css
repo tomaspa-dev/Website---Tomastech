@@ -837,7 +837,7 @@
 
 .carousel-controls {
     position: absolute;
-    bottom: 10px;
+    bottom: 45px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1308,9 +1308,9 @@
 
 .plus-icon {
     cursor: pointer;
-    height: 2.5rem;
+    height: 3.5rem;
     width: 2.5rem;
-    min-width: 2.5rem;
+    min-width: 3.5rem;
     background-color: var(--color-success400);
     background-color: var( --color-primary500);
     border-radius: 50%;
@@ -1318,12 +1318,28 @@
     justify-content: center;
     align-items: center;
     color: var(--color-basewhite);
-    font-size: 3rem;
+    font-size: 4rem;
+    transition: all 0.3s;
+}
+
+.plus-icon a {
+    color: var(--color-basewhite);
+    text-decoration: none;
+}
+
+.plus-icon:link a,
+.plus-icon:visited a {
+    text-decoration: none;
+    color: var(--color-basewhite);
+}
+
+.plus-icon:hover {
+    background-color: var(--color-primary700);
 }
 
 .profile-icon--linkedin {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
 	background-color: var(--color-basewhite);
 }
 
@@ -1385,6 +1401,7 @@
     flex-direction: column;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.35);
     padding: var(--spacing-large) var(--spacing-medium) var(--spacing-medium) var(--spacing-medium);
     gap: var(--spacing-large);
 }
@@ -1764,7 +1781,7 @@ button#playPauseBtn i {
 /* FOOTER SECTION */
 .grid--footer {
     grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
-    grid-template-columns: 250px repeat(3, 100px);
+    grid-template-columns: 270px repeat(3, 100px);
     justify-content: center;
     margin-bottom: var(--spacing-5xl);
     column-gap: var(--spacing-large);

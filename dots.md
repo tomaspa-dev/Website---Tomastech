@@ -97,8 +97,14 @@ ffmpeg -i input.mp4 -vf "scale=1280:-1" -vcodec libvpx-vp9 -b:v 1M -acodec libvo
 ffmpeg -i input.mp4 -vf "scale=854:-1" -vcodec libvpx-vp9 -b:v 700K -acodec libvorbis video-480p.webm
 ffmpeg -i input.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-360p.webm
 
-ffmpeg -i input.mp4 -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis output.webm
 
+ffmpeg -i Design-xyz.mp4 -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis output.webm
+
+
+ffmpeg -i Design-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Design-xyz.webm
+ffmpeg -i Develop-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Develop-xyz.webm
+ffmpeg -i Deploy-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Deploy-xyz.webm
+ffmpeg -i testing-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis testing-xyz.webm
 
 
 

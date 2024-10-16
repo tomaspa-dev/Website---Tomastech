@@ -312,7 +312,7 @@
 
     .header {
         padding: var(--spacing-small) var(--spacing-3xl);
-        padding-top: var(--spacing-small);
+        padding-top: var(--spacing-medium);
     }
 
     /* HERO SECTION */

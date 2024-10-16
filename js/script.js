@@ -154,6 +154,13 @@ const dots = document.querySelectorAll('.dot-video');
 let isPlaying = true;
 let interval;
 
+// Inicialmente, pausa todos los videos y asegúrate de que no se reproduzcan automáticamente
+videos.forEach(video => {
+    video.pause();
+    video.currentTime = 0; // Reinicia la posición a 0
+});
+
+
 //Función para reproducir el video
 function playVideo(video) {
     video.play();
@@ -471,7 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
 //10 - Sidebar Navigation Lateral
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -507,35 +513,51 @@ document.querySelectorAll('.sidebar a').forEach(link => {
     link.addEventListener('click', closeSidebar);
 });
 
-//11 - Optimizar carga de videos
-const CargaVideos = document.querySelectorAll('video');
-
-// Observador para manejar reproducción por visibilidad
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-    const video = entry.target;
-
-    if (entry.isIntersecting) {
-      // Si es un video de fondo o uno sin hover, reproducirlo
-        if (!video.classList.contains('hover-video')) {
-        video.play();
+//11 - Faq abrir y ocultar preguntas
+document.querySelectorAll('.faq-input').forEach((input) => {
+    input.addEventListener('change', function () {
+        if (this.checked) {
+            document.querySelectorAll('.faq-input').forEach((otherInput) => {
+                if (otherInput !== this && otherInput.checked) {
+                    otherInput.checked = false;
+                }
+            });
         }
-    } else {
-        video.pause();
-    }
     });
 });
 
-// Añadir todos los videos al observer
-CargaVideos.forEach(video => {
-    observer.observe(video);
-});
 
-// Reproducción de videos que se activan por hover
-const hoverVideos = document.querySelectorAll('.hover-video');
+// //12 - Optimizar carga de videos
+// const CargaVideos = document.querySelectorAll('video');
 
-hoverVideos.forEach(video => {
-  video.addEventListener('mouseenter', () => video.play());
-  video.addEventListener('mouseleave', () => video.pause());
-});
+// // Observador para manejar reproducción por visibilidad
+// const observer = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//     const video = entry.target;
+
+//     if (entry.isIntersecting) {
+//         // Evita reproducir videos dentro del slider que no son el video activo
+//         const isSliderVideo = video.closest('.video-card') && !video.closest('.video-card').classList.contains('active');
+//         if (!video.classList.contains('hover-video') && !isSliderVideo) {
+//             video.play();
+//         }
+//     } else {
+//         video.pause();
+//     }
+//     });
+// });
+
+// // Añadir todos los videos al observer
+// CargaVideos.forEach(video => {
+//     observer.observe(video);
+// });
+
+// // Reproducción de videos que se activan por hover
+// const hoverVideos = document.querySelectorAll('.hover-video');
+
+// hoverVideos.forEach(video => {
+//     video.addEventListener('mouseenter', () => video.play());
+//     video.addEventListener('mouseleave', () => video.pause());
+// });
+
 
