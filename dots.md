@@ -106,6 +106,17 @@ ffmpeg -i Develop-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acode
 ffmpeg -i Deploy-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Deploy-xyz.webm
 ffmpeg -i testing-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis testing-xyz.webm
 
+ffmpeg -i iphone.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis iphone-video2.webm
+ffmpeg -i iphone.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -auto-alt-ref 0 -pix_fmt yuva420p iphone-video2.webm
+
+ffmpeg -i video-phone.mp4 -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-phone.webm
+
+ffmpeg -i abby.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis abby.webm
+ffmpeg -i video-largof.mp4 -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-largof.webm
+
+
+//transparencia
+ffmpeg -i input.mov -c:v libvpx-vp9 -b:v 1M -auto-alt-ref 0 -pix_fmt yuva420p output.webm
 
 
 Web Development: Fast, Secure, Custom

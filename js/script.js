@@ -329,16 +329,10 @@ function addVideoTexture(model) {
     });
 }
 
-function addImageOrVideoTexture(model, isVideo = false) {
+
+function addImageOrVideoTexture(model) {
     const textureLoader = new THREE.TextureLoader();
-    
-    const texture = isVideo
-        ? (function() {
-            const video = document.getElementById('videoTexture2');
-            video.play();
-            return new THREE.VideoTexture(video);
-            })()
-        : textureLoader.load('/img/tablet-img.webp');
+    const texture = textureLoader.load('/img/tablet-img.webp');
 
     //Configurar rotación para ambos casos (imagen o video)
     texture.center.set(0.5, 0.5); //Establecer el centro para rotar
@@ -351,6 +345,7 @@ function addImageOrVideoTexture(model, isVideo = false) {
         }
     });
 }
+
 
 //Función para cargar el dispositivo con transición suave
 function loadDevice(index) {
@@ -372,7 +367,7 @@ function loadDevice(index) {
                     } 
                     // Para el iPad
                     else if (index === 1) { 
-                        addImageOrVideoTexture(currentModel, false); //Usar imagen
+                        addImageOrVideoTexture(currentModel); //Usar imagen
                     }
                     scene.add(currentModel);
                     gsap.to(currentModel.position, { x: 0, duration: 0.5 });
@@ -387,7 +382,7 @@ function loadDevice(index) {
             if (index === 0) {
                 addVideoTexture(currentModel);
             } else if (index === 1) {
-                addImageOrVideoTexture(currentModel, false); //Usar imagen
+                addImageOrVideoTexture(currentModel); //Usar imagen
             }
             scene.add(currentModel);
         });
@@ -526,8 +521,51 @@ document.querySelectorAll('.faq-input').forEach((input) => {
     });
 });
 
+// 12 - Galeria de imagenes
+const cardImagePaths = {
+    tomas: ['/img/tom1.webp', '/img/tom2.webp', '/img/tom3.webp','/img/tom4.webp', '/img/tom5.webp', '/img/tom6.webp', '/img/tom7.webp', '/img/tom8.webp', '/img/tom9.webp', '/img/tom10.webp', '/img/tom11.webp', '/img/tom12.webp', '/img/tom13.webp','/img/tom14.webp', '/img/tom15.webp', '/img/tom16.webp', '/img/tom17.webp', '/img/tom18.webp'],
+    rodrigo: ['/img/rodri1.webp', '/img/rodri2.webp', '/img/rodri3.webp','/img/rodri4.webp', '/img/rodri5.webp', '/img/rodri6.webp', '/img/rodri7.webp', '/img/rodri8.webp', '/img/rodri9.webp', '/img/rodri10.webp'],
+    joaquin: ['/img/joaq1.webp', '/img/joaq2.webp', '/img/joaq3.webp','/img/joaq4.webp', '/img/joaq5.webp', '/img/joaq6.webp', '/img/joaq7.webp', '/img/joaq8.webp', '/img/joaq9.webp', '/img/joaq10.webp'],
+    abby: ['/img/Abby1.webp', '/img/Abby2.webp', '/img/Abby3.webp','/img/Abby4.webp', '/img/Abby5.webp', '/img/Abby6.webp', '/img/Abby7.webp', '/img/Abby8.webp']
+};
 
-// //12 - Optimizar carga de videos
+const cards = document.querySelectorAll('.team-card');
+
+cards.forEach(card => {
+    const profileName = card.querySelector('.team-name').textContent.toLowerCase();
+    const imagePaths = cardImagePaths[profileName] || [];
+    const imageElement = card.querySelector('img');
+    const hoverContent = card.querySelector('.hover-content');
+    let imageIndex = 0;
+    let interval;
+
+    // Inicializar hoverContent con la primera imagen para evitar espacio vacío
+    if (imagePaths.length > 0) {
+        hoverContent.style.backgroundImage = `url(${imagePaths[0]})`;
+    }
+
+    card.addEventListener('mouseenter', () => {
+        if (imagePaths.length > 0) {
+            imageElement.style.opacity = 0;  // Ocultar imagen por defecto
+            hoverContent.style.opacity = 1;  // Mostrar hover content
+            imageIndex = 0;  // Reiniciar índice
+
+            interval = setInterval(() => {
+                hoverContent.style.backgroundImage = `url(${imagePaths[imageIndex]})`;
+                imageIndex = (imageIndex + 1) % imagePaths.length;
+            }, 300);  // Velocidad de cambio de imagen
+        }
+    });
+
+    card.addEventListener('mouseleave', () => {
+        clearInterval(interval);
+        hoverContent.style.opacity = 0;  // Ocultar hover content
+        imageElement.style.opacity = 1;  // Mostrar imagen por defecto
+    });
+});
+
+
+// //13 - Optimizar carga de videos
 // const CargaVideos = document.querySelectorAll('video');
 
 // // Observador para manejar reproducción por visibilidad
