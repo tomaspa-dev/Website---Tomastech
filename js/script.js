@@ -547,6 +547,8 @@ hoverVideos.forEach(video => {
 });
 
 
+// 13 - GSAP SCroll
+
 
 // //13 - Optimizar carga de videos
 // const CargaVideos = document.querySelectorAll('video');

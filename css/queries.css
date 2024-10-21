@@ -212,12 +212,12 @@
     .device-video {
         position: absolute;
         top: 1%; 
-        left: 3%;
+        left: 4%;
         object-fit: cover;
         z-index: 1;
         border-radius: 10px;
-        width: 226px;
-        height: 452px;
+        width: 223px;
+        height: 457px;
         overflow: hidden;
     }
 
@@ -291,6 +291,33 @@
     .text-2xl {
         font-size: 1.6rem;
     }
+
+
+    /* WORK SECTION */
+    /** carousel video **/
+    .carousel-container {
+        width: minmax(540px, 100%);
+        height: 400px; /* Ajusta la altura */
+    }
+
+    .video-card {
+        width: minmax(440px, 75%);
+    }
+
+    .video-card video {
+        /* width: minmax(350px, 100%); */
+    
+        height: 340px; 
+    }
+
+    .video-text {
+        top: 65%; /* Cambia la posición del texto */
+        font-size: 1.2rem; /* Reduce el tamaño de la fuente */
+        padding: var(--spacing-medium);
+    }
+    
+
+
 }
 
 /*******************************/
@@ -437,5 +464,26 @@
         width: 35rem;
         height: auto;
         transform: translateY(-10px); /* Valor para mover el GIF verticalmente */
+    }
+
+    /* WORK SECTION */
+    /** carousel video **/
+    .carousel-container {
+        width: minmax(340px, 100%);
+        height: 300px; /* Ajusta la altura */
+    }
+
+    .video-card {
+        width: minmax(280px, 75%);
+    }
+
+    .video-card video {
+        height: 240px; /* Ajusta el tamaño del video */
+    }
+
+    .video-text {
+        top: 60%; /* Cambia la posición del texto */
+        font-size: 1rem; /* Reduce el tamaño de la fuente */
+        padding: var(--spacing-small);
     }
 }

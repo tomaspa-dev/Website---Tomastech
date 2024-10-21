@@ -9,6 +9,7 @@
     padding: var(--spacing-5xl) 0;
 }
 
+
 /* HEADER */
 .header {
     position: relative;
@@ -662,7 +663,7 @@
     position: absolute;
     top: 1%; 
     left: 6%;
-    object-fit: cover;
+    object-fit: fill;
     z-index: 1;
     border-radius: 10px;
     width: 276px;
