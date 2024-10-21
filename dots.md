@@ -101,10 +101,10 @@ ffmpeg -i input.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libv
 ffmpeg -i Design-xyz.mp4 -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis output.webm
 
 
-ffmpeg -i Design-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Design-xyz.webm
-ffmpeg -i Develop-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Develop-xyz.webm
-ffmpeg -i Deploy-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis Deploy-xyz.webm
-ffmpeg -i testing-xyz.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis testing-xyz.webm
+ffmpeg -i design.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis design-xyz.webm
+ffmpeg -i develop.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis develop-xyz.webm
+ffmpeg -i deploy.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis deploy-xyz.webm
+ffmpeg -i testing.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis testing-xyz.webm
 
 ffmpeg -i iphone.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis iphone-video2.webm
 ffmpeg -i iphone.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -auto-alt-ref 0 -pix_fmt yuva420p iphone-video2.webm

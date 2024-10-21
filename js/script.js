@@ -462,16 +462,25 @@ animate();
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     const heroSection = document.querySelector('.hero-section');
-    const stickyPoint = heroSection.offsetTop + heroSection.offsetHeight - header.offsetHeight - 50; //Ajuste aquí
+    const stickyPoint = heroSection.offsetTop - header.offsetHeight - 100; // Ajuste aquí
+    const headerSpacer = document.createElement('div');
+    headerSpacer.style.height = header.offsetHeight + 'px';
+    headerSpacer.style.display = 'none'; // Se oculta inicialmente
+
+    // Insertar el spacer después del header
+    header.parentNode.insertBefore(headerSpacer, header.nextSibling);
 
     window.addEventListener('scroll', function() {
         if (window.scrollY >= stickyPoint) {
             header.classList.add('sticky-header');
+            headerSpacer.style.display = 'block'; // Mostrar el spacer para ocupar el espacio
         } else {
             header.classList.remove('sticky-header');
+            headerSpacer.style.display = 'none'; // Ocultar el spacer cuando no es necesario
         }
     });
 });
+
 
 //10 - Sidebar Navigation Lateral
 function toggleSidebar() {
@@ -522,47 +531,21 @@ document.querySelectorAll('.faq-input').forEach((input) => {
 });
 
 // 12 - Galeria de imagenes
-const cardImagePaths = {
-    tomas: ['/img/tom1.webp', '/img/tom2.webp', '/img/tom3.webp','/img/tom4.webp', '/img/tom5.webp', '/img/tom6.webp', '/img/tom7.webp', '/img/tom8.webp', '/img/tom9.webp', '/img/tom10.webp', '/img/tom11.webp', '/img/tom12.webp', '/img/tom13.webp','/img/tom14.webp', '/img/tom15.webp', '/img/tom16.webp', '/img/tom17.webp', '/img/tom18.webp'],
-    rodrigo: ['/img/rodri1.webp', '/img/rodri2.webp', '/img/rodri3.webp','/img/rodri4.webp', '/img/rodri5.webp', '/img/rodri6.webp', '/img/rodri7.webp', '/img/rodri8.webp', '/img/rodri9.webp', '/img/rodri10.webp'],
-    joaquin: ['/img/joaq1.webp', '/img/joaq2.webp', '/img/joaq3.webp','/img/joaq4.webp', '/img/joaq5.webp', '/img/joaq6.webp', '/img/joaq7.webp', '/img/joaq8.webp', '/img/joaq9.webp', '/img/joaq10.webp'],
-    abby: ['/img/Abby1.webp', '/img/Abby2.webp', '/img/Abby3.webp','/img/Abby4.webp', '/img/Abby5.webp', '/img/Abby6.webp', '/img/Abby7.webp', '/img/Abby8.webp']
-};
+// Seleccionamos todos los videos de hover
+const hoverVideos = document.querySelectorAll('.hover-video');
 
-const cards = document.querySelectorAll('.team-card');
-
-cards.forEach(card => {
-    const profileName = card.querySelector('.team-name').textContent.toLowerCase();
-    const imagePaths = cardImagePaths[profileName] || [];
-    const imageElement = card.querySelector('img');
-    const hoverContent = card.querySelector('.hover-content');
-    let imageIndex = 0;
-    let interval;
-
-    // Inicializar hoverContent con la primera imagen para evitar espacio vacío
-    if (imagePaths.length > 0) {
-        hoverContent.style.backgroundImage = `url(${imagePaths[0]})`;
-    }
-
-    card.addEventListener('mouseenter', () => {
-        if (imagePaths.length > 0) {
-            imageElement.style.opacity = 0;  // Ocultar imagen por defecto
-            hoverContent.style.opacity = 1;  // Mostrar hover content
-            imageIndex = 0;  // Reiniciar índice
-
-            interval = setInterval(() => {
-                hoverContent.style.backgroundImage = `url(${imagePaths[imageIndex]})`;
-                imageIndex = (imageIndex + 1) % imagePaths.length;
-            }, 300);  // Velocidad de cambio de imagen
-        }
+// Ajustamos la velocidad del video al hacer hover
+hoverVideos.forEach(video => {
+    video.addEventListener('mouseenter', () => {
+        video.playbackRate = 2; // Velocidad más lenta
+        video.play(); // Aseguramos que el video se reproduzca
     });
 
-    card.addEventListener('mouseleave', () => {
-        clearInterval(interval);
-        hoverContent.style.opacity = 0;  // Ocultar hover content
-        imageElement.style.opacity = 1;  // Mostrar imagen por defecto
+    video.addEventListener('mouseleave', () => {
+        video.playbackRate = 1; // Volver a la velocidad normal
     });
 });
+
 
 
 // //13 - Optimizar carga de videos
