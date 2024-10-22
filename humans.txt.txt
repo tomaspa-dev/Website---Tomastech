@@ -1,0 +1,9 @@
+/* TEAM */
+
+Creator: tomastech
+URL: https://tomastech.dev/
+Description: Discover tomastech, a web design agency that works remotely worldwide, including in the USA, Canada, and Australia. We specialize in web design, custom website development, landing pages, corporate websites, eCommerce, and SEO.
+
+/* SITE */
+
+Standards: HTML5, CSS3, JavaScript

@@ -1,87 +1,30 @@
-Desarrollamos tu presencia en la web, de manera personalizada
-We develop your web presence, tailored just for you
-
-Innovación web para empresas que quieren destacar
-Web innovation for companies that want to stand out
-
-
-Especializados en desarrollar sitios web que no solo se ven increíbles, sino que funcionan perfectamente para alcanzar tus objetivos empresariales.
-Specializing in developing websites that not only look amazing but also perform perfectly to achieve your business goals.
-
-
-Botones (CTA):
-Empieza tu proyecto / Start your project
-Descubre más / Learn more
-Solicita una consulta / Request a consultation
-Transforma tu presencia online / Transform your online presence
-
-Botón Complementario:
-Explora nuestros servicios / Explore our services
-Ver nuestro portafolio / View our portfolio
-Conoce más sobre nosotros / Learn more about us
-Ver proyectos realizados / See completed projects
+<!-- SEO -->
+custom website development      - 1
+professional website design     - 2
+design web agency               - 3
+corporate websites              - 4
+corporate websites agency       - 5
+web design agency usa           - 6
+----------------------------------------------------------------
+web design agency               - 1
+digital agency                  - 2
+web developer                   - 3
+landing pages                   - 4
 
 
-Our Services:
-We create custom and optimized web solutions for your business.
+custom website development, corporate websites / tomastech web design agency freelancer
 
-Web Development, Web Design, Technical Seo
+Title
+Web Index - Custom Website Development &vert; Web Design Agency LA &mdash; tomastech
+Web Blog - &mdash; tomastech web design agency freelancer
 
-+Web Development
-Fast, Secure, Custom
+Description
+Discover Tomastech, a web design agency that works remotely worldwide, including in the USA, Canada, and Australia. We specialize in web design, custom website development, landing pages, corporate websites, eCommerce, and SEO.
 
-We build fast, secure, and scalable websites.
-
-+Web Design
-Stunning, Functional, Optimized
-
-We design visually stunning, functional, and optimized websites.
-
-+Technical Seo
-Fast, Secure, Scalable
-
-Boost your online presence with SEO strategies that increase your visibility.
-
-
-
-                        <!-- <div>Custom Websites</div>
-                        <div>Landing Pages</div>
-                        <div>Corporate Websites</div>
-                        <div>Webflow & WordPress Websites</div> -->
-
-
-
-                                    <div>
-                <div class="">Web Development</div>
-                <div>
-                    <div>Custom Websites</div>
-                    <div>Landing Pages</div>
-                    <div>Corporate Websites</div>
-                    <div>Webflow & WordPress Websites</div>
-                </div>
-            </div>
-
-            <div>
-                <div>Web Design</div>
-                <div>
-                    <div>Wireframes</div>
-                    <div>Responsive Design</div>
-                    <div>UI/UX Design</div>
-                    <div>Webflow & WordPress Websites</div>
-                </div>
-            </div>
-
-            <div>
-                <div>Technical SEO</div>
-                <div>
-                    <div>Meta Data</div>
-                    <div>On-Site Content</div>
-                    <div>Page Performance</div>
-                    <div>Blogging</div>
-                    <div>Keyword Research</div>
-                </div>
-            </div>
-
+alt image
+Tomastech design web agency specialize in professional website design, landing pages, custom website development, corporate websites.
+twitter:image:alt
+tomastech web developer freelance specialize in professional website design, landing pages, custom website development, corporate websites.
 
 
 "Samsung Galaxy S22 Ultra" (https://skfb.ly/osHVT) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
@@ -90,77 +33,6 @@ Boost your online presence with SEO strategies that increase your visibility.
 "Apple iPad Pro" (https://skfb.ly/6WNFL) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
 "Galaxy Tab S8 Ultra" (https://skfb.ly/o9HZp) by DatSketch is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
 "iMac 2021" (https://skfb.ly/o6poS) by DatSketch is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
-
-ffmpeg -i input.mp4 -vf "scale=1920:-1" -vcodec libvpx-vp9 -b:v 3M -acodec libvorbis video-1080p.webm
-ffmpeg -i input.mp4 -vf "scale=1280:-1" -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis video-720p.webm
-ffmpeg -i input.mp4 -vf "scale=854:-1" -vcodec libvpx-vp9 -b:v 700K -acodec libvorbis video-480p.webm
-ffmpeg -i input.mp4 -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-360p.webm
-
-
-ffmpeg -i Design-xyz.mp4 -vcodec libvpx-vp9 -b:v 1M -acodec libvorbis output.webm
-
-
-ffmpeg -i design.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis design-xyz.webm
-ffmpeg -i develop.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis develop-xyz.webm
-ffmpeg -i deploy.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis deploy-xyz.webm
-ffmpeg -i testing.mkv -vf "scale=640:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis testing-xyz.webm
-
-ffmpeg -i iphone.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis iphone-video2.webm
-ffmpeg -i iphone-video.webm -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -auto-alt-ref 0 -pix_fmt yuva420p iphone-video2.webm
-
-ffmpeg -i video-phone.mp4 -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-phone.webm
-
-ffmpeg -i abby.mov -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis abby.webm
-ffmpeg -i video-largof.mp4 -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis video-largof.webm
-
-
-ffmpeg -i videol.mp4 -vf "scale=480:-1" -vcodec libvpx-vp9 -b:v 500K -acodec libvorbis videol.webm
-
-//transparencia
-ffmpeg -i iphone-mov.mov -c:v libvpx-vp9 -b:v 500K -auto-alt-ref 0 -pix_fmt yuva420p output.webm
-
-ffmpeg -i design-xyz.webm -vf "fps=1" img%04d.png
-ffmpeg -framerate 1 -i img%04d.png -c:v libvpx-vp9 -pix_fmt yuva420p output.webm
-ffmpeg -framerate 5 -i %d.png -c:v libvpx-vp9 -pix_fmt yuva420p output.webm
-
-
-
-Web Development: Fast, Secure, Custom
-1. Fast: Speed that Engages
-Subtítulo: Lightning-Fast Load Times
-Descripción:
-A slow website means losing visitors. We prioritize optimizing load times by using the latest technology and performance practices, ensuring that your site loads quickly on all devices. A fast website not only improves user experience but also ranks higher in search engines, increasing visibility.
-
-Puntos adicionales:
-
-Page load optimization for better SEO
-Seamless experience on both mobile and desktop
-Utilization of CDN and caching for global speed
-2. Secure: Robust Protection
-Subtítulo: Built with Security in Mind
-Descripción:
-Cybersecurity is more important than ever. We integrate cutting-edge security features into every website, including SSL encryption, firewalls, and regular vulnerability testing. Your data and your users’ information are protected, allowing you to operate with confidence and peace of mind.
-
-Puntos adicionales:
-
-SSL encryption for safe browsing
-Firewalls and threat detection systems
-Regular security audits and updates
-Protection against DDoS attacks
-3. Custom: Tailored to Your Needs
-Subtítulo: Fully Customizable Solutions
-Descripción:
-No two businesses are the same, and neither are their websites. We create fully customized websites that align with your brand, goals, and specific functionalities. Whether you need custom e-commerce solutions, integrations, or advanced features, we deliver a website that is uniquely yours.
-
-Puntos adicionales:
-
-Tailored design for unique brand identity
-Custom-built functionalities for your industry
-Flexible scalability for future growth
-Third-party API integrations and custom tools
-
-
 
 
 3- Technical SEO
