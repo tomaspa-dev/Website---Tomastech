@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog &vert; Web Design Agency LA &mdash; tomastech</title>
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <script defer src="/js/blog.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="main-nav-logo">
+            <a href="https://tomastech.dev"><img class="logo" src="/img/logo-light.webp"
+                    alt="Tomastech Professional Website Design California"></a>
+        </div>
+
+        <!-- Icono para abrir la barra lateral -->
+        <div class="flex-burguer">
+            <div class="sidebar-toggle" onclick="toggleSidebar()">
+                <span class="icon-horizontal"></span>
+                <span class="icon-vertical"></span>
+            </div>
+        </div>
+
+        <nav class="main-nav-header">
+            <ul class="main-nav-list">
+                <li><a class="main-nav-link" href="#">Home</a></li>
+                <li><a class="main-nav-link" href="#about">About</a></li>
+                <li><a class="main-nav-link" href="#blog">Recent Posts</a></li>
+            </ul>
+        </nav>
+
+        <!-- Barra lateral -->
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeSidebar(); return false;" aria-label="Cerrar Sidebar">&times;</a>
+            <a href="#">Home</a>
+            <a href="#about">About</a>
+            <a href="#blog">Recent Posts</a>
+        </div>
+    </header>
+
+
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2 class="text-5xl heading-primary margin-bottom-xl">Latest posts</h2>
+            <div class="grid blog-container">
+                <article class="blog-card">
+                    <img class="blog-image" src="img/web-design-agency-california.webp"
+                        alt="Web Design Agency California">
+                    <div class="blog-content">
+                        <div class="flex flex-author">
+                            <div>
+                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                    </strong><span class="middot">&bull;</span> 28
+                                    October 2024</p>
+                            </div>
+                            <div class="flex flex-clock">
+                                <p class="text-xsmall read-text">2 min read</p>
+                                <span class="spinners--clock"></span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title text-medium">User-Centered Web Design</h3>
+                        <p class="blog-description blog-text text-small">
+                            Crafting user-centric designs that combine aesthetics and functionality to enhance user
+                            experience.
+                        </p>
+                        <a class="blog-link blog-link-active text-small" href="#"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
+                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        </a>
+                        <div class="flex blog-tags-container margin-top-small">
+                            <span class="blog-tag">Web</span>
+                            <span class="blog-tag">Design</span>
+                            <span class="blog-tag">UX/UI</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <img class="blog-image" src="img/custom-website-development-california.webp"
+                        alt="Custom Website Development California">
+                    <div class="blog-content">
+                        <div class="flex flex-author">
+                            <div>
+                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                    </strong><span class="middot">&bull;</span> 28
+                                    October 2024</p>
+                            </div>
+                            <div class="flex flex-clock">
+                                <p class="text-xsmall read-text">2 min read</p>
+                                <span class="spinners--clock clock-variation--one"></span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title text-medium">Modern Scalable Web Development</h3>
+                        <p class="blog-description blog-text text-small">
+                            Building scalable, responsive web applications using modern technologies tailored to your
+                            needs.
+                        </p>
+                        <a class="blog-link blog-link-active text-small" href="#"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
+                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        </a>
+                        <div class="flex blog-tags-container margin-top-small">
+                            <span class="blog-tag">Web</span>
+                            <span class="blog-tag">Development</span>
+                            <span class="blog-tag">Front-end</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <img class="blog-image" src="img/corporate-websites-california.webp"
+                        alt="Corporate Websites California">
+                    <div class="blog-content">
+                        <div class="flex flex-author">
+                            <div>
+                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                    </strong><span class="middot">&bull;</span> 28
+                                    October 2024</p>
+                            </div>
+                            <div class="flex flex-clock">
+                                <p class="text-xsmall read-text">2 min read</p>
+                                <span class="spinners--clock clock-variation--two"></span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title text-medium">Secure and Efficient Web Deployment</h3>
+                        <p class="blog-description blog-text text-small">
+                            Ensuring smooth and secure deployment with performance optimization and ongoing support.
+                        </p>
+                        <a class="blog-link blog-link-active text-small" href="#"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
+                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        </a>
+                        <div class="flex blog-tags-container margin-top-small">
+                            <span class="blog-tag">Web</span>
+                            <span class="blog-tag">Deployment</span>
+                            <span class="blog-tag">Hosting</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="footer-section" id="footer">
+        <div class="container copyright-col">
+            <div class="social-links-col">
+                <ul class="social-links">
+                    <li><a class="social-link mdi-icon--linkedin footer-icon--linkedin" href="#"
+                            aria-label="Ingresa a nuestra red social Linkedin"></a>
+                    </li>
+                    <li><a class="social-link mdi-icon--instagram" href="#"
+                            aria-label="Ingresa a nuestra red social Instagram"></a></li>
+                    <li><a class="social-link pajamas-icon--twitter" href="#"
+                            aria-label="Ingresa a nuestra red social X"></a></li>
+                </ul>
+            </div>
+
+            <p class="text-medium copyright-text">All rights reserved. Copyright &copy;<span class="year">2024</span>
+                by tomastech dev.</p>
+        </div>
+
+        <div>
+            <a class="nav-menu-icon whatsapp-icon"
+                href="https://wa.me/51978395717?text=Hi%2C%0AI'd%20love%20to%20learn%20more%20about%20your%20services.%0ACan%20you%20please%20get%20in%20touch%3F%21"
+                title="Ready to take the next step?"><span class="nav-icon"></span>
+            </a>
+        </div>
+    </section>
+
+</body>
+
+</html>

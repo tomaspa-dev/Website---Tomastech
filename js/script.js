@@ -160,7 +160,6 @@ videos.forEach(video => {
     video.currentTime = 0; // Reinicia la posición a 0
 });
 
-
 //Función para reproducir el video
 function playVideo(video) {
     video.play();
@@ -225,9 +224,33 @@ playPauseBtn.addEventListener('click', () => {
     isPlaying = !isPlaying;
 });
 
-//Iniciar la reproducción del primer video y activar el primer dot
+// Iniciar la reproducción del primer video y activar el primer dot
 playVideo(videos[currentVideoIndex]);
 updateDots();
+
+// --- NUEVA PARTE ---
+// Añadir el evento de clic en los dots para cambiar al video seleccionado
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        // Pausar el video actual
+        videos[currentVideoIndex].pause();
+        videos[currentVideoIndex].currentTime = 0;
+        clearInterval(interval);
+
+        // Actualizar el índice al dot clickeado
+        currentVideoIndex = index;
+
+        // Actualizar los dots visualmente
+        updateDots();
+
+        // Mover el carrusel al nuevo video
+        document.querySelector('.video-slider').style.transform = `translateX(-${currentVideoIndex * 90}%)`;
+
+        // Reproducir el video seleccionado
+        playVideo(videos[currentVideoIndex]);
+    });
+});
+
 
 //8 - 3d Model
 //Configurar escena y cámara
@@ -578,6 +601,26 @@ function animateFromBottom(element, delay = 0) {
     // Animar los elementos de la hero-section inmediatamente
     document.querySelectorAll('.hero-section .gsap').forEach((element, index) => {
     animateFromBottom(element, index * 0.3); // Anima con delay inmediato
+});
+
+
+// 14 - Animar el hover con GSAP
+document.querySelectorAll('.card-pricing, .blog-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+            y: -10, 
+            duration: 0.1,
+            ease: "power2.out"
+        });
+    });
+
+    card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+            y: 0, 
+            duration: 0.1,
+            ease: "power2.in"
+        });
+    });
 });
 
 

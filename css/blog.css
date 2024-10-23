@@ -1,0 +1,41 @@
+.blog-section {
+    padding: var(--spacing-xl) 0;
+}
+
+
+
+/*******************************/
+/* BELOW 1200px (Landscape Tablets)*/
+/*******************************/
+@media (max-width: 75rem) {
+    /* BLOG SECTION */
+    .blog-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-large);
+        padding: var(--spacing-medium);
+    }
+}
+
+/*******************************/
+/* BELOW 644x (Landscape Tablets)*/
+/*******************************/
+@media (max-width: 40.25rem) {
+    html {
+        /* 9px / 16px*/
+        font-size: 56.25%;
+    }
+
+    /* HEADER */
+    .main-nav-header {
+        display: none;
+    }
+    
+    .sidebar-toggle {
+        display: block; 
+    }   
+
+    /* BLOG SECTION */
+    .blog-container {
+        grid-template-columns: 1fr;
+    }
+}

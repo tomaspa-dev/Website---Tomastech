@@ -1479,6 +1479,10 @@
     transition: background-color 0.3s;
 }
 
+.dot-video:hover {
+    cursor: pointer;
+}
+
 .dot-video.active {
     background-color: var(--color-primary300);
 }
@@ -1935,3 +1939,53 @@ button#playPauseBtn i {
 .hero-section .gsap {
     opacity: 0; /* Aseguramos que los elementos de la hero-section también están ocultos al principio */
 }
+
+/* 404 PAGE */
+.container-box {
+    text-align: center;
+}
+
+.error-page {
+    background: var(--color-basewhite);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.error-img {
+    width: 250px;
+    height: 250px;
+}
+
+.error-code {
+    font-size: 10rem;
+    font-weight: 700;
+    color: var(--color-primary500);
+    margin-bottom: var(--spacing-large);
+}
+
+.error-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    margin-bottom: var(--spacing-xl);
+}
+
+.home-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: var(--color-primary500);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: var(--color-primary400);
+}
+
+
+/* BLOG WEB */
+

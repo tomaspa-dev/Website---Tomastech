@@ -506,6 +506,11 @@ body {
     height: 1.6rem;
 }
 
+.eva--diagonal-arrow-medium {
+	width: 2.0rem;
+    height: 2.0rem;
+}
+
 .spinners--clock {
     display: inline-block;
     width: 1.8rem;
