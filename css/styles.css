@@ -1925,3 +1925,13 @@ button#playPauseBtn i {
 	color: var(--color-neutral400);
 }
 
+/* GSAP */
+.gsap {
+    opacity: 0;
+    transform: translateY(50px); /* Posiciona los elementos fuera de la vista inicialmente */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Aplica una transición */
+}
+
+.hero-section .gsap {
+    opacity: 0; /* Aseguramos que los elementos de la hero-section también están ocultos al principio */
+}
