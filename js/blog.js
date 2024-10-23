@@ -32,3 +32,27 @@ function closeSidebar() {
 document.querySelectorAll('.sidebar a').forEach(link => {
     link.addEventListener('click', closeSidebar);
 });
+
+//2 - Sticky header
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header');
+    const heroSection = document.querySelector('.about-section');
+    const stickyPoint = heroSection.offsetTop - header.offsetHeight - 100; // Ajuste aquí
+    const headerSpacer = document.createElement('div');
+    headerSpacer.style.height = header.offsetHeight + 'px';
+    headerSpacer.style.display = 'none'; // Se oculta inicialmente
+
+    // Insertar el spacer después del header
+    header.parentNode.insertBefore(headerSpacer, header.nextSibling);
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY >= stickyPoint) {
+            header.classList.add('sticky-header');
+            headerSpacer.style.display = 'block'; // Mostrar el spacer para ocupar el espacio
+        } else {
+            header.classList.remove('sticky-header');
+            headerSpacer.style.display = 'none'; // Ocultar el spacer cuando no es necesario
+        }
+    });
+});
+

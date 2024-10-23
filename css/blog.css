@@ -2,12 +2,29 @@
     padding: var(--spacing-xl) 0;
 }
 
+.about-section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.more-post {
+    padding-top: var(--spacing-xl);
+}
 
 
 /*******************************/
 /* BELOW 1200px (Landscape Tablets)*/
 /*******************************/
 @media (max-width: 75rem) {
+    html {
+        /* 9px / 16px*/
+        font-size: 56.25%;
+    }
+
+    .text-9xl {
+        font-size: 5.2rem;
+        font-weight: 700;
+    }
+
     /* BLOG SECTION */
     .blog-container {
         grid-template-columns: repeat(2, 1fr);
@@ -16,13 +33,57 @@
     }
 }
 
+
+/*******************************/
+/* BELOW 944px (Tablets)*/
+/*******************************/
+@media (max-width: 59rem) {
+    html {
+        /* 8px / 16px = 0.5 */
+        font-size: 50%;
+    }
+
+    .text-9xl {
+        font-size: 4.2rem;
+        font-weight: 700;
+    }
+
+    .text-6xl {
+        font-size: 3.6rem;
+    }
+    
+    .text-4xl {
+        font-size: 2rem;
+    }
+
+    .text-2xl {
+        font-size: 1.6rem;
+    }
+
+    .stadistics-about {
+        display: grid;
+        grid-template-columns: repeat(2, 25rem);
+        gap: var(--spacing-large);
+        justify-content: center;
+    }
+    
+    .stadistics-numbers {
+        width: 25rem;
+    }
+
+
+}
+
 /*******************************/
 /* BELOW 644x (Landscape Tablets)*/
 /*******************************/
 @media (max-width: 40.25rem) {
-    html {
-        /* 9px / 16px*/
-        font-size: 56.25%;
+    .text-4xl {
+        font-size: 1.8rem;
+    }
+
+    .text-2xl {
+        font-size: 1.4rem;
     }
 
     /* HEADER */
@@ -32,7 +93,26 @@
     
     .sidebar-toggle {
         display: block; 
-    }   
+    }
+    
+    .logo {
+        height: 3.0rem;
+    }
+
+    .header {
+        padding: var(--spacing-small) var(--spacing-3xl);
+        padding-top: var(--spacing-medium);
+    }
+    
+    /* ABOUT SECTION */
+    .stadistics-about {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    .stadistics-numbers {
+        width: 35rem;
+    }
 
     /* BLOG SECTION */
     .blog-container {
