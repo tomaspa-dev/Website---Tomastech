@@ -454,14 +454,14 @@
     .faq-illustration {
         width: 35rem;
         height: auto;
-        transform: translateY(-10px); /* Valor para mover el GIF verticalmente */
+        transform: translateY(-10px);
     }
 
     /* WORK SECTION */
     /** carousel video **/
     .carousel-container {
         width: minmax(340px, 100%);
-        height: 315px; /* Ajusta la altura */
+        height: 315px;
     }
 
     .video-card {
@@ -469,12 +469,12 @@
     }
 
     .video-card video {
-        height: 240px; /* Ajusta el tamaño del video */
+        height: 240px; 
     }
 
     .video-text {
-        top: 60%; /* Cambia la posición del texto */
-        font-size: 1rem; /* Reduce el tamaño de la fuente */
+        top: 60%; 
+        font-size: 1rem;
         padding: var(--spacing-small);
     }
 }

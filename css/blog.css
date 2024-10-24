@@ -10,6 +10,152 @@
     padding-top: var(--spacing-xl);
 }
 
+.social-share {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+.mdi--share:hover,
+.mdi--share-variant:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos de la barra de progreso */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%; /* Será controlado por GSAP */
+    height: 5px;
+    background-color: var(--color-primary500);
+    z-index: 999; /* Mantenerla en la parte superior */
+}
+
+.highlight-quote {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-primary700);
+    margin: 20px 0;
+    padding: 10px;
+    border-left: 5px solid var(--color-primary400);
+    background-color: #f9f9f9;
+}
+
+.img-box-effect img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.img-box-effect img:hover {
+    transform: scale(1.1);
+}
+
+
+/* BLOG */
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.img-box {
+    background-image: url("../img/design-web-agency-1.webp");
+    width: 71rem;
+    height: 10rem;
+    width: 100%;
+    height: auto;
+    min-height: 10rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.title-box {
+    /* background-color: var(--color-primary500); */
+    color: var(--color-neutral700);
+    font-weight: 700;
+    padding: 40px 0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.text-small {
+    color: var(--color-neutral800);
+}
+
+.published span {
+    color: var(--color-neutral900);
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+article header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+article time {
+    color: #666;
+}
+
+figure {
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    margin-top: 40px;
+}
+
+.share-box {
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+#comment-form button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#comment-form button:hover {
+    background-color: #555;
+}
+
+
+
+
 
 /*******************************/
 /* BELOW 1200px (Landscape Tablets)*/
