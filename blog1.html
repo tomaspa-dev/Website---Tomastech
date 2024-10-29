@@ -43,6 +43,7 @@
     <link rel="home" href="https://tomastech.dev" />
     <link type="text/plain" href="https://tomastech.dev/humans.txt" rel="author" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
     <script defer src="/js/script-blog.js"></script>
 </head>
@@ -53,7 +54,57 @@
             <a href="https://tomastech.dev"><img class="logo" src="/img/logo-light.webp"
                     alt="Tomastech Professional Website Design California"></a>
         </div>
+
+        <nav class="main-nav-header">
+            <ul class="main-nav-list">
+                <li><a class="main-nav-link" href="/Blogs">Home</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <!-- Galería de imágenes con desplazamiento horizontal -->
+    <section class="gallery-section">
+        <div class="container-gallery">
+            <div class="slider">
+                <div class="slider-images">
+                    <div class="img"><img src="/img/design1.webp" alt=""></div>
+                </div>
+                <div class="slider-title">
+                    <div class="slider-title-wrapper">
+                        <div class="slider-title-box">
+                            <p>Design is Awesome</p>
+                            <p>More Design</p>
+                            <p>Design with UI and UX</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-counter">
+                    <div class="counter">
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                    </div>
+                    <div>
+                        <p>&mdash;</p>
+                    </div>
+                    <div>
+                        <p>3</p>
+                    </div>
+                </div>
+
+                <div class="slider-preview">
+                    <div class="preview active"><img src="/img/design1.webp" alt=""></div>
+                    <div class="preview"><img src="/img/design2.webp" alt=""></div>
+                    <div class="preview"><img src="/img/design3.webp" alt=""></div>
+                </div>
+                <div class="slider-indicators">
+                    <p>+</p>
+                    <p>+</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <main>
         <section class="article-section" id="article">
@@ -119,12 +170,31 @@
                         </div>
                     </div>
 
-
                     <div class="description-text text-medium">
-                        <p class="margin-bottom-small">A great website design is not just about looking good.
+                        <div id="textSection">
+                            <div class="textcontainer">
+                                <div class="wrapper">
+                                    <p class="text"><span class="word">A great website </span> <span class="word">design
+                                            is
+                                            not</span> <span class="word">just about looking good. </span> <span
+                                            class="word">User-centered </span>
+                                        <span class="word">web design combines</span>
+                                        <span class="word">aesthetics </span> <span class="word">with
+                                            functionality</span> <span class="word">to create </span> <span
+                                            class="word">intuitive
+                                            experiences</span> <span class="word">that</span> <span
+                                            class="word">keep</span> <span class="word">visitors</span> <span
+                                            class="word">engaged</span> <span class="word">and</span> <span
+                                            class="word">turn them</span> <span class="word">into</span> <span
+                                            class="word">clients.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <p class="margin-bottom-small">A great website design is not just about looking good.
                             User-centered web design combines
                             aesthetics with functionality to create intuitive experiences that keep visitors engaged and
-                            turn them into clients.</p>
+                            turn them into clients.</p> -->
 
                         <p class="margin-bottom-small">The key is understanding your audience: What are they looking
                             for when they visit
@@ -152,23 +222,6 @@
                     </div>
             </div>
 
-            <div id="textSection">
-                <div class="textcontainer">
-                    <div class="wrapper">
-                        <p class="text"><span class="word">Lorem ipsum </span> <span class="word">dolor</span> <span
-                                class="word">sit</span> <span class="word">amet</span> <span
-                                class="word">consectetur</span> <span class="word">adipisicing</span> <span
-                                class="word">elit.</span> <span class="word">Perferendis</span> <span
-                                class="word">consectetur</span> <span class="word">voluptatem</span> <span
-                                class="word">quae</span> <span class="word">ea</span> <span
-                                class="word">similique</span> <span class="word">adipisci</span> <span
-                                class="word">reprehenderit</span> <span class="word">vero</span> <span
-                                class="word">voluptatum,</span> <span class="word">debitis</span> <span
-                                class="word">exercitationem</span> <span class="word">nisi</span> <span
-                                class="word">ad</span> <span class="word">mollitia?</span></p>
-                    </div>
-                </div>
-            </div>
 
 
 

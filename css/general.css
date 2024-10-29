@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap");
 :root {
     --spacing-xxsmall: 0.4rem; /*4px*/
     --spacing-xsmall: 0.8rem;
@@ -84,6 +86,7 @@
     --color-error900: #66000f;
     --color-error1000: #4c000c;
 }
+
 
 * {
     margin: 0;

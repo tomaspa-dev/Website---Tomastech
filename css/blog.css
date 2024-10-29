@@ -210,6 +210,12 @@ footer {
     .stadistics-numbers {
         width: 25rem;
     }
+
+    /* HEADER */
+    .main-nav-list {
+        gap: var(--spacing-small);
+    }
+
 }
 
 /*******************************/

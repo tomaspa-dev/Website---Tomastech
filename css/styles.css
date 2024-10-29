@@ -262,7 +262,7 @@
 
 .grid-hero {
     gap: var(--spacing-large);
-    grid-template-columns:  60rem 1fr;
+    grid-template-columns:  65rem 1fr;
     align-items: flex-end;
 }
 
