@@ -114,7 +114,6 @@
 .gallery-section {
     width: 100%;
     height: 100%;
-
 }
 
 .slider-images img,
@@ -144,7 +143,7 @@
     height: 100%;
 }
 
-.img {
+.imgbox {
     position: absolute;
     width: 100%;
     height: 100%;
