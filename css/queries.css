@@ -284,32 +284,6 @@
         justify-items: start;
         row-gap: var(--spacing-small);
     }    
-
-    /* WORK SECTION */
-    /** carousel video **/
-    .carousel-container {
-        width: minmax(540px, 100%);
-        height: 400px; /* Ajusta la altura */
-    }
-
-    .video-card {
-        width: minmax(440px, 75%);
-    }
-
-    .video-card video {
-        /* width: minmax(350px, 100%); */
-    
-        height: 340px; 
-    }
-
-    .video-text {
-        top: 65%; /* Cambia la posición del texto */
-        font-size: 1.2rem; /* Reduce el tamaño de la fuente */
-        padding: var(--spacing-medium);
-    }
-    
-
-
 }
 
 /*******************************/
@@ -379,18 +353,6 @@
         font-size: 6.2rem;
     }
 
-    /** 3D model **/
-    .phones-container {
-        position: relative;
-        width: 400px;
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: transparent;
-        margin: 0 auto; /* Para centrar el contenedor */
-        cursor: grab; /* Establecer el cursor inicial */
-    }
 
     /** Samsung phone **/
     .flex-video {
@@ -459,23 +421,9 @@
     }
 
     /* WORK SECTION */
-    /** carousel video **/
-    .carousel-container {
-        width: minmax(340px, 100%);
-        height: 315px;
-    }
-
-    .video-card {
-        width: minmax(280px, 75%);
-    }
-
-    .video-card video {
-        height: 240px; 
-    }
-
-    .video-text {
-        top: 60%; 
-        font-size: 1rem;
-        padding: var(--spacing-small);
+    /** gallery **/
+    .stadistics-work {
+        grid-template-columns: 1fr;
+        justify-items: center;
     }
 }

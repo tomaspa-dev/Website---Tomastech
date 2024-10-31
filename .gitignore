@@ -1,1 +1,43 @@
+# Markdown
 dots.md
+
+# Dependencias de Node.js
+/node_modules/
+package-lock.json
+
+# Archivos y carpetas de Cypress
+/cypress/
+cypress.config.js
+cypress.env.json
+
+# Configuraciones del entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de logs y de errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Carpetas de caché y temporales
+/.cache
+/.temp
+
+# Configuración de compilación y salida
+/build
+/dist
+/out
+.vscode/
+
+# Configuración de coverage y de pruebas
+coverage/
+*.lcov
+
+# Otros archivos de configuración específicos del sistema
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
