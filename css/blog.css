@@ -41,9 +41,6 @@
     background-color: #f9f9f9;
 }
 
-
-
-
 /* BLOG */
 /* Estilos generales */
 body {
@@ -122,7 +119,6 @@ footer {
     padding-top: 20px;
 }
 
-
 #comment-form {
     display: flex;
     flex-direction: column;
@@ -146,10 +142,6 @@ footer {
 #comment-form button:hover {
     background-color: #555;
 }
-
-
-
-
 
 /*******************************/
 /* BELOW 1200px (Landscape Tablets)*/

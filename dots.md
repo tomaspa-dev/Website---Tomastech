@@ -163,3 +163,8 @@ More than 50% of the world’s Internet traffic comes from mobile devices. If yo
 
 CMS development
 Our web development services also enable you to implement your very own custom CMS. Our team will work with you to understand your needs and goals to develop a CMS that does everything you need, is user-friendly, and helps you efficiently manage your content in a way that works for you and your team.
+
+
+<source media="(min-width: 413px) and (max-width: 616px)" srcset="img/perfil-1-wide.webp">
+
+<source media= "(max-width: 320px)" srcset="img/perfil-1-wide.webp">
