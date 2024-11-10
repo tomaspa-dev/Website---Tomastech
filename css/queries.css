@@ -6,36 +6,16 @@
         /* 9px / 16px*/
         font-size: 56.25%;
     }
-
-    /* HEADER */
-    .main-nav-list {
-        gap: var(--spacing-large);
-    }
-
     /* HERO-SECTION */
-    .grid-hero {
-        grid-template-columns: 50rem 1fr;
-    }
-
-    .hero-container-text {
-        padding: var(--spacing-large) 0;
-        padding-left: var(--spacing-xl);
-    }
-
-    .text-10xl {
-        font-size: 6.2rem;
-        font-weight: 700;
-    }
-
-    .text-9xl {
-        font-size: 5.2rem;
-        font-weight: 700;
-    }
-
     /** General button styles **/
     .btn:link,
     .btn:visited {
         font-size: 1.8rem;
+    }
+
+    .btn--header:link,
+    .btn--header:visited {
+        font-size: 6.2rem;
     }
 
     /* ABOUT SECTION */
@@ -83,7 +63,6 @@
         margin-left: 1.6rem;
     }
 }
-
 /*******************************/
 /* BELOW 944px (Tablets)*/
 /*******************************/
@@ -92,39 +71,26 @@
         /* 8px / 16px = 0.5 */
         font-size: 50%;
     }
-    
     /* HEADER */
-    .main-nav-header {
-        display: none;
+    .title-row {
+        height: 30px;
     }
     
-    .sidebar-toggle {
-        display: block; 
-    }    
+    .title-second {
+        height: 30px;
+        margin-bottom: var(--spacing-medium);
+    }
+    
+    .main-text {
+        height: 26px;
+    }
 
+    .link {
+        margin-top: var(--spacing-small);
+    }
     /* HERO-SECTION */
-    .grid-hero {
-        grid-template-columns: 1fr 1fr;
-        padding: var(--spacing-xsmall);
-        justify-items: center;
-        column-gap: var(--spacing-xxsmall);
-    }
-
-    .hero-section {
-        padding-top: var(--spacing-xl);
-    }
-
-    .hero-container-text {
-        padding: 0;
-    }
-
-    .text-10xl {
-        font-size: 5.2rem;
-        font-weight: 700;
-    }
-
     .text-9xl {
-        font-size: 4.2rem;
+        font-size: 4.8rem;
         font-weight: 700;
     }
 
@@ -147,7 +113,6 @@
     .flex-tag {
         gap: 0.2rem;
     }
-
     /** General button styles **/
     .btn:link,
     .btn:visited {
@@ -155,6 +120,10 @@
         padding: var(--spacing-small) var(--spacing-xsmall);
     }
 
+    .btn--header:link,
+    .btn--header:visited {
+        font-size: 5.2rem;
+    }
     /* FOOTER SECTION */
     .grid--footer {
         grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
@@ -170,7 +139,6 @@
     .resources-col {
         grid-row: 2;
     }
-
     /* ABOUT SECTION */
     /* team */
     .flex-card-about {
@@ -193,7 +161,6 @@
     .stadistics-numbers {
         width: 25rem;
     }
-
     /* OUR SERVICES SECTION */
     /** Samsung phone **/
     .flex-video {
@@ -285,11 +252,19 @@
         row-gap: var(--spacing-small);
     }    
 }
-
 /*******************************/
 /* BELOW 644px (Smartphones)*/
 /*******************************/
 @media (max-width: 40.25rem) {
+    .text-9xl {
+        font-size: 4.2rem;
+        font-weight: 700;
+    }
+
+    .text-5xl {
+        font-size: 2.8rem;
+    }
+
     .text-4xl {
         font-size: 1.8rem;
     }
@@ -299,33 +274,43 @@
     }
 
     /* HEADER */
+    .title-row {
+        height: 30px;
+    }
+    
+    .title-second {
+        height: 25px;
+    }
+    
+    .main-text {
+        height: 26px;
+    }
+
     .logo {
         height: 3.0rem;
     }
 
     .header {
-        padding: var(--spacing-small) var(--spacing-3xl);
-        padding-top: var(--spacing-medium);
+        padding: var(--spacing-small) var(--spacing-xl);
     }
 
+    .menu-container {
+        padding-left: 2rem;
+    }
+
+    .menu-item a {
+        font-size: 3.6rem;
+    }
+
+    .btn--header:link,
+    .btn--header:visited {
+        font-size: 3.2rem;
+    }
     /* HERO SECTION */
-    .grid-hero {
-        grid-template-columns: 1fr;
+    .story-content {
+        width: 100%;
+        padding: 8rem 2rem 4rem;
     }
-
-    .hero-section {
-        padding-top: var(--spacing-2xl);
-    }
-
-    .main-heading {
-        text-align: center;
-    }
-
-    .main-buttons {
-        justify-content: center;
-
-    }
-
     /* OUR SERVICES SECTION */
     .services-info {
         display: grid;
@@ -352,19 +337,15 @@
     .phote-title {
         font-size: 6.2rem;
     }
-
-
     /** Samsung phone **/
     .flex-video {
         grid-template-columns: 250px;
         gap: var(--spacing-4xl);
     }
-
     /* BLOG SECTION */
     .blog-container {
         grid-template-columns: 1fr;
     }
-
     /* ABOUT SECTION */
     /* team */
     .flex-card-about {
@@ -382,7 +363,6 @@
     .stadistics-numbers {
         width: 35rem;
     }
-
     /* CONTACT SECTION */
     .contact-icons {
         display: flex;
@@ -395,7 +375,6 @@
         left: 25%;
         transform: translateX(-50%);
     }
-
     /* FOOTER SECTION */
     .grid--footer {
         grid-template-columns: repeat(1, 1.5fr) repeat(3, 1fr);
@@ -412,14 +391,12 @@
     .resources-col {
         grid-row: 1;
     }
-
     /* FAQ SECTION */
     .faq-illustration {
         width: 35rem;
         height: auto;
         transform: translateY(-10px);
     }
-
     /* WORK SECTION */
     /** gallery **/
     .stadistics-work {

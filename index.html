@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/favicon.ico" />
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/gallery.css">
@@ -39,155 +40,162 @@
     <meta content="261" property="twitter:image:height" />
     <meta name="twitter:image:alt"
         content="tomastech web developer freelance specialize in professional website design, landing pages, custom website development, corporate websites." />
-
     <link rel="canonical" href="https://tomastech.dev" />
     <link rel="home" href="https://tomastech.dev" />
     <link type="text/plain" href="https://tomastech.dev/humans.txt" rel="author" />
+    <script rel="preconnect" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script defer src="/js/script.js"></script>
     <script src="/js/gallery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js">
-    </script>
-    <script rel="preconnect" src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js">
-    </script>
-    <!-- Three.js primero -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <!-- GLTFLoader -->
+    <script src="/js/menu.js"></script>
+    <script type="module" src="/js/panel.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-
-    <!-- OrbitControls -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script> -->
 </head>
 
 <body>
-    <header class="header">
-        <div class="main-nav-logo">
-            <a href="#"><img class="logo" src="/img/logo-light.webp"
-                    alt="Tomastech Professional Website Design California"></a>
-        </div>
+    <section class="herogsap-section">
+        <div class="container-gsap">
+            <header class="header sticky-header">
+                <div class="main-nav-logo">
+                    <a href="#">
+                        <img class="logo" src="/img/logo-light.webp"
+                            alt="Tomastech Professional Website Design California">
+                    </a>
+                </div>
 
-        <!-- Icono para abrir la barra lateral -->
-        <div class="flex-burguer">
-            <div class="sidebar-toggle" onclick="toggleSidebar()">
-                <span class="icon-horizontal"></span>
-                <span class="icon-vertical"></span>
-            </div>
-        </div>
-
-        <nav class="main-nav-header">
-            <ul class="main-nav-list">
-                <li><a class="main-nav-link" href="#">Home</a></li>
-                <li><a class="main-nav-link" href="#services">Services</a></li>
-                <li><a class="main-nav-link" href="#work">Work</a></li>
-                <li><a class="main-nav-link" href="#about">About</a></li>
-                <li><a class="main-nav-link" href="/blogs">Blog</a></li>
-                <li><a class="main-nav-link nav-cta btn-anim" href="#cta">Start project<span></span></a></li>
-            </ul>
-        </nav>
-
-        <!-- Barra lateral -->
-        <div id="sidebar" class="sidebar">
-            <a href="#" class="closebtn" onclick="closeSidebar(); return false;" aria-label="Cerrar Sidebar">&times;</a>
-            <a href="#">Home</a>
-            <a href="#services">Services</a>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="/blogs">Blog</a>
-            <a href="#cta">Start project</a>
-        </div>
-    </header>
-
-    <section class="hero-section padding-top">
-        <div class="container">
-            <div class="grid grid--2--cols grid-hero">
-                <div class="hero-container-text gsap">
-                    <h1 class="text-9xl heading-primary main-heading"><strong><span class="line-break">Web innovation
-                                for</span>
-                            <span class="line-break">companies that </span><span class="line-break">want to
-                                <span class="strong-degraded">stan<span class="letter">d</span> <span
-                                        class="letter">o</span>ut</span></span></strong></h1>
-                    <p class="main-description text-2xl text-description">Specializing in developing websites that not
-                        only
-                        look amazing but also perform perfectly to achieve your business goals.</p>
-
-                    <div class="flex main-buttons">
-                        <a class="btn btn--full" href="#cta">Start project
-                        </a>
-                        <a class="btn btn--outline" href="#services">Explore services</a>
-                    </div>
-
-                    <div class="flex flex-numbers">
-                        <div>
-                            <p class="text-6xl box-number incremental-number"><span id="number2">20</span>+</p>
-                            <p class="text-small box-description">Projects</p>
-                        </div>
-
-                        <div>
-                            <p class="text-6xl box-number incremental-number"><span id="number3">10</span>+</p>
-                            <p class="text-small box-description">Satisfied Clients</p>
-                        </div>
-                        <div>
-                            <p class="text-6xl box-number incremental-number"><span id="number1">2</span>+</p>
-                            <p class="text-small box-description">Years Exp.</p>
+                <div class="flex-burguer">
+                    <div class="btnn" id="toggle-btn">
+                        <div class="btn-outline btn-outline-1"></div>
+                        <div class="btn-outline btn-outline-2"></div>
+                        <div id="hamburger">
+                            <span></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="hero-img-container gsap">
-                    <figure>
-                        <video title="Professional Website Design" autoplay muted loop playsinline width="100%"
-                            id="bg-video" aria-hidden="true">
-                            <source src="video/professional-website-design.webm" type="video/webm">
-                            Tu navegador no soporta el video.
-                        </video>
-                        <figcaption class="label-video-intro">Professional Website Design LA</figcaption>
-                    </figure>
+            </header>
 
-                    <div class="flex flex-tag margin-bottom-xsmall">
-                        <div class="tag effect-hover text-xsmall">
-                            <span title="Landing Pages">Landing Pages</span>
-                        </div>
-                        <div class="tag effect-hover text-xsmall">
-                            <span title="Corporative Sites">Corporative Sites</span>
-                        </div>
-                        <div class="tag effect-hover text-xsmall">
-                            <span title="Custom Websites">Custom Websites</span>
-                        </div>
-                    </div>
 
-                    <div class="flex flex-tag">
-                        <div class="tag text-xsmall">
-                            <span title="E-Commerce">E-Commerce</span>
+            <div class="cursor">
+                <p></p>
+            </div>
+            <div class="story-img">
+                <div class="imgstory"><img src="/img/design1.webp" alt="Design Web Agency California"></div>
+            </div>
+
+            <div class="story-content">
+                <div class="row">
+                    <div class="indices">
+                        <div class="index">
+                            <div class="index-highlight"></div>
                         </div>
-                        <div class="tag text-xsmall">
-                            <span title="WordPress">WordPress</span>
+                        <div class="index">
+                            <div class="index-highlight"></div>
                         </div>
-                        <div class="tag text-xsmall">
-                            <span title="Webflow">Webflow</span>
+                        <div class="index">
+                            <div class="index-highlight"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="main-title">
+                        <div class="title-row margin-bottom-xsmall">
+                            <h1 class="font text-9xl main-title-text">Web innovation</h1>
+                        </div>
+                        <div class="title-second margin-bottom-xsmall">
+                            <h2 class="font text-5xl">to stand out</h2>
+                        </div>
+                        <div class="main-text margin-bottom-xsmall">
+                            <p class="font main-description text-2xl text-description">The digital innovation you need
+                                to
+                                stand out in a competitive landscape.</p>
+                        </div>
 
-        <!-- Background shapes -->
-        <div class="background-shapes">
-            <div class="shape shape1"></div>
-            <div class="shape shape2"></div>
+                        <div class="link">
+                            <a class="btn btn--full" href="/#cta">Start project</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
+    <div class="menu-overlay">
+        <div class="work">
+            <div class="overlay">
+                <div class="prev" id="prev-1">
+                    <video autoplay muted loop playsinline aria-hidden="true">
+                        <source src="video/corporate-websites-agency.webm" type="video/webm">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+                <div class="prev" id="prev-2">
+                    <video autoplay muted loop playsinline aria-hidden="true">
+                        <source src="video/work-freelance-remote.webm" type="video/webm">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+                <div class="prev" id="prev-3">
+                    <video autoplay muted loop playsinline aria-hidden="true">
+                        <source src="video/corporate-websites-agency.webm" type="video/webm">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+
+                <div class="prev" id="prev-4">
+                    <video autoplay muted loop playsinline aria-hidden="true">
+                        <source src="video/freelancer-web-california.webm" type="video/webm">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+
+                <div class="prev" id="prev-5">
+                    <video autoplay muted loop playsinline aria-hidden="true">
+                        <source src="video/web-developer-usa.webm" type="video/webm">
+                        Tu navegador no soporta el video.
+                    </video>
+                </div>
+
+            </div>
+
+            <div class="menu-container">
+                <div class="menu-item">
+                    <a href="#">Home</a>
+                </div>
+                <div class="menu-item">
+                    <a href="#services">Services</a>
+                </div>
+                <div class="menu-item">
+                    <a href="#work">Work</a>
+                </div>
+                <div class="menu-item">
+                    <a href="#blog">Blog</a>
+                </div>
+                <div class="menu-item">
+                    <a href="#about">About</a>
+                </div>
+                <div class="menu-item">
+                    <a class="btn btn--full btn--header" href="#cta">Start Project</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
     <section class="services-section" id="services">
         <div class="container">
-            <h2 class="text-5xl center heading-primary sub-heading gsap">Our Services</h2>
+            <h2 class="font text-5xl center heading-primary sub-heading gsap">Our Services</h2>
 
-            <div class="flex services-container-text gsap">
+            <div class="font flex services-container-text gsap">
                 <div>
-                    <div class="description-text text-description">
+                    <div class="font description-text text-description">
                         <p class="margin-bottom-large">We create custom and optimized web solutions for your
-                            business.<span class="text-3xl"> Responsive, Attractive, Custom.</span>
+                            business.<span class="font text-3xl"> Responsive, Attractive, Custom.</span>
                         </p>
                         <a class="btn btn--outline btn-secondary" href="#cta">Get Started</a>
                     </div>
@@ -199,26 +207,28 @@
                     <div class="service-block gsap">
                         <div class="line"></div>
                         <div>
-                            <h3 class="title text-4xl">Web Development</h3>
-                            <p class="sub-title margin-bottom-small">Fast, Secure, Custom</p>
-                            <p class="text-services text-medium">We build fast, secure, and custom websites.</p>
+                            <h3 class="font title text-4xl">Web Development</h3>
+                            <p class="font sub-title margin-bottom-small">Fast, Secure, Custom</p>
+                            <p class="font text-services text-medium">We build fast, secure, and custom websites.</p>
                         </div>
                     </div>
                     <div class="service-block gsap">
                         <div class="line"></div>
                         <div>
-                            <h3 class="title text-4xl">Web Design</h3>
-                            <p class="sub-title margin-bottom-small">Stunning, Optimized</p>
-                            <p class="text-services text-medium">We design visually stunning, functional, and optimized
+                            <h3 class="font title text-4xl">Web Design</h3>
+                            <p class="font sub-title margin-bottom-small">Stunning, Optimized</p>
+                            <p class="font text-services text-medium">We design visually stunning, functional, and
+                                optimized
                                 websites.</p>
                         </div>
                     </div>
                     <div class="service-block gsap">
                         <div class="line"></div>
                         <div>
-                            <h3 class="title text-4xl">Technical Seo</h3>
-                            <p class="sub-title margin-bottom-small">Visible, Relevant, Useful</p>
-                            <p class="text-services text-medium">Boost your online presence with SEO strategies that
+                            <h3 class="font title text-4xl">Technical Seo</h3>
+                            <p class="font sub-title margin-bottom-small">Visible, Relevant, Useful</p>
+                            <p class="font text-services text-medium">Boost your online presence with SEO strategies
+                                that
                                 increase your
                                 visibility.</p>
                         </div>
@@ -231,56 +241,61 @@
                     <div class="stack-item" id="stack-item-1">
                         <div class="flex flex-video margin-bottom-6xl">
                             <div class="gsap flex-">
-                                <div class="phone-title">Web Design</div>
+                                <div class="font phone-title">Web Design</div>
                                 <div class="line-container-design">
                                     <div class="line-container-dot"></div>
                                     <div class="flex-line"></div>
                                 </div>
 
                                 <div class="service-container">
-                                    <div class="text-services text-medium margin-bottom-large">We create visually
+                                    <div class="font text-services text-medium margin-bottom-large">We create visually
                                         stunning
-                                        websites that captivate users, combining aesthetics with functionality to ensure
+                                        websites that captivate users, combining aesthetics with functionality to
+                                        ensure
                                         seamless navigation and engagement.
                                     </div>
 
-                                    <div class="text-services text-medium margin-bottom-4xl">
+                                    <div class="font text-services text-medium margin-bottom-4xl">
 
-                                        <h3 class="phone-heading margin-bottom-large">Stunning, Functional, Optimized
+                                        <h3 class="font phone-heading margin-bottom-large">Stunning, Functional,
+                                            Optimized
                                         </h3>
 
                                         <ul class="good-list margin-bottom-large" aria-hidden="true">
                                             <li class="list-elements">
-                                                <div class="circle-backg" aria-hidden="true"><span class="check"></span>
+                                                <div class="circle-backg" aria-hidden="true"><span
+                                                        class="icon check"></span>
                                                 </div>
                                                 <span>Visually stunning designs attract users.</span>
                                             </li>
                                             <li class="list-elements">
-                                                <div class="circle-backg" aria-hidden="true"><span class="check"></span>
+                                                <div class="circle-backg" aria-hidden="true"><span
+                                                        class="icon check"></span>
                                                 </div>
                                                 <span>Enhanced user experience (UX)</span>
                                             </li>
                                             <li class="list-elements">
-                                                <div class="circle-backg" aria-hidden="true"><span class="check"></span>
+                                                <div class="circle-backg" aria-hidden="true"><span
+                                                        class="icon check"></span>
                                                 </div>
                                                 <span>Responsive across all devices.</span>
                                             </li>
-                                            <h3 class="phone-heading margin-top-small">
+                                            <h3 class="font phone-heading margin-top-small">
                                                 Generic Website
                                             </h3>
                                             <li class="list-elements">
-                                                <div class="circle-ex"><span class="cross"></span>
+                                                <div class="circle-ex"><span class="icon cross"></span>
                                                 </div><span>Poor first
                                                     impression with users.</span>
                                             </li>
                                             <li class="list-elements">
-                                                <div class="circle-ex"><span class="cross"></span>
+                                                <div class="circle-ex"><span class="icon cross"></span>
                                                 </div><span>Slow
                                                     loading
                                                     times drive users away.</span>
                                             </li>
                                             <li class="list-elements">
-                                                <div class="circle-ex"><span class="cross"></span>
+                                                <div class="circle-ex"><span class="icon cross"></span>
                                                 </div><span>Lack of
                                                     user
                                                     engagement.</span>
@@ -322,14 +337,15 @@
                             </div>
 
                             <div class="gsap flex-">
-                                <div class="phone-title">Web Development</div>
+                                <div class="font phone-title">Web Development</div>
                                 <div class="line-container">
                                     <div class="line-container-dot"></div>
                                     <div class="flex-line"></div>
                                 </div>
 
                                 <div class="service-container">
-                                    <div class="text-services text-medium margin-bottom-large">We specialize in building
+                                    <div class="font text-services text-medium margin-bottom-large">We specialize in
+                                        building
                                         fast,
                                         secure, and custom
                                         websites from
@@ -339,32 +355,34 @@
                                     <div class="carousel-wrapper">
                                         <div class="carousel-container">
                                             <div
-                                                class="text-services text-medium margin-bottom-4xl carousel-slide active">
+                                                class="font text-services text-medium margin-bottom-4xl carousel-slide active">
 
-                                                <h3 class="phone-heading margin-bottom-large">Fast: Lightning-Fast Load
+                                                <h3 class="font phone-heading margin-bottom-large">Fast: Lightning-Fast
+                                                    Load
                                                     Times
                                                 </h3>
 
                                                 <ul class="good-list margin-bottom-large" aria-hidden="true">
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Improves
                                                             user
                                                             experience.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Ranks
                                                             higher
                                                             in search engines.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Increasing
                                                             visibility.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div><span>A
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
+                                                        <span>A
                                                             slow
                                                             website
                                                             means losing visitors.</span>
@@ -379,46 +397,46 @@
                                             </div>
 
 
-                                            <div class="text-services text-medium carousel-slide">
-                                                <h3 class="phone-heading margin-bottom-large">Secure: Built with
+                                            <div class="font text-services text-medium carousel-slide">
+                                                <h3 class="font phone-heading margin-bottom-large">Secure: Built with
                                                     Security in
                                                     Mind
                                                 </h3>
 
                                                 <ul class="good-list margin-bottom-xl" aria-hidden="true">
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>SSL
                                                             encryption for safe browsing.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Security
                                                             features
                                                             into every website.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Prevents
                                                             malicious data entry the website.</span>
                                                     </li>
-                                                    <h3 class="phone-heading margin-top-small">Not Secure Website
+                                                    <h3 class="font phone-heading margin-top-small">Not Secure Website
                                                     </h3>
 
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Lack
                                                             of
                                                             trust
                                                             from users.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Vulnerability
                                                             to cyber-attacks.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Sensitive
                                                             user
                                                             data can be stolen.</span>
@@ -426,42 +444,42 @@
                                                 </ul>
                                             </div>
 
-                                            <div class="text-services text-medium carousel-slide">
-                                                <h3 class="phone-heading margin-bottom-large">
+                                            <div class="font text-services text-medium carousel-slide">
+                                                <h3 class="font phone-heading margin-bottom-large">
                                                     Custom: Tailored to Your Needs
                                                 </h3>
 
                                                 <ul class="good-list margin-bottom-xl" aria-hidden="true">
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Differentiates you from competitors.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Better
                                                             performance and speed optimization.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-backg"><span class="check"></span></div>
+                                                        <div class="circle-backg"><span class="icon check"></span></div>
                                                         <span>Increased
                                                             flexibility for adding features.</span>
                                                     </li>
-                                                    <h3 class="phone-heading margin-top-small">
+                                                    <h3 class="font phone-heading margin-top-small">
                                                         Generic Website
                                                     </h3>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Generic
                                                             design
                                                             that doesn’t stand out.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Limited to
                                                             pre-made templates.</span>
                                                     </li>
                                                     <li class="list-elements">
-                                                        <div class="circle-ex"><span class="cross"></span></div>
+                                                        <div class="circle-ex"><span class="icon cross"></span></div>
                                                         <span>Difficult
                                                             to
                                                             scale or update over time.</span>
@@ -472,14 +490,14 @@
 
                                         <!-- Controles del Carrusel -->
                                         <div class="carousel-controls">
-                                            <button class="left-arrow icon--circle-left"
+                                            <button class="icon left-arrow icon--circle-left"
                                                 aria-label="Desplazar a la izquierda"></button>
                                             <div class="dots-container">
                                                 <span class="dot active"></span>
                                                 <span class="dot"></span>
                                                 <span class="dot"></span>
                                             </div>
-                                            <button class="right-arrow icon--circle-right"
+                                            <button class="icon right-arrow icon--circle-right"
                                                 aria-label="Desplazar a la derecha"></button>
                                         </div>
                                     </div>
@@ -495,43 +513,44 @@
 
     <section class="pricing-section margin-top margin-bottom-4xl" id="pricing">
         <div class="container">
-            <h2 class="text-5xl heading-primary sub-heading gsap">Pricing</h2>
+            <h2 class="font text-5xl heading-primary sub-heading gsap">Pricing</h2>
 
             <div class="pricing-container">
                 <!-- Basic Plan -->
                 <div class="card-pricing basic-plan gsap">
-                    <h3 class="text-4xl pricing-title margin-bottom-large">Basic Plan</h3>
-                    <p class="text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
-                    <p class="text-6xl pricing-cost">$1500<span> /month</span></p>
-                    <p class="pricing-description text-small">Perfect for small businesses that need a functional and
+                    <h3 class="font text-4xl pricing-title margin-bottom-large">Basic Plan</h3>
+                    <p class="font text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
+                    <p class="font text-6xl pricing-cost">$1500<span> /month</span></p>
+                    <p class="font pricing-description text-small">Perfect for small businesses that need a functional
+                        and
                         efficient online presence.</p>
                     <a class="btn pricing-button" href="#">Get started</a>
                     <div class="separator">
                         <span class="separator-text">What you will get</span>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="font pricing-features">
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Responsive design</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Basic SEO optimization</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Up to 3 pages</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Landing Pages, Corporate Websites</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Contact form integration</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>1 revision included</p>
                         </li>
                     </ul>
@@ -539,43 +558,44 @@
 
                 <!-- Professional Plan -->
                 <div class="card-pricing professional-plan gsap">
-                    <h3 class="text-4xl pricing-title">Professional Plan</h3>
-                    <p class="text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
-                    <p class="text-6xl pricing-cost">$2500<span> /month</span></p>
-                    <p class="pricing-description text-small">Designed for growing businesses that need a custom website
+                    <h3 class="font text-4xl pricing-title">Professional Plan</h3>
+                    <p class="font text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
+                    <p class="font text-6xl pricing-cost">$2500<span> /month</span></p>
+                    <p class="font pricing-description text-small">Designed for growing businesses that need a custom
+                        website
                         with advanced features.</p>
                     <a class="btn pricing-button highlighted" href="#">Get started</a>
                     <div class="separator">
                         <span class="separator-text">What you will get</span>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="font pricing-features">
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>Custom design</p>
                         </li>
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>Advanced SEO features</p>
                         </li>
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>Up to 5 pages</p>
                         </li>
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>Blog setup</p>
                         </li>
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>E-commerce integration</p>
                         </li>
                         <li>
-                            <div class="circle-pricing highlighted"><span class="check"></span>
+                            <div class="circle-pricing highlighted"><span class="icon check"></span>
                             </div>
                             <p>3 revisions included</p>
                         </li>
@@ -584,39 +604,39 @@
 
                 <!-- Enterprise Plan -->
                 <div class="card-pricing enterprise-plan gsap">
-                    <h3 class="text-4xl pricing-title">Enterprise Plan</h3>
-                    <p class="text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
-                    <p class="text-6xl pricing-cost">Custom</p>
-                    <p class="pricing-description text-small">Perfect for large organizations that
+                    <h3 class="font text-4xl pricing-title">Enterprise Plan</h3>
+                    <p class="font text-super text-xsmall text-description">(*) Taxes not included / Starts at</p>
+                    <p class="font text-6xl pricing-cost">Custom</p>
+                    <p class="font pricing-description text-small">Perfect for large organizations that
                         require a robust
                         website with complex integrations.</p>
                     <a class="btn pricing-button" href="#">Get started</a>
                     <div class="separator">
                         <span class="separator-text">What you will get</span>
                     </div>
-                    <ul class="pricing-features">
+                    <ul class="font pricing-features">
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Complex integrations</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Advanced SEO features</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Custom pages</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Blog setup</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>Custom Websites</p>
                         </li>
                         <li>
-                            <div class="circle-pricing"><span class="check"></span></div>
+                            <div class="circle-pricing"><span class="icon check"></span></div>
                             <p>5 revisions included</p>
                         </li>
                     </ul>
@@ -628,18 +648,20 @@
 
     <section class="faq-section" id="faq">
         <div class="container">
-            <h2 class="text-5xl heading-primary center margin-bottom-large gsap">FAQ</h2>
+            <h2 class="font text-5xl heading-primary center margin-bottom-large gsap">FAQ</h2>
 
             <div class="grid grid-heading-secondary gsap">
-                <p class="text-medium text-primary grid-text">At our web development company, we pride ourselves on
-                    delivering customized and effective solutions for our clients. We understand that each project is
+                <p class="font text-medium text-primary grid-text">At our web development company, we pride ourselves on
+                    delivering customized and effective solutions for our clients. We understand that each project
+                    is
                     unique, and we're here to answer all your questions.</p>
             </div>
 
             <div class="grid grid--2--cols grid-faq gsap">
                 <div class="faq-video-box">
-                    <h3 class="text-3xl subheading-primary margin-bottom-large">Have a question?</h3>
-                    <p class="text-medium text-primary grid-text">If you don't find the answer you're looking for, feel
+                    <h3 class="font text-3xl subheading-primary margin-bottom-large">Have a question?</h3>
+                    <p class="font text-medium text-primary grid-text">If you don't find the answer you're looking for,
+                        feel
                         free to reach out to us. We're here to help.
                     </p>
                     <div class="video-faq">
@@ -654,7 +676,7 @@
                                     Guba</a>
                                 from <a href="https://icons8.com/illustrations">Ouch!</a>
                             </div> -->
-                            <figcaption class="label-video-faq">Web Design Agency Usa</figcaption>
+                            <figcaption class="font label-video-faq">Web Design Agency Usa</figcaption>
                         </figure>
                     </div>
 
@@ -664,14 +686,17 @@
                     <div class="faq-item margin-bottom-large">
                         <input type="checkbox" id="faq1" class="faq-input">
                         <label for="faq1" class="faq-title">
-                            <span class="text-4xl text-faq">01 </span>
-                            <h3 class="text-2xl text-faq grid-text">How long does it take to complete a web development
+                            <span class="font text-4xl text-faq">01 </span>
+                            <h3 class="font text-2xl text-faq grid-text">How long does it take to complete a web
+                                development
                                 project?</h3>
-                            <div class="faq-toggle text-4xl">+</div>
+                            <div class="font faq-toggle text-4xl">+</div>
                         </label>
-                        <div class="faq-content text-small text-primary grid-text margin-left-xl">
-                            <p>The timeline varies depending on the complexity of the project, but on average a website
-                                can take between 4 to 12 weeks to complete. This includes planning, design, development,
+                        <div class="font faq-content text-small text-primary grid-text margin-left-xl">
+                            <p>The timeline varies depending on the complexity of the project, but on average a
+                                website
+                                can take between 4 to 12 weeks to complete. This includes planning, design,
+                                development,
                                 and testing phases.</p>
                         </div>
                     </div>
@@ -679,12 +704,12 @@
                     <div class="faq-item margin-bottom-large">
                         <input type="checkbox" id="faq2" class="faq-input">
                         <label for="faq2" class="faq-title">
-                            <span class="text-4xl text-faq">02 </span>
-                            <h3 class="text-2xl text-faq grid-text">What kind of technologies do you use for web
+                            <span class="font text-4xl text-faq">02 </span>
+                            <h3 class="font text-2xl text-faq grid-text">What kind of technologies do you use for web
                                 development?</h3>
-                            <div class="faq-toggle text-4xl">+</div>
+                            <div class="font faq-toggle text-4xl">+</div>
                         </label>
-                        <div class="faq-content text-small text-primary grid-text margin-left-xl">
+                        <div class="font faq-content text-small text-primary grid-text margin-left-xl">
                             <p>We use modern technologies such as HTML5, CSS3, JavaScript, frameworks like React or
                                 Vue.js, and back-end with Node.js, PHP, or Python, depending on the project
                                 requirements.</p>
@@ -694,27 +719,30 @@
                     <div class="faq-item margin-bottom-large">
                         <input type="checkbox" id="faq3" class="faq-input">
                         <label for="faq3" class="faq-title">
-                            <span class="text-4xl text-faq">03 </span>
-                            <h3 class="text-2xl text-faq grid-text">Do you offer support and maintenance after the
+                            <span class="font text-4xl text-faq">03 </span>
+                            <h3 class="font text-2xl text-faq grid-text">Do you offer support and maintenance after the
                                 website launch?</h3>
-                            <div class="faq-toggle text-4xl">+</div>
+                            <div class="font faq-toggle text-4xl">+</div>
                         </label>
-                        <div class="faq-content text-small text-primary grid-text margin-left-xl">
+                        <div class="font faq-content text-small text-primary grid-text margin-left-xl">
                             <p>Yes, we offer support and maintenance packages to ensure your website continues to
-                                function smoothly after launch. This includes updates, bug fixes, and optimizations.</p>
+                                function smoothly after launch. This includes updates, bug fixes, and optimizations.
+                            </p>
                         </div>
                     </div>
 
                     <div class="faq-item margin-bottom-large">
                         <input type="checkbox" id="faq4" class="faq-input">
                         <label for="faq4" class="faq-title">
-                            <span class="text-4xl text-faq">04 </span>
-                            <h3 class="text-2xl text-faq grid-text">Will the website be optimized for mobile devices?
+                            <span class="font text-4xl text-faq">04 </span>
+                            <h3 class="font text-2xl text-faq grid-text">Will the website be optimized for mobile
+                                devices?
                             </h3>
-                            <div class="faq-toggle text-4xl">+</div>
+                            <div class="font faq-toggle text-4xl">+</div>
                         </label>
-                        <div class="faq-content text-small text-primary grid-text margin-left-xl">
-                            <p>Yes, all of our websites are designed to be fully responsive, meaning they will look and
+                        <div class="font faq-content text-small text-primary grid-text margin-left-xl">
+                            <p>Yes, all of our websites are designed to be fully responsive, meaning they will look
+                                and
                                 work great on mobile devices, tablets, and desktops.</p>
                         </div>
                     </div>
@@ -722,13 +750,14 @@
                     <div class="faq-item margin-bottom-large">
                         <input type="checkbox" id="faq5" class="faq-input">
                         <label for="faq5" class="faq-title">
-                            <span class="text-4xl text-faq">05 </span>
-                            <h3 class="text-2xl text-faq grid-text">Can you integrate my website with other tools or
+                            <span class="font text-4xl text-faq">05 </span>
+                            <h3 class="font text-2xl text-faq grid-text">Can you integrate my website with other tools
+                                or
                                 platforms?
                             </h3>
-                            <div class="faq-toggle text-4xl">+</div>
+                            <div class="font faq-toggle text-4xl">+</div>
                         </label>
-                        <div class="faq-content text-small text-primary grid-text margin-left-xl">
+                        <div class="font faq-content text-small text-primary grid-text margin-left-xl">
                             <p>Yes, we can integrate your website with external tools such as CRM systems, payment
                                 platforms, content management systems (CMS), and more to enhance functionality.</p>
                         </div>
@@ -741,9 +770,10 @@
 
     <section class="work-section" id="work">
         <div class="container">
-            <h2 class="text-5xl heading-primary margin-bottom-xl gsap">Our process</h2>
+            <h2 class="font text-5xl heading-primary margin-bottom-xl gsap">Our process</h2>
 
-            <p class="text-2xl text-primary subheading-primary margin-bottom-2xl gsap">Crafting a visual and functional
+            <p class="font text-2xl text-primary subheading-primary margin-bottom-2xl gsap">Crafting a visual and
+                functional
                 blueprint of the website based on user
                 needs and business goals, ensuring responsiveness and functionality.</p>
         </div>
@@ -755,7 +785,7 @@
                 <div class="slider">
                     <div class="slider-images">
                         <div class="imgbox">
-                            <img src="/img/web1.webp" alt="">
+                            <img src="/img/web1.webp" alt="web developer usa">
                         </div>
                     </div>
                     <div class="slider-title">
@@ -785,10 +815,10 @@
                     </div>
 
                     <div class="slider-preview">
-                        <div class="preview active"><img src="/img/web1.webp" alt=""></div>
-                        <div class="preview"><img src="/img/web2.webp" alt=""></div>
-                        <div class="preview"><img src="/img/web3.webp" alt=""></div>
-                        <div class="preview"><img src="/img/web4.webp" alt=""></div>
+                        <div class="preview active"><img src="/img/web1.webp" alt="web developer canada"></div>
+                        <div class="preview"><img src="/img/web2.webp" alt="web developer montreal"></div>
+                        <div class="preview"><img src="/img/web3.webp" alt="web developer ontario"></div>
+                        <div class="preview"><img src="/img/web4.webp" alt="web developer australia"></div>
                     </div>
                     <div class="slider-indicators">
                         <p>+</p>
@@ -799,8 +829,8 @@
         </div>
 
         <div class="container">
-            <h3 class="text-5xl subheading-primary center margin-bottom-small gsap">Think Responsively</h3>
-            <p class="text-2xl text-primary subheading-primary center margin-bottom-2xl gsap">Optimized for various
+            <h3 class="font text-5xl subheading-primary center margin-bottom-small gsap">Think Responsively</h3>
+            <p class="font text-2xl text-primary subheading-primary center margin-bottom-2xl gsap">Optimized for various
                 screens:
                 Phones,
                 Tablets, PCs.</p>
@@ -809,7 +839,7 @@
             <div class="stadistics-work margin-bottom-2xl">
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl center margin-bottom-xsmall">Design</h3>
+                        <h3 class="font text-3xl center margin-bottom-xsmall">Design</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -817,16 +847,16 @@
                         </div>
                     </div>
                     <div class="center margin-bottom-small">
-                        <div class="icons--brush"></div>
+                        <div class="icon icons--brush"></div>
                     </div>
                     <div>
-                        <p class="text-small">Innovative solutions delivered with creativity and precision.</p>
+                        <p class="font text-small">Innovative solutions delivered with creativity and precision.</p>
                     </div>
                 </div>
 
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl center margin-bottom-xsmall">Development</h3>
+                        <h3 class="font text-3xl center margin-bottom-xsmall">Development</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -834,16 +864,16 @@
                         </div>
                     </div>
                     <div class="center margin-bottom-small">
-                        <div class="icons--code"></div>
+                        <div class="icon icons--code"></div>
                     </div>
                     <div>
-                        <p class="text-small">Building the website ensuring responsiveness and functionality.</p>
+                        <p class="font text-small">Building the website ensuring responsiveness and functionality.</p>
                     </div>
                 </div>
 
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl center margin-bottom-xsmall">Testing</h3>
+                        <h3 class="font text-3xl center margin-bottom-xsmall">Testing</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -851,16 +881,16 @@
                         </div>
                     </div>
                     <div class="center margin-bottom-small">
-                        <div class="icons--test"></div>
+                        <div class="icon icons--test"></div>
                     </div>
                     <div>
-                        <p class="text-small">Testing the website across different devices and browsers.</p>
+                        <p class="font text-small">Testing the website across different devices and browsers.</p>
                     </div>
                 </div>
 
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl center margin-bottom-xsmall">Deployment</h3>
+                        <h3 class="font text-3xl center margin-bottom-xsmall">Deployment</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -868,27 +898,20 @@
                         </div>
                     </div>
                     <div class="center margin-bottom-small">
-                        <div class="icons--deploy"></div>
+                        <div class="icon icons--deploy"></div>
                     </div>
                     <div>
-                        <p class="text-small">Launching the website, ensuring performance, security.
+                        <p class="font text-small">Launching the website, ensuring performance, security.
                         </p>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </section>
-
-
-
-
 
     <section class="blog-section" id="blog">
         <div class="container">
-            <h2 class="text-5xl heading-primary margin-bottom-xl gsap">Latest posts</h2>
+            <h2 class="font text-5xl heading-primary margin-bottom-xl gsap">Latest posts</h2>
             <div class="grid blog-container">
                 <article class="blog-card gsap">
                     <img class="blog-image" src="img/web-design-agency-california.webp"
@@ -896,23 +919,24 @@
                     <div class="blog-content">
                         <div class="flex flex-author">
                             <div>
-                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
                                     </strong><span class="middot">&bull;</span> 28
                                     October 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="text-xsmall read-text">1 min read</p>
-                                <span class="spinners--clock"></span>
+                                <p class="font text-xsmall read-text">1 min read</p>
+                                <span class="icon spinners--clock"></span>
                             </div>
                         </div>
-                        <h3 class="blog-title text-medium">User-Centered Web Design</h3>
-                        <p class="blog-description blog-text text-small">
-                            Learn how user-centered web design, balancing aesthetics and functionality, enhances your
+                        <h3 class="font blog-title text-medium">User-Centered Web Design</h3>
+                        <p class="font blog-description blog-text text-small">
+                            Learn how user-centered web design, balancing aesthetics and functionality, enhances
+                            your
                             customers' experience and boosts conversions.
                         </p>
-                        <a class="blog-link blog-link-active text-small" href="/blog1.html"
-                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
-                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        <a class="font blog-link blog-link-active text-small" href="/blog1.html"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -927,23 +951,24 @@
                     <div class="blog-content">
                         <div class="flex flex-author">
                             <div>
-                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
                                     </strong><span class="middot">&bull;</span> 28
                                     October 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="text-xsmall read-text">2 min read</p>
-                                <span class="spinners--clock clock-variation--one"></span>
+                                <p class="font text-xsmall read-text">2 min read</p>
+                                <span class="icon spinners--clock clock-variation--one"></span>
                             </div>
                         </div>
-                        <h3 class="blog-title text-medium">Modern Scalable Web Development</h3>
-                        <p class="blog-description blog-text text-small">
-                            Building scalable, responsive web applications using modern technologies tailored to your
+                        <h3 class="font blog-title text-medium">Modern Scalable Web Development</h3>
+                        <p class="font blog-description blog-text text-small">
+                            Building scalable, responsive web applications using modern technologies tailored to
+                            your
                             needs.
                         </p>
-                        <a class="blog-link blog-link-active text-small" href="/blog1.html"
-                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
-                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        <a class="font blog-link blog-link-active text-small" href="/blog1.html"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -958,22 +983,22 @@
                     <div class="blog-content">
                         <div class="flex flex-author">
                             <div>
-                                <p class="blog-date blog-text text-small"><strong class="author-blog">Tomastech
+                                <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
                                     </strong><span class="middot">&bull;</span> 28
                                     October 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="text-xsmall read-text">2 min read</p>
-                                <span class="spinners--clock clock-variation--two"></span>
+                                <p class="font text-xsmall read-text">2 min read</p>
+                                <span class="icon spinners--clock clock-variation--two"></span>
                             </div>
                         </div>
-                        <h3 class="blog-title text-medium">Secure and Efficient Web Deployment</h3>
-                        <p class="blog-description blog-text text-small">
+                        <h3 class="font blog-title text-medium">Secure and Efficient Web Deployment</h3>
+                        <p class="font blog-description blog-text text-small">
                             Ensuring smooth and secure deployment with performance optimization and ongoing support.
                         </p>
-                        <a class="blog-link blog-link-active text-small" href="/blog1.html"
-                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más <span
-                                class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                        <a class="font blog-link blog-link-active text-small" href="/blog1.html"
+                            aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -985,31 +1010,32 @@
             </div>
 
             <div class="gsap center">
-                <a class="blog-link blog-link-active text-large" href="/blogs">Ver más <span
-                        class="icon-primary eva--diagonal-arrow eva--diagonal-arrow-medium">↗</span></a>
+                <a class="font blog-link blog-link-active text-large" href="/blogs">Ver más <span
+                        class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-medium">↗</span></a>
             </div>
         </div>
     </section>
 
     <section class="about-section" id="about">
         <div class="container">
-            <h2 class="text-5xl heading-primary margin-bottom-xl gsap">About us</h2>
-            <p class="text-small center margin-bottom-small gsap"><span class="middot">&bull;</span> Meet us</p>
+            <h2 class="font text-5xl heading-primary margin-bottom-xl gsap">About us</h2>
+            <p class="font text-small center margin-bottom-small gsap"><span class="middot">&bull;</span> Meet us</p>
             <div class="about-box-title">
-                <h2 class="text-9xl heading-primary center margin-bottom-xl gsap">Innovating Digital Experiences with
+                <h2 class="font text-9xl heading-primary center margin-bottom-xl gsap">Innovating Digital Experiences
+                    with
                     experts
                     at
                     Websites</h2>
             </div>
 
-            <p class="meet-text center margin-bottom-2xl gsap">We create digital products that drive success and
+            <p class="font meet-text center margin-bottom-2xl gsap">We create digital products that drive success and
                 visibility.
             </p>
 
             <div class="stadistics-about margin-bottom-2xl">
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl margin-bottom-xsmall">Projects</h3>
+                        <h3 class="font text-3xl margin-bottom-xsmall">Projects</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -1017,16 +1043,16 @@
                         </div>
                     </div>
                     <div class="margin-bottom-small">
-                        <p class="text-9xl box-number incremental-number"><span id="number2">20</span>+</p>
+                        <p class="font text-9xl box-number incremental-number"><span id="number2">20</span>+</p>
                     </div>
                     <div>
-                        <p class="text-small">Innovative solutions delivered with creativity and precision.</p>
+                        <p class="font text-small">Innovative solutions delivered with creativity and precision.</p>
                     </div>
                 </div>
 
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl margin-bottom-xsmall">Satisfied Clients</h3>
+                        <h3 class="font text-3xl margin-bottom-xsmall">Satisfied Clients</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -1034,16 +1060,16 @@
                         </div>
                     </div>
                     <div class="margin-bottom-small">
-                        <p class="text-9xl box-number incremental-number"><span id="number2">10</span>+</p>
+                        <p class="font text-9xl box-number incremental-number"><span id="number2">10</span>+</p>
                     </div>
                     <div>
-                        <p class="text-small">Building long-lasting partnerships through exceptional results.</p>
+                        <p class="font text-small">Building long-lasting partnerships through exceptional results.</p>
                     </div>
                 </div>
 
                 <div class="stadistics-numbers gsap">
                     <div>
-                        <h3 class="text-3xl margin-bottom-xsmall">Years of Freelance</h3>
+                        <h3 class="font text-3xl margin-bottom-xsmall">Years of Freelance</h3>
                     </div>
                     <div class="line-container-design">
                         <div class="line-container">
@@ -1051,10 +1077,10 @@
                         </div>
                     </div>
                     <div class="margin-bottom-small">
-                        <p class="text-9xl box-number incremental-number"><span id="number2">2</span>+</p>
+                        <p class="font text-9xl box-number incremental-number"><span id="number2">2</span>+</p>
                     </div>
                     <div>
-                        <p class="text-small">Experience and dedication shaping impactful digital products.</p>
+                        <p class="font text-small">Experience and dedication shaping impactful digital products.</p>
                     </div>
                 </div>
             </div>
@@ -1070,13 +1096,13 @@
                     </div>
                     <div class="card-content">
                         <div class="profile-box">
-                            <h3 class="text-medium team-name">Tomas</h3>
-                            <p class="text-xsmall team-position">Founder / Lead developer</p>
+                            <h3 class="font text-medium team-name">Tomas</h3>
+                            <p class="font text-xsmall team-position">Founder / Lead developer</p>
                         </div>
                         <div class="icon-container">
                             <div class="plus-icon">
                                 <a href="https://www.linkedin.com/in/tomaspa" target="_blank"
-                                    class="about-link mdi-icon--linkedin profile-icon--linkedin"
+                                    class="icon about-link mdi-icon--linkedin profile-icon--linkedin"
                                     aria-label="Ingresa a nuestra red social Linkedin">
                                 </a>
                             </div>
@@ -1096,13 +1122,13 @@
                     </div>
                     <div class="card-content">
                         <div class="profile-box">
-                            <h3 class="text-medium team-name">Rodrigo</h3>
-                            <p class="text-xsmall team-position">Developer</p>
+                            <h3 class="font text-medium team-name">Rodrigo</h3>
+                            <p class="font text-xsmall team-position">Developer</p>
                         </div>
                         <div class="icon-container">
                             <div class="plus-icon">
                                 <a href="https://www.linkedin.com/in/" target="_blank"
-                                    class="about-link mdi-icon--linkedin profile-icon--linkedin"
+                                    class="icon about-link mdi-icon--linkedin profile-icon--linkedin"
                                     aria-label="Ingresa a nuestra red social Linkedin">
                                 </a>
                             </div>
@@ -1121,13 +1147,13 @@
                     </div>
                     <div class="card-content">
                         <div class="profile-box">
-                            <h3 class="text-medium team-name">Joaquin</h3>
-                            <p class="text-xsmall team-position">Administrator / Digital Marketing</p>
+                            <h3 class="font text-medium team-name">Joaquin</h3>
+                            <p class="font text-xsmall team-position">Administrator</p>
                         </div>
                         <div class="icon-container">
                             <div class="plus-icon">
                                 <a href="https://www.linkedin.com/in/joaquin-santiago-gamboa-guillen-246a94257"
-                                    target="_blank" class="about-link mdi-icon--linkedin profile-icon--linkedin"
+                                    target="_blank" class="icon about-link mdi-icon--linkedin profile-icon--linkedin"
                                     aria-label="Ingresa a nuestra red social Linkedin">
                                 </a>
                             </div>
@@ -1146,8 +1172,8 @@
                     </div>
                     <div class="card-content">
                         <div class="profile-box">
-                            <h3 class="text-medium team-name">Abby</h3>
-                            <p class="text-xsmall team-position">Intern</p>
+                            <h3 class="font text-medium team-name">Abby</h3>
+                            <p class="font text-xsmall team-position">Intern</p>
                         </div>
                         <div class="icon-container">
                         </div>
@@ -1158,26 +1184,27 @@
 
     <section class="contact-section" id="cta">
         <div class="container">
-            <h3 class="text-10xl center heading-primary margin-bottom-2xl gsap">Have an Idea?</h3>
+            <h3 class="font text-10xl center heading-primary margin-bottom-2xl gsap">Have an Idea?</h3>
 
-            <p class="text-2xl text-description margin-bottom-xl gsap">Do you have a project in mind? We have the
+            <p class="font text-2xl text-description margin-bottom-xl gsap">Do you have a project in mind? We have the
                 solutions. Send us a
                 message, and let's make it happen. Hate contact forms? Drop me an
                 email:</p>
 
             <div class="flex-contact gsap">
-                <a class="grid-link btn btn--full btn-effect" href="mailto:blord.dev@gmail.com">Start your project</a>
+                <a class="grid-link btn btn--full btn-effect" href="mailto:blord.dev@gmail.com">Start your
+                    project</a>
             </div>
 
             <div class="contact-icons gsap">
                 <div class="icon-box copy-icon" data-copy-text="+51 978395717">
                     <span class="shake-icon">
-                        <div class="hero-icon icon-phone-incoming"></div>
+                        <div class="icon icon-phone-incoming"></div>
                     </span>
                 </div>
                 <div class="icon-box copy-icon" data-copy-text="blord.dev@gmail.com">
                     <span class="shake-icon">
-                        <div class="hero-icon icon-outline--mail"></div>
+                        <div class="icon icon-outline--mail"></div>
                     </span>
                 </div>
                 <div id="copy-confirmation" class="copy-confirmation"></div>
@@ -1196,39 +1223,39 @@
                     </a>
                 </div>
                 <div class="flex logo-footer">
-                    <div class="heroicons-outline--location"></div>
-                    <p class="text-2xl text-primary">Lima - Peru</p>
+                    <div class="icon heroicons-outline--location"></div>
+                    <p class="font text-2xl text-primary">Lima - Peru</p>
                 </div>
 
                 <div class="flex logo-footer">
-                    <div class="heroicons-outline--chat"></div>
-                    <p class="text-2xl text-primary">Spanish</p>
+                    <div class="icon heroicons-outline--chat"></div>
+                    <p class="font text-2xl text-primary">Spanish</p>
                 </div>
             </div>
 
             <nav class="company-col gsap">
-                <p class="footer-title text-2xl margin-bottom-large">Company</p>
+                <p class="font footer-title text-2xl margin-bottom-large">Company</p>
                 <ul class="footer-nav">
-                    <li><a class="footer-link-active text-2xl footer-link margin-bottom-large" href="#about">About
+                    <li><a class="font footer-link-active text-2xl footer-link margin-bottom-large" href="#about">About
                             us</a>
                     </li>
-                    <li><a class="footer-link-active text-2xl footer-link" href="#work">Work</a></li>
+                    <li><a class="font footer-link-active text-2xl footer-link" href="#work">Work</a></li>
                 </ul>
             </nav>
 
             <nav class="products-col gsap">
-                <p class="footer-title text-2xl margin-bottom-large">Products</p>
+                <p class="font footer-title text-2xl margin-bottom-large">Products</p>
                 <ul class="footer-nav">
-                    <li><a class="footer-link-active text-2xl footer-link" href="#services">Services</a></li>
-                    <li><a class="footer-link-active text-2xl footer-link" href="#pricing">Pricing</a></li>
+                    <li><a class="font footer-link-active text-2xl footer-link" href="#services">Services</a></li>
+                    <li><a class="font footer-link-active text-2xl footer-link" href="#pricing">Pricing</a></li>
                 </ul>
             </nav>
 
             <nav class="resources-col gsap">
-                <p class="footer-title text-2xl margin-bottom-large">Resources</p>
+                <p class="font footer-title text-2xl margin-bottom-large">Resources</p>
                 <ul class="footer-nav">
-                    <li><a class="footer-link-active text-2xl footer-link" href="#faq">FAQ</a></li>
-                    <li><a class="footer-link-active text-2xl footer-link" href="#blog">Blog</a></li>
+                    <li><a class="font footer-link-active text-2xl footer-link" href="#faq">FAQ</a></li>
+                    <li><a class="font footer-link-active text-2xl footer-link" href="#blog">Blog</a></li>
                 </ul>
             </nav>
         </div>
@@ -1236,24 +1263,25 @@
         <div class="container copyright-col gsap">
             <div class="social-links-col">
                 <ul class="social-links">
-                    <li><a class="social-link mdi-icon--linkedin footer-icon--linkedin" href="#"
+                    <li><a class="icon social-link mdi-icon--linkedin footer-icon--linkedin" href="#"
                             aria-label="Ingresa a nuestra red social Linkedin"></a>
                     </li>
-                    <li><a class="social-link mdi-icon--instagram" href="#"
+                    <li><a class="icon social-link mdi-icon--instagram" href="#"
                             aria-label="Ingresa a nuestra red social Instagram"></a></li>
-                    <li><a class="social-link pajamas-icon--twitter" href="#"
+                    <li><a class="icon social-link pajamas-icon--twitter" href="#"
                             aria-label="Ingresa a nuestra red social X"></a></li>
                 </ul>
             </div>
 
-            <p class="text-medium copyright-text">All rights reserved. Copyright &copy;<span class="year">2024</span>
+            <p class="font text-medium copyright-text">All rights reserved. Copyright &copy;<span
+                    class="year">2024</span>
                 by tomastech dev.</p>
         </div>
 
         <div>
             <a class="nav-menu-icon whatsapp-icon"
                 href="https://wa.me/51978395717?text=Hi%2C%0AI'd%20love%20to%20learn%20more%20about%20your%20services.%0ACan%20you%20please%20get%20in%20touch%3F%21"
-                title="Ready to take the next step?"><span class="nav-icon"></span>
+                title="Ready to take the next step?"><span class="icon nav-icon"></span>
             </a>
         </div>
     </section>

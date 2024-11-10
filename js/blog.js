@@ -27,12 +27,10 @@ function closeSidebar() {
     iconVertical.style.display = 'none';
     iconHorizontal.style.display = 'inline-block';
 }
-
 // Cerrar sidebar al hacer clic en los enlaces
 document.querySelectorAll('.sidebar a').forEach(link => {
     link.addEventListener('click', closeSidebar);
 });
-
 //2 - Sticky header
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const headerSpacer = document.createElement('div');
     headerSpacer.style.height = header.offsetHeight + 'px';
     headerSpacer.style.display = 'none'; // Se oculta inicialmente
-
     // Insertar el spacer después del header
     header.parentNode.insertBefore(headerSpacer, header.nextSibling);
 

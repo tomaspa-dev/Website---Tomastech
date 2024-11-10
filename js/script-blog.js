@@ -9,19 +9,14 @@ gsap.to("#progress-bar", {
         scrub: true, // Hace que la animación esté ligada al scroll (suave)
     }
 });
-
-
 //2 Animar imagen al hacer scroll
 const details = gsap.utils.toArray(".desktopContentSection:not(:first-child)")
 const photos = gsap.utils.toArray(".desktopPhoto:not(:first-child)")
 gsap.set(photos, {yPercent:101})
 const allPhotos = gsap.utils.toArray(".desktopPhoto")
-
 let mm = gsap.matchMedia();
-
 // add a media query. When it matches, the associated function will run
 mm.add("(min-width: 645px)", () => {
-
   // this setup code only runs when viewport is at least 600px wide	
 	ScrollTrigger.create({
 		trigger:".gallery",
@@ -29,7 +24,6 @@ mm.add("(min-width: 645px)", () => {
 		end:"bottom bottom",
 		pin:".right"
 })
-
 //create scrolltrigger for each details section
 //trigger photo animation when headline of each details section 
 //reaches 80% of window height
@@ -51,10 +45,8 @@ details.forEach((detail, index)=> {
 
 // 3 - Texto coloreado
 gsap.registerPlugin(ScrollTrigger);
-
 // Selecciona todas las palabras en el contenedor de texto
 const words = document.querySelectorAll(".word");
-
 // Configura la animación de color para cada palabra y fija el contenedor hasta que el efecto se complete
 gsap.to(words, {
     color: "#262626", // Cambia el color de cada palabra a negro

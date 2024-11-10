@@ -19,7 +19,6 @@
 .mdi--share-variant:hover {
     transform: scale(1.1);
 }
-
 /* Estilos de la barra de progreso */
 #progress-bar {
     position: fixed;
@@ -40,7 +39,6 @@
     border-left: 5px solid var(--color-primary400);
     background-color: #f9f9f9;
 }
-
 /* BLOG */
 /* Estilos generales */
 body {
@@ -142,7 +140,6 @@ footer {
 #comment-form button:hover {
     background-color: #555;
 }
-
 /*******************************/
 /* BELOW 1200px (Landscape Tablets)*/
 /*******************************/
@@ -164,8 +161,6 @@ footer {
         padding: var(--spacing-medium);
     }
 }
-
-
 /*******************************/
 /* BELOW 944px (Tablets)*/
 /*******************************/
@@ -207,9 +202,7 @@ footer {
     .main-nav-list {
         gap: var(--spacing-small);
     }
-
 }
-
 /*******************************/
 /* BELOW 644x (Landscape Tablets)*/
 /*******************************/
@@ -249,7 +242,6 @@ footer {
     .stadistics-numbers {
         width: 35rem;
     }
-
     /* BLOG SECTION */
     .blog-container {
         grid-template-columns: 1fr;
