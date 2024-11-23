@@ -256,6 +256,9 @@
 /* BELOW 644px (Smartphones)*/
 /*******************************/
 @media (max-width: 40.25rem) {
+    .cursor {
+        display: none;
+    }
     .text-9xl {
         font-size: 4.2rem;
         font-weight: 700;
@@ -309,7 +312,8 @@
     /* HERO SECTION */
     .story-content {
         width: 100%;
-        padding: 8rem 2rem 4rem;
+        padding: 8rem 2rem 6rem;
+        justify-content: space-between;
     }
     /* OUR SERVICES SECTION */
     .services-info {
