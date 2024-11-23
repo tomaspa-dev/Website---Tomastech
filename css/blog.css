@@ -232,6 +232,19 @@ footer {
         padding: var(--spacing-small) var(--spacing-3xl);
         padding-top: var(--spacing-medium);
     }
+
+    .menu-container {
+        padding-left: 2rem;
+    }
+
+    .menu-item a {
+        font-size: 3.6rem;
+    }
+
+    .btn--header:link,
+    .btn--header:visited {
+        font-size: 3.2rem;
+    }
     
     /* ABOUT SECTION */
     .stadistics-about {

@@ -168,3 +168,107 @@ Our web development services also enable you to implement your very own custom C
 <source media="(min-width: 413px) and (max-width: 616px)" srcset="img/perfil-1-wide.webp">
 
 <source media= "(max-width: 320px)" srcset="img/perfil-1-wide.webp">
+
+--
+                    <!-- 
+                    <div class="title-box margin-bottom-large">
+                        <h1 class="font text-5xl margin-bottom-xsmall">User-Centered Web Design</h1>
+                        <h2 class="font text-large margin-bottom-small">Engage and Retain Clients with Unique
+                            Experiences
+                        </h2>
+                    </div>
+                    <div class="font description-text text-medium">
+                        <p class="font published text-small margin-bottom-medium">Publicado el <time
+                                datetime="2024-10-28"><span>28 de Octubre de
+                                    2024</span></time> por
+                            tomastech</p>
+                        <p class="margin-bottom-small">An important aspect of web design is combining images, 3D
+                            objects, and videos to captivate users, creating a visually appealing and dynamic
+                            experience. These elements not only grab attention but also enhance user interaction and
+                            engagement.
+                        </p>
+                    </div>
+                    <div class="gallery">
+                        <div class="left">
+                            <div class="desktopContent">
+                                <div class="desktopContentSection">
+                                    <div>
+                                        <h1>Images</h1>
+                                        <p class="margin-bottom-small">Awesome images</p>
+                                    </div>
+                                    <div class="display-photo margin-bottom-xl"><img src="/img/iphone.webp"
+                                            alt="corporate websites agency">
+                                    </div>
+                                </div>
+                                <div class="desktopContentSection">
+                                    <div>
+                                        <h1>3D Objects</h1>
+                                        <p class="margin-bottom-small">Amazing 3D Objects</p>
+                                    </div>
+                                    <div class="display-photo margin-bottom-xl"><img src="/img/object.webp"
+                                            alt="corporate websites">
+                                    </div>
+                                </div>
+                                <div class="desktopContentSection">
+                                    <div>
+                                        <h1>Videos</h1>
+                                        <p class="margin-bottom-small">Awesome Videos</p>
+                                    </div>
+                                    <div class="display-photo margin-bottom-xl"><img
+                                            src="/img/custom-website-development-usa.webp" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="desktopPhotos">
+                                <div class="desktopPhoto"><img src="/img/iphone.webp" alt="web developer usa"></div>
+                                <div class="desktopPhoto white"><img src="/img/object.webp" alt="web developer canada">
+                                </div>
+                                <div class="desktopPhoto white"><img src="/img/custom-website-development-usa.webp"
+                                        alt="web developer australia"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font description-text text-medium">
+                        <div id="textSection">
+                            <div class="textcontainer">
+                                <div class="wrapper">
+                                    <p class="text"><span class="word">A great website </span> <span class="word">design
+                                            is
+                                            not</span> <span class="word">just about looking good. </span> <span
+                                            class="word">User-centered </span>
+                                        <span class="word">web design combines</span>
+                                        <span class="word">aesthetics </span> <span class="word">with
+                                            functionality</span> <span class="word">to create </span> <span
+                                            class="word">intuitive
+                                            experiences</span> <span class="word">that</span> <span
+                                            class="word">keep</span> <span class="word">visitors</span> <span
+                                            class="word">engaged</span> <span class="word">and</span> <span
+                                            class="word">turn them</span> <span class="word">into</span> <span
+                                            class="word">clients.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="margin-bottom-small">The key is understanding your audience: What are they looking
+                            for when they visit
+                            your site?
+                            How can they navigate easily? A well-thought-out design ensures that interacting with your
+                            page is smooth, enjoyable, and efficient. This doesn’t just improve satisfaction; it
+                            increases your conversions.
+                        </p>
+                        <blockquote class="highlight-quote">
+                            "User-centered design is about making your users feel at home."
+                        </blockquote>
+                        <p class="margin-bottom-small">Incorporating visually appealing elements and optimizing your
+                            site’s performance also boosts
+                            your search engine rankings. Users appreciate fast loading times and seamless navigation,
+                            which translates to a better user experience (UX) and more time spent on your site.
+                            Remember, a satisfied client is a returning client.
+                        </p>
+                        <p class="margin-bottom-small">Turn your website into a sales tool, not just a showcase.
+                            Investing in user-centered design
+                            means creating a page that emotionally connects with your customers and guides them toward
+                            the actions you want them to take.
+                        </p>
+                    </div> -->

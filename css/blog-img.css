@@ -1,0 +1,16 @@
+.img--1 {
+    object-fit: cover;
+    padding: 0;
+}
+
+.col__content-title {
+    font-size: 10.2rem;
+    
+    @media all and (max-width: 768px) {
+        font-size: 8rem;
+    }
+
+    @media all and (max-width: 644px) {
+        font-size: 4rem;
+    }
+}

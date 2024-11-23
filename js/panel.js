@@ -98,6 +98,7 @@ function changeStory() {
     newImgContainer.classList.add("imgstory");
     const newStoryImg = document.createElement("img");
     newStoryImg.src = story.storyImg;
+    newStoryImg.alt = "Design Web Agency California";
     newImgContainer.appendChild(newStoryImg);
     document.querySelector(".story-img").appendChild(newImgContainer);
     animateNewImage(newImgContainer);
