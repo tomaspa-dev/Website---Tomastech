@@ -1,20 +1,15 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: './', // Para rutas relativas en producción
   build: {
     rollupOptions: {
       input: {
-        main: './index.html',          // SPA principal
-        blogs: './blogs.html',         // Página de blogs
-        webDesign: './web-design.html', // Artículo 1
-        webDevelopment: './web-development.html', // Artículo 2
-        webDeployment: './web-deployment.html', // Artículo 3
-      },
-      output: {
-        entryFileNames: 'assets/js/[name]-[hash].js', // Archivos JS
-        chunkFileNames: 'assets/js/[name]-[hash].js', // Chunks
-        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]', // Imágenes, CSS, etc.
+        main: resolve(__dirname, './index.html'),   // SPA principal
+        blogs: resolve(__dirname, './blogs.html'),  // Ruta al archivo blogs.html
+        webDesign: resolve(__dirname, './web-design.html'), // Ruta al archivo web-design.html
+        webDevelopment: resolve(__dirname, './web-development.html'), // Ruta al archivo web-development.html
+        webDeployment: resolve(__dirname, './web-deployment.html'), // Ruta al archivo web-deployment.html
       },
     },
   },

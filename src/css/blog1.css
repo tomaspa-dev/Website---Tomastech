@@ -96,9 +96,12 @@
 }
 .img, 
 .video {
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
     min-height: 100vh;
+}
+.video{
+    object-fit: cover;
 }
 .slide {
     display: flex;
@@ -134,9 +137,11 @@
     max-height: 100vh;
     padding: 1rem 2rem;
     display: block;
-    object-fit: cover;
     object-fit: contain;
     object-position: center;  
+}
+.col__image-wrap .img--contain {
+    object-fit: contain;
 }
 /** Columns **/
 .col {
