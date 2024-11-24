@@ -1,4 +1,6 @@
 // 1 - GSAP SCroll
+import { gsap } from "gsap";    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 // Función para animar los elementos
 function animateFromBottom(element, delay = 0) {

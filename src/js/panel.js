@@ -1,4 +1,7 @@
-import { stories } from "/js/data.js";
+import { stories } from "/src/js/data.js";
+import { gsap } from "gsap";    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 let activeStory = 0;
 const storyDuration = 4000;
@@ -12,7 +15,6 @@ const cursorText = cursor?.querySelector("p");
 const titleRow1 = document.querySelector(".title-row h1");
 const titleRow2 = document.querySelector(".title-second h2");
 const mainText = document.querySelector(".main-text p");
-gsap.registerPlugin(ScrollTrigger);
 
 if (cursor && cursorText) {
     // Actualiza la posición y el contenido del cursor en función de la posición del mouse

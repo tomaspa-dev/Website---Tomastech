@@ -164,7 +164,11 @@
     /* GALLERY SECTION */
     .slider-preview {
         width: 50%;
-        bottom: 5rem;
+        bottom: 8rem;
+    }
+
+    .slider-counter {
+        bottom: 4rem;
     }
 
     .slider-title-wrapper p {

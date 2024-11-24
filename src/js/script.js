@@ -1,3 +1,7 @@
+// 1 - GSAP SCroll
+import { gsap } from "gsap";    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 //1 - carousel Mover las cards con botones flechas izquierda y derecha
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,4 +1,5 @@
 //1 - slider gallery
+import { gsap } from "gsap";  
 document.addEventListener("DOMContentLoaded", () => {
     const gallerySection = document.querySelector(".gallery-section");
     const prefix = gallerySection.getAttribute("data-prefix") || "design";

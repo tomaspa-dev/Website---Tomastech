@@ -1,4 +1,7 @@
+
 //1 Anima el ancho de la barra de progreso
+import { gsap } from "gsap";    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 gsap.to("#progress-bar", {
   width: "100%", // Alcanza el 100% cuando se completa el scroll

@@ -1,3 +1,5 @@
+// 1 - GSAP SCroll
+import { gsap } from "gsap";
 document.addEventListener("DOMContentLoaded", () => {
     const toggleBtn = document.getElementById("toggle-btn");
     const menuOverlay = document.querySelector(".menu-overlay");
