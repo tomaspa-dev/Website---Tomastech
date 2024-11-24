@@ -1,11 +1,11 @@
 
 //1 Anima el ancho de la barra de progreso
-import '../src/css/general.css';
-import '../src/css/styles.css';
-import '../src/css/blog1.css';
-import '../src/css/blog.css';
-import '../src/css/blog-img.css';
-import '../src/css/gallery.css';
+import './src/css/general.css';
+import './src/css/styles.css';
+import './src/css/blog1.css';
+import './src/css/blog.css';
+import './src/css/blog-img.css';
+import './src/css/gallery.css';
 import { gsap } from "gsap";    
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
