@@ -247,8 +247,10 @@
     /* GALLERY SECTION */
     .slider-preview {
         width: 50%;
-        right: 10rem;
-        bottom: 5rem;
+        bottom: 10rem;
+    }
+    .slider-counter {
+        bottom: 6rem;
     }
 }
 /*******************************/

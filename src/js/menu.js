@@ -16,17 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
             menuItems,
             { opacity: 0, x: -20 },
             { opacity: 1, x: 0, duration: 0.5, stagger: 0.2, clearProps: "all", onComplete: () => {
-                // Limpiar transformaciones en línea
                 menuItems.forEach(item => {
-                    item.style.transform = ""; // Limpiar transform
-                    item.style.rotate = "";     // Limpiar rotate
-                    item.style.scale = "";      // Limpiar scale
+                    item.style.transform = "";
+                    item.style.rotate = "";
+                    item.style.scale = "";
                 });
             }}
         );
         menuOverlay.appendChild(closeBtn);
     }
-    // Función para cerrar el menú
     function closeMenu() {
         gsap.to(menuOverlay, { opacity: 0, duration: 0.5, onComplete: () => {
             menuOverlay.style.visibility = "hidden";
@@ -71,10 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const work = document.querySelector(".work");
     const overlay = document.querySelector(".overlay");
     const prevElements = document.querySelectorAll(".prev");
-
     overlay.style.top = "0%";
     overlay.style.left = "13.25%";
-
     document.querySelector("#prev-2").classList.add("active");
 
     function removeActiveClass() {
@@ -128,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     work.className = "work bg-color-default hovered";
             }
         });
-
         item.addEventListener("mouseout", function() {
             work.classList.remove("hovered");
             work.clasName = "work";

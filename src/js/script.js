@@ -94,25 +94,8 @@ document.querySelectorAll('.copy-icon').forEach(icon => {
     });
 });
 
-// 5 - Efectos, Animaciones en boton confetti
-document.querySelector(".btn-effect").addEventListener("mouseover", () => {
-    if (document.querySelector(".btn-effect").classList.contains('confetti-triggered')) {
-        return;
-    }
-    document.querySelector(".btn-effect").classList.add('confetti-triggered');
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#0a4495', '#b1cffa', '#3c88f2', '#0e61d4', '#d8e7fc']
-    });
 
-    setTimeout(() => {
-        document.querySelector(".btn-effect").classList.remove('confetti-triggered');
-    }, 2000); //Frecuencia con la que se puede activar el confeti.
-});
-
-//6 - Faq abrir y ocultar preguntas
+//5 - Faq abrir y ocultar preguntas
 document.querySelectorAll('.faq-input').forEach((input) => {
     input.addEventListener('change', function () {
         if (this.checked) {
@@ -125,7 +108,7 @@ document.querySelectorAll('.faq-input').forEach((input) => {
     });
 });
 
-// 7 - Galeria de imagenes
+// 6 - Galeria de imagenes
 // Seleccionamos todos los videos de hover
 const hoverVideos = document.querySelectorAll('.hover-video');
 // Ajustamos la velocidad del video al hacer hover
@@ -140,8 +123,7 @@ hoverVideos.forEach(video => {
     });
 });
 
-
-//8 - Animar el hover con GSAP
+//7 - Animar el hover con GSAP
 document.querySelectorAll('.card-pricing, .blog-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         gsap.to(card, {

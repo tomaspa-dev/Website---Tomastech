@@ -43,12 +43,12 @@
     <link rel="canonical" href="https://tomastech.dev" />
     <link rel="home" href="https://tomastech.dev" />
     <link type="text/plain" href="https://tomastech.dev/humans.txt" rel="author" />
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script defer type="module" src="/src/js/script.js"></script>
     <script defer type="module" src="/src/js/scroll.js"></script>
     <script type="module" src="/src/js/gallery.js"></script>
     <script type="module" src="/src/js/menu.js"></script>
     <script type="module" src="/src/js/panel.js"></script>
+    <script type="module" src="/src/js/confetti.js"></script>
 </head>
 
 <body>
@@ -94,15 +94,14 @@
                 <div class="row">
                     <div class="main-title">
                         <div class="title-row margin-bottom-xsmall">
-                            <h1 class="font text-9xl main-title-text">Web innovation</h1>
+                            <h1 class="font main-title-text">Web innovation</h1>
                         </div>
                         <div class="title-second margin-bottom-xsmall">
                             <h2 class="font text-5xl">to stand out</h2>
                         </div>
                         <div class="main-text margin-bottom-xsmall">
-                            <p class="font main-description text-2xl text-description">The digital innovation you need
-                                to
-                                stand out in a competitive landscape.</p>
+                            <p class="font main-description text-description">The digital innovation to stand out in a
+                                competitive landscape.</p>
                         </div>
                         <div class="link">
                             <a class="btn btn--full" href="/#cta">Start project</a>
@@ -598,7 +597,7 @@
         </div>
     </section>
     <section class="faq-section" id="faq">
-        <div class="container">
+        <div class="container container--faq">
             <h2 class="font text-5xl heading-primary center margin-bottom-large gsap">FAQ</h2>
             <div class="grid grid-heading-secondary gsap">
                 <p class="font text-medium text-primary grid-text">At our web development company, we pride ourselves on
@@ -642,7 +641,7 @@
                         <div class="font faq-content text-small text-primary grid-text margin-left-xl">
                             <p>The timeline varies depending on the complexity of the project, but on average a
                                 website
-                                can take between 4 to 12 weeks to complete. This includes planning, design,
+                                can take between 8 to 12 weeks to complete. This includes planning, design,
                                 development,
                                 and testing phases.</p>
                         </div>
@@ -708,12 +707,13 @@
                 </div>
             </div>
         </div>
+
     </section>
     <section class="work-section" id="work">
         <div class="container">
             <h2 class="font text-5xl heading-primary margin-bottom-xl gsap">Our process</h2>
 
-            <p class="font text-2xl text-primary subheading-primary margin-bottom-2xl gsap">Crafting a visual and
+            <p class="font text-3xl text-primary subheading-primary margin-bottom-2xl gsap">Crafting a visual and
                 functional
                 blueprint of the website based on user
                 needs and business goals, ensuring responsiveness and functionality.</p>
@@ -839,7 +839,7 @@
         </div>
     </section>
     <section class="blog-section" id="blog">
-        <div class="container">
+        <div class="container container--pad">
             <h2 class="font text-5xl heading-primary margin-bottom-xl gsap">Latest posts</h2>
             <div class="grid blog-container">
                 <article class="blog-card gsap">
@@ -849,11 +849,11 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 28
-                                    October 2024</p>
+                                    </strong><span class="middot">&bull;</span> 30
+                                    Nov 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="font text-xsmall read-text">2 min read</p>
+                                <p class="font text-xsmall read-text">1 min</p>
                                 <span class="icon spinners--clock clock-variation--two"></span>
                             </div>
                         </div>
@@ -879,11 +879,11 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 28
-                                    October 2024</p>
+                                    </strong><span class="middot">&bull;</span> 30
+                                    Nov 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="font text-xsmall read-text">2 min read</p>
+                                <p class="font text-xsmall read-text">1 min</p>
                                 <span class="icon spinners--clock clock-variation--one"></span>
                             </div>
                         </div>
@@ -909,11 +909,11 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 28
-                                    October 2024</p>
+                                    </strong><span class="middot">&bull;</span> 30
+                                    Nov 2024</p>
                             </div>
                             <div class="flex flex-clock">
-                                <p class="font text-xsmall read-text">1 min read</p>
+                                <p class="font text-xsmall read-text">1 min</p>
                                 <span class="icon spinners--clock"></span>
                             </div>
                         </div>
@@ -1099,7 +1099,8 @@
     <section class="contact-section" id="cta">
         <div class="container">
             <h3 class="font text-10xl center heading-primary margin-bottom-2xl gsap">Have an Idea?</h3>
-            <p class="font text-2xl text-description margin-bottom-xl gsap">Do you have a project in mind? We have the
+            <p class="font text-2xl text-description margin-bottom-small gsap">Do you have a project in mind? We have
+                the
                 solutions. Send us a
                 message, and let's make it happen. Hate contact forms? Drop me an
                 email:</p>
@@ -1175,7 +1176,7 @@
                     <li><a class="icon social-link pajamas-icon--twitter" href="#" aria-label="Visit us on X"></a></li>
                 </ul>
             </div>
-            <p class="font text-medium copyright-text">All rights reserved. Copyright &copy;<span
+            <p class="font text-medium copyright-text center">All rights reserved. Copyright &copy;<span
                     class="year">2024</span>
                 by tomastech dev.</p>
         </div>

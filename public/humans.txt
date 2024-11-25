@@ -1,9 +1,16 @@
 /* TEAM */
-
-Creator: tomastech
+Creator: Tomas Tech
+From: Lima, Peru
+Contact: contact@tomastech.dev
 URL: https://tomastech.dev/
 Description: Discover tomastech, a web design agency that works remotely worldwide, including in the USA, Canada, and Australia. We specialize in web design, custom website development, landing pages, corporate websites, eCommerce, and SEO.
 
 /* SITE */
-
+Last update: 2024-11-30
 Standards: HTML5, CSS3, JavaScript
+Software: Vite, Node.js
+
+/* THANKS */
+Founder / Lead developer: Tomas Pozu
+Developer: Rodrigo Torres
+Administrator: Joaquin Gamboa
