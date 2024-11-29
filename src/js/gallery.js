@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 document.addEventListener("DOMContentLoaded", () => {
     const gallerySection = document.querySelector(".gallery-section");
     const prefix = gallerySection.getAttribute("data-prefix") || "design";
-
     const sliderImages = document.querySelector(".slider-images");
     const counter = document.querySelector(".counter");
     const titles = document.querySelector(".slider-title-wrapper");

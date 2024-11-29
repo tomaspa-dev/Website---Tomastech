@@ -1,7 +1,6 @@
 // 1 - GSAP SCroll
 import { gsap } from "gsap";    
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 gsap.registerPlugin(ScrollTrigger);
 //1 - carousel Mover las cards con botones flechas izquierda y derecha
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,6 +50,7 @@ rightArrow.addEventListener('mouseleave', handleMouseUpOrLeave);
 
 //3- Animación de flotación para el iPhone
 gsap.to(".iphone-device", {
+    scrollTrigger: ".iphone-device",
     duration: 4,
     y: "-20px",
     rotationX: 15,
@@ -61,6 +61,7 @@ gsap.to(".iphone-device", {
 });
 //Animación de flotación para los AirPods
 gsap.to(".airpods-device", {
+    scrollTrigger: ".airpods-device",
     duration: 5,
     y: "-15px", 
     x: "5px",
@@ -91,52 +92,5 @@ document.querySelectorAll('.copy-icon').forEach(icon => {
             .catch(err => {
                 console.error('Error al copiar al portapapeles: ', err);
             });
-    });
-});
-
-
-//5 - Faq abrir y ocultar preguntas
-document.querySelectorAll('.faq-input').forEach((input) => {
-    input.addEventListener('change', function () {
-        if (this.checked) {
-            document.querySelectorAll('.faq-input').forEach((otherInput) => {
-                if (otherInput !== this && otherInput.checked) {
-                    otherInput.checked = false;
-                }
-            });
-        }
-    });
-});
-
-// 6 - Galeria de imagenes
-// Seleccionamos todos los videos de hover
-const hoverVideos = document.querySelectorAll('.hover-video');
-// Ajustamos la velocidad del video al hacer hover
-hoverVideos.forEach(video => {
-    video.addEventListener('mouseenter', () => {
-        video.playbackRate = 2; // Velocidad más lenta
-        video.play(); // Aseguramos que el video se reproduzca
-    });
-
-    video.addEventListener('mouseleave', () => {
-        video.playbackRate = 1; // Volver a la velocidad normal
-    });
-});
-
-//7 - Animar el hover con GSAP
-document.querySelectorAll('.card-pricing, .blog-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-            y: -10, 
-            duration: 0.1,
-            ease: "power2.out"
-        });
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-            y: 0, 
-            duration: 0.1,
-            ease: "power2.in"
-        });
     });
 });

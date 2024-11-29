@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="/src/css/general.css">
     <link rel="stylesheet" href="/src/css/gallery.css">
@@ -48,7 +47,10 @@
     <script type="module" src="/src/js/gallery.js"></script>
     <script type="module" src="/src/js/menu.js"></script>
     <script type="module" src="/src/js/panel.js"></script>
-    <script type="module" src="/src/js/confetti.js"></script>
+    <script defer type="module" src="/src/js/confetti.js"></script>
+    <script defer type="module" src="/src/js/hover-card.js"></script>
+    <script defer type="module" src="/src/js/hover-video.js"></script>
+    <script defer type="module" src="/src/js/faq.js"></script>
 </head>
 
 <body>
@@ -71,9 +73,6 @@
                     </div>
                 </div>
             </header>
-            <div class="cursor">
-                <p></p>
-            </div>
             <div class="story-img">
                 <div class="imgstory"><img src="/img/design1.webp" alt="Design Web Agency California"></div>
             </div>
@@ -115,31 +114,31 @@
         <div class="work">
             <div class="overlay">
                 <div class="prev" id="prev-1">
-                    <video autoplay muted loop playsinline aria-hidden="true">
+                    <video autoplay muted loop playsinline aria-hidden="true" loading="lazy">
                         <source src="/video/corporate-websites-agency.webm" type="video/webm">
                         Tu navegador no soporta el video.
                     </video>
                 </div>
                 <div class="prev" id="prev-2">
-                    <video autoplay muted loop playsinline aria-hidden="true">
+                    <video autoplay muted loop playsinline aria-hidden="true" loading="lazy">
                         <source src="/video/work-freelance-remote.webm" type="video/webm">
                         Tu navegador no soporta el video.
                     </video>
                 </div>
                 <div class="prev" id="prev-3">
-                    <video autoplay muted loop playsinline aria-hidden="true">
+                    <video autoplay muted loop playsinline aria-hidden="true" loading="lazy">
                         <source src="/video/corporate-websites-agency.webm" type="video/webm">
                         Tu navegador no soporta el video.
                     </video>
                 </div>
                 <div class="prev" id="prev-4">
-                    <video autoplay muted loop playsinline aria-hidden="true">
+                    <video autoplay muted loop playsinline aria-hidden="true" loading="lazy">
                         <source src="/video/freelancer-web-california.webm" type="video/webm">
                         Tu navegador no soporta el video.
                     </video>
                 </div>
                 <div class="prev" id="prev-5">
-                    <video autoplay muted loop playsinline aria-hidden="true">
+                    <video autoplay muted loop playsinline aria-hidden="true" loading="lazy">
                         <source src="/video/web-developer-usa.webm" type="video/webm">
                         Tu navegador no soporta el video.
                     </video>
@@ -279,12 +278,10 @@
                             </div>
                             <div class="iphone-container">
                                 <div class="iphone-container gsap">
-                                    <!-- AirPods detrás del iPhone -->
                                     <div class="airpods-device">
                                         <img src="/img/freelancer-remote.webp" alt="Freelancer remote"
                                             class="airpods-image">
                                     </div>
-                                    <!-- iPhone principal -->
                                     <div class="iphone-device">
                                         <img src="/img/design-web-agency.webp" alt="Design Web Agency"
                                             class="device-image">
@@ -297,8 +294,10 @@
                         <div class="flex flex-video">
                             <div class="phone-container">
                                 <div class="device-container gsap">
-                                    <img src="/img/landing-page.webp" alt="Digital Agency" class="device-image">
-                                    <video autoplay muted loop playsinline class="device-video" aria-hidden="true">
+                                    <img src="/img/landing-page.webp" alt="Digital Agency"
+                                        class="device-image phone-width">
+                                    <video autoplay muted loop playsinline class="device-video" aria-hidden="true"
+                                        loading="lazy">
                                         <source src="/video/corporate-websites-agency.webm" type="video/webm">
                                         Tu navegador no soporta el video.
                                     </video>
@@ -446,7 +445,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <!-- Controles del Carrusel -->
                                         <div class="carousel-controls">
                                             <button class="icon left-arrow icon--circle-left"
                                                 aria-label="Desplazar a la izquierda"></button>
@@ -615,15 +613,10 @@
                     <div class="video-faq">
                         <figure>
                             <video title="Web Design Agency Usa" class="faq-illustration" autoplay muted loop
-                                aria-hidden="true">
+                                aria-hidden="true" loading="lazy">
                                 <source src="/video/web-design-agency-usa.webm" type="video/webm">
                                 Your browser does not support the video tag.
                             </video>
-                            <!-- <div class="faq-quote">
-                                Illustration by <a href="https://icons8.com/illustrations/author/lZpGtGw5182N">Elisabet
-                                    Guba</a>
-                                from <a href="https://icons8.com/illustrations">Ouch!</a>
-                            </div> -->
                             <figcaption class="font label-video-faq">Web Design Agency Usa</figcaption>
                         </figure>
                     </div>
@@ -849,8 +842,8 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 30
-                                    Nov 2024</p>
+                                    </strong><span class="middot">&bull;</span> 01
+                                    Dec 2024</p>
                             </div>
                             <div class="flex flex-clock">
                                 <p class="font text-xsmall read-text">1 min</p>
@@ -863,7 +856,7 @@
                         </p>
                         <a class="font blog-link blog-link-active text-small" href="/web-deployment.html"
                             aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
-                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small"></span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -879,8 +872,8 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 30
-                                    Nov 2024</p>
+                                    </strong><span class="middot">&bull;</span> 01
+                                    Dec 2024</p>
                             </div>
                             <div class="flex flex-clock">
                                 <p class="font text-xsmall read-text">1 min</p>
@@ -893,7 +886,7 @@
                         </p>
                         <a class="font blog-link blog-link-active text-small" href="/web-development.html"
                             aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
-                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small"></span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -909,8 +902,8 @@
                         <div class="flex flex-author">
                             <div>
                                 <p class="font blog-date blog-text text-small"><strong class="author-blog">Tomastech
-                                    </strong><span class="middot">&bull;</span> 30
-                                    Nov 2024</p>
+                                    </strong><span class="middot">&bull;</span> 01
+                                    Dec 2024</p>
                             </div>
                             <div class="flex flex-clock">
                                 <p class="font text-xsmall read-text">1 min</p>
@@ -923,7 +916,7 @@
                         </p>
                         <a class="font blog-link blog-link-active text-small" href="/web-design.html"
                             aria-label="Lee mas de La Importancia del Soporte Técnico en la Era Digital">Leer más
-                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small">↗</span>
+                            <span class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-small"></span>
                         </a>
                         <div class="flex blog-tags-container margin-top-small">
                             <span class="blog-tag">Web</span>
@@ -935,7 +928,7 @@
             </div>
             <div class="gsap center">
                 <a class="font blog-link blog-link-active text-large" href="/blogs.html">Ver más <span
-                        class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-medium">↗</span></a>
+                        class="icon icon-primary eva--diagonal-arrow eva--diagonal-arrow-medium"></span></a>
             </div>
         </div>
     </section>
@@ -1009,7 +1002,7 @@
                         <img src="/img/freelancer-web.webp" alt="Freelancer Web California" class="default-img">
                         <div class="hover-content tomas">
                             <video class="hover-video" src="/video/freelancer-web-california.webm" autoplay muted loop
-                                playsinline aria-hidden="true"></video>
+                                playsinline aria-hidden="true" loading="lazy"></video>
                         </div>
                     </div>
                     <div class="card-content">
@@ -1034,7 +1027,7 @@
                             class="default-img">
                         <div class="hover-content rodrigo">
                             <video class="hover-video" src="/video/web-developer-usa.webm" autoplay muted loop
-                                playsinline aria-hidden="true"></video>
+                                playsinline aria-hidden="true" loading="lazy"></video>
                         </div>
                     </div>
                     <div class="card-content">
@@ -1058,7 +1051,7 @@
                         <img src="/img/joaq0.webp" alt="Work Freelance Remote Usa" class="default-img">
                         <div class="hover-content joaquin">
                             <video class="hover-video" src="/video/work-freelance-remote.webm" autoplay muted loop
-                                playsinline aria-hidden="true"></video>
+                                playsinline aria-hidden="true" loading="lazy"></video>
                         </div>
                     </div>
                     <div class="card-content">
@@ -1082,7 +1075,7 @@
                         <img src="/img/design-web-agency-usa.webp" alt="Design Web Agency Usa" class="default-img">
                         <div class="hover-content abby">
                             <video class="hover-video" src="/video/design-web-agency.webm" autoplay muted loop
-                                playsinline aria-hidden="true"></video>
+                                playsinline aria-hidden="true" loading="lazy"></video>
                         </div>
                     </div>
                     <div class="card-content">
@@ -1098,8 +1091,8 @@
     </section>
     <section class="contact-section" id="cta">
         <div class="container">
-            <h3 class="font text-10xl center heading-primary margin-bottom-2xl gsap">Have an Idea?</h3>
-            <p class="font text-2xl text-description margin-bottom-small gsap">Do you have a project in mind? We have
+            <h3 class="font text-10xl center heading-primary margin-bottom-xl gsap">Have an Idea?</h3>
+            <p class="font text-2xl text-description margin-bottom-large gsap">Do you have a project in mind? We have
                 the
                 solutions. Send us a
                 message, and let's make it happen. Hate contact forms? Drop me an

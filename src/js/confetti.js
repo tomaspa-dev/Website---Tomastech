@@ -1,8 +1,6 @@
 document.querySelector(".btn-effect").addEventListener("click", async () => {
     // Importación dinámica del módulo canvas-confetti
     const { default: confetti } = await import('canvas-confetti');
-
-    // Lógica de confetti
     confetti({
         particleCount: 100,
         spread: 70,

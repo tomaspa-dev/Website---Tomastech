@@ -239,6 +239,42 @@
         font-size: 2rem;
     }
 }
+.social-share {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+.mdi--share:hover,
+.mdi--share-variant:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos de la barra de progreso */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%; /* Será controlado por GSAP */
+    height: 5px;
+    background-color: var(--color-primary500);
+    z-index: 999; /* Mantenerla en la parte superior */
+}
+
+.highlight-quote {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-primary700);
+    margin: 20px 0;
+    padding: 10px;
+    border-left: 5px solid var(--color-primary400);
+    background-color: #f9f9f9;
+}
+
+.share-box {
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
 
 /*******************************/
 /* BELOW 944px (Tablets)*/

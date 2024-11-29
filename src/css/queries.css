@@ -12,53 +12,39 @@
     .btn:visited {
         font-size: 1.8rem;
     }
-
-    .btn--header:link,
-    .btn--header:visited {
-        font-size: 6.2rem;
-    }
-
     /* ABOUT SECTION */
     /* team */
     .flex-card-about {
         display: grid;
         grid-template-columns: repeat(2, 300px);
     }
-
     /* FAQ SECTION */
     .grid-faq {
         grid-template-columns: 1fr;
         justify-items: center;
         row-gap: var(--spacing-small);
     }    
-
     /* PRICING SECTION */
     .pricing-container {
         row-gap: var(--spacing-large);
     }
-
     /* BLOG SECTION */
     .blog-container {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-large);
-        padding: var(--spacing-medium);
     }
-
     /* OUR SERVICE SECTION */
     .services-container-text,
     .services-container-text span {
         font-size: 2rem;
     }
-
     .title {
         font-size: 2.4rem;
     }
-
     .sub-title, 
     .phone-heading {
         font-size: 1.6rem;
     }
-
     .line {
         margin-left: 1.6rem;
     }
@@ -78,16 +64,10 @@
     .title-row {
         height: 40px;
     }
-    
     .title-second {
         height: 30px;
         margin-bottom: var(--spacing-medium);
     }
-    
-    .main-text {
-        height: 26px;
-    }
-
     .link {
         margin-top: var(--spacing-small);
     }
@@ -96,11 +76,9 @@
         font-size: 4.8rem;
         font-weight: 700;
     }
-
     .text-6xl {
         font-size: 3.6rem;
     }
-    
     .text-4xl {
         font-size: 2rem;
     }
@@ -116,7 +94,6 @@
     .tag {
         padding: 0.8rem;
     }
-
     .flex-tag {
         gap: 0.2rem;
     }
@@ -126,7 +103,6 @@
         font-size: 1.6rem;
         padding: var(--spacing-small) var(--spacing-xsmall);
     }
-
     .btn--header:link,
     .btn--header:visited {
         font-size: 5.2rem;
@@ -137,12 +113,10 @@
         grid-template-columns: 225px 100px;   
         column-gap: var(--spacing-medium);    
     }
-
     .logo-col {
         grid-column: 1 / 2;
         grid-row: 2;
     }
-
     .resources-col {
         grid-row: 2;
     }
@@ -153,18 +127,14 @@
         grid-template-columns: repeat(2, 250px);
         gap: var(--spacing-large);
     }
-
     .team-card {
         width: 250px;
     }
-
     .stadistics-about {
         display: grid;
         grid-template-columns: repeat(2, 25rem);
         gap: var(--spacing-large);
-        justify-content: center;
     }
-    
     .stadistics-numbers {
         width: 25rem;
     }
@@ -173,17 +143,14 @@
     .flex-video {
         gap: var(--spacing-xl);
     }
-
     .phone-container {
         width: 250px;
     }
-    
     .device-container {
         position: relative;
         width: 200px;
         height: auto;
     }
-    
     .device-video {
         position: absolute;
         top: 1%; 
@@ -191,36 +158,34 @@
         object-fit: cover;
         z-index: 1;
         border-radius: 10px;
-        width: 223px;
+        width: 207px;
         height: 457px;
         overflow: hidden;
     }
-
     .device-image {
         position: relative;
         width: 100%;
-        width: 240px;
+        width: 227px;
         height: auto;
         height: 462px;
-        z-index: 2; /* La imagen está delante del video */
+        z-index: 2;
     }
-
+    .phone-width {
+        width: 223px;
+    }
     .carousel-controls {
         position: absolute;
-        bottom: 60px;
+        bottom: 100px;
         left: 50%;
     }
-
     .circle-indicator {
         width: 102px;
         height: 102px;
     }
-
     .circle-indicator::before {
         width: 90px;
         height: 90px;
     }
-    
     /** Estilos para los AirPods **/
     .airpods-device {
         position: absolute;
@@ -229,14 +194,12 @@
         width: 20rem; 
         z-index: 3; /* detrás del iPhone */
     }
-
     /** Iphone phone **/
     .iphone-container {
         max-width: 100%;
         position: relative; /* Para posicionar los AirPods detrás */
         perspective: 1000px;
     }
-
     .iphone-device {
         width: 32.5rem;
         height: auto;
@@ -246,20 +209,17 @@
         transform-style: preserve-3d;
         transform: rotateX(15deg) rotateY(-15deg);
     }
-
     /* PRICING SECTION */
     .pricing-features p {
         font-size: 1.6rem;
         line-height: 125%;
         color: var(--color-neutral500);
     }
-    
     /* FAQ SECTION */
     .grid-heading-secondary {
         grid-template-columns: 1fr;
         justify-items: start;
     }
-
     .grid-faq {
         grid-template-columns: 1fr;
         justify-items: start;
@@ -277,23 +237,18 @@
         font-size: 4.2rem;
         font-weight: 700;
     }
-
     .text-5xl {
         font-size: 2.8rem;
     }
-
     .text-4xl {
         font-size: 1.8rem;
     }
-
     .text-3xl {
         font-size: 2rem;
     }
-
     .text-2xl {
         font-size: 1.4rem;
     }
-
     /* HEADER */
     .main-title-text {
         font-size: 4.2rem;
@@ -301,35 +256,24 @@
     .title-row {
         height: 30px;
     }
-    
     .title-second {
         height: 25px;
     }
-    
-    .main-text {
-        height: 26px;
-    }
-
     .main-description {
         font-size: 1.8rem;
     }
-
     .logo {
         height: 3.0rem;
     }
-
     .header {
         padding: var(--spacing-small) var(--spacing-xl);
     }
-
     .menu-container {
         padding-left: 2rem;
     }
-
     .menu-item a {
         font-size: 3.6rem;
     }
-
     .btn--header:link,
     .btn--header:visited {
         font-size: 3.2rem;
@@ -345,66 +289,49 @@
         display: grid;
         justify-content: center;
     }
-
     .service-block {
         min-height: 100px;
         margin-bottom: var(--spacing-large);
     }
-
     .line {
-        width:  0.15px; /* Grosor de la línea */
-        height: 80px; /* Altura de la línea, ajustable */
+        height: 80px;
     }
-
     .controls {
         bottom: -1px;
         width: 75%;
         left: 15%;
         padding: var(--spacing-small) 0px var(--spacing-small) 0px;
     }
-
-    .phote-title {
-        font-size: 6.2rem;
-    }
     /** Samsung phone **/
     .flex-video {
         grid-template-columns: 250px;
         gap: var(--spacing-4xl);
     }
-
     /* BLOG SECTION */
     .blog-container {
         grid-template-columns: 1fr;
         justify-items: center;
     }
     /* ABOUT SECTION */
-    /* team */
+    /** team **/
     .flex-card-about {
         display: grid;
         grid-template-columns: repeat(2, 250px);
         grid-template-columns: 1fr;
         justify-items: center;
     }
-
     .stadistics-about {
         grid-template-columns: 1fr;
-        justify-items: center;
     }
-
     .stadistics-numbers {
         width: 35rem;
     }
     /* CONTACT SECTION */
     .contact-icons {
-        display: flex;
-        gap: var(--spacing-small);
         margin-top: var(--spacing-xl);
     }
-
     .copy-confirmation {
-        top: 100%;
         left: 25%;
-        transform: translateX(-50%);
     }
     /* FOOTER SECTION */
     .grid--footer {
@@ -413,19 +340,16 @@
         column-gap: var(--spacing-medium); 
         row-gap: var(--spacing-xl);     
     }
-
     .logo-col {
         grid-column: 1 / -1;
         grid-row: 2;
     }
-
     .resources-col {
         grid-row: 1;
     }
     /* FAQ SECTION */
     .faq-illustration {
         width: 35rem;
-        height: auto;
         transform: translateY(-10px);
     }
     /* WORK SECTION */
@@ -435,7 +359,6 @@
         justify-items: center;
     }
 }
-
 /*******************************/
 /* BELOW 320px (Smartphones)*/
 /*******************************/
