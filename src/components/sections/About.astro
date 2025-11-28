@@ -12,21 +12,17 @@ import Button from '../ui/Button.astro';
         
         <!-- Video Container (9:16 Aspect Ratio) -->
         <div class="relative aspect-[9/16] max-w-sm mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-          <!-- Placeholder for Video -->
-          <div class="absolute inset-0 bg-gray-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-            <img 
-              src="/tomas.png" 
-              alt="Tomas - Web Developer" 
-              class="w-full h-full object-cover opacity-80"
-            />
-            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white fill-current" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <!-- Video Real -->
+          <video 
+            class="w-full h-full object-cover"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="/video/Portafolio-video.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
