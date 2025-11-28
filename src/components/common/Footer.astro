@@ -1,0 +1,176 @@
+---
+import { Github, Linkedin, Mail, Instagram, Phone, MessageCircle } from 'lucide-react';
+
+const links = [
+  { name: "Services", href: "#services" },
+  { name: "Work", href: "#work" },
+  { name: "Process", href: "#process" },
+  { name: "About", href: "#about" },
+  { name: "Pricing", href: "#pricing" },
+];
+
+const social = [
+  { icon: Github, href: "https://github.com/tomaspa-dev", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/tomastechdev", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/tomastechdev/", label: "Instagram" },
+];
+---
+
+<footer id="contact" class="bg-black border-t border-white/10 pt-20 pb-20">
+  <div class="container mx-auto px-8 md:px-12 lg:px-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
+      
+      <div class="lg:col-span-2">
+        <a href="/" class="block w-48 mb-6">
+          <img src="/logo.png" alt="Tomastech Logo" class="w-full h-auto" />
+        </a>
+        <p class="text-gray-400 text-lg mb-8 max-w-md">
+          Helping businesses grow with high-performance web solutions. Let's build something amazing together.
+        </p>
+        <div class="flex gap-4">
+          {social.map((item) => (
+            <a 
+              href={item.href} 
+              target="_blank"
+              aria-label={item.label}
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <item.icon size={20} />
+            </a>
+          ))}
+          <a 
+            href="https://x.com/tomastechdev" 
+            target="_blank"
+            aria-label="X (Twitter)"
+            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="w-5 h-5 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-white font-bold mb-6">Quick Links</h3>
+        <ul class="space-y-4">
+          {links.map((link) => (
+            <li>
+              <a href={link.href} class="text-gray-400 hover:text-primary transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-bold mb-6 text-lg">Contact</h3>
+        <div class="flex gap-6">
+          
+          <!-- Phone Copy -->
+          <div class="relative group">
+            <button 
+              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white hover:border-primary/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] copy-btn"
+              data-value="+51978395717"
+              data-type="Phone number"
+              aria-label="Copy Phone Number"
+            >
+              <Phone size={24} />
+            </button>
+            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-primary text-black text-xs font-bold px-3 py-1.5 rounded opacity-0 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-lg tooltip">
+              Click to copy
+            </div>
+          </div>
+
+          <!-- WhatsApp Link -->
+          <div class="relative group">
+            <a 
+              href="https://wa.link/4kne89" 
+              target="_blank"
+              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle size={24} />
+            </a>
+            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-lg">
+              WhatsApp
+            </div>
+          </div>
+
+          <!-- Email Copy -->
+          <div class="relative group">
+            <button 
+              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white hover:border-accent/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] copy-btn"
+              data-value="hello@tomastech.dev"
+              data-type="Email"
+              aria-label="Copy Email"
+            >
+              <Mail size={24} />
+            </button>
+            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 transition-opacity whitespace-nowrap pointer-events-none tooltip z-50 shadow-lg">
+              Click to copy
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10 pt-8 px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+      <p>&copy; {new Date().getFullYear()} Tomastech. All rights reserved.</p>
+      <div class="flex gap-8">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const copyButtons = document.querySelectorAll('.copy-btn');
+
+  copyButtons.forEach(btn => {
+    const tooltip = btn.parentElement?.querySelector('.tooltip');
+    
+    // Show "Click to copy" on hover if not currently showing success message
+    btn.addEventListener('mouseenter', () => {
+      if (tooltip && !tooltip.classList.contains('success-msg')) {
+        tooltip.classList.remove('opacity-0');
+      }
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      if (tooltip && !tooltip.classList.contains('success-msg')) {
+        tooltip.classList.add('opacity-0');
+      }
+    });
+
+    btn.addEventListener('click', async () => {
+      const value = btn.getAttribute('data-value');
+      const type = btn.getAttribute('data-type');
+      
+      if (!value || !tooltip) return;
+
+      try {
+        await navigator.clipboard.writeText(value);
+        
+        // Update tooltip to success state
+        tooltip.textContent = `${type} copied!`;
+        tooltip.classList.add('success-msg');
+        tooltip.classList.remove('opacity-0');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          tooltip.classList.add('opacity-0');
+          setTimeout(() => {
+            tooltip.textContent = "Click to copy";
+            tooltip.classList.remove('success-msg');
+          }, 300); // Wait for fade out
+        }, 2000);
+
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  });
+</script>

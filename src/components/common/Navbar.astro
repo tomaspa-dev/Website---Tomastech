@@ -1,0 +1,59 @@
+---
+import Button from '../ui/Button.astro';
+import MobileMenu from '../ui/MobileMenu';
+
+const links = [
+  { name: "Services", href: "#services" },
+  { name: "Work", href: "#work" },
+  { name: "Process", href: "#process" },
+  { name: "About", href: "#about" },
+  { name: "Pricing", href: "#pricing" },
+];
+---
+
+<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent">
+  <div class="container mx-auto px-6 h-24 flex items-center justify-between">
+    <a href="/" class="block w-48 group relative overflow-hidden">
+      <div class="absolute inset-0 bg-white/40 w-full h-full -translate-x-full skew-x-[-20deg] group-hover:animate-shine z-10"></div>
+      <img src="/logo.png" alt="Tomastech Logo" class="w-full h-auto relative z-0 group-hover:brightness-125 transition-all duration-300" />
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      {links.map((link) => (
+        <a href={link.href} class="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+          {link.name}
+        </a>
+      ))}
+      <Button href="#contact" variant="primary" size="sm" class="px-6">
+        Let's Talk
+      </Button>
+    </div>
+
+    <MobileMenu client:load />
+  </div>
+</nav>
+
+<style>
+  @keyframes shine {
+    0% { transform: translateX(-100%) skewX(-20deg); }
+    50% { transform: translateX(100%) skewX(-20deg); }
+    100% { transform: translateX(100%) skewX(-20deg); }
+  }
+  .animate-shine {
+    animation: shine 0.5s ease-in-out;
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('bg-background/80', 'backdrop-blur-md', 'border-white/10', 'h-20');
+      navbar?.querySelector('.container')?.classList.replace('h-24', 'h-20');
+    } else {
+      navbar?.classList.remove('bg-background/80', 'backdrop-blur-md', 'border-white/10', 'h-20');
+      navbar?.querySelector('.container')?.classList.replace('h-20', 'h-24');
+    }
+  });
+</script>

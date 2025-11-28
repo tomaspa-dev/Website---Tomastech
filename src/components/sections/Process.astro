@@ -1,0 +1,67 @@
+---
+import { Search, PenTool, Code2, Rocket } from 'lucide-react';
+
+const steps = [
+  {
+    number: "01",
+    title: "Discovery",
+    description: "I start by understanding your business goals, target audience, and requirements to create a solid strategy.",
+    icon: Search,
+  },
+  {
+    number: "02",
+    title: "Design",
+    description: "I create visual concepts and wireframes that align with your brand identity and user experience best practices.",
+    icon: PenTool,
+  },
+  {
+    number: "03",
+    title: "Development",
+    description: "I build your website using modern technologies, ensuring it's fast, secure, and responsive across all devices.",
+    icon: Code2,
+  },
+  {
+    number: "04",
+    title: "Launch",
+    description: "After rigorous testing, I deploy your website and provide necessary training and support for a smooth launch.",
+    icon: Rocket,
+  },
+];
+---
+
+<section id="process" class="py-32 bg-white/5 border-y border-white/10">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto mb-20">
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block">How It Works</span>
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+        My <span class="text-primary">Process</span>
+      </h2>
+      <p class="text-gray-400 text-lg">
+        A streamlined workflow designed to deliver exceptional results on time and within budget.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {steps.map((step, index) => (
+        <div class="relative group">
+          {index < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent z-0"></div>
+          )}
+          
+          <div class="relative z-10 bg-background border border-white/10 p-8 rounded-2xl hover:border-primary/50 transition-all duration-300 h-full">
+            <div class="text-5xl font-bold text-white/5 mb-4 absolute top-4 right-4">{step.number}</div>
+            
+            <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
+              <step.icon size={28} />
+            </div>
+            
+            <h3 class="text-xl font-bold mb-3">{step.title}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
