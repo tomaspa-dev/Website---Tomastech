@@ -6,10 +6,10 @@ import { projects, type Project } from '../../data/projects';
 const categories = [
   'All',
   'Landing Pages',
-  'Webs Corporativas',
-  'Aplicaciones Web',
-  'Temas WordPress',
-  'Extensiones'
+  'Corporate Websites',
+  'Web Applications',
+  'WordPress Themes',
+  'Extensions'
 ];
 
 export default function PortfolioGrid() {

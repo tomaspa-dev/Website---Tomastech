@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'Landing Pages' | 'Webs Corporativas' | 'Aplicaciones Web' | 'Temas WordPress' | 'Extensiones';
+  category: 'Landing Pages' | 'Corporate Websites' | 'Web Applications' | 'WordPress Themes' | 'Extensions';
   description: string;
   image: string;
   tags: string[];
@@ -19,15 +19,15 @@ export const projects: Project[] = [
   // --- LANDING PAGES ---
   {
     id: 'summerwave',
-    title: 'SummerWave - Ropa de Verano',
+    title: 'SummerWave - Summer Clothing',
     category: 'Landing Pages',
-    description: 'Landing page vibrante para colección de ropa de verano con animaciones fluidas.',
+    description: 'Vibrant landing page for summer clothing collection with fluid animations.',
     image: '/img/summerwave.webp',
     tags: ['Astro', 'React', 'Tailwind', 'GSAP'],
     link: 'https://summerwave.netlify.app/',
     details: {
-      concept: 'Landing page promocional para lanzamiento de temporada de verano.',
-      features: ['Carrusel de looks', 'Animaciones de entrada', 'Cursor personalizado', 'Smooth scroll'],
+      concept: 'Promotional landing page for summer season launch.',
+      features: ['Looks carousel', 'Entry animations', 'Custom cursor', 'Smooth scroll'],
       stack: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
       time: '5-7 days',
       metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
@@ -35,15 +35,15 @@ export const projects: Project[] = [
   },
   {
     id: 'elegancegala',
-    title: 'EleganceGala - Tienda de Modas',
+    title: 'EleganceGala - Fashion Store',
     category: 'Landing Pages',
-    description: 'Boutique de vestidos de gala con experiencia de usuario premium.',
+    description: 'Gala dress boutique with premium user experience.',
     image: '/img/elegancegala.webp',
     tags: ['Astro', 'React', 'Three.js', 'Framer Motion'],
     link: 'https://elegancegala.netlify.app/',
     details: {
-      concept: 'Landing para boutique de vestidos de gala y moda femenina elegante.',
-      features: ['Hero slider', 'Lookbook interactivo', 'Vista 360°', 'Booking de cita'],
+      concept: 'Landing for gala dress boutique and elegant women\'s fashion.',
+      features: ['Hero slider', 'Interactive lookbook', '360° view', 'Appointment booking'],
       stack: ['Astro', 'React', 'TailwindCSS', 'Three.js'],
       time: '5-7 days'
     }
@@ -52,76 +52,76 @@ export const projects: Project[] = [
     id: 'fitpro',
     title: 'FitPro Tracker',
     category: 'Landing Pages',
-    description: 'Landing tech premium para smartwatch y app de fitness.',
+    description: 'Premium tech landing for smartwatch and fitness app.',
     image: '/img/fitpro.webp',
     tags: ['Astro', 'Three.js', 'React Three Fiber'],
     link: '#',
     details: {
-      concept: 'Landing para smartwatch/app de fitness con diseño tech premium.',
-      features: ['Animación 3D del producto', 'Scroll-triggered animations', 'Comparativa de planes'],
+      concept: 'Landing for smartwatch/fitness app with premium tech design.',
+      features: ['3D product animation', 'Scroll-triggered animations', 'Plans comparison'],
       stack: ['Astro', 'React', 'Three.js', 'GSAP'],
       time: '7-10 days'
     }
   },
   {
     id: 'gelatoart',
-    title: 'GelatoArt - Heladería',
+    title: 'GelatoArt - Ice Cream Shop',
     category: 'Landing Pages',
-    description: 'Experiencia visual deliciosa para heladería artesanal.',
+    description: 'Delicious visual experience for artisan ice cream shop.',
     image: '/img/gelatoart.webp',
     tags: ['Astro', 'Lottie', 'Google Maps API'],
     link: '#',
     details: {
-      concept: 'Landing deliciosa y colorida para heladería artesanal.',
-      features: ['Video hero', 'Animaciones de goteo', 'Localizador de tiendas', 'Menú PDF'],
+      concept: 'Delicious and colorful landing for artisan ice cream shop.',
+      features: ['Video hero', 'Drip animations', 'Store locator', 'PDF menu'],
       stack: ['Astro', 'React', 'TailwindCSS', 'Lottie'],
       time: '5-7 days'
     }
   },
 
-  // --- WEBS CORPORATIVAS ---
+  // --- CORPORATE WEBSITES ---
   {
     id: 'rg-distribuciones',
     title: 'RG Distribuciones Perú',
-    category: 'Webs Corporativas',
-    description: 'Web corporativa para empresa de distribución con enfoque en sostenibilidad.',
+    category: 'Corporate Websites',
+    description: 'Corporate website for distribution company with sustainability focus.',
     image: '/img/rg-distribuciones.webp',
     tags: ['Astro', 'React', 'Corporate'],
     link: 'https://rgperu-web.netlify.app/',
     details: {
-      concept: 'Web corporativa profesional para empresa líder en distribución ecológica en Perú.',
-      features: ['Diseño corporativo moderno', 'Catálogo de productos sostenibles', 'Formulario de contacto', 'Sección de testimonios'],
+      concept: 'Professional corporate website for leading ecological distribution company in Peru.',
+      features: ['Modern corporate design', 'Sustainable products catalog', 'Contact form', 'Testimonials section'],
       stack: ['Astro', 'React', 'TailwindCSS', 'Netlify'],
       time: '2-3 weeks'
     }
   },
   {
     id: 'buildpro',
-    title: 'BuildPro - Constructora',
-    category: 'Webs Corporativas',
-    description: 'Sitio web robusto para empresa de construcción con portafolio de obras.',
+    title: 'BuildPro - Construction Company',
+    category: 'Corporate Websites',
+    description: 'Robust website for construction company with project portfolio.',
     image: '/img/buildpro.webp',
     tags: ['Astro', 'Strapi', 'SEO'],
     link: '#',
     details: {
-      concept: 'Web corporativa para empresa de construcción.',
-      features: ['Galería de proyectos filtrable', 'Timeline de historia', 'Cotizador multi-step'],
+      concept: 'Corporate website for construction company.',
+      features: ['Filterable project gallery', 'History timeline', 'Multi-step quoter'],
       stack: ['Astro', 'React', 'Strapi', 'TailwindCSS'],
       time: '2-3 weeks'
     }
   },
 
-  // --- APLICACIONES WEB ---
+  // --- WEB APPLICATIONS ---
   {
     id: 'matchvibe',
     title: 'MatchVibe - Dating App',
-    category: 'Aplicaciones Web',
-    description: 'Red social de citas basada en intereses reales (Spotify + Netflix).',
+    category: 'Web Applications',
+    description: 'Dating social network based on real interests (Spotify + Netflix).',
     image: '/img/matchvibe.webp',
     tags: ['Next.js', 'Socket.io', 'WebRTC', 'Spotify API'],
     link: '#',
     details: {
-      concept: 'Tinder + Spotify + Netflix + Karma system = Red social de citas basada en intereses reales.',
+      concept: 'Tinder + Spotify + Netflix + Karma system = Dating social network based on real interests.',
       features: ['Swipe system', 'Spotify integration', 'Watch Party', 'Karma system', 'Video calls'],
       stack: ['Next.js', 'Node.js', 'PostgreSQL', 'Socket.io', 'WebRTC'],
       time: '12-16 weeks'
@@ -130,14 +130,14 @@ export const projects: Project[] = [
   {
     id: 'namegenius',
     title: 'NameGenius - AI Naming',
-    category: 'Aplicaciones Web',
-    description: 'Generador de nombres para bebés y mascotas potenciado por IA.',
+    category: 'Web Applications',
+    description: 'AI-powered name generator for babies and pets.',
     image: '/img/namegenius.webp',
     tags: ['React', 'OpenAI API', 'Supabase'],
     link: '#',
     details: {
-      concept: 'App para generar nombres únicos y significativos usando IA.',
-      features: ['Filtros avanzados', 'Generación con IA', 'Significado e historia', 'Favoritos'],
+      concept: 'App to generate unique and meaningful names using AI.',
+      features: ['Advanced filters', 'AI generation', 'Meaning and history', 'Favorites'],
       stack: ['React', 'Node.js', 'PostgreSQL', 'OpenAI API'],
       time: '2-3 weeks'
     }
@@ -145,48 +145,48 @@ export const projects: Project[] = [
   {
     id: 'storygen',
     title: 'StoryGen Kids',
-    category: 'Aplicaciones Web',
-    description: 'Generador de cuentos infantiles personalizados con ilustraciones IA.',
+    category: 'Web Applications',
+    description: 'Personalized children\'s story generator with AI illustrations.',
     image: '/img/storygen.webp',
     tags: ['Next.js', 'DALL-E 3', 'ElevenLabs'],
     link: '#',
     details: {
-      concept: 'Generador de cuentos personalizados para niños con imágenes IA y animaciones.',
-      features: ['Generación de texto e imagen', 'Modo lectura', 'Exportación PDF/Video'],
+      concept: 'Personalized story generator for kids with AI images and animations.',
+      features: ['Text and image generation', 'Reading mode', 'PDF/Video export'],
       stack: ['Next.js', 'OpenAI API', 'DALL-E 3', 'ElevenLabs'],
       time: '5-7 weeks'
     }
   },
 
-  // --- TEMAS WORDPRESS ---
+  // --- WORDPRESS THEMES ---
   {
     id: 'fashionhub',
     title: 'FashionHub Theme',
-    category: 'Temas WordPress',
-    description: 'Tema WooCommerce especializado para tiendas de moda femenina.',
+    category: 'WordPress Themes',
+    description: 'WooCommerce theme specialized for women\'s fashion stores.',
     image: '/img/fashionhub.webp',
     tags: ['WordPress', 'WooCommerce', 'Elementor'],
     link: '#',
     details: {
-      concept: 'Tema premium para tiendas de ropa de mujer.',
-      features: ['Lookbook interactivo', 'Size guide', 'Color swatches', 'Instagram shop'],
+      concept: 'Premium theme for women\'s clothing stores.',
+      features: ['Interactive lookbook', 'Size guide', 'Color swatches', 'Instagram shop'],
       stack: ['WordPress', 'WooCommerce', 'Elementor Pro', 'PHP'],
       time: '4-5 weeks'
     }
   },
 
-  // --- EXTENSIONES ---
+  // --- EXTENSIONS ---
   {
     id: 'codesnippets',
     title: 'CodeSnippets Pro',
-    category: 'Extensiones',
-    description: 'Extensión de VSCode para gestión inteligente de snippets con IA.',
+    category: 'Extensions',
+    description: 'VSCode extension for intelligent snippet management with AI.',
     image: '/img/matchvibe.webp',
     tags: ['VSCode API', 'TypeScript', 'AI'],
     link: '#',
     details: {
-      concept: 'Gestor avanzado de snippets de código con IA para VSCode.',
-      features: ['Snippets inteligentes', 'Generación con IA', 'Sincronización en nube'],
+      concept: 'Advanced code snippet manager with AI for VSCode.',
+      features: ['Smart snippets', 'AI generation', 'Cloud sync'],
       stack: ['TypeScript', 'VSCode Extension API', 'OpenAI API'],
       time: '6-8 weeks'
     }
