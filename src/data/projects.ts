@@ -181,7 +181,7 @@ export const projects: Project[] = [
     title: 'CodeSnippets Pro',
     category: 'Extensions',
     description: 'VSCode extension for intelligent snippet management with AI.',
-    image: '/img/matchvibe.webp',
+    image: '/img/CodeSnippetsPro.webp',
     tags: ['VSCode API', 'TypeScript', 'AI'],
     link: '#',
     details: {
