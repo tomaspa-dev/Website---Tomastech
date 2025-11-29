@@ -87,11 +87,11 @@ export const projects: Project[] = [
     description: 'Corporate website for distribution company with sustainability focus.',
     image: '/img/rg-distribuciones.webp',
     tags: ['Astro', 'React', 'Corporate'],
-    link: 'https://rgperu-web.netlify.app/',
+    link: 'https://rgdistribucionesperu.com',
     details: {
       concept: 'Professional corporate website for leading ecological distribution company in Peru.',
       features: ['Modern corporate design', 'Sustainable products catalog', 'Contact form', 'Testimonials section'],
-      stack: ['Astro', 'React', 'TailwindCSS', 'Netlify'],
+      stack: ['Astro', 'React', 'TailwindCSS'],
       time: '2-3 weeks'
     }
   },
