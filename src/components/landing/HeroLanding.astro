@@ -1,0 +1,81 @@
+---
+import { ArrowRight } from 'lucide-react';
+import Button from '../ui/Button.astro';
+import AnimatedBackground from '../ui/AnimatedBackground';
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" id="hero">
+  <AnimatedBackground client:load />
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-5xl mx-auto text-center">
+      <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 opacity-0">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-sm text-gray-300">Premium Web Development</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight leading-tight overflow-hidden">
+        <div class="hero-line overflow-hidden">
+          <span class="inline-block transform translate-y-full">Transform Your Ideas</span>
+        </div>
+        <div class="hero-line overflow-hidden">
+          <span class="inline-block transform translate-y-full">into <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Digital Masterpieces</span></span>
+        </div>
+      </h1>
+      
+      <p class="hero-desc text-xl text-gray-400 mb-12 max-w-2xl mx-auto opacity-0 transform translate-y-4">
+        We build high-performance, visually stunning websites that drive results. Elevate your brand with our premium tech solutions.
+      </p>
+      
+      <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 transform translate-y-4">
+        <a 
+          href="#contact" 
+          class="group relative inline-flex items-center gap-2 px-8 py-4 bg-primary text-black font-bold rounded-full overflow-hidden transition-transform hover:scale-105"
+        >
+          <span class="relative z-10">Start Project</span>
+          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 relative z-10" />
+          <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+        </a>
+        
+        <a 
+          href="/portfolio" 
+          class="px-8 py-4 rounded-full border border-white/10 text-white hover:bg-white/5 transition-colors"
+        >
+          View Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const tl = gsap.timeline();
+    
+    tl.to(".hero-badge", {
+      opacity: 1,
+      duration: 0.8,
+      ease: "power2.out"
+    })
+    .to(".hero-line span", {
+      y: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power4.out"
+    }, "-=0.4")
+    .to(".hero-desc", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.6")
+    .to(".hero-cta", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.6");
+  });
+</script>

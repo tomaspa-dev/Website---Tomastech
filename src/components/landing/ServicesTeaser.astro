@@ -1,0 +1,46 @@
+---
+import { Code2, Rocket, Smartphone } from 'lucide-react';
+
+const services = [
+  {
+    icon: Code2,
+    title: "Custom Development",
+    description: "Tailored web solutions built with modern technologies for maximum performance."
+  },
+  {
+    icon: Smartphone,
+    title: "Responsive Design",
+    description: "Flawless experiences across all devices, from mobile to desktop."
+  },
+  {
+    icon: Rocket,
+    title: "SEO & Performance",
+    description: "Optimized for speed and search engines to help you reach more customers."
+  }
+];
+---
+
+<section class="py-24 bg-black/50">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Expertise</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        We combine creativity with technical excellence to deliver outstanding results.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {services.map((service) => (
+        <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors group">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+            <service.icon size={24} />
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">{service.title}</h3>
+          <p class="text-gray-400 leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const links = [
+interface MobileMenuProps {
+  isLanding?: boolean;
+}
+
+const landingLinks = [
   { name: "Services", href: "#services" },
-  { name: "Work", href: "#work" },
-  { name: "Process", href: "#process" },
-  { name: "About", href: "#about" },
   { name: "Pricing", href: "#pricing" },
   { name: "Contact", href: "#contact" },
 ];
 
-export default function MobileMenu() {
+const portfolioLinks = [
+  { name: "Work", href: "#work" },
+  { name: "Process", href: "#process" },
+  { name: "About", href: "#about" },
+  { name: "Contact", href: "#contact" },
+];
+
+export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const links = isLanding ? landingLinks : portfolioLinks;
 
   return (
     <div className="md:hidden">
@@ -42,6 +51,30 @@ export default function MobileMenu() {
                 {link.name}
               </a>
             ))}
+            
+            {isLanding ? (
+              <>
+                <a
+                  href="/portfolio"
+                  className="text-gray-300 hover:text-primary text-lg font-medium py-2 border-b border-white/5"
+                >
+                  Portfolio
+                </a>
+                <a
+                  href="/client-portal"
+                  className="text-primary hover:text-white text-lg font-medium py-2"
+                >
+                  Client Access
+                </a>
+              </>
+            ) : (
+              <a
+                href="#contact"
+                className="text-primary hover:text-white text-lg font-medium py-2"
+              >
+                Let's Talk
+              </a>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,14 +1,26 @@
 ---
 import Button from '../ui/Button.astro';
 import MobileMenu from '../ui/MobileMenu';
+import { User, Briefcase } from 'lucide-react';
 
-const links = [
+interface Props {
+  isLanding?: boolean;
+}
+
+const { isLanding = false } = Astro.props;
+
+const landingLinks = [
   { name: "Services", href: "#services" },
+  { name: "Pricing", href: "#pricing" },
+];
+
+const portfolioLinks = [
   { name: "Work", href: "#work" },
   { name: "Process", href: "#process" },
   { name: "About", href: "#about" },
-  { name: "Pricing", href: "#pricing" },
 ];
+
+const links = isLanding ? landingLinks : portfolioLinks;
 ---
 
 <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent">
@@ -24,12 +36,26 @@ const links = [
           {link.name}
         </a>
       ))}
-      <Button href="#contact" variant="primary" size="sm" class="px-6">
-        Let's Talk
-      </Button>
+      
+      {isLanding ? (
+        <>
+          <a href="/portfolio" class="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+            <Briefcase size={16} />
+            Portfolio
+          </a>
+          <Button href="/client-portal" variant="outline" size="sm" class="px-6 flex items-center gap-2">
+            <User size={16} />
+            Client Access
+          </Button>
+        </>
+      ) : (
+        <Button href="#contact" variant="primary" size="sm" class="px-6">
+          Let's Talk
+        </Button>
+      )}
     </div>
 
-    <MobileMenu client:load />
+    <MobileMenu client:load isLanding={isLanding} />
   </div>
 </nav>
 
