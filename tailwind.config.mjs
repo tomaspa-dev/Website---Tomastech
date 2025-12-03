@@ -11,6 +11,10 @@ export default {
 				accent: '#ec4899', // Pink
 			},
 			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				heading: ['Outfit', 'sans-serif'],
+			},
+			animation: {
 				gradient: {
 					'0%, 100%': { backgroundPosition: '0% 50%' },
 					'50%': { backgroundPosition: '100% 50%' },

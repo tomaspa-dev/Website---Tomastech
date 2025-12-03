@@ -1,10 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Languages, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Moon, Sun, Languages, ChevronRight, ChevronLeft, MousePointer2 } from 'lucide-react';
 
 export default function SettingsSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [lang, setLang] = useState('en');
+  const [cursorEnabled, setCursorEnabled] = useState(true);
+
+  useEffect(() => {
+    const storedPref = localStorage.getItem('customCursorEnabled');
+    if (storedPref !== null) {
+      setCursorEnabled(storedPref === 'true');
+    }
+  }, []);
+
+  const toggleCursor = () => {
+    const newState = !cursorEnabled;
+    setCursorEnabled(newState);
+    localStorage.setItem('customCursorEnabled', String(newState));
+    
+    // Dispatch event for CustomCursor component
+    const event = new CustomEvent('cursor-settings-changed', { 
+      detail: { enabled: newState } 
+    });
+    window.dispatchEvent(event);
+  };
 
   useEffect(() => {
     // Check system preference or localStorage
@@ -94,6 +114,20 @@ export default function SettingsSidebar() {
               ES
             </button>
           </div>
+        </div>
+
+        {/* Cursor Toggle */}
+        <div className="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+          <span className="text-gray-300 text-sm flex items-center gap-3 font-medium">
+            <MousePointer2 size={20} className="text-primary" />
+            Cursor
+          </span>
+          <button 
+            onClick={toggleCursor}
+            className={`w-12 h-6 rounded-full relative transition-colors duration-500 shadow-inner ${cursorEnabled ? 'bg-primary/80' : 'bg-gray-600'}`}
+          >
+            <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${cursorEnabled ? 'left-7' : 'left-1'}`} />
+          </button>
         </div>
       </div>
 

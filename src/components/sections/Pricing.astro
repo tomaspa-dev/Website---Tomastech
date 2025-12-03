@@ -54,53 +54,66 @@ const plans = [
 ];
 ---
 
-<section id="pricing" class="py-24 bg-white/5">
+<section id="pricing" class="py-32 bg-black relative z-10">
   <div class="container mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">Simple Pricing</h2>
-      <p class="text-xl text-gray-400">
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block">Pricing</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white tracking-tight">Our Plans</h2>
+      <p class="text-lg text-gray-400">
         Transparent pricing plans that scale with your business needs. No hidden fees.
       </p>
-      <p class="text-sm text-gray-500 mt-2">
+      <p class="text-sm text-gray-500 mt-4">
         (*) Taxes not included / Starts at
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {plans.map((plan) => (
-        <Card class={`relative ${plan.popular ? 'border-primary shadow-[0_0_30px_rgba(99,102,241,0.15)]' : ''}`}>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {plans.map((plan, index) => (
+        <div class={`pricing-card relative flex flex-col p-6 rounded-2xl bg-white/5 border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${plan.popular ? 'border-primary/50 shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'border-white/10 hover:border-white/20'}`}>
+          
           {plan.popular && (
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-black px-4 py-1 rounded-full text-sm font-bold shadow-lg shadow-primary/20 z-20">
               Most Popular
             </div>
           )}
-          <div class="mb-8">
-            <h3 class="text-xl font-bold mb-2">{plan.name}</h3>
-            <div class="flex items-baseline gap-1 mb-4">
-              <span class="text-4xl font-bold">{plan.price}</span>
-              <span class="text-gray-400">{plan.period}</span>
+          
+          <div class="mb-8 relative">
+            <h3 class="text-xl lg:text-2xl font-bold mb-2 text-white">{plan.name}</h3>
+            <div class="flex items-baseline gap-1 mb-4 relative inline-block">
+              <span class="text-4xl lg:text-5xl font-bold text-white tracking-tight relative z-10">{plan.price}</span>
+              <span class="text-gray-500 font-medium">{plan.period}</span>
             </div>
-            <p class="text-gray-400 text-sm">{plan.description}</p>
+            <p class="text-gray-400 text-sm leading-relaxed">{plan.description}</p>
           </div>
 
-          <ul class="space-y-4 mb-8">
-            {plan.features.map((feature) => (
-              <li class="flex items-start gap-3 text-sm text-gray-300">
-                <Check size={18} class="text-primary shrink-0 mt-0.5" />
-                <span>{feature}</span>
+          <ul class="space-y-4 mb-8 flex-grow">
+            {plan.features.map((feature, fIndex) => (
+              <li class="flex items-start gap-3 text-sm text-gray-300 group/feature">
+                <div class="mt-0.5 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <Check size={12} class="text-primary" />
+                </div>
+                <div class="flex-grow">
+                  <span>{feature}</span>
+                </div>
               </li>
             ))}
           </ul>
 
-          <Button 
-            href="#contact" 
-            variant={plan.popular ? 'primary' : 'outline'} 
-            class="w-full"
-          >
-            {plan.cta}
-          </Button>
-        </Card>
+          <div class="mt-auto relative">
+            <Button 
+              href="#contact" 
+              variant={plan.popular ? 'primary' : 'outline'} 
+              class={`pricing-button w-full py-4 text-center justify-center font-bold ${plan.popular ? 'hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]' : ''}`}
+            >
+              {plan.cta}
+            </Button>
+          </div>
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  // Clean script - no animations for now
+</script>

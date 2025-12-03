@@ -20,7 +20,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl">
+    <div id="contact-form" className="w-full max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl">
       <h3 className="text-2xl font-bold text-white mb-2">Let's Build Something Great</h3>
       <p className="text-gray-400 mb-6 text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>
       

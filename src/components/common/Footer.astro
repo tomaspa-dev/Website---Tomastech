@@ -16,8 +16,10 @@ const social = [
 ];
 ---
 
-<footer id="contact" class="bg-black border-t border-white/10 pt-20 pb-20">
-  <div class="container mx-auto px-8 md:px-12 lg:px-16">
+<footer id="contact" class="bg-black border-t border-white/10 pt-32 pb-20 relative overflow-hidden">
+  {/* Wave Removed */}
+
+  <div class="container mx-auto px-8 md:px-12 lg:px-16 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16">
       
       <div class="lg:col-span-2">
@@ -33,7 +35,7 @@ const social = [
               href={item.href} 
               target="_blank"
               aria-label={item.label}
-              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110"
+              class="magnetic-btn w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-black transition-all duration-300"
             >
               <item.icon size={20} />
             </a>
@@ -42,7 +44,7 @@ const social = [
             href="https://x.com/tomastechdev" 
             target="_blank"
             aria-label="X (Twitter)"
-            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110"
+            class="magnetic-btn w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-black transition-all duration-300"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" class="w-5 h-5 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
@@ -54,7 +56,7 @@ const social = [
         <ul class="space-y-4">
           {links.map((link) => (
             <li>
-              <a href={link.href} class="text-gray-400 hover:text-primary transition-colors">
+              <a href={link.href} class="magnetic-link inline-block text-gray-400 hover:text-primary transition-colors">
                 {link.name}
               </a>
             </li>
@@ -69,7 +71,7 @@ const social = [
           <!-- Phone Copy -->
           <div class="relative group">
             <button 
-              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white hover:border-primary/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] copy-btn"
+              class="magnetic-btn w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white hover:border-primary/50 transition-all duration-300 copy-btn"
               data-value="+51978395717"
               data-type="Phone number"
               aria-label="Copy Phone Number"
@@ -86,7 +88,7 @@ const social = [
             <a 
               href="https://wa.link/4kne89" 
               target="_blank"
-              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+              class="magnetic-btn w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]/50 transition-all duration-300"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle size={24} />
@@ -99,7 +101,7 @@ const social = [
           <!-- Email Copy -->
           <div class="relative group">
             <button 
-              class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white hover:border-accent/50 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] copy-btn"
+              class="magnetic-btn w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-accent hover:text-white hover:border-accent/50 transition-all duration-300 copy-btn"
               data-value="hello@tomastech.dev"
               data-type="Email"
               aria-label="Copy Email"
@@ -127,50 +129,108 @@ const social = [
 </footer>
 
 <script>
-  const copyButtons = document.querySelectorAll('.copy-btn');
+  import { gsap } from "gsap";
 
-  copyButtons.forEach(btn => {
-    const tooltip = btn.parentElement?.querySelector('.tooltip');
+  document.addEventListener('astro:page-load', () => {
+    // 2. Magnetic Buttons
+    const magneticBtns = document.querySelectorAll('.magnetic-btn');
     
-    // Show "Click to copy" on hover if not currently showing success message
-    btn.addEventListener('mouseenter', () => {
-      if (tooltip && !tooltip.classList.contains('success-msg')) {
-        tooltip.classList.remove('opacity-0');
-      }
-    });
-
-    btn.addEventListener('mouseleave', () => {
-      if (tooltip && !tooltip.classList.contains('success-msg')) {
-        tooltip.classList.add('opacity-0');
-      }
-    });
-
-    btn.addEventListener('click', async () => {
-      const value = btn.getAttribute('data-value');
-      const type = btn.getAttribute('data-type');
+    magneticBtns.forEach((btn: any) => {
+      btn.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        gsap.to(btn, {
+          x: x * 0.5,
+          y: y * 0.5,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
       
-      if (!value || !tooltip) return;
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.3)"
+        });
+      });
+    });
 
-      try {
-        await navigator.clipboard.writeText(value);
+    // 3. Magnetic Text Links
+    const magneticLinks = document.querySelectorAll('.magnetic-link');
+    
+    magneticLinks.forEach((link: any) => {
+      link.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = link.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
         
-        // Update tooltip to success state
-        tooltip.textContent = `${type} copied!`;
-        tooltip.classList.add('success-msg');
-        tooltip.classList.remove('opacity-0');
-        
-        // Reset after 2 seconds
-        setTimeout(() => {
+        gsap.to(link, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      link.addEventListener('mouseleave', () => {
+        gsap.to(link, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.3)"
+        });
+      });
+    });
+
+    // Copy functionality
+    const copyButtons = document.querySelectorAll('.copy-btn');
+
+    copyButtons.forEach(btn => {
+      const tooltip = btn.parentElement?.querySelector('.tooltip');
+      
+      // Show "Click to copy" on hover if not currently showing success message
+      btn.addEventListener('mouseenter', () => {
+        if (tooltip && !tooltip.classList.contains('success-msg')) {
+          tooltip.classList.remove('opacity-0');
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        if (tooltip && !tooltip.classList.contains('success-msg')) {
           tooltip.classList.add('opacity-0');
-          setTimeout(() => {
-            tooltip.textContent = "Click to copy";
-            tooltip.classList.remove('success-msg');
-          }, 300); // Wait for fade out
-        }, 2000);
+        }
+      });
 
-      } catch (err) {
-        console.error('Failed to copy:', err);
-      }
+      btn.addEventListener('click', async () => {
+        const value = btn.getAttribute('data-value');
+        const type = btn.getAttribute('data-type');
+        
+        if (!value || !tooltip) return;
+
+        try {
+          await navigator.clipboard.writeText(value);
+          
+          // Show success message
+          const originalText = tooltip.innerText;
+          tooltip.innerText = "Copied!";
+          tooltip.classList.add('success-msg');
+          tooltip.classList.remove('opacity-0');
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            tooltip.innerText = originalText;
+            tooltip.classList.remove('success-msg');
+            tooltip.classList.add('opacity-0');
+          }, 2000);
+          
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
     });
   });
 </script>
