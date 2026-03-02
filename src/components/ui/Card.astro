@@ -7,6 +7,6 @@ interface Props {
 const { class: className, ...rest } = Astro.props;
 ---
 
-<div class:list={["p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] group", className]} {...rest}>
+<div class:list={["p-6 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] group", className]} {...rest}>
   <slot />
 </div>

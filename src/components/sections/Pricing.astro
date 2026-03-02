@@ -1,36 +1,37 @@
 ---
-import Button from '../ui/Button.astro';
-import Card from '../ui/Card.astro';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight, Star, Zap } from 'lucide-react';
 
 const plans = [
   {
-    name: "Basic",
+    name: "Essential",
     price: "$1,500",
-    period: "/month",
-    description: "Landing Pages, Corporate Websites",
+    period: "starting at",
+    description: "Perfect for landing pages, portfolios, and corporate websites.",
     features: [
-      "Responsive design",
-      "Basic SEO optimization",
-      "Up to 3 pages",
-      "Contact form integration",
-      "1 revision included"
+      "Responsive design (all devices)",
+      "Up to 5 pages",
+      "SEO optimization",
+      "Contact form with email",
+      "Performance-optimized",
+      "1 month support"
     ],
     cta: "Get Started",
     popular: false,
   },
   {
     name: "Professional",
-    price: "$2,500",
-    period: "/month",
-    description: "Designed for growing businesses needing advanced features.",
+    price: "$3,500",
+    period: "starting at",
+    description: "For web apps, dashboards, and custom business platforms.",
     features: [
-      "Custom design",
-      "Advanced SEO features",
-      "Up to 5 pages",
-      "Blog setup",
-      "E-commerce integration",
-      "3 revisions included"
+      "Custom web application (React/Next.js)",
+      "Database design & API",
+      "Authentication & roles",
+      "Admin dashboard",
+      "Real-time features",
+      "Cloud deployment",
+      "3 months support",
+      "Priority response"
     ],
     cta: "Get Started",
     popular: true,
@@ -38,82 +39,145 @@ const plans = [
   {
     name: "Enterprise",
     price: "Custom",
-    period: "",
-    description: "For large organizations requiring robust, complex solutions.",
+    period: "contact for quote",
+    description: "Full-scale ERPs, GPS apps, and complex multi-module systems.",
     features: [
-      "Complex integrations",
-      "Advanced SEO features",
-      "Custom pages",
-      "Custom functionality",
-      "Priority support",
-      "5 revisions included"
+      "Full-stack development",
+      "ERP / GPS / custom platform",
+      "Advanced integrations (APIs, IoT)",
+      "Multi-module architecture",
+      "Scalable infrastructure",
+      "Dedicated project manager",
+      "Ongoing maintenance",
+      "SLA guarantee"
     ],
-    cta: "Contact Us",
+    cta: "Let's Talk",
     popular: false,
   },
 ];
 ---
 
-<section id="pricing" class="py-32 bg-black relative z-10">
-  <div class="container mx-auto px-4">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block">Pricing</span>
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white tracking-tight">Our Plans</h2>
-      <p class="text-lg text-gray-400">
-        Transparent pricing plans that scale with your business needs. No hidden fees.
+<section id="pricing" class="py-24 md:py-32 relative z-10">
+  {/* Subtle section gradient */}
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/[0.02] to-transparent pointer-events-none"></div>
+  
+  <div class="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+      <span class="inline-block text-primary font-heading font-semibold tracking-wider uppercase text-xs md:text-sm mb-3">Pricing</span>
+      <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-5 text-text-primary tracking-tight font-heading">
+        Invest in Your <span class="gradient-text">Digital Growth</span>
+      </h2>
+      <p class="text-base md:text-lg text-text-secondary leading-relaxed">
+        Transparent pricing that scales with your business. No hidden fees, no surprises.
       </p>
-      <p class="text-sm text-gray-500 mt-4">
-        (*) Taxes not included / Starts at
+      <p class="text-xs text-text-muted mt-2">
+        (*) Taxes not included. Final price depends on project scope and complexity.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5 lg:gap-6 max-w-5xl mx-auto">
       {plans.map((plan, index) => (
-        <div class={`pricing-card relative flex flex-col p-6 rounded-2xl bg-white/5 border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${plan.popular ? 'border-primary/50 shadow-[0_0_30px_rgba(59,130,246,0.1)]' : 'border-white/10 hover:border-white/20'}`}>
-          
+        <div 
+          class={`pricing-card group relative flex flex-col p-6 md:p-7 rounded-2xl glass-card transition-all duration-500 hover:-translate-y-1 ${plan.popular ? 'md:-translate-y-3 md:hover:-translate-y-5 ring-1 ring-primary/20 shadow-glow-primary' : ''}`}
+          style={`animation-delay: ${index * 150}ms;`}
+        >
+          {/* Popular badge */}
           {plan.popular && (
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-black px-4 py-1 rounded-full text-sm font-bold shadow-lg shadow-primary/20 z-20">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-1 rounded-full text-[11px] font-bold font-heading shadow-glow-primary z-20 whitespace-nowrap">
+              <Star size={10} fill="currentColor" />
               Most Popular
             </div>
           )}
-          
-          <div class="mb-8 relative">
-            <h3 class="text-xl lg:text-2xl font-bold mb-2 text-white">{plan.name}</h3>
-            <div class="flex items-baseline gap-1 mb-4 relative inline-block">
-              <span class="text-4xl lg:text-5xl font-bold text-white tracking-tight relative z-10">{plan.price}</span>
-              <span class="text-gray-500 font-medium">{plan.period}</span>
+
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="mb-6">
+              <h3 class="text-lg font-bold mb-2 text-text-primary font-heading">{plan.name}</h3>
+              <div class="flex items-end gap-1 mb-0.5">
+                <span class="text-3xl lg:text-4xl font-extrabold text-text-primary tracking-tight font-heading">{plan.price}</span>
+              </div>
+              <span class="text-text-muted text-xs">{plan.period}</span>
+              <p class="text-text-secondary text-sm leading-relaxed mt-2.5">{plan.description}</p>
             </div>
-            <p class="text-gray-400 text-sm leading-relaxed">{plan.description}</p>
-          </div>
 
-          <ul class="space-y-4 mb-8 flex-grow">
-            {plan.features.map((feature, fIndex) => (
-              <li class="flex items-start gap-3 text-sm text-gray-300 group/feature">
-                <div class="mt-0.5 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <Check size={12} class="text-primary" />
-                </div>
-                <div class="flex-grow">
+            <ul class="space-y-2.5 mb-6 flex-grow">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+                  <div class="mt-0.5 w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <Check size={10} class="text-primary" />
+                  </div>
                   <span>{feature}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
 
-          <div class="mt-auto relative">
-            <Button 
-              href="#contact" 
-              variant={plan.popular ? 'primary' : 'outline'} 
-              class={`pricing-button w-full py-4 text-center justify-center font-bold ${plan.popular ? 'hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]' : ''}`}
-            >
-              {plan.cta}
-            </Button>
+            <div class="mt-auto">
+              <a 
+                href="#contact" 
+                class={`w-full py-3 rounded-xl font-bold font-heading text-sm text-center flex items-center justify-center gap-2 transition-all duration-300 group/btn
+                  ${plan.popular 
+                    ? 'bg-primary-500 hover:bg-primary-600 text-white shadow-glow-primary hover:shadow-[0_0_30px_rgba(129,140,248,0.5)] hover:scale-[1.02]' 
+                    : 'border border-border hover:border-border-hover text-text-primary hover:bg-surface-hover hover:scale-[1.02]'
+                  }`}
+              >
+                {plan.cta}
+                <ArrowRight size={14} class="group-hover/btn:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
           </div>
         </div>
       ))}
+    </div>
+    
+    {/* Trust note */}
+    <div class="text-center mt-10">
+      <p class="text-text-muted text-xs flex items-center justify-center gap-2">
+        <Zap size={12} class="text-primary" />
+        All plans include source code delivery and deployment assistance
+      </p>
     </div>
   </div>
 </section>
 
 <script>
-  // Clean script - no animations for now
+  document.addEventListener('astro:page-load', () => {
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const cards = entry.target.querySelectorAll('.pricing-card');
+              cards.forEach((card, i) => {
+                setTimeout(() => { card.classList.add('animate-in'); }, i * 150);
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      const container = document.querySelector('#pricing .grid');
+      if (container) observer.observe(container);
+    }
+  });
 </script>
+
+<style>
+  .pricing-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .pricing-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .pricing-card.animate-in:nth-child(2) {
+    transform: translateY(-12px);
+  }
+  .pricing-card.animate-in:hover {
+    transform: translateY(-4px);
+  }
+  .pricing-card.animate-in:nth-child(2):hover {
+    transform: translateY(-20px);
+  }
+</style>

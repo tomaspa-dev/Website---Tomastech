@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BillingApp from '../components/billing/BillingApp';
+---
+
+<BaseLayout title="Admin Panel | Tomastech">
+  <BillingApp client:only="react" />
+</BaseLayout>

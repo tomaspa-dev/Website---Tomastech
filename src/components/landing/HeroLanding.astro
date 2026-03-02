@@ -3,56 +3,76 @@ import { ArrowRight } from 'lucide-react';
 import GeometricBackground from './GeometricBackground';
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" id="hero">
-  {/* Geometric 3D Background */}
-  <div class="absolute inset-0 z-0">
+<section class="hero-section relative min-h-screen flex items-center overflow-hidden" id="hero">
+  {/* Theme-aware background */}
+  <div class="absolute inset-0 z-0 hero-bg transition-colors duration-500"></div>
+  
+  {/* Geometric 3D shapes — transparent canvas */}
+  <div class="absolute inset-0 z-[1]">
     <GeometricBackground client:load />
   </div>
   
-  <div class="container mx-auto px-6 relative z-10">
-    <div class="max-w-5xl mx-auto text-center">
-      <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 opacity-0 backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#3B82F6]"></span>
-        <span class="text-xs md:text-sm text-gray-300 tracking-wide uppercase font-medium">Premium Web Development</span>
+  {/* Soft gradient overlays for text readability */}
+  <div class="absolute inset-0 z-[2] hero-overlay-lr"></div>
+  <div class="absolute inset-0 z-[2] hero-overlay-tb"></div>
+  
+  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-8 pb-6 sm:pt-14 sm:pb-8 md:pt-20 md:pb-12 lg:pt-24">
+    <div class="max-w-5xl">
+      {/* Badge */}
+      <div class="hero-anim mb-4 sm:mb-5 md:mb-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full hero-badge-bg border hero-badge-border backdrop-blur-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span class="text-[11px] sm:text-xs md:text-sm hero-badge-text tracking-wide font-medium">Available for Projects</span>
+        </div>
       </div>
       
-      <h1 class="text-5xl md:text-8xl font-bold text-white mb-4 md:mb-8 tracking-tighter leading-[1.2] perspective-1000">
-        <div class="hero-line overflow-hidden pb-2 md:pb-8">
-          <span class="inline-block transform translate-y-full origin-bottom-left">Crafting</span>
-        </div>
-        <div class="hero-line overflow-hidden pb-2 md:pb-8">
-          <span class="inline-block transform translate-y-full origin-bottom-left"><span class="inline-block pb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-gradient-x">Digital Masterpieces</span></span>
-        </div>
+      {/* Main Heading */}
+      <h1 class="mb-4 sm:mb-5 md:mb-6">
+        <span class="hero-title-line block overflow-hidden">
+          <span class="hero-title-word block text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.05] hero-text-primary font-display">
+            Crafting
+          </span>
+        </span>
+        <span class="hero-title-line block overflow-hidden mt-0.5 sm:mt-1">
+          <span class="hero-title-word block text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.05] font-display gradient-text">
+            Digital
+          </span>
+        </span>
+        <span class="hero-title-line block overflow-hidden mt-0.5 sm:mt-1">
+          <span class="hero-title-word block text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.05] font-display gradient-text">
+            Masterpieces
+          </span>
+        </span>
       </h1>
       
-      <p class="hero-desc text-xl md:text-2xl text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto opacity-0 transform translate-y-4 leading-relaxed font-light">
-        We merge art with code to build immersive digital experiences.
+      {/* Subtitle */}
+      <p class="hero-anim text-sm sm:text-base md:text-lg lg:text-xl hero-text-secondary mb-5 sm:mb-6 md:mb-8 max-w-lg leading-relaxed">
+        We merge art with code to build immersive digital experiences that convert visitors into customers.
       </p>
       
-      <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 opacity-0 transform translate-y-4 w-full max-w-md mx-auto sm:max-w-none">
+      {/* CTA Buttons */}
+      <div class="hero-anim flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-[280px] sm:max-w-none">
         <a 
           href="#contact" 
-          class="magnetic-btn group relative inline-flex items-center justify-center gap-3 px-6 py-3 md:px-8 md:py-4 w-full sm:w-auto bg-white text-black font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.5)]"
+          class="magnetic-btn group relative inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold font-heading text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-glow-primary hover:shadow-[0_0_40px_rgba(129,140,248,0.5)]"
         >
-          {/* Circular Ripple Effect - Smoother Transition */}
-          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-700 ease-out group-hover:w-[500px] group-hover:h-[500px] z-0"></span>
-          
-          <span class="relative z-10 transition-colors duration-300 group-hover:text-white">Start Project</span>
-          
-          {/* Arrow Swap Animation */}
-          <div class="relative w-5 h-5 overflow-hidden z-10">
-            <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out group-hover:translate-x-full group-hover:opacity-0 group-hover:text-white">
-              <ArrowRight size={20} />
+          <span class="relative z-10">Start Project</span>
+          <div class="relative w-4 h-4 overflow-hidden z-10">
+            <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 group-hover:translate-x-full group-hover:opacity-0">
+              <ArrowRight size={16} />
             </div>
-            <div class="absolute inset-0 flex items-center justify-center -translate-x-full opacity-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:opacity-100 text-white">
-              <ArrowRight size={20} />
+            <div class="absolute inset-0 flex items-center justify-center -translate-x-full opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+              <ArrowRight size={16} />
             </div>
           </div>
         </a>
         
         <a 
           href="/portfolio" 
-          class="magnetic-btn inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 w-full sm:w-auto rounded-full border border-white/10 text-white hover:bg-white/5 transition-all hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] backdrop-blur-sm"
+          class="magnetic-btn inline-flex items-center justify-center px-6 py-3 sm:px-7 sm:py-3.5 rounded-full hero-btn-outline transition-all hover:scale-105 font-heading font-semibold text-sm backdrop-blur-sm"
         >
           View Portfolio
         </a>
@@ -62,22 +82,89 @@ import GeometricBackground from './GeometricBackground';
 </section>
 
 <style>
-  .perspective-1000 {
-    perspective: 1000px;
+  /* Initial hidden state for fade-in elements */
+  .hero-anim {
+    opacity: 0;
+    will-change: opacity;
   }
-  
-  @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+  /* Title words start translated down (hidden by overflow:hidden parent) */
+  .hero-title-word {
+    transform: translateY(110%);
+    will-change: transform;
   }
-  .animate-gradient-x {
-    background-size: 200% 200%;
-    animation: gradient-x 5s ease infinite;
-  }
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
+  @media (prefers-reduced-motion: reduce) {
+    .hero-anim {
+      opacity: 1 !important;
+      will-change: auto;
     }
+    .hero-title-word {
+      transform: none !important;
+      will-change: auto;
+    }
+  }
+
+  /* ===== DARK MODE (default) ===== */
+  :global(.dark) .hero-bg,
+  :global(:not(.light)) .hero-bg {
+    background: linear-gradient(135deg, #050510 0%, #0a0a20 40%, #050510 100%);
+  }
+  :global(.dark) .hero-overlay-lr,
+  :global(:not(.light)) .hero-overlay-lr {
+    background: linear-gradient(to right, rgba(5,5,16,0.7), rgba(5,5,16,0.3), transparent);
+  }
+  :global(.dark) .hero-overlay-tb,
+  :global(:not(.light)) .hero-overlay-tb {
+    background: linear-gradient(to bottom, rgba(5,5,16,0.2), transparent, rgba(5,5,16,0.7));
+  }
+  :global(.dark) .hero-text-primary,
+  :global(:not(.light)) .hero-text-primary { color: #ffffff; }
+  :global(.dark) .hero-text-secondary,
+  :global(:not(.light)) .hero-text-secondary { color: #d1d5db; }
+  :global(.dark) .hero-text-muted,
+  :global(:not(.light)) .hero-text-muted { color: #9ca3af; }
+  :global(.dark) .hero-divider,
+  :global(:not(.light)) .hero-divider { background-color: rgba(255,255,255,0.1); }
+  :global(.dark) .hero-badge-bg,
+  :global(:not(.light)) .hero-badge-bg { background: rgba(255,255,255,0.05); }
+  :global(.dark) .hero-badge-border,
+  :global(:not(.light)) .hero-badge-border { border-color: rgba(255,255,255,0.1); }
+  :global(.dark) .hero-badge-text,
+  :global(:not(.light)) .hero-badge-text { color: #d1d5db; }
+  :global(.dark) .hero-btn-outline,
+  :global(:not(.light)) .hero-btn-outline {
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #ffffff;
+  }
+  :global(.dark) .hero-btn-outline:hover,
+  :global(:not(.light)) .hero-btn-outline:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== LIGHT MODE ===== */
+  :global(.light) .hero-bg {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 40%, #f0f9ff 100%);
+  }
+  :global(.light) .hero-overlay-lr {
+    background: linear-gradient(to right, rgba(248,250,252,0.6), rgba(248,250,252,0.2), transparent);
+  }
+  :global(.light) .hero-overlay-tb {
+    background: linear-gradient(to bottom, rgba(248,250,252,0.1), transparent, rgba(248,250,252,0.6));
+  }
+  :global(.light) .hero-text-primary { color: #0f172a; }
+  :global(.light) .hero-text-secondary { color: #475569; }
+  :global(.light) .hero-text-muted { color: #64748b; }
+  :global(.light) .hero-divider { background-color: rgba(0,0,0,0.1); }
+  :global(.light) .hero-badge-bg { background: rgba(0,0,0,0.04); }
+  :global(.light) .hero-badge-border { border-color: rgba(0,0,0,0.08); }
+  :global(.light) .hero-badge-text { color: #475569; }
+  :global(.light) .hero-btn-outline {
+    border: 1px solid rgba(15,23,42,0.15);
+    color: #0f172a;
+  }
+  :global(.light) .hero-btn-outline:hover {
+    background: rgba(15,23,42,0.05);
+    border-color: rgba(15,23,42,0.3);
   }
 </style>
 
@@ -85,71 +172,80 @@ import GeometricBackground from './GeometricBackground';
   import { gsap } from "gsap";
   
   document.addEventListener('astro:page-load', () => {
-    // Check if hero elements exist before animating
-    const heroBadge = document.querySelector(".hero-badge");
-    const heroLines = document.querySelectorAll(".hero-line span");
-    const heroDesc = document.querySelector(".hero-desc");
-    const heroCta = document.querySelector(".hero-cta");
+    const heroAnims = document.querySelectorAll('.hero-section .hero-anim');
+    const titleWords = document.querySelectorAll('.hero-section .hero-title-word');
     
-    // Only run animations if hero section exists
-    if (heroBadge && heroLines.length > 0 && heroDesc && heroCta) {
-      const tl = gsap.timeline();
-      
-      // Text Reveal Animation
-      tl.to(".hero-badge", {
+    if (heroAnims.length === 0 && titleWords.length === 0) return;
+
+    // Set initial states
+    gsap.set(heroAnims, { opacity: 0 });
+    gsap.set(titleWords, { y: '110%' });
+
+    // Master timeline for cinematic entrance
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    // 1. Badge fades in (first .hero-anim element)
+    if (heroAnims.length > 0) {
+      tl.to(heroAnims[0], {
         opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out"
-      })
-      .to(".hero-line span", {
-        y: 0,
-        rotate: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power4.out"
-      }, "-=0.6")
-      .set(".hero-line", { overflow: "visible" }) // Fix for cutoff text: remove overflow hidden after animation
-      .to(".hero-desc", {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out"
-      }, "-=0.8")
-      .to(".hero-cta", {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out"
-      }, "-=0.8");
+        duration: 0.5,
+        ease: 'power2.out'
+      });
     }
 
-    // Magnetic Buttons
-    const buttons = document.querySelectorAll('.magnetic-btn');
-    
-    buttons.forEach((btn) => {
-      btn.addEventListener('mousemove', (e: any) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(btn, {
-          x: x * 0.3,
-          y: y * 0.3,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      });
-      
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.3)"
-        });
-      });
-    });
-  });
+    // 2. Title words slide up one by one (the cinematic reveal)
+    if (titleWords.length > 0) {
+      tl.to(titleWords, {
+        y: '0%',
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out'
+      }, '-=0.2');
+    }
 
+    // 3. Subtitle and buttons fade in (remaining .hero-anim elements)
+    const remainingAnims = Array.from(heroAnims).slice(1);
+    if (remainingAnims.length > 0) {
+      tl.to(remainingAnims, {
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        onComplete: () => {
+          heroAnims.forEach((el) => {
+            (el as HTMLElement).style.willChange = 'auto';
+          });
+          titleWords.forEach((el) => {
+            (el as HTMLElement).style.willChange = 'auto';
+          });
+        }
+      }, '-=0.3');
+    }
+
+    // Magnetic Buttons — desktop only
+    if (window.innerWidth > 768) {
+      const buttons = document.querySelectorAll('.hero-section .magnetic-btn');
+      buttons.forEach((btn) => {
+        btn.addEventListener('mousemove', (e: any) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: "power2.out" });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+        });
+      });
+    }
+
+    // Safety fallback
+    setTimeout(() => {
+      heroAnims.forEach((el) => {
+        (el as HTMLElement).style.opacity = '1';
+      });
+      titleWords.forEach((el) => {
+        (el as HTMLElement).style.transform = 'none';
+      });
+    }, 3000);
+  });
 </script>

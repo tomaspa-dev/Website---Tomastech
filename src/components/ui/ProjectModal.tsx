@@ -10,6 +10,7 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const [isContentVisible, setIsContentVisible] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -18,7 +19,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     
     if (isOpen) {
       window.addEventListener('keydown', handleEsc);
-      setIsContentVisible(true); // Reset to visible on open
+      setIsContentVisible(true);
+      // Trigger entrance animation
+      requestAnimationFrame(() => setIsAnimating(true));
+    } else {
+      setIsAnimating(false);
     }
     
     return () => window.removeEventListener('keydown', handleEsc);
@@ -27,15 +32,15 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center md:items-center p-0 md:p-4 md:pt-24">
-      {/* Backdrop */}
+    <div className={`fixed inset-0 z-[100] flex items-end justify-center md:items-center p-0 md:p-4 md:pt-24 transition-opacity duration-300 ${isAnimating ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Backdrop — slightly adapted */}
       <div 
-        className="absolute inset-0 bg-black/90 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/85 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
       />
 
       {/* Modal Container */}
-      <div className="relative w-full h-[calc(100vh-6rem)] md:h-[85vh] md:max-w-6xl bg-[#0a0a0a] rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300 group mt-24 md:mt-0">
+      <div className={`relative w-full h-[calc(100vh-6rem)] md:h-[85vh] md:max-w-6xl bg-[#0a0a0a] rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col group mt-24 md:mt-0 transition-all duration-500 ${isAnimating ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
         
         {/* Full Background Image */}
         <div className="absolute inset-0 z-0">
@@ -68,7 +73,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         <div 
           className={`absolute bottom-0 left-0 right-0 md:left-8 md:right-8 md:bottom-8 z-30 transition-transform duration-500 ease-in-out flex flex-col items-center ${isContentVisible ? 'translate-y-0' : 'translate-y-[calc(100%-4rem)]'}`}
         >
-           {/* Toggle Button (Attached to Card) */}
+           {/* Toggle Button */}
            <button
             onClick={() => setIsContentVisible(!isContentVisible)}
             className="mb-[-1px] pointer-events-auto w-12 h-8 rounded-t-xl bg-black/55 backdrop-blur-xl border-t border-x border-white/10 flex items-center justify-center text-white hover:bg-black/70 transition-colors z-40"
@@ -76,8 +81,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {isContentVisible ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
           </button>
 
-          {/* Content Card */}
-          <div className="w-full bg-black/55 backdrop-blur-xl border-t md:border border-white/10 md:rounded-2xl p-6 md:p-8 max-h-[60vh] overflow-y-auto custom-scrollbar shadow-2xl">
+          {/* Content Card — stays dark (overlays photo) */}
+          <div className="w-full bg-black/55 backdrop-blur-xl border-t md:border border-white/10 md:rounded-2xl p-6 md:p-8 max-h-[60vh] overflow-y-auto modal-scrollbar shadow-2xl">
             
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               
@@ -151,9 +156,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-center gap-2 w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] mt-2"
+                    className="group/btn flex items-center justify-center gap-2 w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] mt-2"
                   >
-                    Visit Project <ExternalLink size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    Visit Project <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                   </a>
                 )}
               </div>
@@ -163,6 +168,23 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         </div>
 
       </div>
+
+      <style>{`
+        .modal-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 4px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.15);
+          border-radius: 4px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      `}</style>
     </div>
   );
 }

@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/common/Navbar.astro';
 import HeroLanding from '../components/landing/HeroLanding.astro';
-import ServicesTeaser from '../components/landing/ServicesTeaser.astro';
-import Services from '../components/sections/Services.astro';
-import DetailedServices from '../components/sections/DetailedServices.astro';
+import StatsBar from '../components/landing/StatsBar.astro';
+import TechTicker from '../components/landing/TechTicker.astro';
+import ServicesSection from '../components/landing/ServicesSection';
 import FAQ from '../components/landing/FAQ';
 import Pricing from '../components/sections/Pricing.astro';
 import ConversionCTA from '../components/landing/ConversionCTA.astro';
@@ -15,9 +15,9 @@ import Footer from '../components/common/Footer.astro';
   <Navbar isLanding={true} />
   <main>
     <HeroLanding />
-    <ServicesTeaser />
-    <Services />
-    <DetailedServices />
+    <StatsBar />
+    <TechTicker />
+    <ServicesSection client:visible />
     <Pricing />
     <FAQ client:visible />
     <ConversionCTA />
@@ -25,3 +25,19 @@ import Footer from '../components/common/Footer.astro';
   
   <Footer />
 </BaseLayout>
+
+{/* Mouse tracking for service cards */}
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  });
+</script>

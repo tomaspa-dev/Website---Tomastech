@@ -14,7 +14,6 @@ export default function GeometricBackground() {
     canvas.width = width;
     canvas.height = height;
 
-    // 3D Shape Classes
     class Shape {
       vertices: { x: number; y: number; z: number }[];
       edges: number[][];
@@ -39,16 +38,16 @@ export default function GeometricBackground() {
         this.rz = Math.random() * Math.PI;
         this.scale = scale;
         this.color = color;
-        this.speedX = (Math.random() - 0.5) * 0.2; // Slower, more elegant
-        this.speedY = (Math.random() - 0.5) * 0.2;
-        this.rotationSpeed = (Math.random() - 0.5) * 0.005;
+        this.speedX = (Math.random() - 0.5) * 0.15;
+        this.speedY = (Math.random() - 0.5) * 0.15;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.003;
         this.vertices = [];
         this.edges = [];
       }
 
       project(x: number, y: number, z: number) {
         const fov = 300;
-        const scale = fov / (fov + z + 200); // Simple perspective
+        const scale = fov / (fov + z + 200);
         return {
           x: this.x + x * scale * this.scale,
           y: this.y + y * scale * this.scale,
@@ -56,16 +55,12 @@ export default function GeometricBackground() {
       }
 
       rotate(x: number, y: number, z: number) {
-        // Rotate X
         let y1 = y * Math.cos(this.rx) - z * Math.sin(this.rx);
         let z1 = y * Math.sin(this.rx) + z * Math.cos(this.rx);
-        // Rotate Y
         let x2 = x * Math.cos(this.ry) + z1 * Math.sin(this.ry);
         let z2 = -x * Math.sin(this.ry) + z1 * Math.cos(this.ry);
-        // Rotate Z
         let x3 = x2 * Math.cos(this.rz) - y1 * Math.sin(this.rz);
         let y3 = x2 * Math.sin(this.rz) + y1 * Math.cos(this.rz);
-        
         return { x: x3, y: y3, z: z2 };
       }
 
@@ -74,29 +69,24 @@ export default function GeometricBackground() {
         this.ry += this.rotationSpeed;
         this.x += this.speedX;
         this.y += this.speedY;
-
-        // Bounce off edges with buffer
         if (this.x < -100 || this.x > width + 100) this.speedX *= -1;
         if (this.y < -100 || this.y > height + 100) this.speedY *= -1;
       }
 
       draw(ctx: CanvasRenderingContext2D) {
         ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2; // Thicker lines
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        
         const projectedVertices = this.vertices.map(v => {
           const rotated = this.rotate(v.x, v.y, v.z);
           return this.project(rotated.x, rotated.y, rotated.z);
         });
-
         this.edges.forEach(edge => {
           const v1 = projectedVertices[edge[0]];
           const v2 = projectedVertices[edge[1]];
           ctx.moveTo(v1.x, v1.y);
           ctx.lineTo(v2.x, v2.y);
         });
-        
         ctx.stroke();
       }
     }
@@ -127,44 +117,37 @@ export default function GeometricBackground() {
           {x: -1, y: -1, z: 1}, {x: 1, y: -1, z: 1}, {x: 1, y: 1, z: 1}, {x: -1, y: 1, z: 1}
         ];
         this.edges = [
-          [0, 1], [1, 2], [2, 3], [3, 0], // Back face
-          [4, 5], [5, 6], [6, 7], [7, 4], // Front face
-          [0, 4], [1, 5], [2, 6], [3, 7]  // Connecting lines
+          [0, 1], [1, 2], [2, 3], [3, 0],
+          [4, 5], [5, 6], [6, 7], [7, 4],
+          [0, 4], [1, 5], [2, 6], [3, 7]
         ];
       }
     }
 
+    const isMobile = width < 768;
     const shapes: Shape[] = [];
-    // Create shapes with HIGHER OPACITY and VIBRANT colors
-    shapes.push(new Icosahedron(width * 0.2, height * 0.3, 120, 'rgba(59, 130, 246, 0.6)')); // Bright Blue
-    shapes.push(new Cube(width * 0.8, height * 0.7, 100, 'rgba(168, 85, 247, 0.6)')); // Bright Purple
-    shapes.push(new Icosahedron(width * 0.5, height * 0.5, 180, 'rgba(255, 255, 255, 0.15)')); // White center
-    shapes.push(new Cube(width * 0.1, height * 0.8, 80, 'rgba(236, 72, 153, 0.5)')); // Pink
+
+    // Read theme to pick shape colors
+    const isDark = document.documentElement.classList.contains('dark') || !document.documentElement.classList.contains('light');
+
+    const shapeColor1 = isDark ? 'rgba(99, 102, 241, 0.3)' : 'rgba(99, 102, 241, 0.2)';
+    const shapeColor2 = isDark ? 'rgba(168, 85, 247, 0.25)' : 'rgba(168, 85, 247, 0.15)';
+    const shapeColor3 = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
+    const shapeColor4 = isDark ? 'rgba(236, 72, 153, 0.15)' : 'rgba(236, 72, 153, 0.1)';
+
+    if (isMobile) {
+      shapes.push(new Icosahedron(width * 0.75, height * 0.12, 55, shapeColor1));
+      shapes.push(new Cube(width * 0.85, height * 0.8, 35, shapeColor2));
+    } else {
+      shapes.push(new Icosahedron(width * 0.72, height * 0.35, 100, shapeColor1));
+      shapes.push(new Cube(width * 0.85, height * 0.65, 80, shapeColor2));
+      shapes.push(new Icosahedron(width * 0.55, height * 0.78, 55, shapeColor3));
+      shapes.push(new Cube(width * 0.15, height * 0.82, 45, shapeColor4));
+    }
 
     const animate = () => {
+      // TRANSPARENT background — let the section's CSS handle the background color
       ctx.clearRect(0, 0, width, height);
-      
-      // Draw Rich Gradient Background
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, '#0f172a'); // Slate 900 (Dark Blue)
-      gradient.addColorStop(0.5, '#020617'); // Slate 950 (Darker)
-      gradient.addColorStop(1, '#000000'); // Black
-      
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      // Add subtle "Aurora" mesh effect (simple circles for now)
-      const aurora = ctx.createRadialGradient(width * 0.8, 0, 0, width * 0.8, 0, width * 0.6);
-      aurora.addColorStop(0, 'rgba(99, 102, 241, 0.1)'); // Indigo
-      aurora.addColorStop(1, 'transparent');
-      ctx.fillStyle = aurora;
-      ctx.fillRect(0, 0, width, height);
-
-      const aurora2 = ctx.createRadialGradient(0, height, 0, 0, height, width * 0.6);
-      aurora2.addColorStop(0, 'rgba(236, 72, 153, 0.08)'); // Pink
-      aurora2.addColorStop(1, 'transparent');
-      ctx.fillStyle = aurora2;
-      ctx.fillRect(0, 0, width, height);
 
       shapes.forEach(shape => {
         shape.update();
@@ -191,6 +174,7 @@ export default function GeometricBackground() {
     <canvas 
       ref={canvasRef} 
       className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ background: 'transparent' }}
     />
   );
 }

@@ -1,0 +1,60 @@
+---
+{/* Infinite scrolling tech logo ticker — adds credibility and polish */}
+
+const techs = [
+  { name: "React", icon: "⚛️" },
+  { name: "Next.js", icon: "▲" },
+  { name: "Astro", icon: "🚀" },
+  { name: "Node.js", icon: "💚" },
+  { name: "PostgreSQL", icon: "🐘" },
+  { name: "TypeScript", icon: "🔷" },
+  { name: "TailwindCSS", icon: "🎨" },
+  { name: "Python", icon: "🐍" },
+  { name: "Docker", icon: "🐳" },
+  { name: "AWS", icon: "☁️" },
+  { name: "Git", icon: "📦" },
+  { name: "Figma", icon: "🎯" },
+];
+---
+
+<section class="relative py-10 md:py-14 overflow-hidden border-t border-b" style="border-color: var(--color-border); background: var(--color-bg);">
+  <div class="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 mb-5">
+    <p class="text-center text-xs md:text-sm font-semibold uppercase tracking-widest" style="color: var(--color-text-muted); font-family: Space Grotesk, sans-serif">
+      Technologies We Work With
+    </p>
+  </div>
+  
+  {/* Ticker track */}
+  <div class="relative w-full">
+    {/* Fade edges */}
+    <div class="absolute left-0 top-0 bottom-0 w-20 md:w-32 z-10 pointer-events-none" style="background: linear-gradient(to right, var(--color-bg), transparent)"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-20 md:w-32 z-10 pointer-events-none" style="background: linear-gradient(to left, var(--color-bg), transparent)"></div>
+    
+    <div class="ticker-track flex items-center gap-8 md:gap-12">
+      {/* Double the items for seamless loop */}
+      {[...techs, ...techs].map((tech, i) => (
+        <div 
+          class="flex items-center gap-2.5 shrink-0 py-2.5 px-4 rounded-lg transition-all duration-300 hover:scale-105 select-none"
+          style="background: var(--color-surface); border: 1px solid var(--color-border);"
+        >
+          <span class="text-lg">{tech.icon}</span>
+          <span class="text-sm font-medium whitespace-nowrap" style="color: var(--color-text-secondary); font-family: Space Grotesk, sans-serif">{tech.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-track {
+    animation: ticker-scroll 30s linear infinite;
+    width: max-content;
+  }
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+</style>

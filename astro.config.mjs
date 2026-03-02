@@ -7,4 +7,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://tomastech.dev',
   integrations: [tailwind(), react()],
+  devToolbar: {
+    enabled: false,
+  },
 });

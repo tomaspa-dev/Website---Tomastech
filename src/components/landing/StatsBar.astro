@@ -1,0 +1,93 @@
+---
+---
+
+<section class="stats-bar relative py-8 sm:py-10 overflow-hidden">
+  <div class="absolute inset-0 z-0 stats-bar-bg transition-colors duration-500"></div>
+  
+  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
+    <div class="flex flex-wrap justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20">
+      <div class="stat-item text-center">
+        <div class="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-text-primary">
+          <span class="stat-counter" data-target="50">0</span>+
+        </div>
+        <div class="text-xs sm:text-sm text-text-muted mt-1">Projects Delivered</div>
+      </div>
+      <div class="w-px h-10 sm:h-12 bg-border hidden sm:block self-center"></div>
+      <div class="stat-item text-center">
+        <div class="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-text-primary">
+          <span class="stat-counter" data-target="3">0</span>+
+        </div>
+        <div class="text-xs sm:text-sm text-text-muted mt-1">Years Experience</div>
+      </div>
+      <div class="w-px h-10 sm:h-12 bg-border hidden sm:block self-center"></div>
+      <div class="stat-item text-center">
+        <div class="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-text-primary">
+          <span class="stat-counter" data-target="100">0</span>%
+        </div>
+        <div class="text-xs sm:text-sm text-text-muted mt-1">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Dark mode (default) */
+  :global(:not(.light)) .stats-bar-bg,
+  :global(.dark) .stats-bar-bg {
+    background: linear-gradient(to bottom, #050510, rgba(5,5,16,0.95));
+  }
+
+  /* Light mode */
+  :global(.light) .stats-bar-bg {
+    background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const counters = document.querySelectorAll('.stat-counter');
+    let countersAnimated = false;
+
+    const animateCounters = () => {
+      if (countersAnimated) return;
+      countersAnimated = true;
+
+      counters.forEach((counter) => {
+        const target = parseInt(counter.getAttribute('data-target') || '0');
+        const duration = 2000;
+        const startTime = performance.now();
+
+        const update = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          counter.textContent = current.toString();
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        };
+
+        requestAnimationFrame(update);
+      });
+    };
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      const statsContainer = document.querySelector('.stats-bar');
+      if (statsContainer) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+        observer.observe(statsContainer);
+      }
+    }
+  });
+</script>

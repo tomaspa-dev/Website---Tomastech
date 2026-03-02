@@ -1,276 +1,177 @@
 ---
-import { Code2, Rocket, Smartphone } from 'lucide-react';
-import ExpertiseBackground from './ExpertiseBackground';
-import ServiceCardsFloatingObjects from './ServiceCardsFloatingObjects';
-import TechSpinner from '../ui/TechSpinner';
-
+import { Code2, Rocket, Smartphone, Palette, Shield, Zap } from 'lucide-react';
+import ScrollReveal from '../ui/ScrollReveal';
 
 const services = [
   {
-    icon: Code2,
+    icon: "Code2",
     title: "Custom Development",
-    description: "Tailored web solutions built with modern technologies for maximum performance."
+    description: "Tailored web solutions built with modern technologies. React, Astro, Next.js — performance-first architecture.",
+    gradient: "from-primary-400 to-primary-600",
+    glow: "rgba(129, 140, 248, 0.15)",
+    iconColor: "text-primary-400",
   },
   {
-    icon: Smartphone,
+    icon: "Palette",
+    title: "Web Design",
+    description: "Stunning interfaces that capture attention. We design experiences that convert visitors into loyal customers.",
+    gradient: "from-secondary-400 to-secondary-600",
+    glow: "rgba(192, 132, 252, 0.15)",
+    iconColor: "text-secondary-400",
+  },
+  {
+    icon: "Smartphone",
     title: "Responsive Design",
-    description: "Flawless experiences across all devices, from mobile to desktop."
+    description: "Pixel-perfect experiences on every device. From mobile to ultrawide — your site will look incredible everywhere.",
+    gradient: "from-accent-400 to-accent-600",
+    glow: "rgba(244, 114, 182, 0.15)",
+    iconColor: "text-accent-400",
   },
   {
-    icon: Rocket,
+    icon: "Rocket",
     title: "SEO & Performance",
-    description: "Optimized for speed and search engines to help you reach more customers."
-  }
+    description: "Blazing-fast load times and search engine optimization that puts you ahead of the competition.",
+    gradient: "from-emerald-400 to-emerald-600",
+    glow: "rgba(52, 211, 153, 0.15)",
+    iconColor: "text-emerald-400",
+  },
+  {
+    icon: "Shield",
+    title: "Maintenance & Support",
+    description: "Ongoing updates, security patches, and technical support. Your site stays fresh and protected.",
+    gradient: "from-amber-400 to-amber-600",
+    glow: "rgba(251, 191, 36, 0.15)",
+    iconColor: "text-amber-400",
+  },
+  {
+    icon: "Zap",
+    title: "E-Commerce Solutions",
+    description: "Complete online stores with payment integration, inventory management, and conversion-optimized checkout flows.",
+    gradient: "from-cyan-400 to-cyan-600",
+    glow: "rgba(34, 211, 238, 0.15)",
+    iconColor: "text-cyan-400",
+  },
 ];
+
+const iconMap: Record<string, any> = { Code2, Palette, Smartphone, Rocket, Shield, Zap };
 ---
 
-<section class="relative bg-black overflow-hidden" id="services" style="min-height: 100vh;">
-  <div class="container mx-auto px-6 relative z-10 py-32">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">What We Offer</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto text-xl">
-        Comprehensive web solutions tailored to your needs
+<section class="relative overflow-hidden py-32 section-gradient" id="services">
+  <div class="container mx-auto px-6 relative z-10">
+    {/* Header */}
+    <div class="text-center mb-20 service-header">
+      <span class="inline-block text-primary font-heading font-semibold tracking-wider uppercase text-sm mb-4">What We Do</span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 tracking-tight font-heading">
+        Services That <span class="gradient-text">Deliver Results</span>
+      </h2>
+      <p class="text-text-secondary max-w-2xl mx-auto text-lg leading-relaxed">
+        Comprehensive web solutions designed to elevate your brand and accelerate growth.
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 service-cards-container">
-      {services.map((service) => (
-        <div class="service-card group relative p-8 rounded-2xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_50px_rgba(79,70,229,0.15)]">
-          {/* Dynamic Border Effect */}
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-            <div class="absolute inset-0 p-[1px] rounded-2xl bg-gradient-to-br from-primary via-purple-500 to-transparent mask-border"></div>
-          </div>
+    {/* Cards Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 service-cards-container">
+      {services.map((service, index) => {
+        const IconComponent = iconMap[service.icon];
+        return (
+          <div 
+            class="service-card group relative p-8 rounded-2xl glass-card gradient-border overflow-hidden transition-all duration-500 hover:-translate-y-2"
+            data-glow={service.glow}
+            style={`animation-delay: ${index * 100}ms;`}
+          >
+            {/* Hover glow background */}
+            <div 
+              class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+              style={`background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${service.glow}, transparent 40%);`}
+            ></div>
 
-          {/* Spotlight Effect (Existing but refined) */}
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-             <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-30"></div>
-          </div>
-
-          {/* Large Background Icon (Thematic) */}
-          <div class="absolute -right-10 -bottom-10 opacity-5 transform rotate-12 transition-all duration-700 group-hover:opacity-10 group-hover:scale-150 group-hover:rotate-0 pointer-events-none">
-            <service.icon size={200} />
-          </div>
-          
-          <div class="relative z-10">
-            <div class="card-icon-float w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_30px_rgba(99,102,241,0.6)]">
-              <service.icon size={28} />
+            {/* Large background icon */}
+            <div class="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:opacity-[0.08] transform rotate-12 group-hover:rotate-0 group-hover:scale-125 transition-all duration-700 pointer-events-none">
+              <IconComponent size={180} />
             </div>
-            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-            <p class="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
-              {service.description}
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<style>
-  /* Custom Mask for Border Gradient */
-  .mask-border {
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
-</style>
-
-{/* Expertise Journey Section - Separate */}
-<section class="relative bg-black overflow-hidden" id="expertise" style="min-height: 300vh;">
-  <ExpertiseBackground client:visible />
-  
-  <div class="container mx-auto px-6 relative z-10 pt-32">
-    <div class="text-center mb-20 sticky top-20">
-      <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Our Expertise</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto text-xl">
-        Scroll to explore our development journey
-      </p>
-    </div>
-
-    {/* 4 Journey Steps - Centered Vertical Layout */}
-    <div class="max-w-4xl mx-auto relative py-40 mb-40">
-      {/* Steps Container */}
-      <div class="space-y-[50vh]" id="journey-steps">
-        {/* Step 1: Design - Asterisk Spin Effect */}
-        <div class="journey-step text-center relative group" data-step="0">
-          {/* Large Number Above */}
-          <div class="text-[8rem] md:text-[16rem] font-bold text-white/5 absolute left-1/2 -translate-x-1/2 -top-20 md:-top-40 select-none pointer-events-none transition-opacity duration-700 group-hover:text-white/10">01</div>
-          
-          {/* Asterisk Spinner Container */}
-          <div class="flex justify-center mb-16 relative z-10 asterisk-container">
-            {/* Main Tech Spinner */}
-            <TechSpinner client:visible type="design" color="#ec4899" />
             
-            {/* Floating Asterisks (GSAP Animated) */}
-            <div class="absolute inset-0 pointer-events-none">
-               <svg class="asterisk-spin w-24 h-24 text-pink-500 absolute -top-8 -right-8 opacity-80" viewBox="0 0 24 24" fill="currentColor">
-                 <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-               </svg>
-               <svg class="asterisk-spin w-16 h-16 text-pink-400 absolute bottom-0 -left-6 opacity-60" viewBox="0 0 24 24" fill="currentColor">
-                 <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-               </svg>
-            </div>
-          </div>
-          
-          {/* Content */}
-          <div class="journey-content relative z-10">
-            <h3 class="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Design</h3>
-            <p class="subtitle-fill text-gray-600 text-xl md:text-4xl leading-relaxed mb-8 max-w-3xl mx-auto font-light relative inline-block">
-              <span class="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-[length:0%_100%] bg-no-repeat bg-left transition-all duration-100 pb-2">
-                UI/UX • Figma • Prototyping
-              </span>
-              <span class="absolute inset-0 text-gray-700 -z-10 pb-2">
-                UI/UX • Figma • Prototyping
-              </span>
-            </p>
-            <p class="text-gray-500 text-xl md:text-2xl max-w-2xl mx-auto">
-              Beautiful, intuitive interfaces that users love
-            </p>
-          </div>
-        </div>
+            <div class="relative z-10">
+              {/* Icon */}
+              <div class={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} bg-opacity-10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}
+                style={`background: linear-gradient(135deg, ${service.glow}, transparent);`}
+              >
+                <IconComponent size={28} class={service.iconColor} />
+              </div>
 
-        {/* Step 2: Development - Hole Effect */}
-        <div class="journey-step text-center relative group hole-effect-step" data-step="1">
-          {/* Large Number Above */}
-          <div class="text-[8rem] md:text-[16rem] font-bold text-white/5 absolute left-1/2 -translate-x-1/2 -top-20 md:-top-40 select-none pointer-events-none transition-opacity duration-700 group-hover:text-white/10">02</div>
-          
-          {/* Tech Spinner with Hole Container */}
-          <div class="flex justify-center mb-16 relative z-10 hole-container perspective-1000">
-            <div class="hole-target transition-transform duration-100">
-              <TechSpinner client:visible type="code" color="#a855f7" />
-            </div>
-            {/* The "Hole" (Visualized as a dark void behind) */}
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-black rounded-full shadow-[inset_0_0_40px_rgba(0,0,0,1)] -z-10 scale-0 hole-void"></div>
-          </div>
-          
-          {/* Content */}
-          <div class="journey-content relative z-10">
-            <h3 class="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Development</h3>
-            <p class="subtitle-fill text-gray-600 text-xl md:text-4xl leading-relaxed mb-8 max-w-3xl mx-auto font-light relative inline-block">
-              <span class="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 bg-[length:0%_100%] bg-no-repeat bg-left transition-all duration-100 pb-2">
-                React • TypeScript • Astro
-              </span>
-              <span class="absolute inset-0 text-gray-700 -z-10 pb-2">
-                React • TypeScript • Astro
-              </span>
-            </p>
-            <p class="text-gray-500 text-xl md:text-2xl max-w-2xl mx-auto">
-              Modern tech stack, clean code, scalable architecture
-            </p>
-          </div>
-        </div>
+              {/* Title */}
+              <h3 class="text-xl font-bold text-text-primary mb-3 font-heading group-hover:text-primary transition-colors duration-300">
+                {service.title}
+              </h3>
 
-        {/* Step 3: Performance - Hole Effect */}
-        <div class="journey-step text-center relative group hole-effect-step" data-step="2">
-          {/* Large Number Above */}
-          <div class="text-[8rem] md:text-[16rem] font-bold text-white/5 absolute left-1/2 -translate-x-1/2 -top-20 md:-top-40 select-none pointer-events-none transition-opacity duration-700 group-hover:text-white/10">03</div>
-          
-          {/* Tech Spinner */}
-          <div class="flex justify-center mb-16 relative z-10 hole-container perspective-1000">
-            <div class="hole-target transition-transform duration-100">
-              <TechSpinner client:visible type="performance" color="#3b82f6" />
-            </div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-black rounded-full shadow-[inset_0_0_40px_rgba(0,0,0,1)] -z-10 scale-0 hole-void"></div>
-          </div>
-          
-          {/* Content */}
-          <div class="journey-content relative z-10">
-            <h3 class="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Performance</h3>
-            <p class="subtitle-fill text-gray-600 text-xl md:text-4xl leading-relaxed mb-8 max-w-3xl mx-auto font-light relative inline-block">
-               <span class="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 bg-[length:0%_100%] bg-no-repeat bg-left transition-all duration-100 pb-2">
-                Optimization • Speed • SEO
-              </span>
-              <span class="absolute inset-0 text-gray-700 -z-10 pb-2">
-                Optimization • Speed • SEO
-              </span>
-            </p>
-            <p class="text-gray-500 text-xl md:text-2xl max-w-2xl mx-auto">
-              Lightning-fast load times, optimized for conversions
-            </p>
-          </div>
-        </div>
+              {/* Description */}
+              <p class="text-text-secondary leading-relaxed text-sm group-hover:text-text-secondary/90 transition-colors">
+                {service.description}
+              </p>
 
-        {/* Step 4: Deploy - Asterisk Spin Effect */}
-        <div class="journey-step text-center relative group" data-step="3">
-          {/* Large Number Above */}
-          <div class="text-[8rem] md:text-[16rem] font-bold text-white/5 absolute left-1/2 -translate-x-1/2 -top-20 md:-top-40 select-none pointer-events-none transition-opacity duration-700 group-hover:text-white/10">04</div>
-          
-          {/* Tech Spinner */}
-          <div class="flex justify-center mb-16 relative z-10 asterisk-container">
-            <TechSpinner client:visible type="deploy" color="#10b981" />
-             {/* Floating Asterisks */}
-            <div class="absolute inset-0 pointer-events-none">
-               <svg class="asterisk-spin w-24 h-24 text-green-500 absolute -top-8 -left-8 opacity-80" viewBox="0 0 24 24" fill="currentColor">
-                 <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-               </svg>
-               <svg class="asterisk-spin w-16 h-16 text-green-400 absolute bottom-0 -right-6 opacity-60" viewBox="0 0 24 24" fill="currentColor">
-                 <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-               </svg>
+              {/* Bottom accent line */}
+              <div class={`mt-6 h-0.5 w-0 group-hover:w-full bg-gradient-to-r ${service.gradient} rounded-full transition-all duration-500`}></div>
             </div>
           </div>
-          
-          {/* Content */}
-          <div class="journey-content relative z-10">
-            <h3 class="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Deploy</h3>
-            <p class="subtitle-fill text-gray-600 text-xl md:text-4xl leading-relaxed mb-8 max-w-3xl mx-auto font-light relative inline-block">
-               <span class="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-green-500 via-emerald-500 to-green-500 bg-[length:0%_100%] bg-no-repeat bg-left transition-all duration-100 pb-2">
-                Production • CI/CD • Hosting
-              </span>
-              <span class="absolute inset-0 text-gray-700 -z-10 pb-2">
-                Production • CI/CD • Hosting
-              </span>
-            </p>
-            <p class="text-gray-500 text-xl md:text-2xl max-w-2xl mx-auto">
-              Seamless deployment, rock-solid hosting
-            </p>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   </div>
 </section>
 
+{/* Spotlight mouse tracking */}
 <script>
-  // Simple spotlight effect tracking mouse
-  const cards = document.querySelectorAll('.service-card');
-  
-  cards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+  document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
     });
+
+    // Scroll-triggered entrance animation
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const cards = entry.target.querySelectorAll('.service-card');
+              cards.forEach((card, i) => {
+                setTimeout(() => {
+                  card.classList.add('animate-in');
+                }, i * 100);
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      const container = document.querySelector('.service-cards-container');
+      if (container) observer.observe(container);
+    }
   });
 </script>
 
 <style>
-  .service-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 1rem;
-    padding: 1px;
-    background: radial-gradient(
-      1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-      rgba(255, 255, 255, 0.6),
-      transparent 40%
-    );
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+  .service-card {
     opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
-  .service-card:hover::before {
+
+  .service-card.animate-in {
     opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-card.animate-in:hover {
+    transform: translateY(-8px);
   }
 </style>

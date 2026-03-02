@@ -1,5 +1,4 @@
 ---
-import Card from '../ui/Card.astro';
 import { Code2, Palette, Rocket, Lock, Smartphone, Search } from 'lucide-react';
 
 const services = [
@@ -7,31 +6,49 @@ const services = [
     title: "Web Development",
     description: "I build fast, secure, and custom websites using the latest technologies like Astro, React, and Tailwind CSS.",
     icon: Code2,
+    gradient: "from-indigo-400 to-indigo-600",
+    glow: "99, 102, 241",
+    iconColor: "text-indigo-400",
   },
   {
     title: "Web Design",
     description: "I design visually stunning, functional, and user-centric interfaces that reflect your brand identity.",
     icon: Palette,
+    gradient: "from-violet-400 to-violet-600",
+    glow: "167, 139, 250",
+    iconColor: "text-violet-400",
   },
   {
     title: "Technical SEO",
     description: "Boost your online presence with SEO strategies that increase your visibility and drive organic traffic.",
     icon: Search,
+    gradient: "from-emerald-400 to-emerald-600",
+    glow: "52, 211, 153",
+    iconColor: "text-emerald-400",
   },
   {
     title: "Performance",
     description: "Lightning-fast load times to improve user experience and search engine rankings.",
     icon: Rocket,
+    gradient: "from-amber-400 to-amber-600",
+    glow: "251, 191, 36",
+    iconColor: "text-amber-400",
   },
   {
     title: "Security",
     description: "Built with security in mind to protect your data and your users' information.",
     icon: Lock,
+    gradient: "from-cyan-400 to-cyan-600",
+    glow: "34, 211, 238",
+    iconColor: "text-cyan-400",
   },
   {
     title: "Responsive",
     description: "Flawless experiences across all devices, from mobile phones to large desktop screens.",
     icon: Smartphone,
+    gradient: "from-pink-400 to-pink-600",
+    glow: "244, 114, 182",
+    iconColor: "text-pink-400",
   },
 ];
 ---
@@ -50,46 +67,124 @@ const services = [
   <div class="container mx-auto px-4 relative z-10">
     <div class="text-center max-w-2xl mx-auto mb-20 reveal-header">
       <span class="text-primary font-medium tracking-wider uppercase mb-4 block">SERVICES</span>
-      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
-        What We <span class="text-primary">Offer</span>
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6">
+        What I <span class="gradient-text">Offer</span>
       </h2>
-      <p class="text-gray-400 text-lg">
+      <p class="text-text-secondary text-lg">
         Comprehensive web solutions tailored to your needs.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-6 lg:gap-8 svc-cards-container">
       {services.map((service, index) => (
         <div 
-          class="service-card-wrapper" 
-          data-index={index}
-          style={`--delay: ${index * 0.1}s`}
+          class="svc-card group relative p-8 rounded-2xl glass-card overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default"
+          data-glow={service.glow}
+          style={`animation-delay: ${index * 100}ms;`}
         >
-          <Card class="service-card p-8 h-full relative overflow-hidden group">
-            <!-- Glow effect on hover -->
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent blur-xl"></div>
+          {/* Mouse-tracking glow */}
+          <div 
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+            style={`background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(${service.glow}, 0.12), transparent 40%);`}
+          ></div>
+
+          {/* Large watermark icon */}
+          <div class="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:opacity-[0.08] transform rotate-12 group-hover:rotate-0 group-hover:scale-125 transition-all duration-700 pointer-events-none">
+            <service.icon size={180} />
+          </div>
+          
+          <div class="relative z-10">
+            {/* Icon */}
+            <div class={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}
+              style={`background: linear-gradient(135deg, rgba(${service.glow}, 0.15), rgba(${service.glow}, 0.05));`}
+            >
+              <service.icon size={28} class={service.iconColor} />
             </div>
 
-            <!-- Content -->
-            <div class="relative z-10">
-              <div class="icon-container w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-                <service.icon size={32} />
-              </div>
-              <h3 class="text-2xl font-bold text-white mb-4">{service.title}</h3>
-              <p class="text-gray-400 leading-relaxed">
-                {service.description}
-              </p>
-            </div>
+            {/* Title */}
+            <h3 class="text-xl font-bold text-text-primary mb-3 font-heading group-hover:text-primary transition-colors duration-300">
+              {service.title}
+            </h3>
 
-            <!-- Animated border -->
-            <div class="card-border"></div>
-          </Card>
+            {/* Description */}
+            <p class="text-text-secondary leading-relaxed text-sm group-hover:text-text-secondary/90 transition-colors">
+              {service.description}
+            </p>
+
+            {/* Bottom accent line */}
+            <div class={`mt-6 h-0.5 w-0 group-hover:w-full bg-gradient-to-r ${service.gradient} rounded-full transition-all duration-500`}></div>
+          </div>
         </div>
       ))}
     </div>
   </div>
 </section>
+
+{/* Mouse-tracking spotlight */}
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.svc-card');
+    
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Scroll-triggered entrance animation
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const items = entry.target.querySelectorAll('.svc-card');
+              items.forEach((card, i) => {
+                setTimeout(() => {
+                  card.classList.add('animate-in');
+                }, i * 100);
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      const container = document.querySelector('.svc-cards-container');
+      if (container) observer.observe(container);
+    }
+
+    // 3D Tilt effect
+    const svcCards = document.querySelectorAll('.svc-card');
+    svcCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 25;
+        const rotateY = (centerX - x) / 25;
+        
+        (card as HTMLElement).style.transform = `
+          translateY(-8px) 
+          perspective(1000px) 
+          rotateX(${rotateX}deg) 
+          rotateY(${rotateY}deg)
+        `;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        (card as HTMLElement).style.transform = '';
+      });
+    });
+  });
+</script>
 
 <style>
   /* Floating Particles */
@@ -103,83 +198,39 @@ const services = [
     box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
   }
 
-  .particle-1 {
-    top: 10%;
-    left: 10%;
-    animation-delay: 0s;
-    animation-duration: 25s;
+  :global(.light) .particle {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(139, 92, 246, 0.3));
+    box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
   }
 
-  .particle-2 {
-    top: 60%;
-    left: 80%;
-    animation-delay: -5s;
-    animation-duration: 30s;
-  }
-
-  .particle-3 {
-    top: 30%;
-    left: 50%;
-    animation-delay: -10s;
-    animation-duration: 22s;
-  }
-
-  .particle-4 {
-    top: 80%;
-    left: 20%;
-    animation-delay: -15s;
-    animation-duration: 28s;
-  }
-
-  .particle-5 {
-    top: 40%;
-    left: 90%;
-    animation-delay: -8s;
-    animation-duration: 26s;
-  }
-
-  .particle-6 {
-    top: 70%;
-    left: 60%;
-    animation-delay: -12s;
-    animation-duration: 24s;
-  }
+  .particle-1 { top: 10%; left: 10%; animation-delay: 0s; animation-duration: 25s; }
+  .particle-2 { top: 60%; left: 80%; animation-delay: -5s; animation-duration: 30s; }
+  .particle-3 { top: 30%; left: 50%; animation-delay: -10s; animation-duration: 22s; }
+  .particle-4 { top: 80%; left: 20%; animation-delay: -15s; animation-duration: 28s; }
+  .particle-5 { top: 40%; left: 90%; animation-delay: -8s; animation-duration: 26s; }
+  .particle-6 { top: 70%; left: 60%; animation-delay: -12s; animation-duration: 24s; }
 
   @keyframes float {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.3;
-    }
-    25% {
-      transform: translate(50px, -50px) scale(1.2);
-      opacity: 0.6;
-    }
-    50% {
-      transform: translate(-30px, -100px) scale(0.8);
-      opacity: 0.4;
-    }
-    75% {
-      transform: translate(-80px, -50px) scale(1.1);
-      opacity: 0.5;
-    }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(50px, -50px) scale(1.2); opacity: 0.6; }
+    50% { transform: translate(-30px, -100px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(-80px, -50px) scale(1.1); opacity: 0.5; }
   }
 
-  /* Staggered entrance animation */
-  .service-card-wrapper {
+  /* Card entrance */
+  .svc-card {
     opacity: 0;
-    animation: fadeSlideUp 0.8s ease-out forwards;
-    animation-delay: var(--delay);
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  @keyframes fadeSlideUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .svc-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .svc-card.animate-in:hover {
+    transform: translateY(-8px);
   }
 
   /* Header reveal */
@@ -188,110 +239,18 @@ const services = [
     animation: fadeSlideUp 0.8s ease-out forwards;
   }
 
-  /* Enhanced card effects */
-  .service-card {
-    transition: all 0.4s cubic-bezier(0.25, 0.4, 0.25, 1);
-    transform-style: preserve-3d;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .service-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(79, 70, 229, 0.3),
-      0 0 30px rgba(79, 70, 229, 0.2);
-  }
-
-  /* Icon 3D rotation on hover */
-  .icon-container {
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .service-card:hover .icon-container {
-    transform: scale(1.15) rotateY(180deg);
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2));
-  }
-
-  /* Animated border glow */
-  .card-border {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, transparent, rgba(79, 70, 229, 0.5), transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .service-card:hover .card-border {
-    opacity: 1;
-    animation: borderRotate 3s linear infinite;
-  }
-
-  @keyframes borderRotate {
-    0% {
-      background: linear-gradient(0deg, transparent, rgba(79, 70, 229, 0.6), transparent);
-    }
-    50% {
-      background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.6), transparent);
-    }
-    100% {
-      background: linear-gradient(360deg, transparent, rgba(79, 70, 229, 0.6), transparent);
-    }
-  }
-
-  /* Respect reduced motion preferences */
+  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .particle,
-    .service-card-wrapper,
-    .reveal-header {
+    .particle, .svc-card, .reveal-header {
       animation: none;
       opacity: 1;
-    }
-    
-    .service-card:hover {
       transform: none;
     }
-    
-    .card-border {
-      animation: none;
-    }
+    .svc-card.animate-in:hover { transform: none; }
   }
 </style>
-
-<script>
-  // Magnetic hover effect
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.service-card');
-    
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `
-          translateY(-8px) 
-          scale(1.02) 
-          perspective(1000px) 
-          rotateX(${rotateX}deg) 
-          rotateY(${rotateY}deg)
-        `;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-  });
-</script>

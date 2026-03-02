@@ -48,9 +48,9 @@ export default function PortfolioBackgroundEffects() {
   return (
     <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden select-none">
       {/* Giant Background Numbers */}
-      <div className="absolute top-[10%] left-[-5%] text-[20rem] font-bold text-white opacity-[0.03] giant-number leading-none">01</div>
-      <div className="absolute top-[40%] right-[-5%] text-[20rem] font-bold text-white opacity-[0.03] giant-number leading-none">02</div>
-      <div className="absolute bottom-[10%] left-[10%] text-[20rem] font-bold text-white opacity-[0.03] giant-number leading-none">03</div>
+      <div className="absolute top-[10%] left-[-5%] text-[20rem] font-bold text-[var(--color-text-primary)] opacity-[0.03] giant-number leading-none">01</div>
+      <div className="absolute top-[40%] right-[-5%] text-[20rem] font-bold text-[var(--color-text-primary)] opacity-[0.03] giant-number leading-none">02</div>
+      <div className="absolute bottom-[10%] left-[10%] text-[20rem] font-bold text-[var(--color-text-primary)] opacity-[0.03] giant-number leading-none">03</div>
 
       {/* Decorative Particles */}
       {[...Array(15)].map((_, i) => (

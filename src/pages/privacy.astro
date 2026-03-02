@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<BaseLayout title="Privacy Policy | Tomastech">
+  <Navbar />
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6 md:px-12 max-w-4xl">
+      <div class="mb-12">
+        <a href="/" class="text-primary hover:text-primary-600 transition-colors text-sm font-medium">← Back to Home</a>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4 font-heading">Privacy Policy</h1>
+      <p class="text-text-muted mb-12">Last updated: March 1, 2026</p>
+
+      <div class="space-y-10 text-text-secondary leading-relaxed">
+        
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">1. Information We Collect</h2>
+          <p class="mb-4">When you use our website or contact us for services, we may collect the following information:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li><strong class="text-text-primary">Contact Information:</strong> Name, email address, phone number, and company name when you fill out our contact form or reach out via WhatsApp.</li>
+            <li><strong class="text-text-primary">Project Details:</strong> Information about your project requirements that you share with us during consultations.</li>
+            <li><strong class="text-text-primary">Usage Data:</strong> Anonymous analytics data such as pages visited, time spent on site, and general location (country/city level).</li>
+            <li><strong class="text-text-primary">Cookies:</strong> We use essential cookies to remember your theme preferences (dark/light mode).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">2. How We Use Your Information</h2>
+          <p class="mb-4">We use the information we collect to:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Respond to your inquiries and provide project estimates.</li>
+            <li>Communicate about ongoing projects and deliverables.</li>
+            <li>Improve our website experience and services.</li>
+            <li>Send relevant updates about your project (we do not send marketing emails without consent).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">3. Third-Party Services</h2>
+          <p class="mb-4">Our website may use the following third-party services:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li><strong class="text-text-primary">Netlify:</strong> For website hosting and deployment.</li>
+            <li><strong class="text-text-primary">Google Fonts:</strong> For typography (Inter, Space Grotesk, Sora).</li>
+            <li><strong class="text-text-primary">WhatsApp:</strong> For direct communication when you click our WhatsApp contact link.</li>
+          </ul>
+          <p class="mt-4">These services have their own privacy policies. We encourage you to review them.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">4. Data Security</h2>
+          <p>We take reasonable measures to protect your personal information. Our website is served over HTTPS, ensuring encrypted communication between your browser and our servers. We do not store sensitive personal data on our servers.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">5. Your Rights</h2>
+          <p class="mb-4">You have the right to:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Request access to any personal data we hold about you.</li>
+            <li>Request correction or deletion of your personal data.</li>
+            <li>Withdraw consent for data processing at any time.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">6. Contact Us</h2>
+          <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+          <p class="mt-3">
+            <a href="mailto:hello@tomastech.dev" class="text-primary hover:text-primary-600 transition-colors font-medium">hello@tomastech.dev</a>
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -113,7 +113,7 @@ export default function PortfolioGrid() {
             className={`px-6 py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${
               selectedCategory === category
                 ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5'
+                : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)]'
             }`}
           >
             {category}
@@ -146,7 +146,7 @@ export default function PortfolioGrid() {
       {/* Empty State */}
       {filteredProjects.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-gray-500 text-lg">No projects found in this category yet.</p>
+          <p className="text-[var(--color-text-muted)] text-lg">No projects found in this category yet.</p>
         </div>
       )}
 

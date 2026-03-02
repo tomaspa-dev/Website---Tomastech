@@ -24,39 +24,43 @@ const links = isLanding ? landingLinks : portfolioLinks;
 ---
 
 <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent">
-  <div class="container mx-auto px-6 h-24 flex items-center justify-between">
-    <a href="/" class="block w-48 group relative overflow-hidden">
+  <div class="container mx-auto px-6 h-20 lg:h-24 flex items-center justify-between">
+    <a href="/" class="block w-40 lg:w-48 group relative overflow-hidden shrink-0">
       <div class="absolute inset-0 bg-white/40 w-full h-full -translate-x-full skew-x-[-20deg] group-hover:animate-shine z-10"></div>
-      <img src="/logo.png" alt="Tomastech Logo" class="w-full h-auto relative z-0 group-hover:brightness-125 transition-all duration-300" />
+      <!-- Dark mode logo (default) -->
+      <img src="/logo.png" alt="Tomastech Logo" class="logo-dark w-full h-auto relative z-0 group-hover:brightness-125 transition-all duration-300" />
+      <!-- Light mode logo -->
+      <img src="/logo-light.png" alt="Tomastech Logo" class="logo-light w-full h-auto relative z-0 group-hover:brightness-95 transition-all duration-300" />
     </a>
 
-    <div class="hidden md:flex items-center gap-4 lg:gap-8">
+    <div class="hidden md:flex items-center gap-3 lg:gap-6">
       {links.map((link) => (
-        <a href={link.href} class="text-sm font-medium text-gray-300 hover:text-white transition-colors">
+        <a href={link.href} class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors relative group py-2">
           {link.name}
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-full"></span>
         </a>
       ))}
       
       {isLanding ? (
         <>
-          <a href="/portfolio" class="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+          <a href="/portfolio" class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 relative group py-2">
             <Briefcase size={16} />
             <span class="hidden lg:inline">Portfolio</span>
             <span class="lg:hidden">Work</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-full"></span>
           </a>
           
           <a 
-            href="/client-access" 
-            class="hidden md:flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors ml-2"
-            title="Client Login"
+            href="/panel-56Up89" 
+            class="hidden md:flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors ml-1"
+            title="Login"
           >
-            <div class="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
+            <div class="p-2 rounded-full bg-surface hover:bg-surface-hover border border-border transition-all">
               <User size={18} />
             </div>
-            <span class="hidden lg:inline">Login</span>
           </a>
 
-          <Button href="#contact" variant="primary" size="sm" class="ml-2 whitespace-nowrap">
+          <Button href="#contact" variant="primary" size="sm" class="ml-2">
             Start Project
           </Button>
         </>
@@ -80,6 +84,13 @@ const links = isLanding ? landingLinks : portfolioLinks;
   .animate-shine {
     animation: shine 0.5s ease-in-out;
   }
+
+  /* Theme-aware logo toggle — dark by default */
+  .logo-light { display: none; }
+  .logo-dark { display: block; }
+
+  :global(.light) .logo-light { display: block; }
+  :global(.light) .logo-dark { display: none; }
 </style>
 
 <script>
@@ -89,21 +100,31 @@ const links = isLanding ? landingLinks : portfolioLinks;
     
     const updateNavbar = () => {
       if (window.scrollY > 20) {
-        // Increased transparency to 70% as requested
-        navbar?.classList.add('bg-[#0a0a0a]/70', 'backdrop-blur-xl', 'border-white/10', 'shadow-lg');
+        navbar?.classList.add('bg-background/80', 'backdrop-blur-xl', 'border-border', 'shadow-lg');
         navbar?.classList.remove('border-transparent');
-        container?.classList.replace('h-24', 'h-20');
       } else {
-        navbar?.classList.remove('bg-[#0a0a0a]/70', 'backdrop-blur-xl', 'border-white/10', 'shadow-lg');
+        navbar?.classList.remove('bg-background/80', 'backdrop-blur-xl', 'border-border', 'shadow-lg');
         navbar?.classList.add('border-transparent');
-        container?.classList.replace('h-20', 'h-24');
       }
     };
 
-    // Initial check
     updateNavbar();
-
-    // Scroll listener
     window.addEventListener('scroll', updateNavbar);
+
+    // Fix smooth scroll for hash links
+    const hashLinks = document.querySelectorAll('a[href^="#"]');
+    hashLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const target = document.querySelector(href);
+        if (target) {
+          const navHeight = 80;
+          const y = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
   });
 </script>

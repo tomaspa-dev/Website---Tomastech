@@ -1,7 +1,7 @@
 ---
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   class?: string;
   [key: string]: any;
@@ -9,18 +9,19 @@ interface Props {
 
 const { href, variant = 'primary', size = 'md', class: className, ...rest } = Astro.props;
 
-const baseStyles = "inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background";
+const baseStyles = "inline-flex items-center justify-center rounded-full font-semibold font-heading transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background whitespace-nowrap";
 
 const sizes = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
+  sm: "px-5 py-2.5 text-sm gap-2",
+  md: "px-7 py-3.5 text-base gap-2.5",
+  lg: "px-9 py-4.5 text-lg gap-3",
 };
 
 const variants = {
-  primary: "bg-primary hover:bg-primary/90 text-white shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:shadow-[0_0_30px_rgba(99,102,241,0.7)]",
-  secondary: "bg-secondary hover:bg-secondary/90 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)]",
-  outline: "border border-white/20 hover:bg-white/10 text-white backdrop-blur-sm",
+  primary: "bg-primary-500 hover:bg-primary-600 text-white shadow-glow-primary hover:shadow-[0_0_30px_rgba(129,140,248,0.5)] hover:scale-105",
+  secondary: "bg-secondary-500 hover:bg-secondary-600 text-white shadow-glow-secondary hover:shadow-[0_0_30px_rgba(192,132,252,0.5)] hover:scale-105",
+  outline: "border border-border hover:border-border-hover hover:bg-surface-hover text-text-primary backdrop-blur-sm hover:scale-105",
+  ghost: "text-text-secondary hover:text-text-primary hover:bg-surface-hover",
 };
 
 const Element = href ? 'a' : 'button';

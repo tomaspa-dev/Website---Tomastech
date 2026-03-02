@@ -29,12 +29,14 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-32 bg-black relative overflow-hidden" id="faq">
+    <section className="py-32 relative overflow-hidden" id="faq" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <span className="text-primary font-medium tracking-wider uppercase mb-4 block">FAQ</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">Common Questions</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <span className="font-semibold tracking-wider uppercase mb-4 block text-sm" style={{ color: '#818cf8', fontFamily: 'Space Grotesk, sans-serif' }}>FAQ</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight" style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
+            Common Questions
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--color-text-secondary)' }}>
             Everything you need to know about working with us.
           </p>
         </div>
@@ -43,20 +45,33 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className={`group rounded-2xl border transition-all duration-300 ${
-                activeIndex === index 
-                  ? 'bg-white/10 border-primary/50 shadow-[0_0_30px_rgba(79,70,229,0.1)]' 
-                  : 'bg-white/5 border-white/10 hover:bg-white/8'
-              }`}
+              className="group rounded-2xl border transition-all duration-300"
+              style={{
+                background: activeIndex === index ? 'var(--color-surface-hover)' : 'var(--color-surface)',
+                borderColor: activeIndex === index ? 'rgba(129, 140, 248, 0.3)' : 'var(--color-border)',
+                boxShadow: activeIndex === index ? '0 0 30px rgba(129, 140, 248, 0.08)' : 'none'
+              }}
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
                 className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
               >
-                <span className={`text-lg font-medium transition-colors ${activeIndex === index ? 'text-white' : 'text-gray-300 group-hover:text-white'}`}>
+                <span 
+                  className="text-lg font-medium transition-colors"
+                  style={{ 
+                    color: activeIndex === index ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    fontFamily: 'Space Grotesk, sans-serif'
+                  }}
+                >
                   {faq.question}
                 </span>
-                <span className={`p-2 rounded-full transition-all duration-300 ${activeIndex === index ? 'bg-primary text-white' : 'bg-white/10 text-gray-400'}`}>
+                <span 
+                  className="p-2 rounded-full transition-all duration-300 shrink-0 ml-4"
+                  style={{
+                    background: activeIndex === index ? '#818cf8' : 'var(--color-surface)',
+                    color: activeIndex === index ? 'white' : 'var(--color-text-muted)'
+                  }}
+                >
                   <AnimatePresence mode="wait">
                     {activeIndex === index ? (
                       <motion.div
@@ -92,7 +107,7 @@ export default function FAQ() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="p-6 pt-0 text-gray-400 leading-relaxed">
+                    <div className="p-6 pt-0 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
                       {faq.answer}
                     </div>
                   </motion.div>

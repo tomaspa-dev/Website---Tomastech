@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/common/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+---
+
+<BaseLayout title="Terms of Service | Tomastech">
+  <Navbar />
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6 md:px-12 max-w-4xl">
+      <div class="mb-12">
+        <a href="/" class="text-primary hover:text-primary-600 transition-colors text-sm font-medium">← Back to Home</a>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-text-primary mb-4 font-heading">Terms of Service</h1>
+      <p class="text-text-muted mb-12">Last updated: March 1, 2026</p>
+
+      <div class="space-y-10 text-text-secondary leading-relaxed">
+        
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">1. Services</h2>
+          <p>Tomastech provides custom web development services, including but not limited to: website design and development, web application development, progressive web apps (PWAs), GPS and location-based applications, WordPress theme development, and browser extensions. All services are provided on a project-by-project basis as agreed upon between the client and Tomastech.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">2. Project Agreements</h2>
+          <p class="mb-4">Before starting any project, both parties will agree on:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Project scope, features, and deliverables.</li>
+            <li>Timeline and milestones.</li>
+            <li>Pricing structure and payment schedule.</li>
+            <li>Number of revision rounds included.</li>
+          </ul>
+          <p class="mt-4">Any changes to the agreed scope may result in adjustments to the timeline and cost, which will be communicated and approved before proceeding.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">3. Intellectual Property</h2>
+          <p class="mb-4">Upon full payment, the client receives full ownership of:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Custom code written specifically for their project.</li>
+            <li>Design assets created for their project.</li>
+            <li>Content provided or created for their website.</li>
+          </ul>
+          <p class="mt-4">Tomastech retains the right to use the project in its portfolio and marketing materials unless otherwise agreed in writing. Open-source libraries and third-party tools used in the project remain under their respective licenses.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">4. Payment Terms</h2>
+          <p class="mb-4">Payment terms are structured as follows:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>An initial deposit is required to begin work (typically 30-50% of the total project cost).</li>
+            <li>Milestone payments may apply for larger projects.</li>
+            <li>Final payment is due upon project completion and before delivery of source code.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">5. Client Responsibilities</h2>
+          <p class="mb-4">Clients are expected to:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Provide necessary content, images, and brand assets in a timely manner.</li>
+            <li>Review and provide feedback on deliverables within agreed timeframes.</li>
+            <li>Ensure they have the rights to any content or materials they provide.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">6. Limitation of Liability</h2>
+          <p>Tomastech provides web development services to the best of its ability. While we strive for the highest quality, we are not liable for any indirect, incidental, or consequential damages arising from the use of our deliverables. Our total liability shall not exceed the amount paid for the specific service in question.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">7. Warranties</h2>
+          <p>After project delivery, Tomastech provides a 30-day warranty period during which we will fix any bugs or issues directly related to our work at no additional cost. This does not cover issues caused by third-party modifications, hosting environment changes, or browser updates.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-text-primary mb-4 font-heading">8. Contact</h2>
+          <p>For questions about these Terms of Service, contact us at:</p>
+          <p class="mt-3">
+            <a href="mailto:hello@tomastech.dev" class="text-primary hover:text-primary-600 transition-colors font-medium">hello@tomastech.dev</a>
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

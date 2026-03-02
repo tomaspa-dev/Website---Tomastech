@@ -52,7 +52,7 @@ export default function CustomCursor() {
     // Check if cursor should be hidden based on route
     const checkRoute = () => {
       const path = window.location.pathname;
-      const hiddenRoutes = ['/login', '/dashboard', '/client'];
+      const hiddenRoutes = ['/panel-56Up89', '/dashboard', '/client'];
       // Check if current path starts with any hidden route
       const shouldHide = hiddenRoutes.some(route => path.startsWith(route));
       
@@ -83,7 +83,7 @@ export default function CustomCursor() {
   // Return null if on hidden routes (simple check for render)
   if (typeof window !== 'undefined') {
     const path = window.location.pathname;
-    if (path.startsWith('/login') || path.startsWith('/dashboard') || path.startsWith('/client')) {
+    if (path.startsWith('/panel-56Up89') || path.startsWith('/dashboard') || path.startsWith('/client')) {
       return null;
     }
   }
