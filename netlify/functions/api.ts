@@ -6,7 +6,7 @@
  * Body: { action: 'entity.method', data?: {...} }
  */
 import type { Handler, HandlerEvent } from '@netlify/functions';
-import { getDb, ensureSchema, jsonResponse, errorResponse, generateId, corsHeaders } from './db';
+import { getDb, ensureSchema, jsonResponse, errorResponse, generateId, corsHeaders } from './shared/db';
 
 let schemaReady = false;
 
