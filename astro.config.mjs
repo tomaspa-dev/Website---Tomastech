@@ -10,4 +10,21 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+            'vendor-gsap': ['gsap'],
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-motion': ['framer-motion'],
+            'vendor-pdf': ['jspdf', 'jspdf-autotable'],
+            'vendor-excel': ['exceljs'],
+          },
+        },
+      },
+    },
+  },
 });

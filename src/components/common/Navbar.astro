@@ -2,6 +2,9 @@
 import Button from '../ui/Button.astro';
 import MobileMenu from '../ui/MobileMenu';
 import { User, Briefcase } from 'lucide-react';
+import { Image } from 'astro:assets';
+import logoDark from '../../assets/logo.png';
+import logoLight from '../../assets/logo-light.png';
 
 interface Props {
   isLanding?: boolean;
@@ -28,9 +31,23 @@ const links = isLanding ? landingLinks : portfolioLinks;
     <a href="/" class="block w-40 lg:w-48 group relative overflow-hidden shrink-0">
       <div class="absolute inset-0 bg-white/40 w-full h-full -translate-x-full skew-x-[-20deg] group-hover:animate-shine z-10"></div>
       <!-- Dark mode logo (default) -->
-      <img src="/logo.png" alt="Tomastech Logo" class="logo-dark w-full h-auto relative z-0 group-hover:brightness-125 transition-all duration-300" />
+      <Image 
+        src={logoDark} 
+        alt="Tomastech Logo" 
+        width={192} 
+        height={25}
+        loading="eager"
+        class="logo-dark w-full h-auto relative z-0 group-hover:brightness-125 transition-all duration-300" 
+      />
       <!-- Light mode logo -->
-      <img src="/logo-light.png" alt="Tomastech Logo" class="logo-light w-full h-auto relative z-0 group-hover:brightness-95 transition-all duration-300" />
+      <Image 
+        src={logoLight} 
+        alt="Tomastech Logo" 
+        width={192} 
+        height={25}
+        loading="eager"
+        class="logo-light w-full h-auto relative z-0 group-hover:brightness-95 transition-all duration-300" 
+      />
     </a>
 
     <div class="hidden md:flex items-center gap-3 lg:gap-6">
@@ -54,6 +71,7 @@ const links = isLanding ? landingLinks : portfolioLinks;
             href="/panel-56Up89" 
             class="hidden md:flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors ml-1"
             title="Login"
+            aria-label="Login to dashboard"
           >
             <div class="p-2 rounded-full bg-surface hover:bg-surface-hover border border-border transition-all">
               <User size={18} />

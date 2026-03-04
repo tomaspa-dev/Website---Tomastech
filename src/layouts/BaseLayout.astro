@@ -61,6 +61,36 @@ import { ViewTransitions } from 'astro:transitions';
 		<meta name="googlebot" content="index, follow" />
 		<meta name="theme-color" content="#818cf8" />
 		
+		<!-- DNS Prefetch for external domains -->
+		<link rel="dns-prefetch" href="https://github.com" />
+		<link rel="dns-prefetch" href="https://linkedin.com" />
+		
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "WebSite",
+					"name": "Tomastech",
+					"url": "https://tomastech.dev",
+					"description": description,
+					"inLanguage": "en"
+				},
+				{
+					"@type": "Person",
+					"name": "Tomas Eduardo Pozu Asalde",
+					"url": "https://tomastech.dev",
+					"jobTitle": "Frontend Engineer",
+					"sameAs": [
+						"https://github.com/tomaspa-dev",
+						"https://www.linkedin.com/company/tomastechdev",
+						"https://www.instagram.com/tomastechdev/"
+					],
+					"knowsAbout": ["Web Development", "React", "Astro", "Next.js", "TailwindCSS"]
+				}
+			]
+		})} />
+		
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>

@@ -1,5 +1,8 @@
 ---
 import { Github, Linkedin, Mail, Instagram, Phone, MessageCircle } from 'lucide-react';
+import { Image } from 'astro:assets';
+import logoDark from '../../assets/logo.png';
+import logoLight from '../../assets/logo-light.png';
 
 const links = [
   { name: "Services", href: "#services" },
@@ -20,8 +23,20 @@ const social = [
       
       <div class="lg:col-span-2">
         <a href="/" class="block w-48 mb-6">
-          <img src="/logo.png" alt="Tomastech Logo" class="logo-dark w-full h-auto" />
-          <img src="/logo-light.png" alt="Tomastech Logo" class="logo-light w-full h-auto" />
+          <Image 
+            src={logoDark} 
+            alt="Tomastech Logo" 
+            width={192} 
+            height={25}
+            class="logo-dark w-full h-auto" 
+          />
+          <Image 
+            src={logoLight} 
+            alt="Tomastech Logo" 
+            width={192} 
+            height={25}
+            class="logo-light w-full h-auto" 
+          />
         </a>
         <p class="text-text-secondary text-lg mb-8 max-w-md leading-relaxed">
           Helping businesses grow with high-performance web solutions. Let's build something amazing together.

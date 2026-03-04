@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /panel-56Up89/
+Disallow: /dashboard/
+Disallow: /client/
 
 # Sitemap location
 Sitemap: https://tomastech.dev/sitemap.xml
 
-# Crawl-delay (optional, adjust if needed)
+# Crawl-delay
 Crawl-delay: 1

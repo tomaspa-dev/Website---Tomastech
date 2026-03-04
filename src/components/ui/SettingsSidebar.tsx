@@ -4,7 +4,7 @@ import { Moon, Sun, ChevronRight, ChevronLeft, MousePointer2 } from 'lucide-reac
 export default function SettingsSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
-  const [cursorEnabled, setCursorEnabled] = useState(true);
+  const [cursorEnabled, setCursorEnabled] = useState(false);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme') || 'dark';

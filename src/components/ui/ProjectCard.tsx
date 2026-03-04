@@ -31,6 +31,10 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
         <img 
           src={project.image} 
           alt={project.title} 
+          width={600}
+          height={338}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transform group-hover:scale-105 group-hover:-translate-y-1 transition-all duration-700"
           onError={(e) => {
             (e.target as HTMLImageElement).src = 'https://via.placeholder.com/600x400/1a1a1a/6366f1?text=Project+Preview';

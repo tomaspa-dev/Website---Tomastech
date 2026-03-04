@@ -259,16 +259,10 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
               </motion.button>
 
 
-
-              {/* Security info */}
-              <div className="flex items-center justify-center gap-4 text-[10px] text-gray-600 pt-2">
-                <span>🔐 SHA-256</span>
-                <span>🛡 Anti-fuerza bruta</span>
-                <span>⏱ Sesión 8h</span>
-              </div>
             </form>
           )}
         </div>
+
 
         {/* Back link */}
         <div className="text-center mt-6">

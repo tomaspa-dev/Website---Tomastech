@@ -62,50 +62,32 @@ import SubtleParallax from '../ui/SubtleParallax';
     
     if (heroAnims.length === 0 && titleWords.length === 0) return;
 
-    // Set initial states
-    gsap.set(heroAnims, { opacity: 0 });
-    gsap.set(titleWords, { y: '110%' });
-
-    // Master timeline for cinematic entrance
-    const tl = gsap.timeline({ delay: 0.2 });
-
-    // 1. Badge fades in
-    if (heroAnims.length > 0) {
-      tl.to(heroAnims[0], {
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
+    // GSAP enhances after CSS initial reveal — staggered subtitle & buttons
+    const tl = gsap.timeline({ delay: 0.6 });
+    
+    const subtitle = heroAnims[1]; // <p> subtitle
+    const ctaBlock = heroAnims[2]; // buttons container
+    
+    if (subtitle) {
+      tl.fromTo(subtitle, 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+      );
     }
-
-    // 2. Title words slide up (cinematic reveal — same as landing page)
-    if (titleWords.length > 0) {
-      tl.to(titleWords, {
-        y: '0%',
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
-      }, '-=0.2');
-    }
-
-    // 3. Subtitle and buttons fade in
-    const remainingAnims = Array.from(heroAnims).slice(1);
-    if (remainingAnims.length > 0) {
-      tl.to(remainingAnims, {
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        onComplete: () => {
-          heroAnims.forEach((el) => { (el as HTMLElement).style.willChange = 'auto'; });
-          titleWords.forEach((el) => { (el as HTMLElement).style.willChange = 'auto'; });
-        }
-      }, '-=0.3');
+    if (ctaBlock) {
+      tl.fromTo(ctaBlock, 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+        '-=0.4'
+      );
     }
 
     // Safety fallback
     setTimeout(() => {
-      heroAnims.forEach((el) => { (el as HTMLElement).style.opacity = '1'; });
+      heroAnims.forEach((el) => { 
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'none';
+      });
       titleWords.forEach((el) => { (el as HTMLElement).style.transform = 'none'; });
     }, 3000);
   }
@@ -116,18 +98,42 @@ import SubtleParallax from '../ui/SubtleParallax';
 </script>
 
 <style>
-  /* Initial hidden states for animation */
+  /* Initial state: badge fades in first */
   .hero-anim {
     opacity: 0;
-    will-change: opacity;
+    animation: fadeInUp 0.7s ease-out forwards;
+    will-change: opacity, transform;
   }
+  .hero-anim:nth-child(1) { animation-delay: 0s; }
+
+  /* Title words reveal — staggered slide-up */
   .hero-title-word {
     transform: translateY(110%);
+    animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: transform;
   }
+  /* Staggered delays per title line */
+  .hero-title-line:nth-child(1) .hero-title-word { animation-delay: 0.1s; }
+  .hero-title-line:nth-child(2) .hero-title-word { animation-delay: 0.25s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    to { transform: translateY(0); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .hero-anim { opacity: 1 !important; will-change: auto; }
-    .hero-title-word { transform: none !important; will-change: auto; }
+    .hero-anim {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .hero-title-word {
+      transform: none !important;
+      animation: none !important;
+    }
   }
 
   /* Dark mode (default) */
@@ -148,3 +154,4 @@ import SubtleParallax from '../ui/SubtleParallax';
     background: linear-gradient(to top, rgba(248,250,252,0.4), transparent, transparent);
   }
 </style>
+

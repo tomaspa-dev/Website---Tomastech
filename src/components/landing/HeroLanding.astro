@@ -58,6 +58,7 @@ import GeometricBackground from './GeometricBackground';
         <a 
           href="#contact" 
           class="magnetic-btn group relative inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold font-heading text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-glow-primary hover:shadow-[0_0_40px_rgba(129,140,248,0.5)]"
+          aria-label="Start a new project — contact us"
         >
           <span class="relative z-10">Start Project</span>
           <div class="relative w-4 h-4 overflow-hidden z-10">
@@ -73,6 +74,7 @@ import GeometricBackground from './GeometricBackground';
         <a 
           href="/portfolio" 
           class="magnetic-btn inline-flex items-center justify-center px-6 py-3 sm:px-7 sm:py-3.5 rounded-full hero-btn-outline transition-all hover:scale-105 font-heading font-semibold text-sm backdrop-blur-sm"
+          aria-label="View our portfolio of work"
         >
           View Portfolio
         </a>
@@ -82,24 +84,43 @@ import GeometricBackground from './GeometricBackground';
 </section>
 
 <style>
-  /* Initial hidden state for fade-in elements */
+  /* Initial state: badge fades in first */
   .hero-anim {
     opacity: 0;
-    will-change: opacity;
+    animation: fadeInUp 0.7s ease-out forwards;
+    will-change: opacity, transform;
   }
-  /* Title words start translated down (hidden by overflow:hidden parent) */
+  /* Staggered delays for badge, subtitle, buttons */
+  .hero-anim:nth-child(1) { animation-delay: 0s; }     /* badge */
+
+  /* Title words reveal — staggered slide-up */
   .hero-title-word {
     transform: translateY(110%);
+    animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: transform;
   }
+  /* Staggered delays per title line */
+  .hero-title-line:nth-child(1) .hero-title-word { animation-delay: 0.1s; }
+  .hero-title-line:nth-child(2) .hero-title-word { animation-delay: 0.25s; }
+  .hero-title-line:nth-child(3) .hero-title-word { animation-delay: 0.4s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    to { transform: translateY(0); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-anim {
       opacity: 1 !important;
-      will-change: auto;
+      transform: none !important;
+      animation: none !important;
     }
     .hero-title-word {
       transform: none !important;
-      will-change: auto;
+      animation: none !important;
     }
   }
 
@@ -177,51 +198,6 @@ import GeometricBackground from './GeometricBackground';
     
     if (heroAnims.length === 0 && titleWords.length === 0) return;
 
-    // Set initial states
-    gsap.set(heroAnims, { opacity: 0 });
-    gsap.set(titleWords, { y: '110%' });
-
-    // Master timeline for cinematic entrance
-    const tl = gsap.timeline({ delay: 0.2 });
-
-    // 1. Badge fades in (first .hero-anim element)
-    if (heroAnims.length > 0) {
-      tl.to(heroAnims[0], {
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
-    }
-
-    // 2. Title words slide up one by one (the cinematic reveal)
-    if (titleWords.length > 0) {
-      tl.to(titleWords, {
-        y: '0%',
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
-      }, '-=0.2');
-    }
-
-    // 3. Subtitle and buttons fade in (remaining .hero-anim elements)
-    const remainingAnims = Array.from(heroAnims).slice(1);
-    if (remainingAnims.length > 0) {
-      tl.to(remainingAnims, {
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        onComplete: () => {
-          heroAnims.forEach((el) => {
-            (el as HTMLElement).style.willChange = 'auto';
-          });
-          titleWords.forEach((el) => {
-            (el as HTMLElement).style.willChange = 'auto';
-          });
-        }
-      }, '-=0.3');
-    }
-
     // Magnetic Buttons — desktop only
     if (window.innerWidth > 768) {
       const buttons = document.querySelectorAll('.hero-section .magnetic-btn');
@@ -238,10 +214,32 @@ import GeometricBackground from './GeometricBackground';
       });
     }
 
+    // GSAP enhances after CSS initial reveal — staggered subtitle & buttons
+    const tl = gsap.timeline({ delay: 0.6 });
+    
+    // Get subtitle and buttons (skip badge which is the first .hero-anim)
+    const subtitle = heroAnims[1]; // <p> subtitle
+    const ctaBlock = heroAnims[2]; // buttons container
+    
+    if (subtitle) {
+      tl.fromTo(subtitle, 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+      );
+    }
+    if (ctaBlock) {
+      tl.fromTo(ctaBlock, 
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+        '-=0.4' // overlap with subtitle
+      );
+    }
+
     // Safety fallback
     setTimeout(() => {
       heroAnims.forEach((el) => {
         (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'none';
       });
       titleWords.forEach((el) => {
         (el as HTMLElement).style.transform = 'none';
@@ -249,3 +247,4 @@ import GeometricBackground from './GeometricBackground';
     }, 3000);
   });
 </script>
+
