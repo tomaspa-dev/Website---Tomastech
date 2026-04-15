@@ -88,28 +88,6 @@ import GeometricBackground from './GeometricBackground';
 <script>
   import { gsap } from 'gsap';
 
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
-
-  function scrambleText(el: HTMLElement, finalText: string, duration = 1400) {
-    let frame = 0;
-    const totalFrames = Math.floor(duration / 16);
-    const interval = setInterval(() => {
-      const progress = frame / totalFrames;
-      const revealCount = Math.floor(progress * finalText.length);
-      let result = '';
-      for (let i = 0; i < finalText.length; i++) {
-        if (finalText[i] === ' ') { result += ' '; continue; }
-        if (i < revealCount) { result += finalText[i]; }
-        else { result += CHARS[Math.floor(Math.random() * CHARS.length)]; }
-      }
-      el.textContent = result;
-      frame++;
-      if (frame > totalFrames) {
-        el.textContent = finalText;
-        clearInterval(interval);
-      }
-    }, 16);
-  }
 
   document.addEventListener('astro:page-load', () => {
     const section = document.querySelector('.hero-section');
@@ -140,10 +118,9 @@ import GeometricBackground from './GeometricBackground';
       );
     }
 
-    // Scramble subtitle after badge appears
+    // Subtitle fade in
     if (subtitle) {
-      const finalText = subtitle.textContent || '';
-      tl.call(() => scrambleText(subtitle, finalText, 1200), [], '-=0.3');
+      tl.fromTo(subtitle, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4');
     }
 
     // Magnetic buttons (desktop only)

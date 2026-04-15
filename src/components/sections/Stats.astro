@@ -2,22 +2,22 @@
 import StatsCounter from '../ui/StatsCounter';
 
 const stats = [
-  { value: 3, label: "Years Experience", suffix: "+" },
-  { value: 20, label: "Projects Completed", suffix: "+" },
-  { value: 10, label: "Satisfied Clients", suffix: "+" },
-  { value: 100, label: "Job Success", suffix: "%" },
+  { value: 50, label: "Projects Delivered", suffix: "+" },
+  { value: 3,  label: "Years Experience",   suffix: "+" },
+  { value: 10, label: "Satisfied Clients",  suffix: "+" },
+  { value: 100,label: "Job Success",        suffix: "%" },
 ];
 ---
 
-<section class="py-20 border-y border-border bg-surface">
+<section class="py-14 border-y border-border bg-surface">
   <div class="container mx-auto px-4">
-    <div class="flex flex-wrap justify-center items-center divide-y md:divide-y-0 md:divide-x divide-border glass-card rounded-2xl p-8 max-w-5xl mx-auto">
+    <div class="flex flex-wrap justify-center items-center divide-y md:divide-y-0 md:divide-x divide-border rounded-2xl max-w-4xl mx-auto">
       {stats.map((stat) => (
-        <div class="w-full md:w-1/4 px-4 py-4 md:py-0 text-center">
-          <div class="text-5xl md:text-6xl font-bold text-primary mb-2 flex justify-center tracking-tight">
+        <div class="w-full md:w-1/4 px-6 py-4 md:py-0 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-text-primary mb-1 flex justify-center tracking-tight font-heading">
             <StatsCounter client:visible value={stat.value} suffix={stat.suffix} />
           </div>
-          <p class="text-text-muted text-sm font-medium uppercase tracking-wider">{stat.label}</p>
+          <p class="text-text-muted text-xs font-medium uppercase tracking-wider">{stat.label}</p>
         </div>
       ))}
     </div>

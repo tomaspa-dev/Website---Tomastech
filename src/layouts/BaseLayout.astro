@@ -118,22 +118,31 @@ import { ViewTransitions } from 'astro:transitions';
 		</script>
 
 		<script>
-			import Lenis from 'lenis'
+			import Lenis from 'lenis';
+			import { gsap } from 'gsap';
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+			gsap.registerPlugin(ScrollTrigger);
 
 			// Don't initialize Lenis on pages with their own scroll containers
-			const isDashboard = window.location.pathname.includes('/dashboard');
+			const isDashboard   = window.location.pathname.includes('/dashboard');
 			const isClientAccess = window.location.pathname.includes('/client-access');
-			const isLogin = window.location.pathname.includes('/panel-56Up89');
+			const isLogin       = window.location.pathname.includes('/panel-56Up89');
 			
 			if (!isDashboard && !isClientAccess && !isLogin) {
-				const lenis = new Lenis()
+				const lenis = new Lenis();
 
-				function raf(time) {
-					lenis.raf(time)
-					requestAnimationFrame(raf)
-				}
+				// ── Connect Lenis → GSAP ScrollTrigger ──────────────────
+				// Without this, Lenis intercepts scroll but ScrollTrigger
+				// never gets events → opacity:0 elements stay invisible
+				lenis.on('scroll', ScrollTrigger.update);
+				gsap.ticker.add((time) => lenis.raf(time * 1000));
+				gsap.ticker.lagSmoothing(0);
 
-				requestAnimationFrame(raf)
+				// ── Refresh after page paint so viewport calculations ─────
+				// are correct (fonts + images loaded)
+				document.addEventListener('astro:page-load', () => {
+					setTimeout(() => ScrollTrigger.refresh(), 250);
+				});
 			}
 		</script>
 	</body>
