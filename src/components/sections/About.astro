@@ -1,63 +1,74 @@
----
+﻿---
 import Button from '../ui/Button.astro';
 ---
 
 <section id="about" class="py-24 relative overflow-hidden bg-surface">
   <div class="container mx-auto px-4">
-    <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-      
-      <!-- Left Column: Vertical Video/Image -->
-      <div class="relative w-full max-w-md mx-auto lg:max-w-none">
-        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary opacity-20 blur-[100px] rounded-full"></div>
-        
-        <!-- Video Container (9:16 Aspect Ratio) -->
-        <div class="relative aspect-[9/16] max-w-xs mx-auto rounded-2xl overflow-hidden border border-border shadow-2xl group">
-          <!-- Video Real -->
-          <video 
-            class="w-full h-full object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-            controls
-          >
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
+
+      <!-- Left: Video + floating accent shapes -->
+      <div class="about-visual relative w-full max-w-md mx-auto lg:max-w-none">
+        <!-- Ambient glow -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary opacity-15 blur-[80px] rounded-full pointer-events-none"></div>
+
+        <!-- Video container -->
+        <div class="relative aspect-[9/16] max-w-[280px] sm:max-w-xs mx-auto rounded-3xl overflow-hidden border border-border shadow-2xl group">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline controls>
             <source src="/video/Portafolio-video.webm" type="video/webm" />
-            Your browser does not support the video tag.
           </video>
+          <!-- Overlay gradient (bottom) -->
+          <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+        </div>
+
+        <!-- Floating accent badges -->
+        <div class="absolute -top-4 -right-4 sm:right-0 lg:-right-6 px-3 py-1.5 rounded-xl glass-card border border-primary/30 text-xs font-bold text-primary shadow-lg about-badge-1">
+          ✦ Frontend Engineer
+        </div>
+        <div class="absolute -bottom-4 -left-4 sm:left-0 lg:-left-6 px-3 py-1.5 rounded-xl glass-card border border-secondary/30 text-xs font-bold text-secondary shadow-lg about-badge-2">
+          🇵🇪 Based in Peru
         </div>
       </div>
 
-      <!-- Right Column: Content -->
-      <div class="relative">
-        <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-border bg-surface backdrop-blur-sm">
+      <!-- Right: Text content -->
+      <div class="about-text relative">
+        <!-- Label -->
+        <div class="about-el inline-block mb-5 px-4 py-1.5 rounded-full border border-border bg-surface backdrop-blur-sm">
           <span class="text-sm font-medium text-primary tracking-wide">ABOUT ME</span>
         </div>
-        
-        <h2 class="text-4xl md:text-5xl font-bold text-text-primary mb-8 leading-tight">
-          More than just code, <br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">I build solutions.</span>
+
+        <!-- Heading -->
+        <h2 class="about-el text-4xl md:text-5xl font-bold text-text-primary mb-6 leading-tight font-display tracking-tight">
+          More than just code,<br/>
+          <span class="gradient-text">I build solutions.</span>
         </h2>
-        
-        <div class="relative pl-6 border-l-4 border-primary/50 mb-10">
-          <p class="text-xl md:text-2xl text-text-secondary italic font-light leading-relaxed">
-            "I believe that technology is an opportunity to solve real problems. My goal is to facilitate the transition to digital solutions that respect the user experience and drive business growth."
+
+        <!-- Quote -->
+        <div class="about-el relative pl-5 border-l-4 border-primary/50 mb-8">
+          <p class="text-lg md:text-xl text-text-secondary italic font-light leading-relaxed">
+            "Technology is an opportunity to solve real problems. My goal is to facilitate the transition to digital solutions that respect the user experience and drive business growth."
           </p>
         </div>
 
-        <div class="space-y-6 text-lg text-text-secondary leading-relaxed mb-10">
-          <p>
-            Hi, I'm <span class="text-text-primary font-medium">Tomas</span>. I specialize in building high-performance websites that help businesses stand out. With a focus on speed, security, and user experience, I create custom solutions that not only look great but also drive results.
-          </p>
+        <!-- Body text — word-by-word reveal target -->
+        <p class="about-el text-base md:text-lg text-text-secondary leading-relaxed mb-8 about-body">
+          Hi, I'm <span class="text-text-primary font-semibold">Tomas</span>. I specialize in building high-performance websites that help businesses stand out. With a focus on speed, security, and user experience, I create custom solutions that not only look great but also drive real results.
+        </p>
+
+        <!-- Skills pills -->
+        <div class="about-el flex flex-wrap gap-2 mb-8">
+          {["Astro", "React", "TypeScript", "Node.js", "PostgreSQL", "Figma", "AWS"].map(s => (
+            <span class="px-3 py-1 rounded-full text-sm font-medium glass-card border border-primary/20 text-text-secondary hover:border-primary/50 hover:text-primary transition-all duration-300 cursor-default">{s}</span>
+          ))}
         </div>
 
-        <!-- Profile Card -->
-        <div class="flex items-center gap-4 p-4 rounded-xl glass-card w-fit">
-          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/50">
+        <!-- Profile card -->
+        <div class="about-el flex items-center gap-4 p-4 rounded-2xl glass-card w-fit">
+          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/50 flex-shrink-0">
             <img src="/img/foto-perfil.webp" alt="Tomas Eduardo Pozu Asalde" class="w-full h-full object-cover" />
           </div>
           <div>
-            <h4 class="text-text-primary font-bold leading-none">Tomas Eduardo Pozu Asalde</h4>
-            <span class="text-sm text-primary">Frontend Engineer</span>
+            <h4 class="text-text-primary font-bold leading-none mb-0.5">Tomas Eduardo Pozu Asalde</h4>
+            <span class="text-sm text-primary font-medium">Frontend Engineer</span>
           </div>
         </div>
       </div>
@@ -65,3 +76,55 @@ import Button from '../ui/Button.astro';
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector('#about');
+    if (!section) return;
+
+    // Visual column: slide from left
+    gsap.fromTo(
+      '.about-visual',
+      { opacity: 0, x: -60 },
+      {
+        opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 78%', once: true }
+      }
+    );
+
+    // Floating badges pop in
+    gsap.fromTo(
+      ['.about-badge-1', '.about-badge-2'],
+      { opacity: 0, scale: 0.6 },
+      {
+        opacity: 1, scale: 1, duration: 0.6, stagger: 0.15, ease: 'back.out(2)',
+        scrollTrigger: { trigger: section, start: 'top 70%', once: true }
+      }
+    );
+
+    // Text elements: stagger cascade from right
+    gsap.fromTo(
+      '.about-text .about-el',
+      { opacity: 0, x: 40 },
+      {
+        opacity: 1, x: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: '.about-text', start: 'top 80%', once: true }
+      }
+    );
+  });
+</script>
+
+<style>
+  .about-visual, .about-badge-1, .about-badge-2 { opacity: 0; }
+  .about-text .about-el { opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-visual, .about-badge-1, .about-badge-2, .about-text .about-el {
+      opacity: 1 !important; transform: none !important;
+    }
+  }
+</style>

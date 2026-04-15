@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
@@ -457,78 +457,126 @@ export default function BillingApp() {
 // OVERVIEW SECTION
 // ============================================
 
+const STATUS_BADGE: Record<string, string> = {
+  draft:    'bg-gray-500/10 text-gray-400 border-gray-500/20',
+  sent:     'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  accepted: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  paid:     'bg-green-500/10 text-green-400 border-green-500/20',
+  cancelled:'bg-red-500/10 text-red-400 border-red-500/20',
+};
+const STATUS_LABEL: Record<string, string> = {
+  draft: 'Borrador', sent: 'Enviada', accepted: 'Aceptada', paid: 'Pagada', cancelled: 'Cancelada',
+};
+const PROJECT_STATUS_LABEL: Record<string, string> = {
+  planning: 'Planificación', active: 'Activo', paused: 'Pausado', completed: 'Completado', cancelled: 'Cancelado',
+};
+const CURR: Record<string, string> = { PEN: 'S/', USD: '$', EUR: '€' };
+
 function OverviewSection({ onNavigate }: { onNavigate: (s: Section) => void }) {
-  const [stats, setStats] = useState({
+  const [data, setData] = useState({
     totalClients: 0,
     totalQuotations: 0,
     totalReceipts: 0,
     pendingQuotations: 0,
+    monthRevenue: 0,
     totalRevenue: 0,
+    recentQuotations: [] as any[],
+    activeProjects: [] as any[],
+    clientMap: {} as Record<string, string>,
+    hasData: false,
+    seeding: false,
+    seedLog: '',
   });
 
-  useEffect(() => {
-    // Dynamic import to avoid SSR issues
-    import('../../lib/billing-store').then(({ clientStore, quotationStore, receiptStore }) => {
-      const clients = clientStore.getAll();
+  const load = useCallback(() => {
+    import('../../lib/billing-store').then(({ clientStore, quotationStore, receiptStore, projectStore }) => {
+      const clients    = clientStore.getAll();
       const quotations = quotationStore.getAll();
-      const receipts = receiptStore.getAll();
+      const receipts   = receiptStore.getAll();
+      const projects   = projectStore.getAll();
 
-      setStats({
-        totalClients: clients.length,
+      const now   = new Date();
+      const month = now.getMonth();
+      const year  = now.getFullYear();
+
+      const monthReceipts = receipts.filter(r => {
+        if (r.sunatStatus === 'voided') return false;
+        const d = new Date(r.issueDate);
+        return d.getMonth() === month && d.getFullYear() === year;
+      });
+
+      const clientMap: Record<string, string> = {};
+      clients.forEach(c => { clientMap[c.id] = c.name; });
+
+      setData(d => ({
+        ...d,
+        totalClients: clients.filter(c => c.status === 'active').length,
         totalQuotations: quotations.length,
         totalReceipts: receipts.length,
-        pendingQuotations: quotations.filter((q) => q.status === 'sent' || q.status === 'accepted').length,
-        totalRevenue: receipts.reduce((sum, r) => sum + r.netAmount, 0),
-      });
+        pendingQuotations: quotations.filter(q => q.status === 'sent' || q.status === 'accepted').length,
+        monthRevenue: monthReceipts.reduce((s, r) => s + r.netAmount, 0),
+        totalRevenue: receipts.filter(r => r.sunatStatus !== 'voided').reduce((s, r) => s + r.netAmount, 0),
+        recentQuotations: [...quotations].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 5),
+        activeProjects: projects.filter(p => p.status === 'active' || p.status === 'planning'),
+        clientMap,
+        hasData: clients.length > 0 || quotations.length > 0,
+      }));
     });
   }, []);
 
-  const cards = [
-    {
-      label: 'Clientes',
-      value: stats.totalClients,
-      icon: Users,
-      color: 'blue',
-      onClick: () => onNavigate('clients'),
-    },
-    {
-      label: 'Cotizaciones',
-      value: stats.totalQuotations,
-      sublabel: stats.pendingQuotations > 0 ? `${stats.pendingQuotations} pendientes` : 'Sin pendientes',
-      icon: FileText,
-      color: 'purple',
-      onClick: () => onNavigate('quotations'),
-    },
-    {
-      label: 'Recibos Emitidos',
-      value: stats.totalReceipts,
-      icon: Receipt,
-      color: 'emerald',
-      onClick: () => onNavigate('receipts'),
-    },
-    {
-      label: 'Ingresos Totales',
-      value: `S/ ${stats.totalRevenue.toFixed(2)}`,
-      icon: BarChart3,
-      color: 'amber',
-      onClick: () => onNavigate('reports'),
-    },
-  ];
+  useEffect(() => { load(); }, [load]);
+
+  const handleSeed = async () => {
+    setData(d => ({ ...d, seeding: true, seedLog: 'Generando datos...' }));
+    try {
+      const { seedTestData } = await import('../../lib/billing-seed');
+      const log = await seedTestData();
+      setData(d => ({ ...d, seedLog: log, seeding: false }));
+      load();
+    } catch (e: any) {
+      setData(d => ({ ...d, seedLog: 'Error: ' + e.message, seeding: false }));
+    }
+  };
 
   const colorClasses: Record<string, { bg: string; text: string; border: string }> = {
-    blue: { bg: 'bg-blue-500/15', text: 'text-blue-400', border: 'border-blue-500/20' },
-    purple: { bg: 'bg-purple-500/15', text: 'text-purple-400', border: 'border-purple-500/20' },
-    emerald: { bg: 'bg-emerald-500/15', text: 'text-emerald-400', border: 'border-emerald-500/20' },
-    amber: { bg: 'bg-amber-500/15', text: 'text-amber-400', border: 'border-amber-500/20' },
+    blue:   { bg: 'bg-blue-500/15',   text: 'text-blue-400',   border: 'border-blue-500/30' },
+    purple: { bg: 'bg-purple-500/15', text: 'text-purple-400', border: 'border-purple-500/30' },
+    emerald:{ bg: 'bg-emerald-500/15',text: 'text-emerald-400',border: 'border-emerald-500/30' },
+    amber:  { bg: 'bg-amber-500/15',  text: 'text-amber-400',  border: 'border-amber-500/30' },
   };
+
+  const cards = [
+    { label: 'Clientes activos', value: data.totalClients, icon: Users,       color: 'blue',    onClick: () => onNavigate('clients') },
+    { label: 'Cotizaciones',     value: data.totalQuotations, sublabel: data.pendingQuotations > 0 ? `${data.pendingQuotations} pendientes` : 'Al día', icon: FileText, color: 'purple', onClick: () => onNavigate('quotations') },
+    { label: 'Recibos emitidos', value: data.totalReceipts,   icon: Receipt,    color: 'emerald', onClick: () => onNavigate('receipts') },
+    { label: 'Ingresos del mes', value: `S/ ${data.monthRevenue.toFixed(2)}`, sublabel: `Total: S/ ${data.totalRevenue.toFixed(2)}`, icon: BarChart3, color: 'amber', onClick: () => onNavigate('reports') },
+  ];
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-xl font-bold mb-1">Panel de Facturación</h3>
-        <p className="text-gray-400 text-sm">Resumen general de tu actividad</p>
+      {/* Title */}
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h3 className="text-xl font-bold mb-0.5">Panel de Facturación</h3>
+          <p className="text-gray-400 text-sm">Resumen general · {new Date().toLocaleDateString('es-PE', { month: 'long', year: 'numeric' })}</p>
+        </div>
+        {!data.hasData && (
+          <button
+            onClick={handleSeed}
+            disabled={data.seeding}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 text-sm font-medium hover:bg-amber-500/20 transition-all disabled:opacity-50"
+          >
+            {data.seeding ? <Loader2 size={14} className="animate-spin" /> : <span>🌱</span>}
+            Cargar datos de prueba
+          </button>
+        )}
       </div>
 
+      {data.seedLog && (
+        <pre className="p-3 rounded-xl bg-black/40 border border-white/10 text-xs text-emerald-400 whitespace-pre-wrap max-h-32 overflow-y-auto font-mono">{data.seedLog}</pre>
+      )}
+
+      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {cards.map((card) => {
           const colors = colorClasses[card.color];
@@ -536,46 +584,99 @@ function OverviewSection({ onNavigate }: { onNavigate: (s: Section) => void }) {
             <button
               key={card.label}
               onClick={card.onClick}
-              className={`p-5 rounded-2xl bg-white/5 border border-white/10 hover:${colors.border} hover:bg-white/[0.07] transition-all duration-300 text-left group`}
+              className={`p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/[0.07] transition-all duration-200 text-left group active:scale-[0.99]`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-gray-400 text-sm">{card.label}</span>
-                <div className={`p-2 rounded-lg ${colors.bg} ${colors.text}`}>
-                  <card.icon size={18} />
+                <span className="text-gray-400 text-xs font-medium uppercase tracking-wide">{card.label}</span>
+                <div className={`p-2 rounded-lg ${colors.bg} ${colors.text} group-hover:scale-110 transition-transform`}>
+                  <card.icon size={16} />
                 </div>
               </div>
-              <h4 className="text-3xl font-bold">{card.value}</h4>
-              {card.sublabel && (
-                <p className="text-xs text-gray-500 mt-1">{card.sublabel}</p>
+              <h4 className="text-2xl font-bold tracking-tight">{card.value}</h4>
+              {(card as any).sublabel && (
+                <p className="text-xs text-gray-500 mt-1">{(card as any).sublabel}</p>
               )}
             </button>
           );
         })}
       </div>
 
-      {/* Quick actions */}
-      <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
-        <h4 className="font-semibold mb-4 text-sm text-gray-300">Acciones rápidas</h4>
-        <div className="flex flex-wrap gap-3">
-          <button
-            onClick={() => onNavigate('clients')}
-            className="px-4 py-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm font-medium hover:bg-blue-500/20 transition-all"
-          >
-            + Nuevo Cliente
-          </button>
-          <button
-            onClick={() => onNavigate('quotations')}
-            className="px-4 py-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 text-sm font-medium hover:bg-purple-500/20 transition-all"
-          >
-            + Nueva Cotización
-          </button>
-          <button
-            onClick={() => onNavigate('config')}
-            className="px-4 py-2 rounded-xl bg-gray-500/10 text-gray-400 border border-gray-500/20 text-sm font-medium hover:bg-gray-500/20 transition-all"
-          >
-            ⚙ Configurar Datos
-          </button>
+      {/* Bottom row: Recent Quotations + Active Projects */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+
+        {/* Recent Quotations */}
+        <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-semibold text-sm">Últimas Cotizaciones</h4>
+            <button onClick={() => onNavigate('quotations')} className="text-xs text-emerald-400 hover:text-emerald-300 transition-colors">Ver todas →</button>
+          </div>
+          {data.recentQuotations.length === 0 ? (
+            <div className="py-8 text-center">
+              <FileText size={28} className="mx-auto mb-2 text-gray-600" />
+              <p className="text-gray-500 text-sm">Sin cotizaciones aún</p>
+              <button onClick={() => onNavigate('quotations')} className="mt-3 px-4 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium hover:bg-emerald-500/20 transition-all">+ Nueva cotización</button>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {data.recentQuotations.map(q => (
+                <div key={q.id} className="flex items-center justify-between gap-3 py-2.5 border-b border-white/5 last:border-0">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs text-white font-bold">{q.number}</span>
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${STATUS_BADGE[q.status] || STATUS_BADGE.draft}`}>{STATUS_LABEL[q.status] || q.status}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 truncate mt-0.5">{data.clientMap[q.clientId] || 'Cliente'}</p>
+                  </div>
+                  <span className="text-sm font-bold text-white shrink-0">{CURR[q.currency] || ''} {q.total.toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* Active Projects */}
+        <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-semibold text-sm">Proyectos Activos</h4>
+            <button onClick={() => onNavigate('projects')} className="text-xs text-emerald-400 hover:text-emerald-300 transition-colors">Ver todos →</button>
+          </div>
+          {data.activeProjects.length === 0 ? (
+            <div className="py-8 text-center">
+              <FolderKanban size={28} className="mx-auto mb-2 text-gray-600" />
+              <p className="text-gray-500 text-sm">Sin proyectos activos</p>
+              <button onClick={() => onNavigate('projects')} className="mt-3 px-4 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-medium hover:bg-blue-500/20 transition-all">+ Nuevo proyecto</button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {data.activeProjects.slice(0, 4).map(p => {
+                const start = new Date(p.startDate).getTime();
+                const end   = new Date(p.endDate || p.startDate).getTime();
+                const now   = Date.now();
+                const pct   = (end > start) ? Math.min(100, Math.max(0, Math.round(((now - start) / (end - start)) * 100))) : 0;
+                return (
+                  <div key={p.id} className="space-y-1.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-medium text-white truncate">{p.name}</span>
+                      <span className="text-xs text-gray-500 shrink-0">{pct}%</span>
+                    </div>
+                    <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-700" style={{ width: `${pct}%` }} />
+                    </div>
+                    <p className="text-[10px] text-gray-600">{data.clientMap[p.clientId] || ''} · {PROJECT_STATUS_LABEL[p.status] || p.status}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Quick actions */}
+      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8 flex flex-wrap gap-2">
+        <button onClick={() => onNavigate('clients')}    className="px-4 py-2 rounded-xl bg-blue-500/10   text-blue-400   border border-blue-500/20   text-sm font-medium hover:bg-blue-500/20   transition-all">+ Nuevo Cliente</button>
+        <button onClick={() => onNavigate('quotations')} className="px-4 py-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 text-sm font-medium hover:bg-purple-500/20 transition-all">+ Nueva Cotización</button>
+        <button onClick={() => onNavigate('receipts')}   className="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-sm font-medium hover:bg-emerald-500/20 transition-all">+ Nuevo Recibo</button>
+        <button onClick={() => onNavigate('config')}     className="px-4 py-2 rounded-xl bg-gray-500/10  text-gray-400  border border-gray-500/20  text-sm font-medium hover:bg-gray-500/20  transition-all">⚙ Configuración</button>
       </div>
     </div>
   );

@@ -1,55 +1,13 @@
----
+﻿---
 import { Code2, Palette, Rocket, Lock, Smartphone, Search } from 'lucide-react';
 
 const services = [
-  {
-    title: "Web Development",
-    description: "I build fast, secure, and custom websites using the latest technologies like Astro, React, and Tailwind CSS.",
-    icon: Code2,
-    gradient: "from-indigo-400 to-indigo-600",
-    glow: "99, 102, 241",
-    iconColor: "text-indigo-400",
-  },
-  {
-    title: "Web Design",
-    description: "I design visually stunning, functional, and user-centric interfaces that reflect your brand identity.",
-    icon: Palette,
-    gradient: "from-violet-400 to-violet-600",
-    glow: "167, 139, 250",
-    iconColor: "text-violet-400",
-  },
-  {
-    title: "Technical SEO",
-    description: "Boost your online presence with SEO strategies that increase your visibility and drive organic traffic.",
-    icon: Search,
-    gradient: "from-emerald-400 to-emerald-600",
-    glow: "52, 211, 153",
-    iconColor: "text-emerald-400",
-  },
-  {
-    title: "Performance",
-    description: "Lightning-fast load times to improve user experience and search engine rankings.",
-    icon: Rocket,
-    gradient: "from-amber-400 to-amber-600",
-    glow: "251, 191, 36",
-    iconColor: "text-amber-400",
-  },
-  {
-    title: "Security",
-    description: "Built with security in mind to protect your data and your users' information.",
-    icon: Lock,
-    gradient: "from-cyan-400 to-cyan-600",
-    glow: "34, 211, 238",
-    iconColor: "text-cyan-400",
-  },
-  {
-    title: "Responsive",
-    description: "Flawless experiences across all devices, from mobile phones to large desktop screens.",
-    icon: Smartphone,
-    gradient: "from-pink-400 to-pink-600",
-    glow: "244, 114, 182",
-    iconColor: "text-pink-400",
-  },
+  { title: "Web Development",  description: "I build fast, secure, and custom websites using the latest technologies like Astro, React, and Tailwind CSS.",                    icon: Code2,      gradient: "from-indigo-400 to-indigo-600",  glow: "99, 102, 241",  iconColor: "text-indigo-400"  },
+  { title: "Web Design",       description: "I design visually stunning, functional, and user-centric interfaces that reflect your brand identity.",                           icon: Palette,    gradient: "from-violet-400 to-violet-600",  glow: "167, 139, 250", iconColor: "text-violet-400"  },
+  { title: "Technical SEO",    description: "Boost your online presence with SEO strategies that increase your visibility and drive organic traffic.",                         icon: Search,     gradient: "from-emerald-400 to-emerald-600", glow: "52, 211, 153",  iconColor: "text-emerald-400" },
+  { title: "Performance",      description: "Lightning-fast load times to improve user experience and search engine rankings.",                                               icon: Rocket,     gradient: "from-amber-400 to-amber-600",    glow: "251, 191, 36",  iconColor: "text-amber-400"   },
+  { title: "Security",         description: "Built with security in mind to protect your data and your users' information.",                                                  icon: Lock,       gradient: "from-cyan-400 to-cyan-600",      glow: "34, 211, 238",  iconColor: "text-cyan-400"    },
+  { title: "Responsive",       description: "Flawless experiences across all devices, from mobile phones to large desktop screens.",                                          icon: Smartphone, gradient: "from-pink-400 to-pink-600",      glow: "244, 114, 182", iconColor: "text-pink-400"    },
 ];
 ---
 
@@ -65,53 +23,52 @@ const services = [
   </div>
 
   <div class="container mx-auto px-4 relative z-10">
-    <div class="text-center max-w-2xl mx-auto mb-20 reveal-header">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block">SERVICES</span>
-      <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-20 svc-header">
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block svc-label">SERVICES</span>
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6 svc-title">
         What I <span class="gradient-text">Offer</span>
       </h2>
-      <p class="text-text-secondary text-lg">
+      <p class="text-text-secondary text-lg svc-sub">
         Comprehensive web solutions tailored to your needs.
       </p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 lg:gap-8 svc-cards-container">
       {services.map((service, index) => (
-        <div 
-          class="svc-card group relative p-8 rounded-2xl glass-card overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-default"
+        <div
+          class="svc-card group relative p-8 rounded-2xl glass-card overflow-hidden cursor-default"
           data-glow={service.glow}
-          style={`animation-delay: ${index * 100}ms;`}
+          data-index={index}
         >
-          {/* Mouse-tracking glow */}
-          <div 
+          <!-- Mouse glow -->
+          <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-            style={`background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(${service.glow}, 0.12), transparent 40%);`}
+            style={`background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(${service.glow}, 0.13), transparent 40%);`}
           ></div>
 
-          {/* Large watermark icon */}
-          <div class="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:opacity-[0.08] transform rotate-12 group-hover:rotate-0 group-hover:scale-125 transition-all duration-700 pointer-events-none">
+          <!-- Watermark icon -->
+          <div class="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:opacity-[0.09] rotate-12 group-hover:rotate-0 group-hover:scale-125 transition-all duration-700 pointer-events-none">
             <service.icon size={180} />
           </div>
-          
+
           <div class="relative z-10">
-            {/* Icon */}
-            <div class={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}
-              style={`background: linear-gradient(135deg, rgba(${service.glow}, 0.15), rgba(${service.glow}, 0.05));`}
+            <!-- Icon -->
+            <div
+              class="w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg"
+              style={`background: linear-gradient(135deg, rgba(${service.glow}, 0.18), rgba(${service.glow}, 0.06));`}
             >
               <service.icon size={28} class={service.iconColor} />
             </div>
 
-            {/* Title */}
             <h3 class="text-xl font-bold text-text-primary mb-3 font-heading group-hover:text-primary transition-colors duration-300">
               {service.title}
             </h3>
-
-            {/* Description */}
-            <p class="text-text-secondary leading-relaxed text-sm group-hover:text-text-secondary/90 transition-colors">
+            <p class="text-text-secondary leading-relaxed text-sm">
               {service.description}
             </p>
 
-            {/* Bottom accent line */}
+            <!-- Bottom accent bar -->
             <div class={`mt-6 h-0.5 w-0 group-hover:w-full bg-gradient-to-r ${service.gradient} rounded-full transition-all duration-500`}></div>
           </div>
         </div>
@@ -120,137 +77,90 @@ const services = [
   </div>
 </section>
 
-{/* Mouse-tracking spotlight */}
 <script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
   document.addEventListener('astro:page-load', () => {
-    const cards = document.querySelectorAll('.svc-card');
-    
-    cards.forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
+    const section = document.querySelector('#services');
+    if (!section) return;
+
+    // Header stagger reveal
+    gsap.fromTo(
+      ['.svc-label', '.svc-title', '.svc-sub'],
+      { opacity: 0, y: 40, clipPath: 'inset(0 0 30% 0)' },
+      {
+        opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)',
+        duration: 0.9, stagger: 0.12, ease: 'power4.out',
+        scrollTrigger: { trigger: '.svc-header', start: 'top 82%', once: true }
+      }
+    );
+
+    // Cards — dramatic stagger with clip-path + scale
+    const cards = section.querySelectorAll('.svc-card');
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 60, scale: 0.92, clipPath: 'inset(10% 5% 10% 5% round 1rem)' },
+      {
+        opacity: 1, y: 0, scale: 1, clipPath: 'inset(0% 0% 0% 0% round 1rem)',
+        duration: 0.85, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.svc-cards-container', start: 'top 78%', once: true }
+      }
+    );
+
+    // Mouse tracking spotlight + 3D tilt
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e: any) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
         (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
         (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rX = (y - cy) / 22;
+        const rY = (cx - x) / 22;
+        gsap.to(card, { rotateX: rX, rotateY: rY, translateY: -10, duration: 0.3, ease: 'power2.out', transformPerspective: 1000 });
       });
-    });
-
-    // Scroll-triggered entrance animation
-    if (typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const items = entry.target.querySelectorAll('.svc-card');
-              items.forEach((card, i) => {
-                setTimeout(() => {
-                  card.classList.add('animate-in');
-                }, i * 100);
-              });
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-
-      const container = document.querySelector('.svc-cards-container');
-      if (container) observer.observe(container);
-    }
-
-    // 3D Tilt effect
-    const svcCards = document.querySelectorAll('.svc-card');
-    svcCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 25;
-        const rotateY = (centerX - x) / 25;
-        
-        (card as HTMLElement).style.transform = `
-          translateY(-8px) 
-          perspective(1000px) 
-          rotateX(${rotateX}deg) 
-          rotateY(${rotateY}deg)
-        `;
-      });
-      
       card.addEventListener('mouseleave', () => {
-        (card as HTMLElement).style.transform = '';
+        gsap.to(card, { rotateX: 0, rotateY: 0, translateY: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
       });
     });
   });
 </script>
 
 <style>
-  /* Floating Particles */
   .particle {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.6), rgba(139, 92, 246, 0.6));
+    background: linear-gradient(135deg, rgba(79,70,229,0.6), rgba(139,92,246,0.6));
     border-radius: 50%;
-    animation: float 20s infinite ease-in-out;
-    box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+    animation: particleFloat 20s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(79,70,229,0.5);
   }
-
   :global(.light) .particle {
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.3), rgba(139, 92, 246, 0.3));
-    box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
+    background: linear-gradient(135deg, rgba(79,70,229,0.25), rgba(139,92,246,0.25));
+    box-shadow: 0 0 15px rgba(79,70,229,0.15);
+  }
+  .particle-1 { top: 10%; left: 10%; animation-delay: 0s;    animation-duration: 25s; }
+  .particle-2 { top: 60%; left: 80%; animation-delay: -5s;   animation-duration: 30s; }
+  .particle-3 { top: 30%; left: 50%; animation-delay: -10s;  animation-duration: 22s; }
+  .particle-4 { top: 80%; left: 20%; animation-delay: -15s;  animation-duration: 28s; }
+  .particle-5 { top: 40%; left: 90%; animation-delay: -8s;   animation-duration: 26s; }
+  .particle-6 { top: 70%; left: 60%; animation-delay: -12s;  animation-duration: 24s; }
+  @keyframes particleFloat {
+    0%,100% { transform: translate(0,0) scale(1);      opacity: 0.3; }
+    25%      { transform: translate(50px,-50px) scale(1.2); opacity: 0.6; }
+    50%      { transform: translate(-30px,-100px) scale(0.8); opacity: 0.4; }
+    75%      { transform: translate(-80px,-50px) scale(1.1); opacity: 0.5; }
   }
 
-  .particle-1 { top: 10%; left: 10%; animation-delay: 0s; animation-duration: 25s; }
-  .particle-2 { top: 60%; left: 80%; animation-delay: -5s; animation-duration: 30s; }
-  .particle-3 { top: 30%; left: 50%; animation-delay: -10s; animation-duration: 22s; }
-  .particle-4 { top: 80%; left: 20%; animation-delay: -15s; animation-duration: 28s; }
-  .particle-5 { top: 40%; left: 90%; animation-delay: -8s; animation-duration: 26s; }
-  .particle-6 { top: 70%; left: 60%; animation-delay: -12s; animation-duration: 24s; }
+  .svc-card { opacity: 0; transform-style: preserve-3d; }
+  .svc-label, .svc-title, .svc-sub { opacity: 0; }
 
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-    25% { transform: translate(50px, -50px) scale(1.2); opacity: 0.6; }
-    50% { transform: translate(-30px, -100px) scale(0.8); opacity: 0.4; }
-    75% { transform: translate(-80px, -50px) scale(1.1); opacity: 0.5; }
-  }
-
-  /* Card entrance */
-  .svc-card {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .svc-card.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .svc-card.animate-in:hover {
-    transform: translateY(-8px);
-  }
-
-  /* Header reveal */
-  .reveal-header {
-    opacity: 0;
-    animation: fadeSlideUp 0.8s ease-out forwards;
-  }
-
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .particle, .svc-card, .reveal-header {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-    .svc-card.animate-in:hover { transform: none; }
+    .particle, .svc-card, .svc-label, .svc-title, .svc-sub { animation: none !important; opacity: 1 !important; transform: none !important; }
   }
 </style>

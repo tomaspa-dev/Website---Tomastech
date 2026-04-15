@@ -1,67 +1,120 @@
----
+﻿---
 import { Search, PenTool, Code2, Rocket } from 'lucide-react';
 
 const steps = [
-  {
-    number: "01",
-    title: "Discovery",
-    description: "I start by understanding your business goals, target audience, and requirements to create a solid strategy.",
-    icon: Search,
-  },
-  {
-    number: "02",
-    title: "Design",
-    description: "I create visual concepts and wireframes that align with your brand identity and user experience best practices.",
-    icon: PenTool,
-  },
-  {
-    number: "03",
-    title: "Development",
-    description: "I build your website using modern technologies, ensuring it's fast, secure, and responsive across all devices.",
-    icon: Code2,
-  },
-  {
-    number: "04",
-    title: "Launch",
-    description: "After rigorous testing, I deploy your website and provide necessary training and support for a smooth launch.",
-    icon: Rocket,
-  },
+  { number: "01", title: "Discovery",    description: "I start by understanding your business goals, target audience, and requirements to create a solid strategy.", icon: Search   },
+  { number: "02", title: "Design",       description: "I create visual concepts and wireframes that align with your brand identity and user experience best practices.", icon: PenTool  },
+  { number: "03", title: "Development",  description: "I build your website using modern technologies, ensuring it's fast, secure, and responsive across all devices.",   icon: Code2    },
+  { number: "04", title: "Launch",       description: "After rigorous testing, I deploy your website and provide necessary training and support for a smooth launch.",   icon: Rocket   },
 ];
 ---
 
 <section id="process" class="py-24 md:py-32 bg-surface border-y border-border">
   <div class="container mx-auto px-4">
+
+    <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-14 md:mb-20">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block">How It Works</span>
-      <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6">
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block proc-label">How It Works</span>
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6 proc-title">
         My <span class="text-primary">Process</span>
       </h2>
-      <p class="text-text-secondary text-lg">
+      <p class="text-text-secondary text-lg proc-sub">
         A streamlined workflow designed to deliver exceptional results on time and within budget.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-      {steps.map((step, index) => (
-        <div class="relative group">
-          {index < steps.length - 1 && (
-            <div class="hidden lg:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent z-0"></div>
-          )}
-          
-          <div class="relative z-10 glass-card p-6 md:p-8 rounded-2xl hover:border-primary/50 transition-all duration-300 h-full">
-            <div class="text-5xl font-bold text-text-primary/5 mb-4 absolute top-4 right-4">{step.number}</div>
-            
-            <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
-              <step.icon size={28} />
+      {steps.map((step) => (
+        <div class="proc-card group">
+          <!-- Card with number INSIDE and overflow-visible to prevent any clipping -->
+          <div
+            class="relative overflow-visible rounded-2xl transition-all duration-300 group-hover:-translate-y-2"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
+          >
+            <!-- Watermark number — absolutely positioned inside, large, right-aligned -->
+            <span class="proc-step-num" aria-hidden="true">{step.number}</span>
+
+            <div class="relative z-10 p-6 md:p-8">
+              <!-- Icon -->
+              <div class="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                <step.icon size={26} />
+              </div>
+
+              <h3 class="text-xl font-bold text-text-primary mb-3 font-heading">{step.title}</h3>
+              <p class="text-text-secondary text-sm leading-relaxed mb-5">{step.description}</p>
+
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20">
+                <span class="text-[10px] font-bold text-primary tracking-widest">STEP {step.number}</span>
+              </div>
             </div>
-            
-            <h3 class="text-xl font-bold text-text-primary mb-3">{step.title}</h3>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              {step.description}
-            </p>
           </div>
         </div>
       ))}
     </div>
+
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector('#process');
+    if (!section) return;
+
+    // Header
+    gsap.fromTo(
+      ['.proc-label', '.proc-title', '.proc-sub'],
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 82%', once: true }
+      }
+    );
+
+    // Cards — simple y+opacity only, NO rotateX or 3D transforms
+    gsap.fromTo(
+      section.querySelectorAll('.proc-card'),
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1, y: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 74%', once: true }
+      }
+    );
+  });
+</script>
+
+<style>
+  .proc-label, .proc-title, .proc-sub { opacity: 0; }
+  .proc-card { opacity: 0; }
+
+  /*
+   * Watermark digit — placed inside the card, bottom-right area,
+   * clipped intentionally at ~60% height for a modern cut look.
+   * overflow:visible on parent + clip-path here gives the effect cleanly.
+   */
+  .proc-step-num {
+    position: absolute;
+    bottom: -0.6rem;   /* slight bleed below card edge */
+    right: 0.875rem;
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--color-text-primary);
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    /* Clip the bottom bleed so it looks intentionally cropped — not a bug */
+    clip-path: inset(0 0 0.6rem 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proc-label, .proc-title, .proc-sub, .proc-card {
+      opacity: 1 !important; transform: none !important;
+    }
+  }
+</style>

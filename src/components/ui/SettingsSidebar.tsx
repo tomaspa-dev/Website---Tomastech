@@ -1,24 +1,40 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Moon, Sun, ChevronRight, ChevronLeft, MousePointer2 } from 'lucide-react';
 
 export default function SettingsSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [cursorEnabled, setCursorEnabled] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const autoCloseRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Detect live theme from DOM
+  useEffect(() => {
+    const detect = () => {
+      const dark = !document.documentElement.classList.contains('light');
+      setIsDark(dark);
+    };
+    detect();
+    const obs = new MutationObserver(detect);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(storedTheme);
     applyTheme(storedTheme);
-
     const storedPref = localStorage.getItem('customCursorEnabled');
-    if (storedPref !== null) {
-      setCursorEnabled(storedPref === 'true');
-    }
+    if (storedPref !== null) setCursorEnabled(storedPref === 'true');
   }, []);
 
-  const applyTheme = (newTheme: string) => {
-    if (newTheme === 'light') {
+  const scheduleAutoClose = useCallback(() => {
+    if (autoCloseRef.current) clearTimeout(autoCloseRef.current);
+    autoCloseRef.current = setTimeout(() => setIsOpen(false), 3000);
+  }, []);
+
+  const applyTheme = (t: string) => {
+    if (t === 'light') {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
     } else {
@@ -32,13 +48,9 @@ export default function SettingsSidebar() {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
     applyTheme(newTheme);
-    
-    // Toast notification
+    scheduleAutoClose();
     if (typeof (window as any).showToast === 'function') {
-      (window as any).showToast(
-        `Switched to ${newTheme === 'dark' ? 'Dark' : 'Light'} mode`,
-        'info'
-      );
+      (window as any).showToast(`Switched to ${newTheme === 'dark' ? 'Dark' : 'Light'} mode`, 'info');
     }
   };
 
@@ -46,73 +58,102 @@ export default function SettingsSidebar() {
     const newState = !cursorEnabled;
     setCursorEnabled(newState);
     localStorage.setItem('customCursorEnabled', String(newState));
-    
-    const event = new CustomEvent('cursor-settings-changed', { 
-      detail: { enabled: newState } 
-    });
-    window.dispatchEvent(event);
-
-    // Toast notification
+    window.dispatchEvent(new CustomEvent('cursor-settings-changed', { detail: { enabled: newState } }));
+    scheduleAutoClose();
     if (typeof (window as any).showToast === 'function') {
-      (window as any).showToast(
-        `Custom cursor ${newState ? 'enabled' : 'disabled'}`,
-        'info'
-      );
+      (window as any).showToast(`Custom cursor ${newState ? 'enabled' : 'disabled'}`, 'info');
     }
   };
 
+  const handleOpen = () => {
+    setIsOpen(o => !o);
+    if (!isOpen) scheduleAutoClose();
+    else if (autoCloseRef.current) clearTimeout(autoCloseRef.current);
+  };
+
+  // Theme-derived colors
+  const panelBg   = isDark ? 'rgba(10,10,26,0.96)'    : 'rgba(255,255,255,0.96)';
+  const panelBdr  = isDark ? 'rgba(255,255,255,0.1)'   : 'rgba(0,0,0,0.1)';
+  const rowBg     = isDark ? 'rgba(255,255,255,0.05)'  : 'rgba(0,0,0,0.04)';
+  const rowBdr    = isDark ? 'rgba(255,255,255,0.06)'  : 'rgba(0,0,0,0.06)';
+  const labelClr  = isDark ? '#cbd5e1'                 : '#475569';
+  const titleClr  = isDark ? '#ffffff'                 : '#0f172a';
+  const btnBg     = isDark ? 'rgba(255,255,255,0.05)'  : 'rgba(0,0,0,0.04)';
+  const btnBdr    = isDark ? 'rgba(255,255,255,0.1)'   : 'rgba(0,0,0,0.1)';
+  const chevClr   = isDark ? '#94a3b8'                 : '#64748b';
+
   return (
-    <div className={`fixed right-0 top-1/2 -translate-y-1/2 z-[9998] flex items-center transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-[calc(100%-36px)]'}`}>
-      
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-9 h-11 bg-white/5 backdrop-blur-md border-l border-t border-b border-white/10 rounded-l-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors shadow-lg"
+    <div
+      style={{
+        position: 'fixed',
+        right: 0,
+        top: '50%',
+        transform: isOpen ? 'translate(0,-50%)' : 'translate(calc(100% - 36px),-50%)',
+        zIndex: 9998,
+        display: 'flex',
+        alignItems: 'center',
+        transition: 'transform 0.35s cubic-bezier(0.4,0,0.2,1)',
+      }}
+    >
+      {/* Toggle tab */}
+      <button
+        onClick={handleOpen}
         aria-label="Toggle settings"
+        style={{
+          width: 36, height: 48,
+          background: panelBg,
+          backdropFilter: 'blur(16px)',
+          border: `1px solid ${panelBdr}`,
+          borderRight: 'none',
+          borderRadius: '12px 0 0 12px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: chevClr,
+          cursor: 'pointer',
+          boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.1)',
+          transition: 'background 0.2s',
+        }}
       >
-        {isOpen ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+        {isOpen ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
       </button>
 
-      <div className="bg-[#0a0a1a]/95 backdrop-blur-xl border border-white/10 p-3.5 rounded-l-2xl shadow-2xl w-44 space-y-2.5">
-        <h3 className="text-white text-[10px] font-bold uppercase tracking-widest mb-2 text-center" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+      {/* Panel */}
+      <div
+        style={{
+          background: panelBg,
+          backdropFilter: 'blur(24px)',
+          border: `1px solid ${panelBdr}`,
+          borderRadius: '0 0 0 16px',
+          padding: '14px 12px',
+          width: 176,
+          boxShadow: isDark ? '0 20px 60px rgba(0,0,0,0.5)' : '0 20px 60px rgba(0,0,0,0.12)',
+        }}
+      >
+        <h3 style={{ color: titleClr, fontSize: 9, fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', textAlign: 'center', marginBottom: 10, fontFamily: 'Space Grotesk, sans-serif' }}>
           Settings
         </h3>
-        
-        {/* Theme Toggle */}
-        <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5">
-          <span className="text-gray-300 text-xs flex items-center gap-2.5 font-medium">
-            <div className="relative w-4 h-4">
-              <Sun 
-                size={16} 
-                className={`absolute inset-0 text-amber-400 transition-all duration-500 transform ${theme === 'dark' ? 'rotate-90 opacity-0 scale-50' : 'rotate-0 opacity-100 scale-100'}`} 
-              />
-              <Moon 
-                size={16} 
-                className={`absolute inset-0 text-indigo-400 transition-all duration-500 transform ${theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-50'}`} 
-              />
+
+        {/* Theme row */}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'10px', borderRadius:10, background: rowBg, border:`1px solid ${rowBdr}`, marginBottom:8 }}>
+          <span style={{ color: labelClr, fontSize: 12, display:'flex', alignItems:'center', gap: 8, fontWeight: 500 }}>
+            <div style={{ position:'relative', width:16, height:16 }}>
+              <Sun size={16} style={{ position:'absolute', inset:0, color:'#f59e0b', transition:'all 0.4s', opacity: theme==='dark'?0:1, transform: theme==='dark'?'rotate(90deg) scale(0.5)':'none' }} />
+              <Moon size={16} style={{ position:'absolute', inset:0, color:'#818cf8', transition:'all 0.4s', opacity: theme==='dark'?1:0, transform: theme==='dark'?'none':'rotate(-90deg) scale(0.5)' }} />
             </div>
             Theme
           </span>
-          <button 
-            onClick={toggleTheme}
-            className={`w-10 h-5 rounded-full relative transition-colors duration-500 shadow-inner ${theme === 'dark' ? 'bg-indigo-500/80' : 'bg-amber-400/80'}`}
-            aria-label="Toggle theme"
-          >
-            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-500 ${theme === 'dark' ? 'left-[22px]' : 'left-0.5'}`} />
+          <button onClick={toggleTheme} aria-label="Toggle theme" style={{ width:40, height:20, borderRadius:10, background: theme==='dark'?'#6366f1':'#f59e0b', border:'none', cursor:'pointer', position:'relative', transition:'background 0.4s', boxShadow: theme==='dark'?'0 0 12px rgba(99,102,241,0.5)':'0 0 12px rgba(245,158,11,0.4)' }}>
+            <div style={{ position:'absolute', top:2, width:16, height:16, borderRadius:'50%', background:'#fff', boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.4s', left: theme==='dark'?22:2 }} />
           </button>
         </div>
 
-        {/* Cursor Toggle */}
-        <div className="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5">
-          <span className="text-gray-300 text-xs flex items-center gap-2.5 font-medium">
-            <MousePointer2 size={16} className="text-indigo-400" />
+        {/* Cursor row */}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'10px', borderRadius:10, background: rowBg, border:`1px solid ${rowBdr}` }}>
+          <span style={{ color: labelClr, fontSize: 12, display:'flex', alignItems:'center', gap: 8, fontWeight: 500 }}>
+            <MousePointer2 size={15} style={{ color:'#818cf8' }} />
             Cursor
           </span>
-          <button 
-            onClick={toggleCursor}
-            className={`w-10 h-5 rounded-full relative transition-colors duration-500 shadow-inner ${cursorEnabled ? 'bg-indigo-500/80' : 'bg-zinc-600'}`}
-            aria-label="Toggle cursor"
-          >
-            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-md transition-all duration-500 ${cursorEnabled ? 'left-[22px]' : 'left-0.5'}`} />
+          <button onClick={toggleCursor} aria-label="Toggle cursor" style={{ width:40, height:20, borderRadius:10, background: cursorEnabled?'#6366f1':'rgba(100,116,139,0.4)', border:'none', cursor:'pointer', position:'relative', transition:'background 0.4s', boxShadow: cursorEnabled?'0 0 12px rgba(99,102,241,0.4)':'none' }}>
+            <div style={{ position:'absolute', top:2, width:16, height:16, borderRadius:'50%', background:'#fff', boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.4s', left: cursorEnabled?22:2 }} />
           </button>
         </div>
       </div>

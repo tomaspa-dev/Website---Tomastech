@@ -1,4 +1,4 @@
----
+﻿---
 import { ArrowRight } from 'lucide-react';
 import GeometricBackground from './GeometricBackground';
 ---
@@ -6,16 +6,16 @@ import GeometricBackground from './GeometricBackground';
 <section class="hero-section relative min-h-screen flex items-center overflow-hidden" id="hero">
   {/* Theme-aware background */}
   <div class="absolute inset-0 z-0 hero-bg transition-colors duration-500"></div>
-  
-  {/* Geometric 3D shapes — transparent canvas */}
+
+  {/* Geometric 3D shapes */}
   <div class="absolute inset-0 z-[1]">
     <GeometricBackground client:load />
   </div>
-  
-  {/* Soft gradient overlays for text readability */}
+
+  {/* Gradient overlays for readability */}
   <div class="absolute inset-0 z-[2] hero-overlay-lr"></div>
   <div class="absolute inset-0 z-[2] hero-overlay-tb"></div>
-  
+
   <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-8 pb-6 sm:pt-14 sm:pb-8 md:pt-20 md:pb-12 lg:pt-24">
     <div class="max-w-5xl">
       {/* Badge */}
@@ -28,8 +28,8 @@ import GeometricBackground from './GeometricBackground';
           <span class="text-[11px] sm:text-xs md:text-sm hero-badge-text tracking-wide font-medium">Available for Projects</span>
         </div>
       </div>
-      
-      {/* Main Heading */}
+
+      {/* Main Heading — clip-path cinematic reveal */}
       <h1 class="mb-4 sm:mb-5 md:mb-6">
         <span class="hero-title-line block overflow-hidden">
           <span class="hero-title-word block text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.05] hero-text-primary font-display">
@@ -47,18 +47,18 @@ import GeometricBackground from './GeometricBackground';
           </span>
         </span>
       </h1>
-      
-      {/* Subtitle */}
-      <p class="hero-anim text-sm sm:text-base md:text-lg lg:text-xl hero-text-secondary mb-5 sm:mb-6 md:mb-8 max-w-lg leading-relaxed">
+
+      {/* Subtitle — scramble target */}
+      <p id="hero-subtitle" class="hero-anim text-sm sm:text-base md:text-lg lg:text-xl hero-text-secondary mb-5 sm:mb-6 md:mb-8 max-w-lg leading-relaxed">
         We merge art with code to build immersive digital experiences that convert visitors into customers.
       </p>
-      
+
       {/* CTA Buttons */}
-      <div class="hero-anim flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-[280px] sm:max-w-none">
-        <a 
-          href="#contact" 
+      <div class="hero-anim flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-[280px] sm:max-w-none mb-10 sm:mb-12">
+        <a
+          href="#contact"
           class="magnetic-btn group relative inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold font-heading text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-glow-primary hover:shadow-[0_0_40px_rgba(129,140,248,0.5)]"
-          aria-label="Start a new project — contact us"
+          aria-label="Start a new project"
         >
           <span class="relative z-10">Start Project</span>
           <div class="relative w-4 h-4 overflow-hidden z-10">
@@ -70,181 +70,180 @@ import GeometricBackground from './GeometricBackground';
             </div>
           </div>
         </a>
-        
-        <a 
-          href="/portfolio" 
+
+        <a
+          href="/portfolio"
           class="magnetic-btn inline-flex items-center justify-center px-6 py-3 sm:px-7 sm:py-3.5 rounded-full hero-btn-outline transition-all hover:scale-105 font-heading font-semibold text-sm backdrop-blur-sm"
-          aria-label="View our portfolio of work"
+          aria-label="View portfolio"
         >
           View Portfolio
         </a>
+      </div>
+
+      {/* Stats strip */}
+      <div class="hero-anim flex flex-wrap items-center gap-5 sm:gap-8">
+        <div>
+          <span class="block text-2xl sm:text-3xl font-extrabold font-heading gradient-text">50+</span>
+          <span class="block text-xs hero-text-muted mt-0.5">Projects delivered</span>
+        </div>
+        <div class="hero-stat-divider w-px h-8 hero-divider-color"></div>
+        <div>
+          <span class="block text-2xl sm:text-3xl font-extrabold font-heading gradient-text">3+</span>
+          <span class="block text-xs hero-text-muted mt-0.5">Years experience</span>
+        </div>
+        <div class="hero-stat-divider w-px h-8 hero-divider-color"></div>
+        <div>
+          <span class="block text-2xl sm:text-3xl font-extrabold font-heading gradient-text">100%</span>
+          <span class="block text-xs hero-text-muted mt-0.5">Client satisfaction</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  /* Initial state: badge fades in first */
-  .hero-anim {
-    opacity: 0;
-    animation: fadeInUp 0.7s ease-out forwards;
-    will-change: opacity, transform;
-  }
-  /* Staggered delays for badge, subtitle, buttons */
-  .hero-anim:nth-child(1) { animation-delay: 0s; }     /* badge */
-
-  /* Title words reveal — staggered slide-up */
-  .hero-title-word {
-    transform: translateY(110%);
-    animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform;
-  }
-  /* Staggered delays per title line */
-  .hero-title-line:nth-child(1) .hero-title-word { animation-delay: 0.1s; }
-  .hero-title-line:nth-child(2) .hero-title-word { animation-delay: 0.25s; }
-  .hero-title-line:nth-child(3) .hero-title-word { animation-delay: 0.4s; }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes slideUp {
-    to { transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-anim {
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
-    }
-    .hero-title-word {
-      transform: none !important;
-      animation: none !important;
-    }
-  }
-
-  /* ===== DARK MODE (default) ===== */
-  :global(.dark) .hero-bg,
-  :global(:not(.light)) .hero-bg {
-    background: linear-gradient(135deg, #050510 0%, #0a0a20 40%, #050510 100%);
-  }
-  :global(.dark) .hero-overlay-lr,
-  :global(:not(.light)) .hero-overlay-lr {
-    background: linear-gradient(to right, rgba(5,5,16,0.7), rgba(5,5,16,0.3), transparent);
-  }
-  :global(.dark) .hero-overlay-tb,
-  :global(:not(.light)) .hero-overlay-tb {
-    background: linear-gradient(to bottom, rgba(5,5,16,0.2), transparent, rgba(5,5,16,0.7));
-  }
-  :global(.dark) .hero-text-primary,
-  :global(:not(.light)) .hero-text-primary { color: #ffffff; }
-  :global(.dark) .hero-text-secondary,
-  :global(:not(.light)) .hero-text-secondary { color: #d1d5db; }
-  :global(.dark) .hero-text-muted,
-  :global(:not(.light)) .hero-text-muted { color: #9ca3af; }
-  :global(.dark) .hero-divider,
-  :global(:not(.light)) .hero-divider { background-color: rgba(255,255,255,0.1); }
-  :global(.dark) .hero-badge-bg,
-  :global(:not(.light)) .hero-badge-bg { background: rgba(255,255,255,0.05); }
-  :global(.dark) .hero-badge-border,
-  :global(:not(.light)) .hero-badge-border { border-color: rgba(255,255,255,0.1); }
-  :global(.dark) .hero-badge-text,
-  :global(:not(.light)) .hero-badge-text { color: #d1d5db; }
-  :global(.dark) .hero-btn-outline,
-  :global(:not(.light)) .hero-btn-outline {
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #ffffff;
-  }
-  :global(.dark) .hero-btn-outline:hover,
-  :global(:not(.light)) .hero-btn-outline:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  /* ===== LIGHT MODE ===== */
-  :global(.light) .hero-bg {
-    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 40%, #f0f9ff 100%);
-  }
-  :global(.light) .hero-overlay-lr {
-    background: linear-gradient(to right, rgba(248,250,252,0.6), rgba(248,250,252,0.2), transparent);
-  }
-  :global(.light) .hero-overlay-tb {
-    background: linear-gradient(to bottom, rgba(248,250,252,0.1), transparent, rgba(248,250,252,0.6));
-  }
-  :global(.light) .hero-text-primary { color: #0f172a; }
-  :global(.light) .hero-text-secondary { color: #475569; }
-  :global(.light) .hero-text-muted { color: #64748b; }
-  :global(.light) .hero-divider { background-color: rgba(0,0,0,0.1); }
-  :global(.light) .hero-badge-bg { background: rgba(0,0,0,0.04); }
-  :global(.light) .hero-badge-border { border-color: rgba(0,0,0,0.08); }
-  :global(.light) .hero-badge-text { color: #475569; }
-  :global(.light) .hero-btn-outline {
-    border: 1px solid rgba(15,23,42,0.15);
-    color: #0f172a;
-  }
-  :global(.light) .hero-btn-outline:hover {
-    background: rgba(15,23,42,0.05);
-    border-color: rgba(15,23,42,0.3);
-  }
-</style>
-
 <script>
-  import { gsap } from "gsap";
-  
-  document.addEventListener('astro:page-load', () => {
-    const heroAnims = document.querySelectorAll('.hero-section .hero-anim');
-    const titleWords = document.querySelectorAll('.hero-section .hero-title-word');
-    
-    if (heroAnims.length === 0 && titleWords.length === 0) return;
+  import { gsap } from 'gsap';
 
-    // Magnetic Buttons — desktop only
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+
+  function scrambleText(el: HTMLElement, finalText: string, duration = 1400) {
+    let frame = 0;
+    const totalFrames = Math.floor(duration / 16);
+    const interval = setInterval(() => {
+      const progress = frame / totalFrames;
+      const revealCount = Math.floor(progress * finalText.length);
+      let result = '';
+      for (let i = 0; i < finalText.length; i++) {
+        if (finalText[i] === ' ') { result += ' '; continue; }
+        if (i < revealCount) { result += finalText[i]; }
+        else { result += CHARS[Math.floor(Math.random() * CHARS.length)]; }
+      }
+      el.textContent = result;
+      frame++;
+      if (frame > totalFrames) {
+        el.textContent = finalText;
+        clearInterval(interval);
+      }
+    }, 16);
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector('.hero-section');
+    if (!section) return;
+
+    const titleWords = section.querySelectorAll('.hero-title-word');
+    const heroAnims = section.querySelectorAll('.hero-anim');
+    const subtitle = document.getElementById('hero-subtitle');
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+    // Clip-path cinematic reveal for title words
+    if (titleWords.length > 0) {
+      tl.fromTo(
+        titleWords,
+        { clipPath: 'inset(0 0 100% 0)', y: 50, opacity: 0 },
+        { clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1, duration: 1.05, stagger: 0.14 }
+      );
+    }
+
+    // Badge, buttons, stats — stagger fade up
+    if (heroAnims.length > 0) {
+      tl.fromTo(
+        heroAnims,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.75, stagger: 0.1 },
+        '-=0.55'
+      );
+    }
+
+    // Scramble subtitle after badge appears
+    if (subtitle) {
+      const finalText = subtitle.textContent || '';
+      tl.call(() => scrambleText(subtitle, finalText, 1200), [], '-=0.3');
+    }
+
+    // Magnetic buttons (desktop only)
     if (window.innerWidth > 768) {
-      const buttons = document.querySelectorAll('.hero-section .magnetic-btn');
-      buttons.forEach((btn) => {
+      section.querySelectorAll('.magnetic-btn').forEach(btn => {
         btn.addEventListener('mousemove', (e: any) => {
           const rect = btn.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
           const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: "power2.out" });
+          gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: 'power2.out' });
         });
         btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
         });
       });
     }
 
-    // GSAP enhances after CSS initial reveal — staggered subtitle & buttons
-    const tl = gsap.timeline({ delay: 0.6 });
-    
-    // Get subtitle and buttons (skip badge which is the first .hero-anim)
-    const subtitle = heroAnims[1]; // <p> subtitle
-    const ctaBlock = heroAnims[2]; // buttons container
-    
-    if (subtitle) {
-      tl.fromTo(subtitle, 
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-      );
-    }
-    if (ctaBlock) {
-      tl.fromTo(ctaBlock, 
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
-        '-=0.4' // overlap with subtitle
-      );
-    }
-
-    // Safety fallback
+    // Fallback
     setTimeout(() => {
-      heroAnims.forEach((el) => {
+      titleWords.forEach(el => {
+        (el as HTMLElement).style.clipPath = 'none';
         (el as HTMLElement).style.opacity = '1';
         (el as HTMLElement).style.transform = 'none';
       });
-      titleWords.forEach((el) => {
+      heroAnims.forEach(el => {
+        (el as HTMLElement).style.opacity = '1';
         (el as HTMLElement).style.transform = 'none';
       });
-    }, 3000);
+    }, 3800);
   });
 </script>
 
+<style>
+  .hero-title-word {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    will-change: clip-path, transform, opacity;
+  }
+  .hero-anim {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title-word, .hero-anim {
+      clip-path: none !important; opacity: 1 !important; transform: none !important; animation: none !important;
+    }
+  }
+
+  /* DARK (default) */
+  :global(.dark) .hero-bg, :global(:not(.light)) .hero-bg {
+    background: linear-gradient(135deg, #050510 0%, #0a0a20 40%, #050510 100%);
+  }
+  :global(.dark) .hero-overlay-lr, :global(:not(.light)) .hero-overlay-lr {
+    background: linear-gradient(to right, rgba(5,5,16,0.75), rgba(5,5,16,0.35), transparent);
+  }
+  :global(.dark) .hero-overlay-tb, :global(:not(.light)) .hero-overlay-tb {
+    background: linear-gradient(to bottom, rgba(5,5,16,0.2), transparent, rgba(5,5,16,0.7));
+  }
+  :global(.dark) .hero-text-primary, :global(:not(.light)) .hero-text-primary { color: #ffffff; }
+  :global(.dark) .hero-text-secondary, :global(:not(.light)) .hero-text-secondary { color: #d1d5db; }
+  :global(.dark) .hero-text-muted, :global(:not(.light)) .hero-text-muted { color: #9ca3af; }
+  :global(.dark) .hero-badge-bg, :global(:not(.light)) .hero-badge-bg { background: rgba(255,255,255,0.05); }
+  :global(.dark) .hero-badge-border, :global(:not(.light)) .hero-badge-border { border-color: rgba(255,255,255,0.1); }
+  :global(.dark) .hero-badge-text, :global(:not(.light)) .hero-badge-text { color: #d1d5db; }
+  :global(.dark) .hero-divider-color, :global(:not(.light)) .hero-divider-color { background: rgba(255,255,255,0.12); }
+  :global(.dark) .hero-btn-outline, :global(:not(.light)) .hero-btn-outline {
+    border: 1px solid rgba(255,255,255,0.15); color: #ffffff;
+  }
+  :global(.dark) .hero-btn-outline:hover, :global(:not(.light)) .hero-btn-outline:hover {
+    background: rgba(255,255,255,0.06); border-color: rgba(129,140,248,0.4);
+  }
+
+  /* LIGHT */
+  :global(.light) .hero-bg { background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 40%, #f0f9ff 100%); }
+  :global(.light) .hero-overlay-lr { background: linear-gradient(to right, rgba(248,250,252,0.65), rgba(248,250,252,0.2), transparent); }
+  :global(.light) .hero-overlay-tb { background: linear-gradient(to bottom, rgba(248,250,252,0.1), transparent, rgba(248,250,252,0.65)); }
+  :global(.light) .hero-text-primary { color: #0f172a; }
+  :global(.light) .hero-text-secondary { color: #475569; }
+  :global(.light) .hero-text-muted { color: #64748b; }
+  :global(.light) .hero-badge-bg { background: rgba(0,0,0,0.04); }
+  :global(.light) .hero-badge-border { border-color: rgba(0,0,0,0.08); }
+  :global(.light) .hero-badge-text { color: #475569; }
+  :global(.light) .hero-divider-color { background: rgba(0,0,0,0.1); }
+  :global(.light) .hero-btn-outline { border: 1px solid rgba(15,23,42,0.15); color: #0f172a; }
+  :global(.light) .hero-btn-outline:hover { background: rgba(99,102,241,0.06); border-color: rgba(99,102,241,0.3); }
+</style>
