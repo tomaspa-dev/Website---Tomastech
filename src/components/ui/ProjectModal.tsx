@@ -40,7 +40,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
       />
 
       {/* Modal Container */}
-      <div className={`relative w-full h-[calc(100vh-6rem)] md:h-[85vh] md:max-w-6xl bg-[#0a0a0a] rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col group mt-24 md:mt-0 transition-all duration-500 ${isAnimating ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
+      <div className={`modal-container relative w-full h-[calc(100vh-6rem)] md:h-[85vh] md:max-w-6xl rounded-t-3xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col group mt-24 md:mt-0 transition-all duration-500 ${isAnimating ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[0.97]'}`}>
         
         {/* Full Background Image */}
         <div className="absolute inset-0 z-0">
@@ -76,33 +76,33 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
            {/* Toggle Button */}
            <button
             onClick={() => setIsContentVisible(!isContentVisible)}
-            className="mb-[-1px] pointer-events-auto w-12 h-8 rounded-t-xl bg-black/55 backdrop-blur-xl border-t border-x border-white/10 flex items-center justify-center text-white hover:bg-black/70 transition-colors z-40"
+            className="mb-[-1px] pointer-events-auto w-12 h-8 rounded-t-xl modal-toggle-btn backdrop-blur-xl border-t border-x modal-border flex items-center justify-center modal-text hover:opacity-80 transition-colors z-40"
           >
             {isContentVisible ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
           </button>
 
-          {/* Content Card — stays dark (overlays photo) */}
-          <div className="w-full bg-black/55 backdrop-blur-xl border-t md:border border-white/10 md:rounded-2xl p-6 md:p-8 max-h-[60vh] overflow-y-auto modal-scrollbar shadow-2xl">
+          {/* Content Card — theme-aware */}
+          <div className="w-full modal-content-card backdrop-blur-xl border-t md:border modal-border md:rounded-2xl p-6 md:p-8 max-h-[60vh] overflow-y-auto modal-scrollbar shadow-2xl">
             
             <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               
               {/* Main Column */}
               <div className="lg:col-span-2 space-y-6">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">{project.title}</h2>
-                  <p className="text-base md:text-lg text-gray-200 font-light leading-relaxed border-l-4 border-primary pl-4">
+                  <h2 className="text-2xl md:text-3xl font-bold modal-heading mb-3 leading-tight">{project.title}</h2>
+                  <p className="text-base md:text-lg modal-body font-light leading-relaxed border-l-4 border-primary pl-4">
                     {project.details.concept}
                   </p>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <h3 className="text-xs font-bold modal-label uppercase tracking-wider mb-3 flex items-center gap-2">
                       <Zap size={14} className="text-primary" /> Key Features
                     </h3>
                     <ul className="space-y-2">
                       {project.details.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-gray-300 text-sm">
+                        <li key={idx} className="flex items-start gap-2 modal-body text-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
                           {feature}
                         </li>
@@ -112,12 +112,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                   {project.details.metrics && (
                     <div>
-                      <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <h3 className="text-xs font-bold modal-label uppercase tracking-wider mb-3 flex items-center gap-2">
                         <Trophy size={14} className="text-accent" /> Results
                       </h3>
                       <div className="space-y-2">
                         {project.details.metrics.map((metric, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-white text-sm font-medium bg-white/5 p-2 rounded-lg border border-white/5">
+                          <div key={idx} className="flex items-center gap-2 modal-heading text-sm font-medium modal-metric-bg p-2 rounded-lg modal-metric-border">
                             <span className="text-accent">★</span>
                             {metric}
                           </div>
@@ -129,15 +129,15 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               </div>
 
               {/* Sidebar Column */}
-              <div className="space-y-6 lg:border-l lg:border-white/10 lg:pl-8">
+              <div className="space-y-6 lg:border-l modal-divider lg:pl-8">
                 
                 <div>
-                  <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                  <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
                     <Layers size={12} /> Tech Stack
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.details.stack.map((tech) => (
-                      <span key={tech} className="px-2.5 py-1 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full text-[10px] md:text-xs text-gray-200 transition-colors cursor-default">
+                      <span key={tech} className="px-2.5 py-1 modal-tag modal-tag-border rounded-full text-[10px] md:text-xs modal-tag-text transition-colors cursor-default">
                         {tech}
                       </span>
                     ))}
@@ -145,10 +145,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </div>
 
                 <div>
-                  <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                  <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
                     <Calendar size={12} /> Timeline
                   </h3>
-                  <p className="text-white text-sm font-medium">{project.details.time}</p>
+                  <p className="modal-heading text-sm font-medium">{project.details.time}</p>
                 </div>
 
                 {project.link && project.link !== '#' && (
@@ -170,20 +170,48 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
       </div>
 
       <style>{`
-        .modal-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .modal-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.02);
-          border-radius: 4px;
-        }
-        .modal-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.15);
-          border-radius: 4px;
-        }
-        .modal-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.3);
-        }
+        /* ── Dark mode (default) ──────────────────────── */
+        .modal-container        { background: #0a0a0a; }
+        .modal-content-card     { background: rgba(0,0,0,0.6); }
+        .modal-toggle-btn       { background: rgba(0,0,0,0.55); }
+        .modal-border           { border-color: rgba(255,255,255,0.1); }
+        .modal-divider          { border-color: rgba(255,255,255,0.1); }
+        .modal-heading          { color: #ffffff; }
+        .modal-body             { color: #d1d5db; }
+        .modal-label            { color: #9ca3af; }
+        .modal-text             { color: #ffffff; }
+        .modal-tag              { background: rgba(255,255,255,0.08); }
+        .modal-tag              { background: rgba(255,255,255,0.08); }
+        .modal-tag:hover        { background: rgba(255,255,255,0.16); }
+        .modal-tag-border       { border: 1px solid rgba(255,255,255,0.12); }
+        .modal-tag-text         { color: #e5e7eb; }
+        .modal-metric-bg        { background: rgba(255,255,255,0.05); }
+        .modal-metric-border    { border: 1px solid rgba(255,255,255,0.06); }
+
+        /* ── Light mode overrides ──────────────────────── */
+        html.light .modal-container     { background: #ffffff; }
+        html.light .modal-content-card  { background: rgba(255,255,255,0.88); }
+        html.light .modal-toggle-btn    { background: rgba(255,255,255,0.75); }
+        html.light .modal-border        { border-color: rgba(0,0,0,0.1); }
+        html.light .modal-divider       { border-color: rgba(0,0,0,0.1); }
+        html.light .modal-heading       { color: #0f172a; }
+        html.light .modal-body          { color: #374151; }
+        html.light .modal-label         { color: #6b7280; }
+        html.light .modal-text          { color: #0f172a; }
+        html.light .modal-tag           { background: rgba(0,0,0,0.05); }
+        html.light .modal-tag:hover     { background: rgba(0,0,0,0.09); }
+        html.light .modal-tag-border    { border: 1px solid rgba(0,0,0,0.1); }
+        html.light .modal-tag-text      { color: #1f2937; }
+        html.light .modal-metric-bg     { background: rgba(0,0,0,0.04); }
+        html.light .modal-metric-border { border: 1px solid rgba(0,0,0,0.07); }
+
+        /* Scrollbar */
+        .modal-scrollbar::-webkit-scrollbar       { width: 6px; }
+        .modal-scrollbar::-webkit-scrollbar-track  { background: rgba(255,255,255,0.02); border-radius: 4px; }
+        .modal-scrollbar::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.15); border-radius: 4px; }
+        .modal-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+        html.light .modal-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.04); }
+        html.light .modal-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); }
       `}</style>
     </div>
   );

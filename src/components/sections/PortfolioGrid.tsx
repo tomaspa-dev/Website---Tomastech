@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectModal from '../ui/ProjectModal';
 import { projects, type Project } from '../../data/projects';
@@ -9,20 +9,45 @@ const categories = [
   'Corporate Websites',
   'Web Applications',
   'WordPress Themes',
-  'Extensions'
+  'Extensions',
 ];
+
+// Attach a one-shot IntersectionObserver to a card so it fades in when visible
+function revealOnScroll(el: HTMLElement, delay: number) {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(28px)';
+  el.style.transition = 'none';
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target as HTMLElement;
+        setTimeout(() => {
+          target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          target.style.opacity = '1';
+          target.style.transform = 'translateY(0)';
+        }, delay);
+        io.unobserve(target);
+      });
+    },
+    { threshold: 0.08 }
+  );
+  io.observe(el);
+}
 
 export default function PortfolioGrid() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filterKey, setFilterKey] = useState(0); // bumped on each filter change
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects = selectedCategory === 'All'
-    ? projects
-    : projects.filter(p => p.category === selectedCategory);
+  const filteredProjects =
+    selectedCategory === 'All'
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
+  // ── Modal handlers ─────────────────────────────────────────────────────────
   const handleOpenModal = (project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
@@ -35,93 +60,92 @@ export default function PortfolioGrid() {
     document.body.style.overflow = 'unset';
   };
 
-  // ─── Smooth staggered fade-in on mount + after filter ──────────────────────
-  const animateIn = useCallback(() => {
+  // ── Attach observers after each render (mount + after category change) ─────
+  const attachObservers = useCallback(() => {
     if (!gridRef.current) return;
     const items = gridRef.current.querySelectorAll<HTMLElement>('.project-item-wrapper');
-    items.forEach((el, i) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'none';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.style.transition = `opacity 0.4s ease ${i * 0.05}s, transform 0.4s ease ${i * 0.05}s`;
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        });
-      });
-    });
+    items.forEach((el, i) => revealOnScroll(el, i * 55));
   }, []);
 
-  // Run on mount
+  // On mount
   useEffect(() => {
-    animateIn();
-  }, []);
+    attachObservers();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Run after filter changes (filterKey bump signals render is done)
+  // After category change — wait one frame for React to paint the new cards
   useEffect(() => {
-    if (filterKey === 0) return;
-    animateIn();
-  }, [filterKey, animateIn]);
+    const raf = requestAnimationFrame(() => attachObservers());
+    return () => cancelAnimationFrame(raf);
+  }, [selectedCategory, attachObservers]);
 
-  // ─── Hover particles via GSAP (only once on mount) ─────────────────────────
+  // ── Hover particles (GSAP, lazy) ───────────────────────────────────────────
   useEffect(() => {
     if (typeof window === 'undefined') return;
     import('gsap').then(({ gsap }) => {
-      const cards = document.querySelectorAll('.project-card-inner');
-      cards.forEach(card => {
-        const particles = card.closest('.project-item-wrapper')?.querySelectorAll('.hover-particle') ?? [];
+      if (!gridRef.current) return;
+      gridRef.current.querySelectorAll('.project-card-inner').forEach((card) => {
+        const particles = card
+          .closest('.project-item-wrapper')
+          ?.querySelectorAll('.hover-particle') ?? [];
         card.addEventListener('mouseenter', () => {
-          gsap.to(particles, { x: 'random(-80,80)', y: 'random(-80,80)', opacity: 1, scale: 'random(0.5,1.5)', duration: 0.8, ease: 'power2.out', stagger: 0.02 });
+          gsap.to(particles, {
+            x: 'random(-80,80)', y: 'random(-80,80)',
+            opacity: 1, scale: 'random(0.5,1.5)',
+            duration: 0.8, ease: 'power2.out', stagger: 0.02,
+          });
         });
         card.addEventListener('mouseleave', () => {
           gsap.to(particles, { x: 0, y: 0, opacity: 0, scale: 0, duration: 0.5, ease: 'power2.in' });
         });
       });
     });
-  }, []);
+  }, [selectedCategory]); // re-bind when cards change
 
+  // ── Category filter with fade-out transition ───────────────────────────────
   const handleCategoryChange = (cat: string) => {
     if (cat === selectedCategory) return;
-    // Fade out current cards first
+
+    // Fade current cards out first
     if (gridRef.current) {
-      const items = gridRef.current.querySelectorAll<HTMLElement>('.project-item-wrapper');
-      items.forEach(el => {
-        el.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+      gridRef.current.querySelectorAll<HTMLElement>('.project-item-wrapper').forEach((el) => {
+        el.style.transition = 'opacity 0.16s ease, transform 0.16s ease';
         el.style.opacity = '0';
         el.style.transform = 'translateY(10px)';
       });
     }
-    // After fade-out, change category and trigger fade-in
-    setTimeout(() => {
-      setSelectedCategory(cat);
-      setFilterKey(k => k + 1);
-    }, 180);
+
+    // Swap category after fade-out completes
+    setTimeout(() => setSelectedCategory(cat), 165);
   };
 
   return (
     <div className="w-full" ref={gridRef}>
-      {/* Category Tabs */}
-      <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-12">
-        {categories.map((category) => (
+      {/* ── Filter tabs ─────────────────────────────────────────────────── */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+        {categories.map((cat) => (
           <button
-            key={category}
-            onClick={() => handleCategoryChange(category)}
-            className={`px-6 py-2 rounded-full text-sm md:text-base font-medium transition-all duration-200 ${
-              selectedCategory === category
+            key={cat}
+            onClick={() => handleCategoryChange(cat)}
+            className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              selectedCategory === cat
                 ? 'bg-primary text-white shadow-lg shadow-primary/25 scale-105'
                 : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)]'
             }`}
           >
-            {category}
+            {cat}
           </button>
         ))}
       </div>
 
-      {/* Projects Grid */}
+      {/* ── Grid ────────────────────────────────────────────────────────── */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map((project) => (
-          <div key={project.id} className="project-item-wrapper relative" style={{ opacity: 0 }}>
+          <div
+            key={project.id}
+            className="project-item-wrapper relative"
+            style={{ opacity: 0 }} // start invisible; observer will reveal
+          >
+            {/* Hover particles */}
             <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
               {[...Array(10)].map((_, i) => (
                 <div
@@ -131,6 +155,7 @@ export default function PortfolioGrid() {
                 />
               ))}
             </div>
+
             <div className="project-card-inner relative z-10">
               <ProjectCard project={project} onOpenModal={handleOpenModal} />
             </div>
@@ -140,7 +165,9 @@ export default function PortfolioGrid() {
 
       {filteredProjects.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-[var(--color-text-muted)] text-lg">No projects found in this category yet.</p>
+          <p className="text-[var(--color-text-muted)] text-lg">
+            No projects found in this category yet.
+          </p>
         </div>
       )}
 
