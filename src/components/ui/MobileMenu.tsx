@@ -16,7 +16,7 @@ const portfolioLinks = [
   { name: "Work", href: "#work" },
   { name: "Process", href: "#process" },
   { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 const menuVariants: Variants = {
@@ -53,10 +53,22 @@ export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
 
   return (
     <div className="md:hidden">
+      {/* Theme CSS for mobile menu */}
+      <style>{`
+        .mm-btn   { color: var(--color-text-primary); }
+        .mm-btn:hover { color: var(--color-primary); }
+        .mm-panel { background: var(--color-surface); border: 1px solid var(--color-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .mm-link  { color: var(--color-text-secondary); }
+        .mm-link:hover { color: var(--color-text-primary); background: var(--color-surface-hover); }
+        .mm-divider { background: var(--color-border); }
+        .mm-cta   { color: var(--color-primary); }
+        .mm-cta:hover { color: var(--color-text-primary); background: rgba(99,102,241,0.15); }
+      `}</style>
+
       {/* Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="relative z-50 p-2 text-white hover:text-primary transition-colors duration-300 focus:outline-none"
+        className="mm-btn relative z-50 p-2 transition-colors duration-300 focus:outline-none"
         aria-label="Toggle menu"
       >
         <AnimatePresence mode="wait">
@@ -91,14 +103,14 @@ export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-16 right-0 w-64 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right"
+            className="mm-panel absolute top-16 right-0 w-64 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right"
           >
             {links.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
+                className="mm-link px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
               >
                 {link.name}
               </a>
@@ -108,25 +120,28 @@ export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
               <>
                 <a
                   href="/portfolio"
-                  className="text-gray-300 hover:text-white hover:bg-white/10 px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
+                  onClick={() => setIsOpen(false)}
+                  className="mm-link px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
                 >
                   Portfolio
                 </a>
-                <div className="h-px bg-white/10 my-1 mx-2"></div>
+                <div className="mm-divider h-px my-1 mx-2"></div>
                 <a
-                  href="/client-access"
-                  className="text-primary hover:text-white hover:bg-primary/20 px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
+                  href="#contact"
+                  onClick={() => setIsOpen(false)}
+                  className="mm-cta px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
                 >
-                  Client Login
+                  Let's Talk
                   <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
                 </a>
               </>
             ) : (
               <>
-                <div className="h-px bg-white/10 my-1 mx-2"></div>
+                <div className="mm-divider h-px my-1 mx-2"></div>
                 <a
-                  href="#contact"
-                  className="text-primary hover:text-white hover:bg-primary/20 px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
+                  href="/#contact"
+                  onClick={() => setIsOpen(false)}
+                  className="mm-cta px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
                 >
                   Let's Talk
                   <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />

@@ -83,7 +83,7 @@ const links = isLanding ? landingLinks : portfolioLinks;
           </Button>
         </>
       ) : (
-        <Button href="#contact" variant="primary" size="sm" class="px-6">
+        <Button href="/#contact" variant="primary" size="sm" class="px-6">
           Let's Talk
         </Button>
       )}
@@ -129,19 +129,18 @@ const links = isLanding ? landingLinks : portfolioLinks;
     updateNavbar();
     window.addEventListener('scroll', updateNavbar);
 
-    // Fix smooth scroll for hash links
+    // Fix smooth scroll for hash links (only on same page)
     const hashLinks = document.querySelectorAll('a[href^="#"]');
     hashLinks.forEach((link) => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
         const href = link.getAttribute('href');
         if (!href) return;
         const target = document.querySelector(href);
-        if (target) {
-          const navHeight = 80;
-          const y = target.getBoundingClientRect().top + window.scrollY - navHeight;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
+        if (!target) return; // Let browser handle cross-page hash navigation naturally
+        e.preventDefault();
+        const navHeight = 80;
+        const y = target.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       });
     });
   });
