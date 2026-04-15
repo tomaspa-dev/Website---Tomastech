@@ -15,6 +15,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== PREVENT SCROLLBAR LAYOUT SHIFT ===== */
+/* Lenis hides native scrollbar — reserve the gutter space to prevent CLS */
+html {
+  scrollbar-gutter: stable;
+  overflow-x: hidden;
+}
+
 /* ===== THEME VARIABLES ===== */
 :root {
   /* Dark Theme (default) */

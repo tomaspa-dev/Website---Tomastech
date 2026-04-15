@@ -104,7 +104,8 @@ import GeometricBackground from './GeometricBackground';
       tl.fromTo(
         titleWords,
         { clipPath: 'inset(0 0 100% 0)', y: 50, opacity: 0 },
-        { clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1, duration: 1.05, stagger: 0.14 }
+        { clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1, duration: 1.05, stagger: 0.14,
+          onComplete: () => gsap.set(titleWords, { clearProps: 'transform,will-change,clip-path' }) }
       );
     }
 
@@ -120,7 +121,8 @@ import GeometricBackground from './GeometricBackground';
 
     // Subtitle fade in
     if (subtitle) {
-      tl.fromTo(subtitle, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4');
+      tl.fromTo(subtitle, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+        onComplete: () => gsap.set(subtitle, { clearProps: 'transform,will-change' }) }, '-=0.4');
     }
 
     // Magnetic buttons (desktop only)
@@ -157,11 +159,9 @@ import GeometricBackground from './GeometricBackground';
   .hero-title-word {
     clip-path: inset(0 0 100% 0);
     opacity: 0;
-    will-change: clip-path, transform, opacity;
   }
   .hero-anim {
     opacity: 0;
-    will-change: opacity, transform;
   }
 
   @media (prefers-reduced-motion: reduce) {

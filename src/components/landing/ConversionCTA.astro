@@ -11,16 +11,16 @@ import ContactForm from './ContactForm';
   <div class="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       {/* Text on LEFT */}
-      <div class="text-left">
-        <span class="inline-block text-primary font-heading font-semibold tracking-wider uppercase text-sm mb-4">Contact Us</span>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 tracking-tight font-heading">
+      <div class="cta-text text-left">
+        <span class="cta-el inline-block text-primary font-heading font-semibold tracking-wider uppercase text-sm mb-4">Contact Us</span>
+        <h2 class="cta-el text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 tracking-tight font-heading">
           Ready to Start Your <span class="gradient-text">Project?</span>
         </h2>
-        <p class="text-lg text-text-secondary mb-10 leading-relaxed">
+        <p class="cta-el text-lg text-text-secondary mb-10 leading-relaxed">
           Let's discuss how we can help you achieve your digital goals. Fill out the form or chat with us directly.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4">
+        <div class="cta-el flex flex-col sm:flex-row gap-4">
           <a 
             href="https://wa.link/4kne89" 
             target="_blank"
@@ -41,9 +41,51 @@ import ContactForm from './ContactForm';
       </div>
       
       {/* Form on RIGHT */}
-      <div>
+      <div class="cta-form">
         <ContactForm client:load />
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector('#contact');
+    if (!section) return;
+
+    // Left column stagger reveal
+    gsap.fromTo(
+      '.cta-text .cta-el',
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: '#contact', start: 'top 78%', once: true },
+        onComplete: () => gsap.set('.cta-text .cta-el', { clearProps: 'transform' })
+      }
+    );
+
+    // Right column (form) slides from right
+    gsap.fromTo(
+      '.cta-form',
+      { opacity: 0, x: 60, scale: 0.97 },
+      {
+        opacity: 1, x: 0, scale: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '#contact', start: 'top 74%', once: true },
+        onComplete: () => gsap.set('.cta-form', { clearProps: 'transform' })
+      }
+    );
+  });
+</script>
+
+<style>
+  .cta-el { opacity: 0; }
+  .cta-form { opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-el, .cta-form { opacity: 1 !important; transform: none !important; }
+  }
+</style>

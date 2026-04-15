@@ -21,7 +21,7 @@ const social = [
   <div class="container mx-auto px-6 md:px-12 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
       
-      <div class="lg:col-span-2">
+      <div class="lg:col-span-2 footer-col">
         <a href="/" class="block w-48 mb-6">
           <Image 
             src={logoDark} 
@@ -65,7 +65,7 @@ const social = [
         </div>
       </div>
 
-      <div>
+      <div class="footer-col">
         <h3 class="text-text-primary font-bold mb-6 font-heading">Quick Links</h3>
         <ul class="space-y-3">
           {links.map((link) => (
@@ -78,7 +78,7 @@ const social = [
         </ul>
       </div>
 
-      <div>
+      <div class="footer-col">
         <h3 class="text-text-primary font-bold mb-6 font-heading">Contact</h3>
         <div class="flex gap-4">
           
@@ -133,7 +133,7 @@ const social = [
 
     </div>
 
-    <div class="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
+    <div class="footer-bottom border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
       <p>&copy; {new Date().getFullYear()} Tomastech. All rights reserved.</p>
       <div class="flex gap-8">
         <a href="/privacy" class="hover:text-text-primary transition-colors">Privacy Policy</a>
@@ -150,56 +150,76 @@ const social = [
 
   :global(.light) .logo-light { display: block; }
   :global(.light) .logo-dark { display: none; }
+
+  /* Initial state for reveals */
+  .footer-col, .footer-bottom { opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-col, .footer-bottom { opacity: 1 !important; transform: none !important; }
+  }
 </style>
 
 <script>
   import { gsap } from "gsap";
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
 
   document.addEventListener('astro:page-load', () => {
+    // Scroll reveal for footer columns
+    const cols = document.querySelectorAll('footer .footer-col');
+    if (cols.length > 0) {
+      gsap.fromTo(
+        cols,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: 'footer', start: 'top 88%', once: true },
+          onComplete: () => gsap.set(cols, { clearProps: 'transform' })
+        }
+      );
+    }
+
+    // Footer bottom bar
+    const bottom = document.querySelector('footer .footer-bottom');
+    if (bottom) {
+      gsap.fromTo(
+        bottom,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: 'footer', start: 'top 75%', once: true },
+          onComplete: () => gsap.set(bottom, { clearProps: 'transform' })
+        }
+      );
+    }
+
     // Magnetic Buttons
     const magneticBtns = document.querySelectorAll('footer .magnetic-btn');
-    
     magneticBtns.forEach((btn: any) => {
       btn.addEventListener('mousemove', (e: MouseEvent) => {
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(btn, {
-          x: x * 0.4,
-          y: y * 0.4,
-          duration: 0.3,
-          ease: "power2.out"
-        });
+        gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: "power2.out" });
       });
-      
       btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.3)"
-        });
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
       });
     });
 
-    // Copy functionality with toast notifications
+    // Copy functionality
     const copyButtons = document.querySelectorAll('.copy-btn');
-
     copyButtons.forEach(btn => {
       btn.addEventListener('click', async () => {
         const value = btn.getAttribute('data-value');
         const type = btn.getAttribute('data-type') || 'Value';
-        
         if (!value) return;
-
         try {
           await navigator.clipboard.writeText(value);
           if (typeof (window as any).showToast === 'function') {
             (window as any).showToast(`${type} copied to clipboard!`, 'success');
           }
         } catch (err) {
-          console.error('Failed to copy:', err);
           if (typeof (window as any).showToast === 'function') {
             (window as any).showToast('Failed to copy. Please try again.', 'error');
           }

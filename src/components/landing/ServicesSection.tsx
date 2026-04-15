@@ -108,6 +108,30 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
     >
+      {/* Theme CSS */}
+      <style>{`
+        .svc-modal      { background: #0c0c1d; border: 1px solid rgba(255,255,255,0.1); }
+        .svc-modal-h    { color: #ffffff; }
+        .svc-modal-p    { color: #d1d5db; }
+        .svc-modal-label{ color: #ffffff; }
+        .svc-modal-muted{ color: #9ca3af; }
+        .svc-modal-tag  { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #d1d5db; }
+        .svc-modal-close{ background: rgba(255,255,255,0.05); color: #9ca3af; }
+        .svc-modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        html.light .svc-modal      { background: #ffffff; border: 1px solid rgba(0,0,0,0.1); }
+        html.light .svc-modal-h    { color: #0f172a; }
+        html.light .svc-modal-p    { color: #374151; }
+        html.light .svc-modal-label{ color: #0f172a; }
+        html.light .svc-modal-muted{ color: #6b7280; }
+        html.light .svc-modal-tag  { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1); color: #374151; }
+        html.light .svc-modal-close{ background: rgba(0,0,0,0.04); color: #6b7280; }
+        html.light .svc-modal-close:hover { background: rgba(0,0,0,0.08); color: #0f172a; }
+        .svc-modal-scroll::-webkit-scrollbar { width: 5px; }
+        .svc-modal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .svc-modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+        html.light .svc-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+      `}</style>
+
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       
@@ -118,16 +142,16 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ type: 'spring', damping: 25, stiffness: 400 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl max-h-[85vh] flex flex-col bg-[#0c0c1d] border border-white/10 rounded-2xl shadow-2xl"
+        className="svc-modal relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl shadow-2xl"
       >
         {/* Header gradient */}
         <div className={`h-1.5 w-full bg-gradient-to-r ${service.gradient} rounded-t-2xl`} />
         
-        <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
+        <div className="svc-modal-scroll flex-1 overflow-y-auto p-6 md:p-8">
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+            className="svc-modal-close absolute top-4 right-4 p-2 rounded-full transition-colors"
           >
             <X size={18} />
           </button>
@@ -138,20 +162,20 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
               <Icon size={24} className={service.iconColor} />
             </div>
             <div>
-              <h3 className="text-xl md:text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              <h3 className="svc-modal-h text-xl md:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 {service.modalTitle}
               </h3>
             </div>
           </div>
           
-          <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">{service.modalDesc}</p>
+          <p className="svc-modal-p leading-relaxed mb-6 text-sm md:text-base">{service.modalDesc}</p>
 
           {/* Features */}
           <div className="mb-6">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Key Features</h4>
+            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Key Features</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {service.features.map((f, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                <div key={i} className="flex items-center gap-2 text-sm svc-modal-p">
                   <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
                   {f}
                 </div>
@@ -161,10 +185,10 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
 
           {/* Tech Stack */}
           <div className="mb-6">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Tech Stack</h4>
+            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Tech Stack</h4>
             <div className="flex flex-wrap gap-2">
               {service.techStack.map((t, i) => (
-                <span key={i} className="px-3 py-1.5 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-gray-300">
+                <span key={i} className="svc-modal-tag px-3 py-1.5 text-xs font-medium rounded-full">
                   {t}
                 </span>
               ))}
@@ -173,10 +197,10 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
 
           {/* Use Cases */}
           <div className="mb-6">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Use Cases</h4>
+            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Use Cases</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {service.useCases.map((u, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+                <div key={i} className="flex items-center gap-2 text-sm svc-modal-muted">
                   <ArrowRight size={12} className="text-indigo-400 shrink-0" />
                   {u}
                 </div>
