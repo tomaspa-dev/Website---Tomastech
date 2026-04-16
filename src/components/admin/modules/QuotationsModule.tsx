@@ -11,7 +11,7 @@ import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import {
   FileText, Plus, Search, Download, X, Trash2, ChevronLeft, ChevronRight,
   CheckCircle2, Clock, XCircle, Edit2, Send, FileCheck2, AlertCircle,
-  RotateCcw, Building2, User,
+  RotateCcw, Building2, User, Mail,
 } from 'lucide-react';
 import {
   quotationStore, clientStore, serviceStore, configStore,
@@ -650,20 +650,70 @@ export function QuotationsModule() {
               onSelect={(c) => { selectClient(c); setF('clientSearch', c.name); }}
             />
             {form.selectedClient && (
-              <div className="mt-2 flex items-center gap-2 px-3 py-2 bg-slate-800 border border-emerald-500/30 rounded-lg">
-                <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-[10px] font-bold shrink-0">
-                  {form.selectedClient.name.substring(0, 2).toUpperCase()}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-white text-xs font-semibold truncate">{form.selectedClient.name}</p>
-                  <p className="text-slate-400 text-[10px]">
-                    {form.selectedClient.documentType}: {form.selectedClient.documentNumber}
-                    {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
-                      <span className="text-amber-400 font-semibold ml-1">· Empresa (aplica retención IR)</span>
+              <div className="mt-2 bg-slate-800/70 border border-slate-700 rounded-xl overflow-hidden">
+                {/* Client info locked row */}
+                <div className="flex items-start gap-4 px-4 py-3">
+                  {/* Avatar */}
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-sm shrink-0 mt-0.5">
+                    {form.selectedClient.name.substring(0, 2).toUpperCase()}
+                  </div>
+                  {/* Fields locked */}
+                  <div className="flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nombre / Razón Social</p>
+                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
+                        <User size={12} className="text-slate-500 shrink-0" />
+                        <p className="text-slate-300 text-sm font-medium truncate">{form.selectedClient.name}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Tipo Documento</p>
+                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
+                        {form.selectedClient.documentType === 'RUC' && form.selectedClient.documentNumber.startsWith('20')
+                          ? <Building2 size={12} className="text-sky-400 shrink-0" />
+                          : <User size={12} className="text-slate-500 shrink-0" />
+                        }
+                        <p className="text-slate-300 text-sm">{form.selectedClient.documentType}</p>
+                        {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
+                          <span className="ml-auto text-[10px] text-amber-400 font-semibold shrink-0">Empresa</span>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nº Documento</p>
+                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2">
+                        <p className="text-slate-300 text-sm font-mono">{form.selectedClient.documentNumber}</p>
+                      </div>
+                    </div>
+                    {form.selectedClient.email && (
+                      <div className="sm:col-span-2">
+                        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Email</p>
+                        <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
+                          <Mail size={12} className="text-slate-500 shrink-0" />
+                          <p className="text-slate-300 text-sm truncate">{form.selectedClient.email}</p>
+                        </div>
+                      </div>
                     )}
-                  </p>
+                  </div>
+                  {/* Deselect button */}
+                  <button
+                    type="button"
+                    onClick={() => setForm((p) => ({ ...p, clientId: '', clientSearch: '', selectedClient: null }))}
+                    className="shrink-0 p-1.5 text-slate-500 hover:text-white hover:bg-slate-700 rounded-lg transition-colors mt-0.5"
+                    title="Cambiar cliente"
+                  >
+                    <X size={14} />
+                  </button>
                 </div>
-                <button type="button" onClick={() => setForm((p) => ({ ...p, clientId: '', clientSearch: '', selectedClient: null }))} className="text-slate-500 hover:text-white shrink-0"><X size={13} /></button>
+                {/* Retention warning */}
+                {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
+                  <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/5 border-t border-amber-500/20">
+                    <AlertCircle size={12} className="text-amber-400 shrink-0" />
+                    <p className="text-[11px] text-amber-400">
+                      Esta empresa (<strong>{form.selectedClient.documentNumber}</strong>) puede aplicar retención IR 4ta categoría al pagar recibos por honorarios.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>

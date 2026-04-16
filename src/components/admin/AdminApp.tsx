@@ -52,6 +52,13 @@ export default function AdminApp() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [now, setNow] = useState(new Date());
+
+  // Live clock
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Check auth on mount
   useEffect(() => {
@@ -239,11 +246,13 @@ export default function AdminApp() {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Date/time */}
-          <span className="hidden sm:block text-slate-400 text-xs">
-            {new Date().toLocaleDateString('es-PE', {
+          {/* Date/time — live */}
+          <span className="hidden sm:block text-slate-400 text-xs font-mono">
+            {now.toLocaleDateString('es-PE', {
               weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
             })}
+            {' · '}
+            {now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
           </span>
         </header>
 

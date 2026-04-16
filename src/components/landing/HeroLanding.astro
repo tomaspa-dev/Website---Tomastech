@@ -101,12 +101,19 @@ import GeometricBackground from './GeometricBackground';
 
     // Clip-path cinematic reveal for title words
     if (titleWords.length > 0) {
-      tl.fromTo(
-        titleWords,
-        { clipPath: 'inset(0 0 100% 0)', y: 50, opacity: 0 },
-        { clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1, duration: 1.05, stagger: 0.14,
-          onComplete: () => gsap.set(titleWords, { clearProps: 'transform,will-change,clip-path' }) }
-      );
+      // Set initial state via JS only — NOT via CSS (CSS clip-path would fight clearProps)
+      gsap.set(titleWords, { clipPath: 'inset(0 0 100% 0)', y: 50, opacity: 0 });
+      tl.to(titleWords, {
+        clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1,
+        duration: 1.05, stagger: 0.14,
+        onComplete: () => {
+          // Explicitly remove clip-path so CSS doesn't re-apply it
+          titleWords.forEach(el => {
+            (el as HTMLElement).style.clipPath = 'none';
+            (el as HTMLElement).style.willChange = 'auto';
+          });
+        }
+      });
     }
 
     // Subtitle — single clean animation, separate from badge/buttons
@@ -166,7 +173,7 @@ import GeometricBackground from './GeometricBackground';
 
 <style>
   .hero-title-word {
-    clip-path: inset(0 0 100% 0);
+    /* NO clip-path here — handled by GSAP JS only to avoid CSS fighting clearProps */
     opacity: 0;
   }
   .hero-anim {
