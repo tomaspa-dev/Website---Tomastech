@@ -48,8 +48,8 @@ import GeometricBackground from './GeometricBackground';
         </span>
       </h1>
 
-      {/* Subtitle — scramble target */}
-      <p id="hero-subtitle" class="hero-anim text-sm sm:text-base md:text-lg lg:text-xl hero-text-secondary mb-5 sm:mb-6 md:mb-8 max-w-lg leading-relaxed">
+      {/* Subtitle */}
+      <p id="hero-subtitle" class="hero-subtitle-anim text-sm sm:text-base md:text-lg lg:text-xl hero-text-secondary mb-5 sm:mb-6 md:mb-8 max-w-lg leading-relaxed">
         We merge art with code to build immersive digital experiences that convert visitors into customers.
       </p>
 
@@ -109,20 +109,25 @@ import GeometricBackground from './GeometricBackground';
       );
     }
 
-    // Badge, buttons, stats — stagger fade up
-    if (heroAnims.length > 0) {
+    // Subtitle — single clean animation, separate from badge/buttons
+    if (subtitle) {
       tl.fromTo(
-        heroAnims,
-        { opacity: 0, y: 28 },
-        { opacity: 1, y: 0, duration: 0.75, stagger: 0.1 },
-        '-=0.55'
+        subtitle,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out',
+          onComplete: () => gsap.set(subtitle, { clearProps: 'transform,will-change' }) },
+        '-=0.45'
       );
     }
 
-    // Subtitle fade in
-    if (subtitle) {
-      tl.fromTo(subtitle, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-        onComplete: () => gsap.set(subtitle, { clearProps: 'transform,will-change' }) }, '-=0.4');
+    // Badge + buttons — stagger fade up AFTER subtitle
+    if (heroAnims.length > 0) {
+      tl.fromTo(
+        heroAnims,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.65, stagger: 0.12, ease: 'power3.out' },
+        '-=0.3'
+      );
     }
 
     // Magnetic buttons (desktop only)
@@ -151,6 +156,10 @@ import GeometricBackground from './GeometricBackground';
         (el as HTMLElement).style.opacity = '1';
         (el as HTMLElement).style.transform = 'none';
       });
+      if (subtitle) {
+        (subtitle as HTMLElement).style.opacity = '1';
+        (subtitle as HTMLElement).style.transform = 'none';
+      }
     }, 3800);
   });
 </script>
@@ -163,9 +172,13 @@ import GeometricBackground from './GeometricBackground';
   .hero-anim {
     opacity: 0;
   }
+  /* Subtitle: separate class, starts hidden, single animation */
+  .hero-subtitle-anim {
+    opacity: 0;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-title-word, .hero-anim {
+    .hero-title-word, .hero-anim, .hero-subtitle-anim {
       clip-path: none !important; opacity: 1 !important; transform: none !important; animation: none !important;
     }
   }

@@ -1,3 +1,7 @@
+// @LEGACY - Panel Admin v1 - DO NOT USE in new code
+// Preserved for reference. See /components/admin/ for v2
+// Tracked for possible deletion in future.
+
 /**
  * Seed Data — Genera data ficticia para probar el sistema de facturación
  * Ejecutar desde la consola del navegador o integrar como botón en configuración

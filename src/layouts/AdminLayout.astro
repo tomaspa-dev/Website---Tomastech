@@ -1,0 +1,46 @@
+---
+// AdminLayout.astro — Layout mínimo para el panel de administración
+// Completamente aislado del sitio público:
+// ✗ No Navbar, No Footer, No CustomCursor, No SettingsSidebar
+// ✗ No Lenis, No GSAP, No ViewTransitions, No noise overlay
+// ✓ Solo: Tailwind, fuente Inter, ToastContainer para notificaciones
+
+import '../styles/global.css';
+import ToastContainer from '../components/ui/ToastContainer';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Panel Admin | Tomastech' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevent indexing of admin panel -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+      body { font-family: 'Inter', system-ui, sans-serif; background: #0f172a; color: #f1f5f9; }
+      /* Custom scrollbar for admin */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+  </head>
+  <body>
+    <slot />
+    <ToastContainer client:load />
+  </body>
+</html>

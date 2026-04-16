@@ -1,3 +1,7 @@
+// @LEGACY - Panel Admin v1 - DO NOT USE in new code
+// Preserved for reference. See /components/admin/ for v2
+// Tracked for possible deletion in future.
+
 /**
  * billing-api.ts — Cliente API para Neon PostgreSQL via Netlify Functions
  * 
