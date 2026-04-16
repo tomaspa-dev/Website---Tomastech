@@ -59,7 +59,7 @@ export default function AdminApp() {
     setIsAuthenticated(ok);
     setLoading(false);
     if (!ok) {
-      window.location.href = '/login-admin';
+      window.location.href = '/client-access';
     }
   }, []);
 

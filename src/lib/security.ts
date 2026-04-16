@@ -84,3 +84,28 @@ export function resetSecurityOnSuccess(): void {
   localStorage.removeItem(SECURITY.KEYS.lockUntil);
   localStorage.setItem(SECURITY.KEYS.lockCount, '0');
 }
+
+/** Check if there is an active, non-expired admin session */
+export function checkAdminSession(): boolean {
+  try {
+    const session = localStorage.getItem(SECURITY.KEYS.session);
+    if (!session) return false;
+    const expiry = localStorage.getItem('tt_admin_session_expiry');
+    if (expiry && Date.now() > parseInt(expiry)) {
+      localStorage.removeItem(SECURITY.KEYS.session);
+      localStorage.removeItem('tt_admin_session_expiry');
+      return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Create a new admin session (called after successful login) */
+export function createAdminSession(): void {
+  const token = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+  localStorage.setItem(SECURITY.KEYS.session, token);
+  localStorage.setItem('tt_admin_session_expiry', (Date.now() + SECURITY.SESSION_DURATION_MS).toString());
+  resetSecurityOnSuccess();
+}
