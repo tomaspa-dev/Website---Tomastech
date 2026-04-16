@@ -5,9 +5,10 @@ import { ArrowUpRight, Eye } from 'lucide-react';
 interface ProjectCardProps {
   project: Project;
   onOpenModal: (project: Project) => void;
+  index?: number;
 }
 
-export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
+export default function ProjectCard({ project, onOpenModal, index = 0 }: ProjectCardProps) {
   return (
     <div 
       className="group relative bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 flex flex-col h-full cursor-pointer project-card-hover"
@@ -23,6 +24,14 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
           padding: '1.5px',
         }}
       />
+
+      {/* Editorial project number — appears on hover */}
+      <span
+        className="absolute bottom-0 right-4 text-[5rem] font-black leading-none tracking-[-0.04em] pointer-events-none select-none opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 z-10"
+        style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </span>
 
       {/* Image Container */}
       <div className="relative aspect-video overflow-hidden">

@@ -1,4 +1,4 @@
-﻿---
+---
 import Button from '../ui/Button.astro';
 ---
 
@@ -26,6 +26,10 @@ import Button from '../ui/Button.astro';
         </div>
         <div class="absolute -bottom-4 -left-4 sm:left-0 lg:-left-6 px-3 py-1.5 rounded-xl glass-card border border-secondary/30 text-xs font-bold text-secondary shadow-lg about-badge-2">
           🇵🇪 Based in Peru
+        </div>
+        <div class="absolute top-1/2 -right-4 sm:right-0 lg:-right-8 -translate-y-1/2 px-3 py-1.5 rounded-xl glass-card border border-emerald-500/30 text-xs font-bold text-emerald-400 shadow-lg about-badge-3 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Open to Projects
         </div>
       </div>
 
@@ -96,15 +100,20 @@ import Button from '../ui/Button.astro';
       }
     );
 
-    // Floating badges pop in
+    // Floating badges pop in → then CSS float animation takes over
     gsap.fromTo(
-      ['.about-badge-1', '.about-badge-2'],
+      ['.about-badge-1', '.about-badge-2', '.about-badge-3'],
       { opacity: 0, scale: 0.6 },
       {
         opacity: 1, scale: 1, duration: 0.6, stagger: 0.15, ease: 'back.out(2)',
-        scrollTrigger: { trigger: section, start: 'top 70%', once: true }
+        scrollTrigger: { trigger: section, start: 'top 70%', once: true },
+        onComplete: () => {
+          document.querySelectorAll('.about-badge-1, .about-badge-2, .about-badge-3')
+            .forEach(el => el.classList.add('gsap-done'));
+        }
       }
     );
+
 
     // Text elements: stagger cascade from right
     gsap.fromTo(
@@ -119,12 +128,22 @@ import Button from '../ui/Button.astro';
 </script>
 
 <style>
-  .about-visual, .about-badge-1, .about-badge-2 { opacity: 0; }
+  .about-visual, .about-badge-1, .about-badge-2, .about-badge-3 { opacity: 0; }
   .about-text .about-el { opacity: 0; }
 
+  /* Gentle float after reveal */
+  @keyframes floatUp   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  @keyframes floatDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY( 7px)} }
+  @keyframes floatSide { 0%,100%{transform:translateY(-50%) translateX(0)} 50%{transform:translateY(-50%) translateX(4px)} }
+
+  .about-badge-1.gsap-done { animation: floatUp   4s ease-in-out infinite; }
+  .about-badge-2.gsap-done { animation: floatDown 5s ease-in-out infinite; }
+  .about-badge-3.gsap-done { animation: floatSide 6s ease-in-out infinite; }
+
   @media (prefers-reduced-motion: reduce) {
-    .about-visual, .about-badge-1, .about-badge-2, .about-text .about-el {
+    .about-visual, .about-badge-1, .about-badge-2, .about-badge-3, .about-text .about-el {
       opacity: 1 !important; transform: none !important;
     }
+    .about-badge-1.gsap-done, .about-badge-2.gsap-done, .about-badge-3.gsap-done { animation: none; }
   }
 </style>

@@ -139,7 +139,7 @@ export default function PortfolioGrid() {
 
       {/* ── Grid ────────────────────────────────────────────────────────── */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((project) => (
+        {filteredProjects.map((project, index) => (
           <div
             key={project.id}
             className="project-item-wrapper relative"
@@ -157,7 +157,7 @@ export default function PortfolioGrid() {
             </div>
 
             <div className="project-card-inner relative z-10">
-              <ProjectCard project={project} onOpenModal={handleOpenModal} />
+              <ProjectCard project={project} onOpenModal={handleOpenModal} index={index} />
             </div>
           </div>
         ))}

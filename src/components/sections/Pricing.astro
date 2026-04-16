@@ -76,7 +76,7 @@ const plans = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5 lg:gap-6 max-w-5xl mx-auto">
       {plans.map((plan, index) => (
         <div 
-          class={`pricing-card group relative flex flex-col p-6 md:p-7 rounded-2xl glass-card transition-all duration-500 hover:-translate-y-1 ${plan.popular ? 'md:-translate-y-3 md:hover:-translate-y-5 ring-1 ring-primary/20 shadow-glow-primary' : ''}`}
+          class={`pricing-card group relative flex flex-col p-6 md:p-7 rounded-2xl glass-card transition-all duration-500 hover:-translate-y-1 ${plan.popular ? 'pricing-popular md:-translate-y-3 md:hover:-translate-y-5' : ''}`}
           style={`animation-delay: ${index * 150}ms;`}
         >
           {/* Popular badge */}
@@ -156,6 +156,16 @@ const plans = [
       const container = document.querySelector('#pricing .grid');
       if (container) observer.observe(container);
     }
+
+    // Mouse tracking glow for pricing cards
+    document.querySelectorAll('.pricing-card').forEach((card) => {
+      card.addEventListener('mousemove', (e: Event) => {
+        const me = e as MouseEvent;
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        (card as HTMLElement).style.setProperty('--mx', `${me.clientX - rect.left}px`);
+        (card as HTMLElement).style.setProperty('--my', `${me.clientY - rect.top}px`);
+      });
+    });
   });
 </script>
 
@@ -165,6 +175,48 @@ const plans = [
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 1.5px;
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(99,102,241,0.25), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .pricing-card:hover::before { opacity: 1; }
+
+  /* Popular card — animated border ring */
+  .pricing-popular {
+    box-shadow: 0 0 0 1.5px rgba(99,102,241,0.3), 0 0 40px rgba(99,102,241,0.15);
+  }
+  .pricing-popular::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 1.5px;
+    background: conic-gradient(from var(--angle, 0deg), #6366f1, #a78bfa, #ec4899, #6366f1);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: borderSpin 4s linear infinite;
+    pointer-events: none;
+  }
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes borderSpin {
+    to { --angle: 360deg; }
+  }
+
   .pricing-card.animate-in {
     opacity: 1;
     transform: translateY(0);

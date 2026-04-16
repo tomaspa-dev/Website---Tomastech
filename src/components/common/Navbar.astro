@@ -27,6 +27,9 @@ const links = isLanding ? landingLinks : portfolioLinks;
 ---
 
 <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent">
+  {/* Scroll Progress Bar */}
+  <div id="scroll-progress" class="absolute top-0 left-0 h-[2px] w-0 z-10 bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 transition-none" style="background-size: 200% 100%;"></div>
+
   <div class="container mx-auto px-6 h-20 lg:h-24 flex items-center justify-between">
     <a href="/" class="block w-40 lg:w-48 group relative overflow-hidden shrink-0">
       <div class="absolute inset-0 bg-white/40 w-full h-full -translate-x-full skew-x-[-20deg] group-hover:animate-shine z-10"></div>
@@ -128,6 +131,18 @@ const links = isLanding ? landingLinks : portfolioLinks;
 
     updateNavbar();
     window.addEventListener('scroll', updateNavbar);
+
+    // Scroll progress bar
+    const progressBar = document.getElementById('scroll-progress');
+    const updateProgress = () => {
+      if (!progressBar) return;
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${pct}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
 
     // Fix smooth scroll for hash links (only on same page)
     const hashLinks = document.querySelectorAll('a[href^="#"]');

@@ -255,18 +255,27 @@ export default function ServicesSection() {
                 <button
                   key={index}
                   onClick={() => setSelectedService(service)}
-                  className="service-card group relative p-6 md:p-7 rounded-2xl text-left transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                  }}
+                  className="service-card group relative p-6 md:p-7 rounded-2xl text-left transition-all duration-500 hover:-translate-y-2 hover:shadow-lg cursor-pointer"
                   style={{
                     background: 'var(--color-surface)',
                     border: '1px solid var(--color-border)',
                     animationDelay: `${index * 100}ms`,
                   }}
                 >
-                  {/* Hover glow */}
+                  {/* Hover glow — now properly tracks mouse */}
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                    style={{ background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${service.glow}, transparent 40%)` }}
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none rounded-2xl"
+                    style={{ background: `radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${service.glow}, transparent 70%)` }}
                   />
+                  {/* Service index — editorial detail */}
+                  <span className="absolute top-4 right-5 text-[10px] font-bold tracking-[0.2em] opacity-0 group-hover:opacity-40 transition-opacity duration-300" style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
 
                   <div className="relative z-10">
                     <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500" style={{ background: service.glow }}>
