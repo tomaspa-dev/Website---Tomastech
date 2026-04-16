@@ -208,7 +208,7 @@ function emptyForm(config: ReturnType<typeof configStore.get>): QuotForm {
   return {
     clientId: '', clientSearch: '', selectedClient: null,
     status: 'draft',
-    currency: config.defaultCurrency ?? 'PEN',
+    currency: 'PEN' as Currency,
     items: [],
     discountType: 'fixed', discountValue: 0,
     applyRetention: false,

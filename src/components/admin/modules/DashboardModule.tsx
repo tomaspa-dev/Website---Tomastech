@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  TrendingUp, Users, FileText, Receipt, FileSignature,
+  TrendingUp, Users, FileText, Receipt as ReceiptIcon, FileSignature,
   BookOpen, Plus, ArrowRight, AlertCircle, CheckCircle2,
-  Clock, DollarSign, Activity,
+  Clock, Activity,
 } from 'lucide-react';
 import {
   clientStore, quotationStore, receiptStore, contractStore,
   accountingStore, formatCurrency, formatDate,
-  type Quotation, type Receipt, type Contract,
+  type Quotation, type Receipt as AdminReceipt, type Contract,
 } from '../../../lib/admin-store';
 
 type ModuleId = 'clients' | 'quotations' | 'receipts' | 'contracts' | 'accounting' | 'reports' | 'config' | 'dashboard';
@@ -75,7 +75,7 @@ export function DashboardModule({ onNavigate }: Props) {
   const [data, setData] = useState({
     clients: 0, activeClients: 0,
     quotations: [] as Quotation[],
-    receipts: [] as Receipt[],
+    receipts: [] as AdminReceipt[],
     contracts: [] as Contract[],
     income: 0, expenses: 0, balance: 0,
     pendingAmount: 0,
@@ -98,7 +98,9 @@ export function DashboardModule({ onNavigate }: Props) {
       quotations,
       receipts,
       contracts,
-      ...acct,
+      income:   acct.totalIncome,
+      expenses: acct.totalExpenses,
+      balance:  acct.balance,
       pendingAmount,
     });
   }, []);
@@ -167,7 +169,7 @@ export function DashboardModule({ onNavigate }: Props) {
           label="Recibos Emitidos"
           value={String(data.receipts.length)}
           sub={`${data.receipts.filter((r) => r.sunatStatus === 'pending').length} pendientes SUNAT`}
-          icon={Receipt}
+          icon={ReceiptIcon}
           accent="bg-emerald-500"
           onClick={() => onNavigate?.('receipts')}
         />
@@ -242,7 +244,7 @@ export function DashboardModule({ onNavigate }: Props) {
             <div className="space-y-2">
               {[
                 { label: 'Nueva Cotización',  icon: FileText,      id: 'quotations',  color: 'text-sky-400'     },
-                { label: 'Nuevo Recibo',       icon: Receipt,       id: 'receipts',    color: 'text-emerald-400' },
+                { label: 'Nuevo Recibo',       icon: ReceiptIcon,   id: 'receipts',    color: 'text-emerald-400' },
                 { label: 'Nuevo Contrato',     icon: FileSignature, id: 'contracts',   color: 'text-violet-400'  },
                 { label: 'Nuevo Cliente',      icon: Users,         id: 'clients',     color: 'text-amber-400'   },
               ].map(({ label, icon: Icon, id, color }) => (
@@ -266,7 +268,7 @@ export function DashboardModule({ onNavigate }: Props) {
             <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
               <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800">
                 <h3 className="text-white font-semibold text-sm flex items-center gap-2">
-                  <Receipt size={14} className="text-emerald-400" />
+                  <ReceiptIcon size={14} className="text-emerald-400" />
                   Recibos Recientes
                 </h3>
               </div>
