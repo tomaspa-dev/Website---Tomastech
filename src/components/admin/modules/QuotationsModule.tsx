@@ -1,17 +1,17 @@
-/**
- * QuotationsModule.tsx — Panel Admin v2
- * Gestión completa de cotizaciones para freelancer peruano.
+﻿/**
+ * QuotationsModule.tsx â€” Panel Admin v2
+ * GestiÃ³n completa de cotizaciones para freelancer peruano.
  *
- * UX inspirado en Mini-ERP: panel lateral deslizante, búsqueda de cliente
+ * UX inspirado en Mini-ERP: panel lateral deslizante, bÃºsqueda de cliente
  * con typeahead (no select con 100 opciones), items editables en tabla,
- * cálculo automático con retención IR (SUNAT 4ta categoría).
+ * cÃ¡lculo automÃ¡tico con retenciÃ³n IR (SUNAT 4ta categorÃ­a).
  */
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import {
   FileText, Plus, Search, Download, X, Trash2, ChevronLeft, ChevronRight,
   CheckCircle2, Clock, XCircle, Edit2, Send, FileCheck2, AlertCircle,
-  RotateCcw, Building2, User, Mail,
+  RotateCcw, Building2, User, Mail, Save, DollarSign,
 } from 'lucide-react';
 import {
   quotationStore, clientStore, serviceStore, configStore,
@@ -22,9 +22,9 @@ import {
 } from '../../../lib/admin-store';
 import { generateQuotationPDF } from '../../../lib/admin-pdf';
 
-// ── Constants ─────────────────────────────────────────────────
+// â”€â”€ Constants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const CURRENCIES: Currency[] = ['PEN', 'USD', 'EUR'];
-const SYM: Record<Currency, string> = { PEN: 'S/', USD: 'US$', EUR: '€' };
+const SYM: Record<Currency, string> = { PEN: 'S/', USD: 'US$', EUR: 'â‚¬' };
 
 const PAYMENT_OPTS: { value: PaymentMethod; label: string }[] = [
   { value: 'transfer',  label: 'Transferencia bancaria' },
@@ -44,7 +44,7 @@ const STATUS_META: Record<QuotationStatus, { label: string; color: string; icon:
 };
 const ALL_STATUSES = Object.keys(STATUS_META) as QuotationStatus[];
 
-// ── Micro-components ──────────────────────────────────────────
+// â”€â”€ Micro-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function StatusPill({ status }: { status: QuotationStatus }) {
   const m = STATUS_META[status];
@@ -89,7 +89,7 @@ function FieldLabel({ children, required }: { children: React.ReactNode; require
   );
 }
 
-// ── Client Typeahead ──────────────────────────────────────────
+// â”€â”€ Client Typeahead â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function ClientSearch({
   value, onChange, onSelect,
@@ -154,7 +154,7 @@ function ClientSearch({
                   {c.documentType === 'RUC' && c.documentNumber.startsWith('20') ? <Building2 size={9} /> : <User size={9} />}
                   {c.documentType}: {c.documentNumber}
                   {isCompanyRUC(c.documentType, c.documentNumber) && (
-                    <span className="text-amber-400 font-semibold"> · aplica retención</span>
+                    <span className="text-amber-400 font-semibold"> Â· aplica retenciÃ³n</span>
                   )}
                 </p>
               </div>
@@ -166,7 +166,7 @@ function ClientSearch({
   );
 }
 
-// ── Calculation logic ─────────────────────────────────────────
+// â”€â”€ Calculation logic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function calcTotals(
   items: QuotationItem[],
@@ -185,7 +185,7 @@ function calcTotals(
   return { subtotal, discountAmount, total, retentionAmount, netToReceive };
 }
 
-// ── Form state ────────────────────────────────────────────────
+// â”€â”€ Form state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface QuotForm {
   clientId:        string;
@@ -231,12 +231,12 @@ function formFromQuotation(q: Quotation, client: Client | null): QuotForm {
   };
 }
 
-// ── PAGE SIZE ─────────────────────────────────────────────────
+// â”€â”€ PAGE SIZE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const PAGE_SIZE = 8;
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // MAIN COMPONENT
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 export function QuotationsModule() {
   const config = useMemo(() => configStore.get(), []);
@@ -245,8 +245,8 @@ export function QuotationsModule() {
   const [search, setSearch]             = useState('');
   const [page, setPage]                 = useState(1);
 
-  // Panel state
-  const [panelOpen, setPanelOpen]   = useState(false);
+  // View mode: list â†” form
+  const [mode, setMode]             = useState<'list' | 'create' | 'edit'>('list');
   const [editing, setEditing]       = useState<Quotation | null>(null);
   const [form, setForm]             = useState<QuotForm>(() => emptyForm(config));
   const [saving, setSaving]         = useState(false);
@@ -256,7 +256,7 @@ export function QuotationsModule() {
   const reload = () => setQuotations(quotationStore.getAll());
   useEffect(() => { reload(); }, []);
 
-  // ── Computed items in form ──────────────────────────────────
+  // â”€â”€ Computed items in form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const { subtotal, discountAmount, total, retentionAmount, netToReceive } = useMemo(
     () => calcTotals(form.items, form.discountType, form.discountValue, form.applyRetention, form.retentionPct),
     [form.items, form.discountType, form.discountValue, form.applyRetention, form.retentionPct]
@@ -271,7 +271,7 @@ export function QuotationsModule() {
     setForm((prev) => ({ ...prev, applyRetention: suggests }));
   }, [form.selectedClient, total]);
 
-  // ── Filtered list ───────────────────────────────────────────
+  // â”€â”€ Filtered list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const filtered = useMemo(() => {
     return quotations.filter((q) => {
       const client = clientStore.getById(q.clientId);
@@ -287,23 +287,23 @@ export function QuotationsModule() {
   const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   useEffect(() => { setPage(1); }, [search, filterStatus]);
 
-  // ── Panel open/close ────────────────────────────────────────
+  // â”€â”€ Open / close â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openCreate = () => {
     setEditing(null);
     setForm(emptyForm(config));
-    setPanelOpen(true);
+    setMode('create');
   };
 
   const openEdit = (q: Quotation) => {
     const client = clientStore.getById(q.clientId) ?? null;
     setEditing(q);
     setForm(formFromQuotation(q, client));
-    setPanelOpen(true);
+    setMode('edit');
   };
 
-  const closePanel = () => { setPanelOpen(false); setEditing(null); };
+  const closePanel = () => { setMode('list'); setEditing(null); };
 
-  // ── Form helpers ────────────────────────────────────────────
+  // â”€â”€ Form helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const setF = <K extends keyof QuotForm>(k: K, v: QuotForm[K]) =>
     setForm((p) => ({ ...p, [k]: v }));
 
@@ -311,7 +311,7 @@ export function QuotationsModule() {
     setForm((p) => ({ ...p, clientId: c.id, selectedClient: c }));
   };
 
-  // ── Items management ────────────────────────────────────────
+  // â”€â”€ Items management â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const addItem = () => {
     const item: QuotationItem = { id: generateId(), description: '', quantity: 1, unitPrice: 0, subtotal: 0 };
     setF('items', [...form.items, item]);
@@ -362,7 +362,7 @@ export function QuotationsModule() {
     setHintTarget(null);
   };
 
-  // ── Save ────────────────────────────────────────────────────
+  // â”€â”€ Save â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const handleSave = () => {
     if (!form.clientId) { alert('Selecciona un cliente'); return; }
     if (form.items.length === 0) { alert('Agrega al menos un servicio'); return; }
@@ -408,7 +408,7 @@ export function QuotationsModule() {
     }
   };
 
-  // ── Status toggle ───────────────────────────────────────────
+  // â”€â”€ Status toggle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const cycleStatus = (q: Quotation) => {
     const next: Record<QuotationStatus, QuotationStatus> = {
       draft: 'sent', sent: 'accepted', accepted: 'accepted', rejected: 'rejected', expired: 'expired',
@@ -417,7 +417,7 @@ export function QuotationsModule() {
     reload();
   };
 
-  // ── Download PDF ─────────────────────────────────────────────
+  // â”€â”€ Download PDF â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const handlePDF = async (q: Quotation) => {
     setGenPdf(q.id);
     try {
@@ -428,19 +428,309 @@ export function QuotationsModule() {
     }
   };
 
-  // ── Delete ───────────────────────────────────────────────────
+  // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const handleDelete = (q: Quotation) => {
-    if (!window.confirm(`¿Eliminar cotización ${q.number}? Esta acción no se puede deshacer.`)) return;
+    if (!window.confirm(`Â¿Eliminar cotizaciÃ³n ${q.number}? Esta acciÃ³n no se puede deshacer.`)) return;
     quotationStore.delete(q.id);
     reload();
   };
 
-  // ── RENDER ───────────────────────────────────────────────────
-  return (
-    <div className="flex h-full relative">
+  // â”€â”€ RENDER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-      {/* ── LIST PANEL ──────────────────────────────────────── */}
-      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${panelOpen ? 'mr-[600px]' : ''}`}>
+  // â”€â”€ FORM VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (mode === 'create' || mode === 'edit') {
+    return (
+      <div className="flex flex-col h-full bg-slate-950">
+        {/* Form header */}
+        <div className="shrink-0 flex items-center gap-4 px-8 py-4 bg-slate-900 border-b border-slate-800">
+          <div>
+            <h2 className="text-white font-bold text-lg">
+              {mode === 'edit' ? `Editar: ${editing?.number}` : 'Nueva CotizaciÃ³n'}
+            </h2>
+            <p className="text-slate-400 text-xs mt-0.5">Todos los campos se guardan en el mÃ³dulo</p>
+          </div>
+          <div className="flex-1" />
+          <button onClick={closePanel}
+            className="px-4 py-2 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg text-sm font-semibold transition-colors">
+            Cancelar
+          </button>
+          <button onClick={handleSave} disabled={saving || !form.clientId || form.items.length === 0}
+            className="flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-white rounded-lg text-sm font-semibold transition-colors">
+            <Save size={15} />{mode === 'edit' ? 'Guardar Cambios' : 'Crear CotizaciÃ³n'}
+          </button>
+          <button onClick={closePanel} className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Scrollable form */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="px-8 py-8 space-y-8">
+
+            {/* â‘  CLIENT */}
+            <section>
+              <h3 className="text-white font-semibold text-sm mb-4 pb-2 border-b border-slate-800 flex items-center gap-2">
+                <User size={15} className="text-sky-400" />Cliente
+              </h3>
+              <FieldLabel required>Buscar Cliente</FieldLabel>
+              <ClientSearch
+                value={form.clientSearch}
+                onChange={(v) => setF('clientSearch', v)}
+                onSelect={(c) => { selectClient(c); setF('clientSearch', c.name); }}
+              />
+              {form.selectedClient && (
+                <div className="mt-3 bg-slate-800/70 border border-slate-700 rounded-xl overflow-hidden">
+                  <div className="flex items-start gap-4 px-4 py-3">
+                    <div className="w-10 h-10 rounded-full bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm shrink-0 mt-0.5">
+                      {form.selectedClient.name.substring(0, 2).toUpperCase()}
+                    </div>
+                    <div className="flex-1 min-w-0 grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {[
+                        { label: 'Nombre / RazÃ³n Social', value: form.selectedClient.name },
+                        { label: 'Tipo Doc.', value: form.selectedClient.documentType },
+                        { label: 'NÂº Documento', value: form.selectedClient.documentNumber },
+                        ...(form.selectedClient.email ? [{ label: 'Email', value: form.selectedClient.email }] : []),
+                      ].map(({ label, value }) => (
+                        <div key={label}>
+                          <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">{label}</p>
+                          <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2">
+                            <p className="text-slate-300 text-sm font-mono truncate">{value}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <button type="button"
+                      onClick={() => setForm((p) => ({ ...p, clientId: '', clientSearch: '', selectedClient: null }))}
+                      className="shrink-0 p-1.5 text-slate-500 hover:text-white hover:bg-slate-700 rounded-lg transition-colors mt-0.5">
+                      <X size={14} />
+                    </button>
+                  </div>
+                  {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
+                    <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/5 border-t border-amber-500/20">
+                      <AlertCircle size={12} className="text-amber-400 shrink-0" />
+                      <p className="text-[11px] text-amber-400">
+                        Empresa RUC <strong>{form.selectedClient.documentNumber}</strong> â€” puede aplicar retenciÃ³n IR 4ta categorÃ­a.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
+
+            {/* â‘¡ CURRENCY + PAYMENT */}
+            <section>
+              <h3 className="text-white font-semibold text-sm mb-4 pb-2 border-b border-slate-800 flex items-center gap-2">
+                <DollarSign size={15} className="text-sky-400" />Condiciones
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <FieldLabel>Moneda</FieldLabel>
+                  <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5">
+                    {CURRENCIES.map((c) => (
+                      <button key={c} type="button" onClick={() => setF('currency', c)}
+                        className={`flex-1 py-2 rounded-md text-xs font-bold transition-all ${form.currency === c ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-white'}`}>
+                        {SYM[c]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <FieldLabel>Forma de Pago</FieldLabel>
+                  <FSelect value={form.paymentMethod} onChange={(e) => setF('paymentMethod', e.target.value as PaymentMethod)}>
+                    {PAYMENT_OPTS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                  </FSelect>
+                </div>
+                <div>
+                  <FieldLabel>Tiempo Entrega (dÃ­as)</FieldLabel>
+                  <FInput type="number" min={1} value={form.deliveryDays}
+                    onChange={(e) => setF('deliveryDays', parseInt(e.target.value) || 30)}
+                    className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" />
+                </div>
+                <div>
+                  <FieldLabel>Estado</FieldLabel>
+                  <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5">
+                    {(['draft', 'sent'] as QuotationStatus[]).map((s) => (
+                      <button key={s} type="button" onClick={() => setF('status', s)}
+                        className={`flex-1 py-2 rounded-md text-xs font-bold transition-all ${form.status === s ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}>
+                        {s === 'draft' ? 'Borrador' : 'Enviada'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4">
+                <FieldLabel>TÃ©rminos de Pago</FieldLabel>
+                <FInput value={form.paymentTerms} onChange={(e) => setF('paymentTerms', e.target.value)}
+                  placeholder="Ej: 50% al inicio, 50% al entregar" />
+              </div>
+            </section>
+
+            {/* â‘¢ ITEMS */}
+            <section>
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-800">
+                <h3 className="text-white font-semibold text-sm flex items-center gap-2">
+                  <FileText size={15} className="text-sky-400" />Servicios / Items
+                </h3>
+                <button type="button" onClick={addItem}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-slate-300 hover:text-white transition-colors font-semibold">
+                  <Plus size={12} />Agregar servicio
+                </button>
+              </div>
+
+              {form.items.length === 0 ? (
+                <div className="py-10 text-center border border-dashed border-slate-700 rounded-xl text-slate-500 text-sm">
+                  <FileText size={28} className="mx-auto mb-2 opacity-30" />
+                  Haz clic en "Agregar servicio"
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="grid grid-cols-[1fr_64px_96px_80px_36px] gap-2 px-1">
+                    {['DescripciÃ³n', 'Cant.', 'P. Unit.', 'Subtotal', ''].map((h, i) => (
+                      <p key={i} className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{h}</p>
+                    ))}
+                  </div>
+                  {form.items.map((item) => (
+                    <div key={item.id} className="relative">
+                      <div className="grid grid-cols-[1fr_64px_96px_80px_36px] gap-2 items-start">
+                        <div className="relative">
+                          <FInput value={item.description}
+                            onChange={(e) => handleDescriptionChange(item.id, e.target.value)}
+                            placeholder="Ej: Desarrollo Web..." className="text-xs py-2" />
+                          {hintTarget === item.id && serviceHints.length > 0 && (
+                            <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden shadow-xl">
+                              {serviceHints.map((h) => (
+                                <button key={h} type="button" onClick={() => applyHint(item.id, h)}
+                                  className="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-slate-700 hover:text-white transition-colors">{h}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        <input type="number" min={0.1} step={0.1} value={item.quantity}
+                          onChange={(e) => updateItem(item.id, 'quantity', parseFloat(e.target.value) || 0)}
+                          className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white text-center focus:outline-none focus:ring-2 focus:ring-sky-500/50 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" />
+                        <div className="relative">
+                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 text-xs">{SYM[form.currency]}</span>
+                          <input type="number" min={0} step={0.01} value={item.unitPrice}
+                            onChange={(e) => updateItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
+                            className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-7 pr-2 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" />
+                        </div>
+                        <div className="bg-slate-700/50 border border-slate-700 rounded-lg px-2 py-2 text-xs text-emerald-400 font-semibold text-right">
+                          {SYM[form.currency]} {item.subtotal.toFixed(2)}
+                        </div>
+                        <button type="button" onClick={() => removeItem(item.id)}
+                          className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* â‘£ DISCOUNT + TOTALS */}
+            <section>
+              <h3 className="text-white font-semibold text-sm mb-4 pb-2 border-b border-slate-800">Descuento y Totales</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <FieldLabel>Descuento</FieldLabel>
+                  <div className="flex gap-2">
+                    <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5 shrink-0">
+                      {(['fixed', 'percentage'] as const).map((t) => (
+                        <button key={t} type="button" onClick={() => setF('discountType', t)}
+                          className={`px-3 py-2 rounded-md text-xs font-bold transition-all ${form.discountType === t ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}>
+                          {t === 'fixed' ? `${SYM[form.currency]} Monto` : '% Porcentaje'}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="relative flex-1">
+                      {form.discountType === 'fixed' && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">{SYM[form.currency]}</span>}
+                      <FInput type="number" min={0} step={0.01} value={form.discountValue}
+                        onChange={(e) => setF('discountValue', parseFloat(e.target.value) || 0)}
+                        className={`[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none ${form.discountType === 'fixed' ? 'pl-8' : ''}`} />
+                      {form.discountType === 'percentage' && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">%</span>}
+                    </div>
+                  </div>
+                </div>
+
+                {form.items.length > 0 && (
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4 space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">Subtotal</span>
+                      <span className="text-white">{SYM[form.currency]} {subtotal.toFixed(2)}</span>
+                    </div>
+                    {discountAmount > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-400">Descuento</span>
+                        <span className="text-red-400">- {SYM[form.currency]} {discountAmount.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="border-t border-slate-700 pt-2 flex justify-between text-sm font-semibold">
+                      <span className="text-white">Total al Cliente</span>
+                      <span className="text-white">{SYM[form.currency]} {total.toFixed(2)}</span>
+                    </div>
+                    <div className="border-t border-slate-700 pt-3 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`relative w-9 h-5 rounded-full cursor-pointer transition-colors ${form.applyRetention ? 'bg-amber-500' : 'bg-slate-600'}`}
+                            onClick={() => setF('applyRetention', !form.applyRetention)}>
+                            <div className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${form.applyRetention ? 'translate-x-4' : ''}`} />
+                          </div>
+                          <span className="text-xs font-semibold text-slate-300">RetenciÃ³n IR ({form.retentionPct}%)</span>
+                        </div>
+                      </div>
+                      {form.selectedClient && isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && total > config.retentionThreshold && !form.applyRetention && (
+                        <div className="flex items-center gap-2 text-[11px] text-amber-400">
+                          <AlertCircle size={11} />Recomendado: la empresa pagadora debe retener
+                        </div>
+                      )}
+                      {form.applyRetention && (
+                        <>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-amber-400">RetenciÃ³n ({form.retentionPct}%)</span>
+                            <span className="text-amber-400">- {SYM[form.currency]} {retentionAmount.toFixed(2)}</span>
+                          </div>
+                          <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-3 py-2 flex justify-between">
+                            <span className="text-emerald-400 font-bold text-sm">Neto a Recibir</span>
+                            <span className="text-emerald-400 font-bold text-sm">{SYM[form.currency]} {netToReceive.toFixed(2)}</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {/* â‘¤ NOTES */}
+            <section>
+              <FieldLabel>Notas adicionales</FieldLabel>
+              <textarea value={form.notes} onChange={(e) => setF('notes', e.target.value)} rows={4}
+                placeholder="Incluye revisiones ilimitadas, soporte 15 dÃ­as post-entrega..."
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors resize-none" />
+            </section>
+
+            {/* Bottom save bar */}
+            <div className="flex items-center justify-end gap-3 py-4 border-t border-slate-800">
+              <button onClick={closePanel}
+                className="px-5 py-2.5 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg text-sm font-semibold transition-colors">Cancelar</button>
+              <button onClick={handleSave} disabled={saving || !form.clientId || form.items.length === 0}
+                className="flex items-center gap-2 px-6 py-2.5 bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-white rounded-lg text-sm font-bold transition-colors">
+                <Save size={15} />{mode === 'edit' ? 'Guardar Cambios' : 'Crear CotizaciÃ³n'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // â”€â”€ LIST VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  return (
+    <div className="flex flex-col h-full">
+
+      <div className="flex-1 flex flex-col min-w-0">
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-900/50">
@@ -449,14 +739,14 @@ export function QuotationsModule() {
               <FileText size={20} className="text-sky-400" />
               Cotizaciones
             </h2>
-            <p className="text-slate-400 text-sm mt-0.5">{filtered.length} {filtered.length === 1 ? 'cotización' : 'cotizaciones'}</p>
+            <p className="text-slate-400 text-sm mt-0.5">{filtered.length} {filtered.length === 1 ? 'cotizaciÃ³n' : 'cotizaciones'}</p>
           </div>
           <button
             onClick={openCreate}
             className="flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white rounded-lg text-sm font-semibold transition-colors"
           >
             <Plus size={16} />
-            Nueva Cotización
+            Nueva CotizaciÃ³n
           </button>
         </div>
 
@@ -467,7 +757,7 @@ export function QuotationsModule() {
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
             <input
               type="text"
-              placeholder="Buscar por número o cliente..."
+              placeholder="Buscar por nÃºmero o cliente..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500"
@@ -503,7 +793,7 @@ export function QuotationsModule() {
             <div className="flex flex-col items-center justify-center py-20 text-slate-500">
               <FileText size={40} className="mb-3 opacity-30" />
               <p className="text-sm">
-                {search || filterStatus !== 'all' ? 'No hay cotizaciones con ese filtro' : 'No hay cotizaciones aún — '}
+                {search || filterStatus !== 'all' ? 'No hay cotizaciones con ese filtro' : 'No hay cotizaciones aÃºn â€” '}
                 {!search && filterStatus === 'all' && (
                   <button onClick={openCreate} className="text-sky-400 hover:underline">
                     crea la primera
@@ -515,7 +805,7 @@ export function QuotationsModule() {
             <table className="w-full">
               <thead className="sticky top-0 bg-slate-900 z-10">
                 <tr className="border-b border-slate-800">
-                  <th className="text-left px-6 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Número / Cliente</th>
+                  <th className="text-left px-6 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">NÃºmero / Cliente</th>
                   <th className="text-left px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider hidden sm:table-cell">Fecha</th>
                   <th className="text-right px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total</th>
                   <th className="text-center px-4 py-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Estado</th>
@@ -605,7 +895,7 @@ export function QuotationsModule() {
         {totalPages > 1 && (
           <div className="shrink-0 flex items-center justify-between px-6 py-3 border-t border-slate-800">
             <p className="text-slate-400 text-xs">
-              {((page - 1) * PAGE_SIZE) + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} de {filtered.length}
+              {((page - 1) * PAGE_SIZE) + 1}â€“{Math.min(page * PAGE_SIZE, filtered.length)} de {filtered.length}
             </p>
             <div className="flex items-center gap-1">
               <button onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1} className="p-1.5 text-slate-400 hover:text-white disabled:opacity-30 hover:bg-slate-800 rounded-lg transition-colors"><ChevronLeft size={16} /></button>
@@ -616,355 +906,6 @@ export function QuotationsModule() {
             </div>
           </div>
         )}
-      </div>
-
-      {/* ── RIGHT SIDE PANEL — Create/Edit ──────────────────── */}
-      <div
-        className={[
-          'fixed right-0 top-0 bottom-0 w-[600px] bg-slate-900 border-l border-slate-800',
-          'flex flex-col z-30 transition-transform duration-300 ease-in-out',
-          panelOpen ? 'translate-x-0' : 'translate-x-full',
-        ].join(' ')}
-        style={{ top: '56px' }}
-      >
-        {/* Panel header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 shrink-0">
-          <h3 className="text-white font-semibold flex items-center gap-2">
-            <FileText size={16} className="text-sky-400" />
-            {editing ? `Editar ${editing.number}` : 'Nueva Cotización'}
-          </h3>
-          <button onClick={closePanel} className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-            <X size={18} />
-          </button>
-        </div>
-
-        {/* Scrollable form */}
-        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
-
-          {/* ① CLIENT SEARCH */}
-          <div>
-            <FieldLabel required>Cliente</FieldLabel>
-            <ClientSearch
-              value={form.clientSearch}
-              onChange={(v) => setF('clientSearch', v)}
-              onSelect={(c) => { selectClient(c); setF('clientSearch', c.name); }}
-            />
-            {form.selectedClient && (
-              <div className="mt-2 bg-slate-800/70 border border-slate-700 rounded-xl overflow-hidden">
-                {/* Client info locked row */}
-                <div className="flex items-start gap-4 px-4 py-3">
-                  {/* Avatar */}
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-sm shrink-0 mt-0.5">
-                    {form.selectedClient.name.substring(0, 2).toUpperCase()}
-                  </div>
-                  {/* Fields locked */}
-                  <div className="flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nombre / Razón Social</p>
-                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
-                        <User size={12} className="text-slate-500 shrink-0" />
-                        <p className="text-slate-300 text-sm font-medium truncate">{form.selectedClient.name}</p>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Tipo Documento</p>
-                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
-                        {form.selectedClient.documentType === 'RUC' && form.selectedClient.documentNumber.startsWith('20')
-                          ? <Building2 size={12} className="text-sky-400 shrink-0" />
-                          : <User size={12} className="text-slate-500 shrink-0" />
-                        }
-                        <p className="text-slate-300 text-sm">{form.selectedClient.documentType}</p>
-                        {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
-                          <span className="ml-auto text-[10px] text-amber-400 font-semibold shrink-0">Empresa</span>
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nº Documento</p>
-                      <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2">
-                        <p className="text-slate-300 text-sm font-mono">{form.selectedClient.documentNumber}</p>
-                      </div>
-                    </div>
-                    {form.selectedClient.email && (
-                      <div className="sm:col-span-2">
-                        <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Email</p>
-                        <div className="bg-slate-700/50 border border-slate-600/50 rounded-lg px-3 py-2 flex items-center gap-2">
-                          <Mail size={12} className="text-slate-500 shrink-0" />
-                          <p className="text-slate-300 text-sm truncate">{form.selectedClient.email}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  {/* Deselect button */}
-                  <button
-                    type="button"
-                    onClick={() => setForm((p) => ({ ...p, clientId: '', clientSearch: '', selectedClient: null }))}
-                    className="shrink-0 p-1.5 text-slate-500 hover:text-white hover:bg-slate-700 rounded-lg transition-colors mt-0.5"
-                    title="Cambiar cliente"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-                {/* Retention warning */}
-                {isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && (
-                  <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/5 border-t border-amber-500/20">
-                    <AlertCircle size={12} className="text-amber-400 shrink-0" />
-                    <p className="text-[11px] text-amber-400">
-                      Esta empresa (<strong>{form.selectedClient.documentNumber}</strong>) puede aplicar retención IR 4ta categoría al pagar recibos por honorarios.
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* ② CURRENCY + PAYMENT */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <FieldLabel>Moneda</FieldLabel>
-              <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5">
-                {CURRENCIES.map((c) => (
-                  <button key={c} type="button" onClick={() => setF('currency', c)}
-                    className={`flex-1 py-2 rounded-md text-xs font-bold transition-all ${form.currency === c ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-white'}`}
-                  >
-                    {SYM[c]}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              <FieldLabel>Forma de Pago</FieldLabel>
-              <FSelect value={form.paymentMethod} onChange={(e) => setF('paymentMethod', e.target.value as PaymentMethod)}>
-                {PAYMENT_OPTS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </FSelect>
-            </div>
-          </div>
-
-          {/* ③ ITEMS */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <FieldLabel>Servicios / Items</FieldLabel>
-              <button type="button" onClick={addItem} className="flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs text-slate-300 hover:text-white transition-colors font-semibold">
-                <Plus size={12} />
-                Agregar servicio
-              </button>
-            </div>
-
-            {form.items.length === 0 ? (
-              <div className="py-8 text-center border border-dashed border-slate-700 rounded-xl text-slate-500 text-sm">
-                <FileText size={24} className="mx-auto mb-2 opacity-30" />
-                Haz clic en "Agregar servicio"
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {/* Header */}
-                <div className="grid grid-cols-[1fr_56px_80px_72px_32px] gap-2 px-1">
-                  {['Descripción', 'Cant.', 'P. Unit.', 'Subtotal', ''].map((h, i) => (
-                    <p key={i} className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">{h}</p>
-                  ))}
-                </div>
-                {/* Rows */}
-                {form.items.map((item) => (
-                  <div key={item.id} className="relative">
-                    <div className="grid grid-cols-[1fr_56px_80px_72px_32px] gap-2 items-start">
-                      {/* Description with typeahead */}
-                      <div className="relative">
-                        <FInput
-                          value={item.description}
-                          onChange={(e) => handleDescriptionChange(item.id, e.target.value)}
-                          placeholder="Ej: Desarrollo Web..."
-                          className="text-xs py-2"
-                        />
-                        {hintTarget === item.id && serviceHints.length > 0 && (
-                          <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden shadow-xl">
-                            {serviceHints.map((h) => (
-                              <button key={h} type="button" onClick={() => applyHint(item.id, h)}
-                                className="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
-                              >{h}</button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {/* Qty */}
-                      <input
-                        type="number" min={0.1} step={0.1}
-                        value={item.quantity}
-                        onChange={(e) => updateItem(item.id, 'quantity', parseFloat(e.target.value) || 0)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white text-center focus:outline-none focus:ring-2 focus:ring-sky-500/50 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                      />
-                      {/* Unit price */}
-                      <div className="relative">
-                        <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 text-xs">{SYM[form.currency]}</span>
-                        <input
-                          type="number" min={0} step={0.01}
-                          value={item.unitPrice}
-                          onChange={(e) => updateItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-7 pr-2 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-sky-500/50 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-                        />
-                      </div>
-                      {/* Subtotal (read-only) */}
-                      <div className="bg-slate-700/50 border border-slate-700 rounded-lg px-2 py-2 text-xs text-emerald-400 font-semibold text-right">
-                        {SYM[form.currency]} {item.subtotal.toFixed(2)}
-                      </div>
-                      {/* Delete */}
-                      <button type="button" onClick={() => removeItem(item.id)} className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
-                        <Trash2 size={13} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* ④ DISCOUNT */}
-          <div>
-            <FieldLabel>Descuento</FieldLabel>
-            <div className="flex gap-2">
-              <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5 shrink-0">
-                {(['fixed', 'percentage'] as const).map((t) => (
-                  <button key={t} type="button" onClick={() => setF('discountType', t)}
-                    className={`px-3 py-2 rounded-md text-xs font-bold transition-all ${form.discountType === t ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                  >
-                    {t === 'fixed' ? `${SYM[form.currency]} Monto` : '% Porcentaje'}
-                  </button>
-                ))}
-              </div>
-              <div className="relative flex-1">
-                {form.discountType === 'fixed' && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">{SYM[form.currency]}</span>
-                )}
-                <FInput
-                  type="number" min={0} step={0.01}
-                  value={form.discountValue}
-                  onChange={(e) => setF('discountValue', parseFloat(e.target.value) || 0)}
-                  className={`text-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none ${form.discountType === 'fixed' ? 'pl-8' : ''}`}
-                />
-                {form.discountType === 'percentage' && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">%</span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ⑤ TOTALS SUMMARY */}
-          {form.items.length > 0 && (
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4 space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-slate-400">Subtotal</span>
-                <span className="text-white">{SYM[form.currency]} {subtotal.toFixed(2)}</span>
-              </div>
-              {discountAmount > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-400">Descuento</span>
-                  <span className="text-red-400">- {SYM[form.currency]} {discountAmount.toFixed(2)}</span>
-                </div>
-              )}
-              <div className="border-t border-slate-700 pt-2 flex justify-between text-sm font-semibold">
-                <span className="text-white">Total al Cliente</span>
-                <span className="text-white">{SYM[form.currency]} {total.toFixed(2)}</span>
-              </div>
-
-              {/* Retention toggle */}
-              <div className="border-t border-slate-700 pt-3 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`relative w-9 h-5 rounded-full cursor-pointer transition-colors ${form.applyRetention ? 'bg-amber-500' : 'bg-slate-600'}`}
-                      onClick={() => setF('applyRetention', !form.applyRetention)}
-                    >
-                      <div className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${form.applyRetention ? 'translate-x-4' : ''}`} />
-                    </div>
-                    <span className="text-xs font-semibold text-slate-300">Retención IR 4ta Cat. ({form.retentionPct}%)</span>
-                  </div>
-                </div>
-
-                {/* Auto-suggest hint */}
-                {form.selectedClient && isCompanyRUC(form.selectedClient.documentType, form.selectedClient.documentNumber) && total > config.retentionThreshold && !form.applyRetention && (
-                  <div className="flex items-center gap-2 text-[11px] text-amber-400">
-                    <AlertCircle size={11} />
-                    Recomendado: la empresa pagadora debe retener
-                  </div>
-                )}
-
-                {form.applyRetention && (
-                  <>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-amber-400">Retención ({form.retentionPct}%)</span>
-                      <span className="text-amber-400">- {SYM[form.currency]} {retentionAmount.toFixed(2)}</span>
-                    </div>
-                    <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-3 py-2 flex justify-between">
-                      <span className="text-emerald-400 font-bold text-sm">Neto a Recibir</span>
-                      <span className="text-emerald-400 font-bold text-sm">{SYM[form.currency]} {netToReceive.toFixed(2)}</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* ⑥ PAYMENT TERMS + DELIVERY */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <FieldLabel>Tiempo de Entrega (días hábiles)</FieldLabel>
-              <FInput
-                type="number" min={1}
-                value={form.deliveryDays}
-                onChange={(e) => setF('deliveryDays', parseInt(e.target.value) || 30)}
-                className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-              />
-            </div>
-            <div>
-              <FieldLabel>Estado</FieldLabel>
-              <div className="flex bg-slate-800 border border-slate-700 rounded-lg p-0.5">
-                {(['draft', 'sent'] as QuotationStatus[]).map((s) => (
-                  <button key={s} type="button" onClick={() => setF('status', s)}
-                    className={`flex-1 py-2 rounded-md text-xs font-bold transition-all ${form.status === s ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`}
-                  >
-                    {s === 'draft' ? 'Borrador' : 'Enviada'}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <FieldLabel>Términos de Pago</FieldLabel>
-            <FInput
-              value={form.paymentTerms}
-              onChange={(e) => setF('paymentTerms', e.target.value)}
-              placeholder="Ej: 50% al inicio, 50% al entregar"
-            />
-          </div>
-
-          {/* ⑦ NOTES */}
-          <div>
-            <FieldLabel>Notas adicionales</FieldLabel>
-            <textarea
-              value={form.notes}
-              onChange={(e) => setF('notes', e.target.value)}
-              rows={3}
-              placeholder="Incluye revisiones ilimitadas, soporte 15 días post-entrega..."
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-white
-                placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500
-                transition-colors resize-none"
-            />
-          </div>
-        </div>
-
-        {/* Panel footer */}
-        <div className="shrink-0 flex gap-3 px-6 py-4 border-t border-slate-800">
-          <button type="button" onClick={closePanel}
-            className="flex-1 px-4 py-2.5 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg text-sm font-semibold transition-colors"
-          >
-            Cancelar
-          </button>
-          <button onClick={handleSave} disabled={saving || !form.clientId || form.items.length === 0}
-            className="flex-1 px-4 py-2.5 bg-sky-500 hover:bg-sky-400 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-sm font-semibold transition-colors"
-          >
-            {saving ? 'Guardando...' : editing ? 'Actualizar Cotización' : 'Crear Cotización'}
-          </button>
-        </div>
       </div>
     </div>
   );

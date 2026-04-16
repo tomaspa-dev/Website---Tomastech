@@ -52,13 +52,16 @@ function ReportCard({
 // ── Export helpers ────────────────────────────────────────────
 
 function downloadCSV(filename: string, rows: string[][]) {
+  const dt   = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
   const csv  = rows.map((r) => r.map((v) => `"${(v ?? '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
   const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
   const a    = document.createElement('a');
   a.href     = URL.createObjectURL(blob);
-  a.download = `${filename}_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `${filename}_${dt}.csv`;
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(a.href);
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 300);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -150,7 +153,7 @@ export function ReportsModule() {
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        <div className="p-6 space-y-6 max-w-5xl mx-auto">
+        <div className="p-6 space-y-6">
 
           {/* Period filter */}
           <div className="flex items-center gap-2">

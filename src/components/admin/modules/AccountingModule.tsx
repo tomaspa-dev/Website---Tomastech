@@ -173,12 +173,16 @@ export function AccountingModule() {
         e.category, e.description, e.amount.toFixed(2), e.currency, e.notes,
       ]),
     ];
+    const dt   = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
     const csv  = rows.map((r) => r.map((v) => `"${v}"`).join(',')).join('\n');
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
     const a    = document.createElement('a');
     a.href     = URL.createObjectURL(blob);
-    a.download = `Contabilidad_Tomastech_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `Contabilidad_Tomastech_${dt}.csv`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 300);
   };
 
   // ── Category bar max value ─────────────────────────────────
@@ -222,7 +226,7 @@ export function AccountingModule() {
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        <div className="p-6 space-y-6 max-w-6xl mx-auto">
+        <div className="p-6 space-y-6">
 
           {/* KPI Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
