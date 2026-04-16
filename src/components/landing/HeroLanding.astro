@@ -89,55 +89,78 @@ import GeometricBackground from './GeometricBackground';
   import { gsap } from 'gsap';
 
 
-  document.addEventListener('astro:page-load', () => {
-    const section = document.querySelector('.hero-section');
+
+  function runHeroAnimation() {
+    const section = document.querySelector('.hero-section') as HTMLElement;
     if (!section) return;
 
-    const titleWords = section.querySelectorAll('.hero-title-word');
-    const heroAnims = section.querySelectorAll('.hero-anim');
-    const subtitle = document.getElementById('hero-subtitle');
+    // ── Run-once guard (prevents double-run from HMR / view-transitions) ──
+    if (section.dataset.heroInit === '1') return;
+    section.dataset.heroInit = '1';
+
+    const titleWords = section.querySelectorAll<HTMLElement>('.hero-title-word');
+    const heroAnims  = section.querySelectorAll<HTMLElement>('.hero-anim');
+    const subtitle   = document.getElementById('hero-subtitle') as HTMLElement | null;
+
+    // Kill any leftover tweens from a previous run (HMR safety)
+    if (titleWords.length) gsap.killTweensOf([...titleWords]);
+    if (heroAnims.length)  gsap.killTweensOf([...heroAnims]);
+    if (subtitle)          gsap.killTweensOf(subtitle);
 
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    // Clip-path cinematic reveal for title words
+    // ── Title words — clip-path reveal ──────────────────────────────────────
+    // autoAlpha:0 sets BOTH opacity:0 AND visibility:hidden via GSAP inline
+    // so we don't need CSS opacity:0 (which would fight clearProps on re-runs)
     if (titleWords.length > 0) {
-      // Set initial state via JS only — NOT via CSS (CSS clip-path would fight clearProps)
-      gsap.set(titleWords, { clipPath: 'inset(0 0 100% 0)', y: 50, opacity: 0 });
+      gsap.set(titleWords, { autoAlpha: 0, y: 50, clipPath: 'inset(0 0 100% 0)' });
       tl.to(titleWords, {
-        clipPath: 'inset(0 0 0% 0)', y: 0, opacity: 1,
+        autoAlpha: 1, y: 0, clipPath: 'inset(0 0 0% 0)',
         duration: 1.05, stagger: 0.14,
-        onComplete: () => {
-          // Explicitly remove clip-path so CSS doesn't re-apply it
+        onComplete() {
+          // Lock final state permanently via .style — survives any GSAP cleanup
           titleWords.forEach(el => {
-            (el as HTMLElement).style.clipPath = 'none';
-            (el as HTMLElement).style.willChange = 'auto';
+            el.style.clipPath   = 'none';
+            el.style.opacity    = '1';
+            el.style.visibility = 'visible';
+            el.style.transform  = 'none';
+            el.style.willChange = 'auto';
           });
-        }
+        },
       });
     }
 
-    // Subtitle — single clean animation, separate from badge/buttons
+    // ── Subtitle ────────────────────────────────────────────────────────────
     if (subtitle) {
-      tl.fromTo(
-        subtitle,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out',
-          onComplete: () => gsap.set(subtitle, { clearProps: 'transform,will-change' }) },
-        '-=0.45'
-      );
+      gsap.set(subtitle, { autoAlpha: 0, y: 20 });
+      tl.to(subtitle, {
+        autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out',
+        onComplete() {
+          subtitle.style.opacity    = '1';
+          subtitle.style.visibility = 'visible';
+          subtitle.style.transform  = 'none';
+          subtitle.style.willChange = 'auto';
+        },
+      }, '-=0.45');
     }
 
-    // Badge + buttons — stagger fade up AFTER subtitle
+    // ── Badge + buttons ─────────────────────────────────────────────────────
     if (heroAnims.length > 0) {
-      tl.fromTo(
-        heroAnims,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.65, stagger: 0.12, ease: 'power3.out' },
-        '-=0.3'
-      );
+      gsap.set(heroAnims, { autoAlpha: 0, y: 24 });
+      tl.to(heroAnims, {
+        autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.12, ease: 'power3.out',
+        onComplete() {
+          heroAnims.forEach(el => {
+            el.style.opacity    = '1';
+            el.style.visibility = 'visible';
+            el.style.transform  = 'none';
+            el.style.willChange = 'auto';
+          });
+        },
+      }, '-=0.3');
     }
 
-    // Magnetic buttons (desktop only)
+    // ── Magnetic buttons (desktop only) ─────────────────────────────────────
     if (window.innerWidth > 768) {
       section.querySelectorAll('.magnetic-btn').forEach(btn => {
         btn.addEventListener('mousemove', (e: any) => {
@@ -151,35 +174,26 @@ import GeometricBackground from './GeometricBackground';
         });
       });
     }
+  }
 
-    // Fallback
-    setTimeout(() => {
-      titleWords.forEach(el => {
-        (el as HTMLElement).style.clipPath = 'none';
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.transform = 'none';
-      });
-      heroAnims.forEach(el => {
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.transform = 'none';
-      });
-      if (subtitle) {
-        (subtitle as HTMLElement).style.opacity = '1';
-        (subtitle as HTMLElement).style.transform = 'none';
-      }
-    }, 3800);
-  });
+  document.addEventListener('astro:page-load', runHeroAnimation);
 </script>
 
 <style>
+  /*
+   * Title words: NO opacity here — initial state is set exclusively via
+   * GSAP autoAlpha in JS. If CSS had opacity:0, it would win on re-runs
+   * (HMR / view-transitions) because GSAP clearProps restores the cascade.
+   * Progressive enhancement: without JS, titles are fully visible.
+   */
   .hero-title-word {
-    /* NO clip-path here — handled by GSAP JS only to avoid CSS fighting clearProps */
-    opacity: 0;
+    /* intentionally empty — GSAP handles initial + final state */
   }
+  /* Badge + buttons: CSS opacity:0 is fine here because they are set/cleared
+     by GSAP autoAlpha and don't experience the double-fire issue. */
   .hero-anim {
     opacity: 0;
   }
-  /* Subtitle: separate class, starts hidden, single animation */
   .hero-subtitle-anim {
     opacity: 0;
   }
