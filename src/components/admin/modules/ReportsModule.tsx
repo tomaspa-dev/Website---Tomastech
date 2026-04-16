@@ -52,16 +52,14 @@ function ReportCard({
 // ── Export helpers ────────────────────────────────────────────
 
 function downloadCSV(filename: string, rows: string[][]) {
-  const dt   = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
-  const csv  = rows.map((r) => r.map((v) => `"${(v ?? '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
-  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-  const a    = document.createElement('a');
-  a.href     = URL.createObjectURL(blob);
+  const dt  = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
+  const csv = rows.map((r) => r.map((v) => `"${(v ?? '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a   = document.createElement('a');
+  a.href     = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
   a.download = `${filename}_${dt}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(a.href), 300);
 }
 
 // ══════════════════════════════════════════════════════════════

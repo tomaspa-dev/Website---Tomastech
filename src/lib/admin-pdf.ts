@@ -39,10 +39,17 @@ function ts(): string {
 }
 
 // ── Download helper ───────────────────────────────────────────
+// Use data URI + anchor instead of blob URL — Chrome always respects
+// the `download` attribute on data URIs, guaranteeing filename + .pdf extension.
 function download(doc: jsPDF, fileName: string): void {
-  // Ensure always .pdf extension
   const safe = fileName.endsWith('.pdf') ? fileName : `${fileName}.pdf`;
-  doc.save(safe);
+  const dataUri = doc.output('datauristring');
+  const a = document.createElement('a');
+  a.href = dataUri;
+  a.download = safe;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 // ── Format date ───────────────────────────────────────────────

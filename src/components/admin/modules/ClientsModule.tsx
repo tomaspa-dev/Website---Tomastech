@@ -282,14 +282,14 @@ export function ClientsModule() {
       ['Nombre', 'Tipo Doc', 'Número Doc', 'Email', 'Teléfono', 'País', 'Dirección', 'Estado'],
       ...filtered.map((c) => [c.name, c.documentType, c.documentNumber, c.email, c.phone, c.country, c.address, c.status]),
     ];
-    const csv  = rows.map((r) => r.map((v) => `"${v}"`).join(',')).join('\n');
-    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href = url;
-    a.download = `Clientes_Tomastech_${new Date().toISOString().slice(0, 10)}.csv`;
+    const dt  = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '-');
+    const csv = rows.map((r) => r.map((v) => `"${(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const a   = document.createElement('a');
+    a.href     = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+    a.download = `Clientes_Tomastech_${dt}.csv`;
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   // ──────────────────────────────────────────────────────────
