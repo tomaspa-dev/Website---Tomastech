@@ -38,3 +38,11 @@ src/__tests__/
 
 # Temp scripts
 fix-encoding.mjs
+
+# ── Business docs & internal files ──
+AAA Base/
+PRD-*.md
+agents.md
+src/components/billing/
+src/lib/billing-*.ts
+vitest.config.ts
