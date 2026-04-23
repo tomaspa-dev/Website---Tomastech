@@ -22,3 +22,19 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# ── Admin Panel (private — never push to GitHub) ──
+src/components/admin/
+src/components/client/
+src/components/dashboard/
+src/pages/panel-*.astro
+src/pages/client-access.astro
+src/pages/dashboard.astro
+src/layouts/AdminLayout.astro
+src/lib/admin-store.ts
+src/lib/admin-pdf.ts
+src/lib/security.ts
+src/__tests__/
+
+# Temp scripts
+fix-encoding.mjs
