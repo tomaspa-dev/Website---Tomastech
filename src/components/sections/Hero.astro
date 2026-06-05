@@ -3,7 +3,7 @@ import PortfolioCanvas from './PortfolioCanvas';
 import TechOrbit from './TechOrbit';
 ---
 
-<section class="pf-hero relative min-h-screen flex items-center overflow-hidden" id="hero">
+<section class="pf-hero relative flex flex-col md:min-h-screen md:justify-center overflow-hidden" id="hero">
   <div class="absolute inset-0 z-0 pf-hero-bg transition-colors duration-500"></div>
 
   <div class="absolute inset-0 z-[1]">
@@ -12,8 +12,8 @@ import TechOrbit from './TechOrbit';
 
   <div class="absolute inset-0 z-[2] pf-hero-vignette pointer-events-none"></div>
 
-  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-24 pb-16 md:pt-28">
-    <div class="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-0">
+  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-24 pb-1 md:pt-28 md:pb-16 flex-1 flex items-center">
+    <div class="flex flex-col lg:flex-row items-center lg:items-center gap-8 md:gap-12 lg:gap-0 w-full">
 
       <!-- LEFT: Text -->
       <div class="flex-1 max-w-2xl">
@@ -90,9 +90,9 @@ import TechOrbit from './TechOrbit';
   </div>
 
   <!-- Mouse scroll indicator -->
-  <div class="pf-scroll-cta absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+  <div class="pf-scroll-cta relative z-10 flex flex-col items-center gap-1.5 md:gap-2 py-0 mb-8 md:py-6 md:mb-0 md:absolute md:bottom-8 md:left-1/2 md:-translate-x-1/2">
     <!-- Animated mouse SVG -->
-    <svg width="28" height="40" viewBox="0 0 28 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="pf-mouse-icon">
+    <svg width="24" height="34" viewBox="0 0 28 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="pf-mouse-icon md:w-7 md:h-10">
       <rect x="1.5" y="1.5" width="25" height="37" rx="12.5" class="pf-mouse-body" stroke-width="1.5"/>
       <rect x="12.5" y="8" width="3" height="8" rx="1.5" class="pf-mouse-wheel" fill="currentColor"/>
     </svg>

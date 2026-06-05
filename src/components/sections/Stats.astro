@@ -1,6 +1,4 @@
----
-import StatsCounter from '../ui/StatsCounter';
-
+﻿---
 const stats = [
   { value: 50, label: "Projects Delivered", suffix: "+" },
   { value: 3,  label: "Years Experience",   suffix: "+" },
@@ -9,17 +7,69 @@ const stats = [
 ];
 ---
 
-<section class="py-14 border-y border-border bg-surface">
+<section class="stats-section py-6 md:py-14 border-y border-border bg-surface">
   <div class="container mx-auto px-4">
-    <div class="flex flex-wrap justify-center items-center divide-y md:divide-y-0 md:divide-x divide-border rounded-2xl max-w-4xl mx-auto">
+    <div class="flex flex-wrap justify-center items-center md:divide-x divide-border rounded-2xl max-w-4xl mx-auto">
       {stats.map((stat) => (
-        <div class="w-full md:w-1/4 px-6 py-4 md:py-0 text-center">
-          <div class="text-3xl md:text-4xl font-bold text-text-primary mb-1 flex justify-center tracking-tight font-heading">
-            <StatsCounter client:visible value={stat.value} suffix={stat.suffix} />
+        <div class="w-1/2 md:w-1/4 px-4 sm:px-6 py-4 md:py-0 text-center">
+          <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-1 flex justify-center tracking-tight font-heading tabular-nums">
+            <span class="stat-num" data-target={stat.value}>{stat.value}</span>{stat.suffix}
           </div>
-          <p class="text-text-muted text-xs font-medium uppercase tracking-wider">{stat.label}</p>
+          <p class="text-text-muted text-[10px] sm:text-xs font-medium uppercase tracking-wider">{stat.label}</p>
         </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const section = document.querySelector('.stats-section');
+    if (!section) return;
+
+    const counters = section.querySelectorAll('.stat-num');
+    let animated = false;
+
+    const runAnimation = () => {
+      if (animated) return;
+      animated = true;
+
+      counters.forEach((el) => {
+        const target = parseInt(el.getAttribute('data-target') || '0', 10);
+        const duration = 2000;
+        const start = performance.now();
+
+        // Reset to 0 before animating
+        el.textContent = '0';
+
+        const tick = (now: number) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target).toString();
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+
+        requestAnimationFrame(tick);
+      });
+    };
+
+    // Use IntersectionObserver to trigger when visible
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            runAnimation();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(section);
+    } else {
+      // Fallback: animate immediately
+      runAnimation();
+    }
+  });
+</script>

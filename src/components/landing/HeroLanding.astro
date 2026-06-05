@@ -1,9 +1,9 @@
----
+﻿---
 import { ArrowRight } from 'lucide-react';
 import GeometricBackground from './GeometricBackground';
 ---
 
-<section class="hero-section relative min-h-screen flex items-center overflow-hidden" id="hero">
+<section class="hero-section relative flex flex-col md:min-h-screen md:justify-center overflow-hidden" id="hero">
   {/* Theme-aware background */}
   <div class="absolute inset-0 z-0 hero-bg transition-colors duration-500"></div>
 
@@ -16,7 +16,7 @@ import GeometricBackground from './GeometricBackground';
   <div class="absolute inset-0 z-[2] hero-overlay-lr"></div>
   <div class="absolute inset-0 z-[2] hero-overlay-tb"></div>
 
-  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-8 pb-6 sm:pt-14 sm:pb-8 md:pt-20 md:pb-12 lg:pt-24">
+  <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-14 lg:px-20 relative z-10 pt-24 pb-6 sm:pt-28 sm:pb-8 md:pt-20 md:pb-12 lg:pt-24">
     <div class="max-w-5xl">
       {/* Badge */}
       <div class="hero-anim mb-4 sm:mb-5 md:mb-6">
@@ -54,7 +54,7 @@ import GeometricBackground from './GeometricBackground';
       </p>
 
       {/* CTA Buttons */}
-      <div class="hero-anim flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-[280px] sm:max-w-none mb-10 sm:mb-12">
+      <div class="hero-anim flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-[280px] sm:max-w-none mb-6 sm:mb-8">
         <a
           href="#contact"
           class="magnetic-btn group relative inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold font-heading text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 shadow-glow-primary hover:shadow-[0_0_40px_rgba(129,140,248,0.5)]"
