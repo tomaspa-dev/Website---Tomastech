@@ -5,11 +5,9 @@ import { projects, type Project } from '../../data/projects';
 
 const categories = [
   'All',
-  'Landing Pages',
-  'Corporate Websites',
   'Web Applications',
-  'WordPress Themes',
-  'Extensions',
+  'Corporate Websites',
+  'Landing Pages',
 ];
 
 // Attach a one-shot IntersectionObserver to a card so it fades in when visible
@@ -44,8 +42,8 @@ export default function PortfolioGrid() {
 
   const filteredProjects =
     selectedCategory === 'All'
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+      ? projects.filter((p) => !p.hidden)
+      : projects.filter((p) => p.category === selectedCategory && !p.hidden);
 
   // ── Modal handlers ─────────────────────────────────────────────────────────
   const handleOpenModal = (project: Project) => {

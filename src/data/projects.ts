@@ -6,6 +6,7 @@ export interface Project {
   image: string;
   tags: string[];
   link?: string;
+  hidden?: boolean;
   details: {
     concept: string;
     features: string[];
@@ -23,12 +24,12 @@ export const projects: Project[] = [
     category: 'Landing Pages',
     description: 'Vibrant landing page for summer clothing collection with fluid animations.',
     image: '/img/summerwave.webp',
-    tags: ['Astro', 'React', 'Tailwind', 'GSAP'],
+    tags: ['Astro', 'React', 'Tailwind', 'Framer Motion'],
     link: 'https://summerwave.netlify.app/',
     details: {
       concept: 'Promotional landing page for summer season launch.',
-      features: ['Looks carousel', 'Entry animations', 'Custom cursor', 'Smooth scroll'],
-      stack: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
+      features: ['Looks carousel', 'Entry animations', 'Countdown banner', 'Smooth scroll', 'Style quiz', 'Product gallery'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'Framer Motion'],
       time: '5-7 days',
       metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
     }
@@ -39,13 +40,14 @@ export const projects: Project[] = [
     category: 'Landing Pages',
     description: 'Gala dress boutique with premium user experience.',
     image: '/img/elegancegala.webp',
-    tags: ['Astro', 'React', 'Three.js', 'Framer Motion'],
+    tags: ['Astro', 'React', 'Tailwind', 'Framer Motion'],
     link: 'https://elegancegala.netlify.app/',
     details: {
       concept: 'Landing for gala dress boutique and elegant women\'s fashion.',
-      features: ['Hero slider', 'Interactive lookbook', '360° view', 'Appointment booking'],
-      stack: ['Astro', 'React', 'TailwindCSS', 'Three.js'],
-      time: '5-7 days'
+      features: ['Hero video', 'Interactive lookbook', 'Virtual stylist', 'Appointment booking'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'Framer Motion'],
+      time: '5-7 days',
+      metrics: ['Lighthouse Score: >90', 'FCP: <2.5s']
     }
   },
   {
@@ -54,13 +56,14 @@ export const projects: Project[] = [
     category: 'Landing Pages',
     description: 'Premium tech landing for smartwatch and fitness app.',
     image: '/img/fitpro.webp',
-    tags: ['Astro', 'Three.js', 'React Three Fiber'],
-    link: '#',
+    tags: ['Astro', 'React', 'GSAP'],
+    link: 'https://fit-pro-tracker.netlify.app/',
     details: {
       concept: 'Landing for smartwatch/fitness app with premium tech design.',
-      features: ['3D product animation', 'Scroll-triggered animations', 'Plans comparison'],
-      stack: ['Astro', 'React', 'Three.js', 'GSAP'],
-      time: '7-10 days'
+      features: ['3D product showcase', 'Interactive app demo', 'Scroll-triggered animations', 'Plans comparison', 'FAQ accordion'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
+      time: '7-10 days',
+      metrics: ['Lighthouse Score: >95', 'FCP: <2.5s']
     }
   },
   {
@@ -69,13 +72,14 @@ export const projects: Project[] = [
     category: 'Landing Pages',
     description: 'Delicious visual experience for artisan ice cream shop.',
     image: '/img/gelatoart.webp',
-    tags: ['Astro', 'Lottie', 'Google Maps API'],
-    link: '#',
+    tags: ['Astro', 'React', 'GSAP'],
+    link: 'https://gelatoart.netlify.app/',
     details: {
       concept: 'Delicious and colorful landing for artisan ice cream shop.',
-      features: ['Video hero', 'Drip animations', 'Store locator', 'PDF menu'],
-      stack: ['Astro', 'React', 'TailwindCSS', 'Lottie'],
-      time: '5-7 days'
+      features: ['Flavor carousel', 'Drip animations', 'Store locator', 'PDF menu', 'Special of the month', 'Allergen table'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
+      time: '5-7 days',
+      metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
     }
   },
 
@@ -101,13 +105,14 @@ export const projects: Project[] = [
     category: 'Corporate Websites',
     description: 'Robust website for construction company with project portfolio.',
     image: '/img/buildpro.webp',
-    tags: ['Astro', 'Strapi', 'SEO'],
-    link: '#',
+    tags: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
+    link: 'https://build-pro-es.netlify.app/',
     details: {
       concept: 'Corporate website for construction company.',
-      features: ['Filterable project gallery', 'History timeline', 'Multi-step quoter'],
-      stack: ['Astro', 'React', 'Strapi', 'TailwindCSS'],
-      time: '2-3 weeks'
+      features: ['Filterable project gallery', 'History timeline', 'Multi-step quoter', 'Legal pages', 'SEO & sitemap'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
+      time: '2-3 weeks',
+      metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
     }
   },
 
@@ -116,6 +121,7 @@ export const projects: Project[] = [
     id: 'matchvibe',
     title: 'MatchVibe - Dating App',
     category: 'Web Applications',
+    hidden: true,
     description: 'Dating social network based on real interests (Spotify + Netflix).',
     image: '/img/matchvibe.webp',
     tags: ['Next.js', 'Socket.io', 'WebRTC', 'Spotify API'],
@@ -131,6 +137,7 @@ export const projects: Project[] = [
     id: 'namegenius',
     title: 'NameGenius - AI Naming',
     category: 'Web Applications',
+    hidden: true,
     description: 'AI-powered name generator for babies and pets.',
     image: '/img/namegenius.webp',
     tags: ['React', 'OpenAI API', 'Supabase'],
@@ -146,6 +153,7 @@ export const projects: Project[] = [
     id: 'storygen',
     title: 'StoryGen Kids',
     category: 'Web Applications',
+    hidden: true,
     description: 'Personalized children\'s story generator with AI illustrations.',
     image: '/img/storygen.webp',
     tags: ['Next.js', 'DALL-E 3', 'ElevenLabs'],
@@ -163,6 +171,7 @@ export const projects: Project[] = [
     id: 'fashionhub',
     title: 'FashionHub Theme',
     category: 'WordPress Themes',
+    hidden: true,
     description: 'WooCommerce theme specialized for women\'s fashion stores.',
     image: '/img/fashionhub.webp',
     tags: ['WordPress', 'WooCommerce', 'Elementor'],
@@ -180,6 +189,7 @@ export const projects: Project[] = [
     id: 'codesnippets',
     title: 'CodeSnippets Pro',
     category: 'Extensions',
+    hidden: true,
     description: 'VSCode extension for intelligent snippet management with AI.',
     image: '/img/CodeSnippetsPro.webp',
     tags: ['VSCode API', 'TypeScript', 'AI'],
