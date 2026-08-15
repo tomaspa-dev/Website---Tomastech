@@ -4,24 +4,24 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What is your typical timeline for a project?",
-    answer: "Timelines vary based on complexity. A standard landing page typically takes 3-4 weeks, while a full corporate website or e-commerce store can take 8-12 weeks. We provide a detailed timeline during our initial consultation."
+    question: "Can you build more than a website?",
+    answer: "Yes. I also build custom web applications, internal business tools, dashboards, automation workflows and business systems."
   },
   {
-    question: "Do you offer post-launch support?",
-    answer: "Absolutely. We offer 30 days of free support after launch to ensure everything runs smoothly. Beyond that, we have maintenance packages to keep your site secure, updated, and optimized."
+    question: "Can you integrate existing tools?",
+    answer: "Yes. Applications can integrate with APIs, CRMs, payment systems, storage platforms and other services depending on the requirements."
   },
   {
-    question: "Can you help with branding and content?",
-    answer: "Yes! While our core focus is development, we partner with expert copywriters and designers to provide a full-service package if you need help with logos, brand identity, or website copy."
+    question: "Can AI be incorporated into my application?",
+    answer: "Yes, when it provides a meaningful business benefit such as document processing, classification, reporting or workflow automation."
   },
   {
-    question: "What platforms do you use?",
-    answer: "We specialize in modern stacks like Astro, React, and Next.js for custom performance sites. For e-commerce, we are experts in Shopify and WooCommerce, and custom development. We choose the best tool for your specific goals."
+    question: "Do you work with existing systems?",
+    answer: "Yes. New functionality can often be integrated into an existing workflow instead of replacing everything."
   },
   {
-    question: "How does payment work?",
-    answer: "We typically work with a 50% deposit to start the project and the remaining 50% upon completion and your final approval, before the site goes live."
+    question: "How do you determine the cost?",
+    answer: "After understanding the business problem, users, workflows and scope, I propose an appropriate solution and project estimate."
   }
 ];
 
@@ -37,7 +37,7 @@ export default function FAQ() {
             Common Questions
           </h2>
           <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--color-text-secondary)' }}>
-            Everything you need to know about working with us.
+            Straightforward answers about process, capabilities and project scoping.
           </p>
         </div>
 

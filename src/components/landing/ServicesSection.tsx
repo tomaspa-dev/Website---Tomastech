@@ -20,80 +20,80 @@ const services: ServiceDetail[] = [
   {
     icon: Monitor,
     title: "Web Applications",
-    shortDesc: "Custom ERP systems, dashboards, and business management platforms built for scalability and performance.",
+    shortDesc: "Custom web applications, dashboards, client portals and business platforms built for scalability and performance.",
     gradient: "from-indigo-400 to-indigo-600",
     glow: "rgba(129, 140, 248, 0.15)",
     iconColor: "text-indigo-400",
-    modalTitle: "Web Applications & ERP Systems",
-    modalDesc: "We build custom web applications tailored to your business processes — from inventory management and billing systems to full-scale ERPs with role-based access, real-time analytics, and automated workflows.",
-    features: ["Custom ERP development", "Billing & invoicing systems", "Real-time dashboards & analytics", "Role-based access control", "API integrations", "Automated workflows"],
-    techStack: ["React / Next.js", "Node.js / Python", "PostgreSQL / MongoDB", "REST & GraphQL APIs"],
-    useCases: ["Business management platforms", "Inventory & supply chain", "Client portals", "Financial reporting systems"],
+    modalTitle: "Web Applications & Platforms",
+    modalDesc: "Custom web applications tailored to your business processes — from client portals and operational dashboards to complex multi-role platforms with real-time updates and high reliability.",
+    features: ["Custom web app development", "Real-time dashboards & analytics", "Role-based access control (RBAC)", "Authentication & security", "API integrations", "Scalable cloud architecture"],
+    techStack: ["React / Next.js", "Node.js / TypeScript", "PostgreSQL / Redis", "TailwindCSS"],
+    useCases: ["Business management platforms", "Client & vendor portals", "Operational dashboards", "SaaS products"],
   },
   {
-    icon: MapPin,
-    title: "GPS & Location Apps",
-    shortDesc: "Real-time tracking, route optimization, and location-based services for logistics and fleet management.",
+    icon: Database,
+    title: "Business Systems",
+    shortDesc: "ERP, inventory, sales, logistics and operational systems built around how your business works.",
     gradient: "from-emerald-400 to-emerald-600",
     glow: "rgba(52, 211, 153, 0.15)",
     iconColor: "text-emerald-400",
-    modalTitle: "GPS & Location-Based Applications",
-    modalDesc: "We develop applications with real-time geolocation capabilities — fleet tracking, delivery route optimization, geofencing, and custom mapping solutions integrated with Google Maps, Mapbox, or Leaflet.",
-    features: ["Real-time GPS tracking", "Route optimization", "Geofencing & alerts", "Custom map interfaces", "Vehicle fleet management", "Delivery tracking systems"],
-    techStack: ["Google Maps API / Mapbox", "WebSocket for real-time data", "React / React Native", "Node.js backend"],
-    useCases: ["Delivery & logistics platforms", "Fleet management", "Field service tracking", "Ride-sharing applications"],
+    modalTitle: "Business Systems & Custom ERP",
+    modalDesc: "End-to-end business management platforms designed around your specific operational workflows — unifying sales, inventory, purchasing, logistics and accounting.",
+    features: ["Custom ERP development", "Inventory & warehouse tracking", "Purchasing & sales workflows", "Route & delivery management", "Automated report generation", "Audit trail & compliance"],
+    techStack: ["Node.js / TypeScript", "PostgreSQL / PostGIS", "React / Next.js", "Redis / WebSockets"],
+    useCases: ["Distribution companies", "Wholesale & retail operations", "Supply chain & logistics", "Manufacturing workflows"],
   },
   {
-    icon: Database, // Will change to Bot/Brain if available, for now Database fits "data/intelligence"
+    icon: Database,
     title: "AI & Automation",
-    shortDesc: "Autonomous agents, custom LLMs, and intelligent workflow automation to supercharge your business efficiency.",
+    shortDesc: "Autonomous agents, custom LLMs, document processing and intelligent workflow automation to supercharge your business efficiency.",
     gradient: "from-violet-400 to-violet-600",
     glow: "rgba(167, 139, 250, 0.15)",
     iconColor: "text-violet-400",
     modalTitle: "AI & Intelligent Automation",
-    modalDesc: "We integrate cutting-edge Artificial Intelligence into your business core — from custom AI agents that handle tasks autonomously to intelligent data processing and LLM-powered interfaces.",
-    features: ["Autonomous AI Agents", "Custom LLM Integration", "Natural Language Processing", "AI-powered data analytics", "Intelligent workflow automation", "Predictive modeling"],
-    techStack: ["OpenAI / Anthropic", "LangChain / LlamaIndex", "Python / FastAPI", "Pinecone (Vector DB)"],
-    useCases: ["Intelligent customer support", "Automated document processing", "AI-driven decision making", "Predictive maintenance systems"],
-  },
-  {
-    icon: Globe,
-    title: "Landing Pages",
-    shortDesc: "High-converting, SEO-optimized landing pages and corporate websites that capture leads and build trust.",
-    gradient: "from-pink-400 to-pink-600",
-    glow: "rgba(244, 114, 182, 0.15)",
-    iconColor: "text-pink-400",
-    modalTitle: "Landing Pages & Corporate Websites",
-    modalDesc: "We craft premium landing pages and corporate websites designed to convert — with SEO-first architecture, stunning animations, A/B testing readiness, and analytics integration to maximize your ROI.",
-    features: ["SEO-first architecture", "Responsive design", "Performance-optimized (90+ Lighthouse)", "Analytics integration", "Contact form & CRM hooks", "A/B testing ready"],
-    techStack: ["Astro / Next.js", "TailwindCSS", "GSAP animations", "Netlify / Vercel"],
-    useCases: ["Product launches", "Corporate websites", "Portfolio sites", "Event & campaign pages"],
+    modalDesc: "We integrate practical Artificial Intelligence into your business — from automated document extraction and classification to intelligent agents and workflow automation pipelines.",
+    features: ["Document AI & OCR extraction", "Autonomous AI Agents", "Custom LLM Integration", "Intelligent workflow queues", "Human-in-the-loop validation", "Predictive data analytics"],
+    techStack: ["OpenAI / Claude Vision", "Python / Node.js", "BullMQ / Redis", "PostgreSQL"],
+    useCases: ["Automated invoice & document processing", "Customer support intelligence", "Data extraction & transformation", "Workflow automation"],
   },
   {
     icon: Database,
-    title: "API & Backend",
-    shortDesc: "Robust backends, RESTful APIs, database architecture, and cloud deployment for your applications.",
+    title: "API & Integrations",
+    shortDesc: "Connect existing tools, APIs and business systems into a more efficient digital workflow.",
     gradient: "from-amber-400 to-amber-600",
     glow: "rgba(251, 191, 36, 0.15)",
     iconColor: "text-amber-400",
-    modalTitle: "API Development & Backend Services",
-    modalDesc: "We design and build robust API architectures and backend services — from database modeling and authentication to cloud deployment and serverless functions, ensuring your data flows securely and efficiently.",
-    features: ["RESTful & GraphQL APIs", "Database design & optimization", "Authentication & security", "Cloud deployment (AWS, GCP)", "Serverless functions", "CI/CD pipelines"],
-    techStack: ["Node.js / Python / Go", "PostgreSQL / MongoDB", "Docker & Kubernetes", "AWS / GCP / Netlify"],
-    useCases: ["SaaS backends", "Mobile app APIs", "Microservices architecture", "Third-party integrations"],
+    modalTitle: "API Development & System Integrations",
+    modalDesc: "Connect disparate software, third-party APIs, payment gateways and legacy databases into unified, secure and observable backend workflows.",
+    features: ["REST & GraphQL API design", "Third-party system integrations", "Webhook & event-driven architecture", "Database modeling & migrations", "Authentication & rate limiting", "Monitoring & logging"],
+    techStack: ["Node.js / Express", "PostgreSQL", "Docker", "REST / Webhooks"],
+    useCases: ["CRM & ERP integrations", "Payment gateway connectivity", "External data feeds", "Microservices communication"],
+  },
+  {
+    icon: Globe,
+    title: "Websites",
+    shortDesc: "Fast, modern websites designed to attract customers, build credibility and support your business.",
+    gradient: "from-pink-400 to-pink-600",
+    glow: "rgba(244, 114, 182, 0.15)",
+    iconColor: "text-pink-400",
+    modalTitle: "Modern Websites & High-Performance Pages",
+    modalDesc: "High-performance, beautifully crafted corporate websites and landing pages built with modern web architecture to maximize visibility and conversion.",
+    features: ["SEO-first architecture", "Lightning-fast loading (95+ Lighthouse)", "Responsive mobile-first design", "Fluid micro-animations", "Contact & lead capture forms", "Analytics & tracking setup"],
+    techStack: ["Astro / React", "TailwindCSS", "GSAP / Framer Motion", "Netlify / Cloudflare"],
+    useCases: ["Corporate websites", "Product & service landing pages", "Portfolio & showcase sites", "Campaign pages"],
   },
   {
     icon: Palette,
     title: "UI/UX Design",
-    shortDesc: "User-centered design with wireframing, prototyping, and design systems that elevate your brand identity.",
+    shortDesc: "Clear, intuitive interfaces designed around how people actually use your product.",
     gradient: "from-cyan-400 to-cyan-600",
     glow: "rgba(34, 211, 238, 0.15)",
     iconColor: "text-cyan-400",
-    modalTitle: "UI/UX Design & Branding",
-    modalDesc: "We design beautiful, user-centered interfaces backed by research and best practices — from wireframes and interactive prototypes to complete design systems and brand identity guidelines.",
-    features: ["User research & personas", "Wireframing & prototyping", "Design system creation", "Responsive design", "Accessibility (WCAG)", "Brand identity"],
-    techStack: ["Figma", "Framer", "Storybook"],
-    useCases: ["App redesigns", "New product design", "Brand refresh", "Design system setup"],
+    modalTitle: "UI/UX Design & Product Experience",
+    modalDesc: "User-centered design backed by usability principles — crafting intuitive layouts, interactive prototypes and consistent design systems that make software a joy to use.",
+    features: ["User research & workflows", "Wireframing & interactive prototypes", "Design systems & component libraries", "Accessibility & responsiveness", "Design-to-code handoff", "Brand consistency"],
+    techStack: ["Figma", "Design Systems", "Prototyping"],
+    useCases: ["Web app interfaces", "Dashboard UI/UX", "Mobile-responsive layouts", "Design system creation"],
   },
 ];
 
@@ -162,7 +162,7 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
               <Icon size={24} className={service.iconColor} />
             </div>
             <div>
-              <h3 className="svc-modal-h text-xl md:text-2xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              <h3 className="svc-modal-h text-2xl md:text-3xl font-bold" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 {service.modalTitle}
               </h3>
             </div>
@@ -179,18 +179,6 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
                   <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
                   {f}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tech Stack */}
-          <div className="mb-6">
-            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Tech Stack</h4>
-            <div className="flex flex-wrap gap-2">
-              {service.techStack.map((t, i) => (
-                <span key={i} className="svc-modal-tag px-3 py-1.5 text-xs font-medium rounded-full">
-                  {t}
-                </span>
               ))}
             </div>
           </div>
@@ -231,19 +219,24 @@ export default function ServicesSection() {
 
   return (
     <>
-      <section className="relative overflow-hidden py-24 md:py-32" id="services" style={{ background: 'var(--color-bg)' }}>
-        {/* Section gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/[0.02] to-transparent pointer-events-none" />
+      <section className="py-24 lg:py-32 relative overflow-hidden" id="services" style={{ backgroundColor: 'var(--color-bg)' }}>
+        {/* Background gradient accents */}
+        <div className="absolute inset-0 section-gradient opacity-60 pointer-events-none" />
+        <div className="absolute top-1/2 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 relative z-10">
           {/* Header */}
           <div className="text-center mb-16 md:mb-20">
             <span className="inline-block text-indigo-400 font-semibold tracking-wider uppercase text-xs md:text-sm mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>What We Build</span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-5 tracking-tight" style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
-              Services That <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Deliver Results</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 tracking-tight leading-[1.1]" style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
+              From websites to <br className="hidden sm:block" />
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                business software
+              </span>
             </h2>
             <p className="max-w-2xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-              From custom web applications to high-converting landing pages — we build digital solutions that drive your business forward.
+              Whether you need a high-performance website, a customer portal, an internal system or a custom business application, I design and build the right solution for your needs.
             </p>
           </div>
           

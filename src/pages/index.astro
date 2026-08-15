@@ -9,9 +9,16 @@ import FAQ from '../components/landing/FAQ';
 import Pricing from '../components/sections/Pricing.astro';
 import ConversionCTA from '../components/landing/ConversionCTA.astro';
 import Footer from '../components/common/Footer.astro';
+const pageTitle = "Custom Web Applications & Business Software | Tomastech";
+const pageDescription = "Custom web applications, business software, ERP, automation and AI solutions built around your business processes. Based in Peru, working worldwide.";
+const pageKeywords = "custom web applications, custom software development, business software, web application development, ERP development, business automation, AI automation, API integrations, software development Peru, Peru, worldwide";
 ---
 
-<BaseLayout title="Tomastech | Web Solutions & Digital Transformation">
+<BaseLayout 
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
   <Navbar isLanding={true} />
   <main>
     <HeroLanding />

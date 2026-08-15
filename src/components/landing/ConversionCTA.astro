@@ -20,19 +20,18 @@ import ContactForm from './ContactForm';
           Let's discuss how we can help you achieve your digital goals. Fill out the form or chat with us directly.
         </p>
         
-        <div class="cta-el flex flex-col sm:flex-row gap-4">
-          <a 
-            href="https://wa.link/4kne89" 
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white font-bold font-heading rounded-xl hover:bg-[#20bd5a] transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)]"
+        <div class="cta-el flex items-center gap-4">
+          <button 
+            id="whatsapp-alias-btn"
+            class="relative group inline-flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-xl hover:bg-[#20bd5a] transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] cursor-pointer shrink-0"
+            aria-label="Copiar alias de WhatsApp"
+            title="Copiar alias de WhatsApp"
           >
-            <MessageCircle className="w-5 h-5" />
-            <span>Chat on WhatsApp</span>
-          </a>
+            <MessageCircle className="w-6 h-6" />
+          </button>
           <a 
             href="mailto:hello@tomastech.dev"
-            class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl border border-border text-text-primary hover:bg-surface-hover transition-all hover:scale-105 hover:border-border-hover font-heading font-semibold"
+            class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl border border-border text-text-primary hover:bg-surface-hover transition-all hover:scale-105 hover:border-border-hover font-heading font-semibold h-14"
           >
             <Mail className="w-5 h-5" />
             <span>Send Email</span>
@@ -56,6 +55,23 @@ import ContactForm from './ContactForm';
   document.addEventListener('astro:page-load', () => {
     const section = document.querySelector('#contact');
     if (!section) return;
+
+    // WhatsApp alias copy button
+    const waBtn = document.getElementById('whatsapp-alias-btn');
+    if (waBtn) {
+      waBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText('@tomastech.dev');
+          if (typeof (window as any).showToast === 'function') {
+            (window as any).showToast('Copiado alias de WhatsApp', 'success');
+          }
+        } catch {
+          if (typeof (window as any).showToast === 'function') {
+            (window as any).showToast('No se pudo copiar. Intenta de nuevo.', 'error');
+          }
+        }
+      });
+    }
 
     // Left column stagger reveal
     gsap.fromTo(

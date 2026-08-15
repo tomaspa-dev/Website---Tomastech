@@ -1,5 +1,5 @@
 ---
-import { Github, Linkedin, Mail, Instagram, Phone, MessageCircle } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram, MessageCircle } from 'lucide-react';
 import { Image } from 'astro:assets';
 import logoDark from '../../assets/logo.png';
 import logoLight from '../../assets/logo-light.png';
@@ -13,8 +13,9 @@ const social = [
 
 <footer class="border-t border-border pt-20 pb-12 relative overflow-hidden bg-background">
   <div class="container mx-auto px-6 md:px-12 relative z-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
       
+      <!-- Brand — 2 cols -->
       <div class="lg:col-span-2 footer-col">
         <a href="/" class="block w-48 mb-4">
           <Image 
@@ -60,26 +61,29 @@ const social = [
         </div>
       </div>
 
-      <!-- Projects / Navigation -->
+      <!-- Projects / Navigation — col 3 -->
       <div class="footer-col">
         <h3 class="text-text-primary font-bold mb-6 font-heading">Projects</h3>
         <ul class="space-y-3">
           <li>
-            <a href="/#work" class="text-text-secondary hover:text-primary transition-colors">Portfolio</a>
+            <a href="/portfolio" class="text-text-secondary hover:text-primary transition-colors">Portfolio</a>
           </li>
           <li>
-            <a href="/#about" class="text-text-secondary hover:text-primary transition-colors">About</a>
+            <a href="/portfolio#about" class="text-text-secondary hover:text-primary transition-colors">About</a>
           </li>
           <li>
-            <a href="/#process" class="text-text-secondary hover:text-primary transition-colors">How I Work</a>
+            <a href="/portfolio#process" class="text-text-secondary hover:text-primary transition-colors">How I Work</a>
           </li>
           <li>
             <a href="https://github.com/tomaspa-dev" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-primary transition-colors">GitHub</a>
           </li>
         </ul>
+      </div>
 
-        <h3 class="text-text-primary font-bold mt-10 mb-4 font-heading">Current Focus</h3>
-        <ul class="space-y-2">
+      <!-- Current Focus — col 4, plain text, no bullets -->
+      <div class="footer-col">
+        <h3 class="text-text-primary font-bold mb-6 font-heading">Current Focus</h3>
+        <ul class="space-y-3">
           {[
             'Software Engineering',
             'Software Architecture',
@@ -87,10 +91,7 @@ const social = [
             'Security',
             'AI-enabled Systems',
           ].map(item => (
-            <li class="text-text-secondary text-sm flex items-center gap-2">
-              <span class="w-1 h-1 rounded-full bg-primary shrink-0"></span>
-              {item}
-            </li>
+            <li class="text-text-secondary text-sm">{item}</li>
           ))}
         </ul>
       </div>
@@ -102,35 +103,19 @@ const social = [
           Open to engineering opportunities, technical conversations and international networking.
         </p>
         <div class="flex gap-4">
-          
-          <!-- Phone Copy -->
+
+          <!-- WhatsApp Alias Copy -->
           <div class="relative group">
             <button 
-              class="magnetic-btn w-12 h-12 rounded-xl glass-card flex items-center justify-center text-text-muted hover:text-primary hover:border-primary/30 transition-all duration-300 copy-btn"
-              data-value="+51978395717"
-              data-type="Phone number"
-              aria-label="Copy Phone Number"
-            >
-              <Phone size={20} />
-            </button>
-            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-lg tooltip">
-              Click to copy
-            </div>
-          </div>
-
-          <!-- WhatsApp Link -->
-          <div class="relative group">
-            <a 
-              href="https://wa.link/4kne89" 
-              target="_blank"
-              rel="noopener noreferrer"
-              class="magnetic-btn w-12 h-12 rounded-xl glass-card flex items-center justify-center text-text-muted hover:text-[#25D366] hover:border-[#25D366]/30 transition-all duration-300"
-              aria-label="Chat on WhatsApp"
+              class="magnetic-btn w-12 h-12 rounded-xl glass-card flex items-center justify-center text-text-muted hover:text-[#25D366] hover:border-[#25D366]/30 transition-all duration-300 copy-btn"
+              data-value="@tomastech.dev"
+              data-type="Alias de WhatsApp"
+              aria-label="Copiar alias de WhatsApp"
             >
               <MessageCircle size={20} />
-            </a>
-            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#25D366] text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-lg">
-              WhatsApp
+            </button>
+            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#25D366] text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 transition-opacity whitespace-nowrap pointer-events-none z-50 shadow-lg tooltip">
+              @tomastech.dev
             </div>
           </div>
 

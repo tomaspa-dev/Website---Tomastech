@@ -8,7 +8,7 @@ interface MobileMenuProps {
 
 const landingLinks = [
   { name: "Services", href: "#services" },
-  { name: "Pricing", href: "#pricing" },
+  { name: "Scope", href: "#scope" },
   { name: "Contact", href: "#contact" },
 ];
 

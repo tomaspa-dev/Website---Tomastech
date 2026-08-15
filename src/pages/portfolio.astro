@@ -8,9 +8,53 @@ import Process from '../components/sections/Process.astro';
 import Portfolio from '../components/sections/Portfolio.astro';
 import About from '../components/sections/About.astro';
 import Footer from '../components/common/Footer.astro';
+
+const portfolioTitle = "Software Engineer Portfolio | Architecture, Cloud & Security | Tomastech";
+const portfolioDesc = "Software engineering portfolio featuring business systems, ERP, logistics platforms, AI applications and architecture projects, with a growing focus on cloud infrastructure and security.";
+const portfolioKeywords = "software engineer portfolio, software engineer, software architecture, distributed systems, cloud infrastructure, application security, AI engineering, full-stack engineer, Peru, worldwide";
+
+const portfolioSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://tomastech.dev/portfolio#profilepage",
+      "name": portfolioTitle,
+      "url": "https://tomastech.dev/portfolio",
+      "description": portfolioDesc,
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://tomastech.dev/#person",
+        "name": "Tomas Eduardo Pozu Asalde",
+        "alternateName": "Tomas Pozu",
+        "jobTitle": "Software Engineer",
+        "url": "https://tomastech.dev",
+        "sameAs": [
+          "https://github.com/tomaspa-dev",
+          "https://www.linkedin.com/company/tomastechdev"
+        ],
+        "knowsAbout": [
+          "Software Engineering",
+          "Software Architecture",
+          "Distributed Systems",
+          "Cloud Infrastructure",
+          "Application Security",
+          "Business Systems",
+          "AI-assisted Development"
+        ]
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="Tomastech | Web Innovation to Stand Out">
+<BaseLayout 
+  title={portfolioTitle}
+  description={portfolioDesc}
+  keywords={portfolioKeywords}
+  ogType="profile"
+  schema={portfolioSchema}
+>
   <Navbar />
   <main>
     <Hero />
