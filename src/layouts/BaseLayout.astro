@@ -129,7 +129,10 @@ import { ViewTransitions } from 'astro:transitions';
 			const isLogin       = window.location.pathname.includes('/panel-56Up89');
 			
 			if (!isDashboard && !isClientAccess && !isLogin) {
-				const lenis = new Lenis();
+				const lenis = new Lenis({
+					prevent: (node) => node.hasAttribute('data-lenis-prevent') || !!node.closest?.('[data-lenis-prevent]')
+				});
+				(window as any).__lenis = lenis;
 
 				// ── Connect Lenis → GSAP ScrollTrigger ──────────────────
 				// Without this, Lenis intercepts scroll but ScrollTrigger

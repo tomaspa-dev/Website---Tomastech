@@ -1,13 +1,13 @@
-﻿---
-import { Code2, Palette, Rocket, Lock, Smartphone, Search } from 'lucide-react';
+---
+import { Server, Layers, Brain, Network, Cloud, ShieldCheck } from 'lucide-react';
 
 const services = [
-  { title: "Web Development",  description: "I build fast, secure, and custom websites using the latest technologies like Astro, React, and Tailwind CSS.",                    icon: Code2,      gradient: "from-indigo-400 to-indigo-600",  glow: "99, 102, 241",  iconColor: "text-indigo-400"  },
-  { title: "Web Design",       description: "I design visually stunning, functional, and user-centric interfaces that reflect your brand identity.",                           icon: Palette,    gradient: "from-violet-400 to-violet-600",  glow: "167, 139, 250", iconColor: "text-violet-400"  },
-  { title: "Technical SEO",    description: "Boost your online presence with SEO strategies that increase your visibility and drive organic traffic.",                         icon: Search,     gradient: "from-emerald-400 to-emerald-600", glow: "52, 211, 153",  iconColor: "text-emerald-400" },
-  { title: "Performance",      description: "Lightning-fast load times to improve user experience and search engine rankings.",                                               icon: Rocket,     gradient: "from-amber-400 to-amber-600",    glow: "251, 191, 36",  iconColor: "text-amber-400"   },
-  { title: "Security",         description: "Built with security in mind to protect your data and your users' information.",                                                  icon: Lock,       gradient: "from-cyan-400 to-cyan-600",      glow: "34, 211, 238",  iconColor: "text-cyan-400"    },
-  { title: "Responsive",       description: "Flawless experiences across all devices, from mobile phones to large desktop screens.",                                          icon: Smartphone, gradient: "from-pink-400 to-pink-600",      glow: "244, 114, 182", iconColor: "text-pink-400"    },
+  { title: "Business Systems",       description: "ERP, operations platforms and workflow-driven applications designed around real business processes.",                                                            icon: Server,       gradient: "from-indigo-400 to-indigo-600",  glow: "99, 102, 241",  iconColor: "text-indigo-400",  number: "01" },
+  { title: "Full-Stack Applications", description: "End-to-end applications covering interfaces, APIs, data, integrations, authentication and business logic.",                                                       icon: Layers,       gradient: "from-violet-400 to-violet-600",  glow: "167, 139, 250", iconColor: "text-violet-400",  number: "02" },
+  { title: "AI-Enabled Software",    description: "AI integrated into workflows where it can automate repetitive work, process information and improve decision-making.",                                              icon: Brain,        gradient: "from-emerald-400 to-emerald-600", glow: "52, 211, 153",  iconColor: "text-emerald-400", number: "03" },
+  { title: "Software Architecture",  description: "Designing system boundaries, data flows, integrations and technical decisions that keep applications maintainable as they grow.",                                   icon: Network,      gradient: "from-amber-400 to-amber-600",    glow: "251, 191, 36",  iconColor: "text-amber-400",   number: "04" },
+  { title: "Cloud & Infrastructure", description: "Building deployable, observable and reliable environments using modern cloud and infrastructure practices.",                                                        icon: Cloud,        gradient: "from-cyan-400 to-cyan-600",      glow: "34, 211, 238",  iconColor: "text-cyan-400",    number: "05" },
+  { title: "Security by Design",     description: "Authentication, authorization, auditability and secure application patterns considered from the architecture stage.",                                               icon: ShieldCheck,  gradient: "from-pink-400 to-pink-600",      glow: "244, 114, 182", iconColor: "text-pink-400",    number: "06" },
 ];
 ---
 
@@ -25,12 +25,12 @@ const services = [
   <div class="container mx-auto px-4 relative z-10">
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-20 svc-header">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block svc-label">SERVICES</span>
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block svc-label">WHAT I BUILD</span>
       <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6 svc-title">
-        What I <span class="gradient-text">Offer</span>
+        Software <span class="gradient-text">Systems</span>
       </h2>
       <p class="text-text-secondary text-lg svc-sub">
-        Comprehensive web solutions tailored to your needs.
+        I build software systems that turn complex problems into practical, maintainable solutions.
       </p>
     </div>
 
@@ -53,6 +53,8 @@ const services = [
           </div>
 
           <div class="relative z-10">
+            <!-- Number -->
+            <div class="text-xs font-mono tracking-widest mb-5 opacity-40" style={`color: rgb(${service.glow});`}>{service.number} —</div>
             <!-- Icon -->
             <div
               class="w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg"

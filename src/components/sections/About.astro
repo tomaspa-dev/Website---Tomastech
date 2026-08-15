@@ -20,9 +20,9 @@ import Button from '../ui/Button.astro';
           <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
         </div>
 
-        <!-- Floating accent badges -->
+        <!-- Floating accent badge: Software Engineer -->
         <div class="absolute -top-4 -right-4 sm:right-0 lg:-right-6 px-3 py-1.5 rounded-xl glass-card border border-primary/30 text-xs font-bold text-primary shadow-lg about-badge-1">
-          ✦ Frontend Engineer
+          ✦ Software Engineer
         </div>
         <div class="absolute -bottom-4 -left-4 sm:left-0 lg:-left-6 px-3 py-1.5 rounded-xl glass-card border border-secondary/30 text-xs font-bold text-secondary shadow-lg about-badge-2">
           🇵🇪 Based in Peru
@@ -46,23 +46,19 @@ import Button from '../ui/Button.astro';
           <span class="gradient-text">I build solutions.</span>
         </h2>
 
-        <!-- Quote -->
-        <div class="about-el relative pl-5 border-l-4 border-primary/50 mb-8">
-          <p class="text-lg md:text-xl text-text-secondary italic font-light leading-relaxed">
-            "Technology is an opportunity to solve real problems. My goal is to facilitate the transition to digital solutions that respect the user experience and drive business growth."
-          </p>
+        <!-- Body text -->
+        <div class="about-el text-base md:text-lg text-text-secondary leading-relaxed mb-8 about-body space-y-4">
+          <p>I enjoy turning complex ideas and real-world workflows into practical software systems.</p>
+          <p>My work spans frontend and full-stack engineering, with a growing focus on software architecture, AI-enabled applications, cloud infrastructure and security.</p>
+          <p>I care about understanding the problem first, making thoughtful technical decisions and building systems that can evolve over time.</p>
         </div>
 
-        <!-- Body text — word-by-word reveal target -->
-        <p class="about-el text-base md:text-lg text-text-secondary leading-relaxed mb-8 about-body">
-          Hi, I'm <span class="text-text-primary font-semibold">Tomas</span>. I specialize in building high-performance websites that help businesses stand out. With a focus on speed, security, and user experience, I create custom solutions that not only look great but also drive real results.
-        </p>
-
-        <!-- Skills pills -->
-        <div class="about-el flex flex-wrap gap-2 mb-8">
-          {["Astro", "React", "TypeScript", "Node.js", "PostgreSQL", "Figma", "AWS"].map(s => (
-            <span class="px-3 py-1 rounded-full text-sm font-medium glass-card border border-primary/20 text-text-secondary hover:border-primary/50 hover:text-primary transition-all duration-300 cursor-default">{s}</span>
-          ))}
+        <!-- Currently Exploring -->
+        <div class="about-el mb-8">
+          <span class="text-xs font-mono tracking-widest text-primary uppercase mb-3 block opacity-70">Currently Exploring</span>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            Software Architecture &middot; Distributed Systems &middot; Cloud Infrastructure &middot; Platform Engineering &middot; Application Security &middot; AI-assisted Development
+          </p>
         </div>
 
         <!-- Profile card -->
@@ -72,7 +68,8 @@ import Button from '../ui/Button.astro';
           </div>
           <div>
             <h4 class="text-text-primary font-bold leading-none mb-0.5">Tomas Eduardo Pozu Asalde</h4>
-            <span class="text-sm text-primary font-medium">Frontend Engineer</span>
+            <span class="text-sm text-primary font-medium">Software Engineer</span>
+            <p class="text-xs text-text-secondary mt-1 leading-snug">Building software systems, business applications<br/>and AI-enabled solutions.</p>
           </div>
         </div>
       </div>
