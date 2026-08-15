@@ -4,12 +4,6 @@ import { Image } from 'astro:assets';
 import logoDark from '../../assets/logo.png';
 import logoLight from '../../assets/logo-light.png';
 
-const links = [
-  { name: "Services", href: "#services" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Portfolio", href: "/portfolio" },
-];
-
 const social = [
   { icon: Github, href: "https://github.com/tomaspa-dev", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/tomastechdev", label: "LinkedIn" },
@@ -22,7 +16,7 @@ const social = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
       
       <div class="lg:col-span-2 footer-col">
-        <a href="/" class="block w-48 mb-6">
+        <a href="/" class="block w-48 mb-4">
           <Image 
             src={logoDark} 
             alt="Tomastech Logo" 
@@ -38,8 +32,9 @@ const social = [
             class="logo-light w-full h-auto" 
           />
         </a>
-        <p class="text-text-secondary text-lg mb-8 max-w-md leading-relaxed">
-          Helping businesses grow with high-performance web solutions. Let's build something amazing together.
+        <p class="text-text-muted text-xs font-bold uppercase tracking-widest mb-2">Software Engineer</p>
+        <p class="text-text-secondary text-base mb-8 max-w-md leading-relaxed">
+          Building software systems, business applications and AI-enabled solutions.
         </p>
         <div class="flex gap-3">
           {social.map((item) => (
@@ -65,21 +60,47 @@ const social = [
         </div>
       </div>
 
+      <!-- Projects / Navigation -->
       <div class="footer-col">
-        <h3 class="text-text-primary font-bold mb-6 font-heading">Quick Links</h3>
+        <h3 class="text-text-primary font-bold mb-6 font-heading">Projects</h3>
         <ul class="space-y-3">
-          {links.map((link) => (
-            <li>
-              <a href={link.href} class="text-text-secondary hover:text-primary transition-colors">
-                {link.name}
-              </a>
+          <li>
+            <a href="/#work" class="text-text-secondary hover:text-primary transition-colors">Portfolio</a>
+          </li>
+          <li>
+            <a href="/#about" class="text-text-secondary hover:text-primary transition-colors">About</a>
+          </li>
+          <li>
+            <a href="/#process" class="text-text-secondary hover:text-primary transition-colors">How I Work</a>
+          </li>
+          <li>
+            <a href="https://github.com/tomaspa-dev" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-primary transition-colors">GitHub</a>
+          </li>
+        </ul>
+
+        <h3 class="text-text-primary font-bold mt-10 mb-4 font-heading">Current Focus</h3>
+        <ul class="space-y-2">
+          {[
+            'Software Engineering',
+            'Software Architecture',
+            'Cloud & Infrastructure',
+            'Security',
+            'AI-enabled Systems',
+          ].map(item => (
+            <li class="text-text-secondary text-sm flex items-center gap-2">
+              <span class="w-1 h-1 rounded-full bg-primary shrink-0"></span>
+              {item}
             </li>
           ))}
         </ul>
       </div>
 
+      <!-- Let's Connect -->
       <div class="footer-col">
-        <h3 class="text-text-primary font-bold mb-6 font-heading">Contact</h3>
+        <h3 class="text-text-primary font-bold mb-2 font-heading">Let's Connect</h3>
+        <p class="text-text-secondary text-sm mb-6 leading-relaxed">
+          Open to engineering opportunities, technical conversations and international networking.
+        </p>
         <div class="flex gap-4">
           
           <!-- Phone Copy -->
