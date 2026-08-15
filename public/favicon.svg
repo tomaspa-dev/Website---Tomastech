@@ -1,45 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <defs>
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0e1322" />
-      <stop offset="100%" stop-color="#060911" />
-    </linearGradient>
-    <linearGradient id="primaryGrad" x1="80" y1="80" x2="432" y2="432" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#818cf8" />
-      <stop offset="50%" stop-color="#6366f1" />
-      <stop offset="100%" stop-color="#c084fc" />
-    </linearGradient>
-    <linearGradient id="glowGrad" x1="120" y1="120" x2="392" y2="392" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.8" />
-    </linearGradient>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="16" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
-
-  <!-- Modern Rounded Container (Squircle) -->
-  <rect x="24" y="24" width="464" height="464" rx="124" fill="url(#bgGrad)" stroke="#2e3856" stroke-width="8" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Yellow Rounded Background Element from Logo -->
+  <path d="M24 16C12 28 10 52 14 78C18 102 32 120 54 122C76 124 104 110 114 86C124 62 114 36 98 22C80 8 40 2 24 16Z" fill="#FFB82E" />
   
-  <!-- Sleek Glowing Border Accent -->
-  <rect x="36" y="36" width="440" height="440" rx="112" stroke="url(#primaryGrad)" stroke-width="4" stroke-opacity="0.4" />
-
-  <!-- Tech "T" Monogram with High-End Geometric Architecture -->
-  <g filter="url(#softGlow)">
-    <!-- Horizontal Top Bar -->
-    <path d="M120 162C120 144.327 134.327 130 152 130H360C377.673 130 392 144.327 392 162C392 179.673 377.673 194 360 194H152C134.327 194 120 179.673 120 162Z" fill="url(#primaryGrad)" />
-    
-    <!-- Vertical Pillar -->
-    <path d="M224 162C224 144.327 238.327 130 256 130C273.673 130 288 144.327 288 162V350C288 367.673 273.673 382 256 382C238.327 382 224 367.673 224 350V162Z" fill="url(#primaryGrad)" />
-    
-    <!-- Core Center Tech Node -->
-    <circle cx="256" cy="162" r="15" fill="#ffffff" />
-    
-    <!-- Bottom Accent Node -->
-    <circle cx="256" cy="350" r="10" fill="#38bdf8" />
-  </g>
+  <!-- Dark Blue 3D Extrusion Depth (Left Shadow) -->
+  <path d="M68 8L20 74H46L30 118L96 52H62L76 8H68Z" fill="#0F3876" />
+  
+  <!-- Front Bright Blue Lightning Bolt -->
+  <path d="M72 8L26 72H50L36 114L98 52H66L78 8H72Z" fill="#257BF5" />
+  
+  <!-- Inner Highlight Accent -->
+  <path d="M72 10L32 68H52L40 108L92 54H64L76 10H72Z" fill="#3B8FFF" opacity="0.4" />
 </svg>
