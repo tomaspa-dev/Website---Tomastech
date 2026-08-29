@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface FieldState {
@@ -7,10 +7,10 @@ interface FieldState {
 }
 
 function FloatingInput({
-  id, label, type = 'text', required, rows,
+  id, label, type = 'text', required, rows, value,
   field, onFocus, onBlur, onChange,
 }: {
-  id: string; label: string; type?: string; required?: boolean; rows?: number;
+  id: string; label: string; type?: string; required?: boolean; rows?: number; value?: string;
   field: FieldState;
   onFocus: () => void; onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -30,13 +30,13 @@ function FloatingInput({
       <label htmlFor={id} className={labelClass}>{label}</label>
       {rows ? (
         <textarea
-          id={id} required={required} rows={rows}
+          id={id} required={required} rows={rows} value={value}
           className={`${inputClass} resize-none`}
           onFocus={onFocus} onBlur={onBlur} onChange={onChange}
         />
       ) : (
         <input
-          id={id} type={type} required={required}
+          id={id} type={type} required={required} value={value}
           className={inputClass}
           onFocus={onFocus} onBlur={onBlur} onChange={onChange}
         />
@@ -50,7 +50,16 @@ function FloatingInput({
 export default function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [charCount, setCharCount] = useState(0);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    honeypot: '',
+  });
+
   const [fields, setFields] = useState({
     name:    { focused: false, hasValue: false },
     email:   { focused: false, hasValue: false },
@@ -62,20 +71,64 @@ export default function ContactForm() {
   const setFocused = (key: FieldKey, val: boolean) =>
     setFields(f => ({ ...f, [key]: { ...f[key], focused: val } }));
 
-  const setHasValue = (key: FieldKey, val: boolean) =>
-    setFields(f => ({ ...f, [key]: { ...f[key], hasValue: val } }));
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setFormStatus('success');
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       if (typeof (window as any).showToast === 'function') {
-        (window as any).showToast("Message sent! We'll reply within 24 hours.", 'success', 5000);
+        (window as any).showToast('Please fill in all required fields.', 'error');
       }
-      setTimeout(() => setFormStatus('idle'), 3500);
-    }, 1500);
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          honeypot: formData.honeypot,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message. Please try again.');
+      }
+
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '', honeypot: '' });
+      setCharCount(0);
+      setFields({
+        name: { focused: false, hasValue: false },
+        email: { focused: false, hasValue: false },
+        message: { focused: false, hasValue: false },
+      });
+
+      if (typeof (window as any).showToast === 'function') {
+        (window as any).showToast("Message sent! We'll reply within 24 hours.", 'success', 6000);
+      }
+
+      setTimeout(() => setFormStatus('idle'), 5000);
+    } catch (err: any) {
+      console.error('Contact Form Error:', err);
+      setFormStatus('error');
+      const msg = err.message || 'Could not send message. Please try emailing hello@tomastech.dev directly.';
+      setErrorMessage(msg);
+      if (typeof (window as any).showToast === 'function') {
+        (window as any).showToast(msg, 'error', 6000);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -141,32 +194,64 @@ export default function ContactForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Honeypot field (hidden for users, bots fill it) */}
+          <input
+            type="text"
+            name="company_url"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.honeypot}
+            onChange={(e) => setFormData(f => ({ ...f, honeypot: e.target.value }))}
+            style={{ position: 'absolute', opacity: 0, top: 0, left: 0, height: 0, width: 0, zIndex: -1 }}
+          />
+
           <FloatingInput
             id="name" label="Your Name" required
+            value={formData.name}
             field={fields.name}
             onFocus={() => setFocused('name', true)}
-            onBlur={(e) => { setFocused('name', false); setHasValue('name', e.target.value.length > 0); }}
-            onChange={(e) => setHasValue('name', (e.target as HTMLInputElement).value.length > 0)}
+            onBlur={(e) => {
+              setFocused('name', false);
+              setFields(f => ({ ...f, name: { ...f.name, hasValue: e.target.value.length > 0 } }));
+            }}
+            onChange={(e) => {
+              const val = e.target.value;
+              setFormData(f => ({ ...f, name: val }));
+              setFields(f => ({ ...f, name: { ...f.name, hasValue: val.length > 0 } }));
+            }}
           />
 
           <FloatingInput
             id="email" label="Email Address" type="email" required
+            value={formData.email}
             field={fields.email}
             onFocus={() => setFocused('email', true)}
-            onBlur={(e) => { setFocused('email', false); setHasValue('email', e.target.value.length > 0); }}
-            onChange={(e) => setHasValue('email', (e.target as HTMLInputElement).value.length > 0)}
+            onBlur={(e) => {
+              setFocused('email', false);
+              setFields(f => ({ ...f, email: { ...f.email, hasValue: e.target.value.length > 0 } }));
+            }}
+            onChange={(e) => {
+              const val = e.target.value;
+              setFormData(f => ({ ...f, email: val }));
+              setFields(f => ({ ...f, email: { ...f.email, hasValue: val.length > 0 } }));
+            }}
           />
 
           <div className="relative">
             <FloatingInput
               id="message" label="Tell us about your project" required rows={4}
+              value={formData.message}
               field={fields.message}
               onFocus={() => setFocused('message', true)}
-              onBlur={(e) => { setFocused('message', false); setHasValue('message', e.target.value.length > 0); }}
+              onBlur={(e) => {
+                setFocused('message', false);
+                setFields(f => ({ ...f, message: { ...f.message, hasValue: e.target.value.length > 0 } }));
+              }}
               onChange={(e) => {
-                const len = (e.target as HTMLTextAreaElement).value.length;
-                setCharCount(len);
-                setHasValue('message', len > 0);
+                const val = e.target.value;
+                setCharCount(val.length);
+                setFormData(f => ({ ...f, message: val }));
+                setFields(f => ({ ...f, message: { ...f.message, hasValue: val.length > 0 } }));
               }}
             />
             <span className={`cf-char-count absolute bottom-2.5 right-3 text-[10px] tabular-nums pointer-events-none ${charCount > 450 ? 'near' : ''}`}>
@@ -204,6 +289,14 @@ export default function ContactForm() {
               </>
             )}
           </button>
+
+          {/* Fallback info on error */}
+          {formStatus === 'error' && errorMessage && (
+            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
         </form>
       </div>
     </>

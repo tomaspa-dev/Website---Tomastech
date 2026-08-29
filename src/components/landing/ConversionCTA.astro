@@ -24,8 +24,8 @@ import ContactForm from './ContactForm';
           <button 
             id="whatsapp-alias-btn"
             class="relative group inline-flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-xl hover:bg-[#20bd5a] transition-all hover:scale-105 shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] cursor-pointer shrink-0"
-            aria-label="Copiar alias de WhatsApp"
-            title="Copiar alias de WhatsApp"
+            aria-label="Copy WhatsApp alias"
+            title="Copy WhatsApp alias"
           >
             <MessageCircle className="w-6 h-6" />
           </button>
@@ -63,11 +63,11 @@ import ContactForm from './ContactForm';
         try {
           await navigator.clipboard.writeText('@tomastech.dev');
           if (typeof (window as any).showToast === 'function') {
-            (window as any).showToast('Copiado alias de WhatsApp', 'success');
+            (window as any).showToast('WhatsApp alias copied to clipboard!', 'success');
           }
         } catch {
           if (typeof (window as any).showToast === 'function') {
-            (window as any).showToast('No se pudo copiar. Intenta de nuevo.', 'error');
+            (window as any).showToast('Failed to copy. Please try again.', 'error');
           }
         }
       });
