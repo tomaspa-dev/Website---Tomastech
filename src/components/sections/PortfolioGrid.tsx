@@ -142,7 +142,7 @@ export default function PortfolioGrid() {
             Where I'm Headed &middot; Public System Architecture
           </p>
           <p className="text-xs text-slate-300 leading-relaxed">
-            Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs). Zero synthetic adoption claims.
+            Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs) as each system evolves.
           </p>
         </div>
       )}

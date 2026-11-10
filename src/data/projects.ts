@@ -105,7 +105,7 @@ export const projects: Project[] = [
         '6. Local Docker environment, automated tests and demo reset script'
       ],
       currentStatus: 'Phase: Problem Scoping & Architecture Design. Implementation planned for Milestone 1.',
-      caseStudyNote: 'This case study documents the design decisions, trade-offs, and verification test suite as the system is built in public with zero commercial exaggeration.',
+      caseStudyNote: 'This case study documents the domain model, trade-offs, and verification test suite as the system is constructed in public.',
       stack: ['Python / Node.js', 'PostgreSQL', 'Docker', 'REST API', 'Automated Testing'],
       time: 'Design & Learning'
     }

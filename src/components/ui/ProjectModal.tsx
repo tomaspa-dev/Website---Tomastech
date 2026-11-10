@@ -185,7 +185,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           : 'Capstone ERP Architecture'}
                     </h4>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/5 border-white/10 text-slate-300">
-                      BUILDING PUBLICLY &middot; ZERO SYNTHETIC CLAIMS
+                      BUILDING PUBLICLY &middot; ARCHITECTURE IN PROGRESS
                     </span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
@@ -445,7 +445,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
                     <div className="p-3 rounded-lg bg-black/40 border modal-border text-[11px] text-slate-400 flex items-center gap-2">
                       <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
-                      <span>Zero synthetic claims; 100% reproducible local environment.</span>
+                      <span>Domain modeling, contract safety, and automated test coverage.</span>
                     </div>
                   </div>
                 ) : project.link && project.link !== '#' ? (
