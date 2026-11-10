@@ -2,6 +2,7 @@ export interface ArchitecturalDecision {
   question: string;
   decision: string;
   tradeOff: string;
+  status: 'Under evaluation' | 'Proposed' | 'Accepted';
 }
 
 export interface Project {
@@ -60,7 +61,7 @@ export const projects: Project[] = [
         'Atomic quota deduction before export admission',
         'Idempotency-Key support to prevent double consumption on retries',
         'Safe conflict detection on reused keys with altered payloads',
-        'Clear HTTP contract for quota exhaustion (403/429) and request tracing'
+        'Evaluation of HTTP status semantics for quota exhaustion (evaluating 403 Forbidden vs 429 Too Many Requests criteria) and request tracing'
       ],
       scope: [
         'Tenant identification & synthetic quota allocation',
@@ -88,12 +89,14 @@ export const projects: Project[] = [
         {
           question: 'Why application-level quota validation instead of an API Gateway rate limiter?',
           decision: 'Application-level transactional check within the service domain.',
-          tradeOff: 'An API Gateway counts requests efficiently at the edge, but lacks fine-grained multi-tenant billing domain awareness, transactional rollbacks, and business quota invariants.'
+          tradeOff: 'An API Gateway counts requests efficiently at the edge, but lacks fine-grained multi-tenant billing domain awareness, transactional rollbacks, and business quota invariants.',
+          status: 'Proposed'
         },
         {
           question: 'Why synchronous admission before background export processing?',
           decision: 'Synchronous quota validation and admission response, decoupled from heavy artifact generation.',
-          tradeOff: 'Immediate client feedback on quota acceptance without maintaining complex job queue states in MVP scope.'
+          tradeOff: 'Immediate client feedback on quota acceptance without maintaining complex job queue states in MVP scope.',
+          status: 'Under evaluation'
         }
       ],
       learningMilestones: [
@@ -143,7 +146,7 @@ export const projects: Project[] = [
       ],
       architectureFocus: [
         'Financial state transition consistency',
-        'Zero double-application guarantee',
+        'Target invariant: Prevention of duplicate installment applications',
         'Pull-first vs. Webhook architectural trade-off',
         'Deterministic transaction ledger & audit trail',
         'Synthetic data generation for edge-case reconciliation'
@@ -159,12 +162,14 @@ export const projects: Project[] = [
         {
           question: 'Why pull-first status inquiries instead of webhooks in the initial MVP?',
           decision: 'Pull-first active status query engine.',
-          tradeOff: 'Webhooks require public ingress, webhook secret signatures, replay attack protections, and out-of-order delivery handling. Pull-first dramatically reduces the attack surface and guarantees sequential verification during MVP.'
+          tradeOff: 'Reduces public attack surface during initial MVP by avoiding an open webhook ingress endpoint. Adds polling roundtrips and potential latency; does not by itself eliminate the need for authentication, secret protection, rate limits, and error handling.',
+          status: 'Accepted'
         },
         {
           question: 'How to handle amount and reference mismatches?',
           decision: 'Operator exception queue with full audit history.',
-          tradeOff: 'Prevents automatic erroneous accounting adjustments when external fees or partial amounts differ from schedule.'
+          tradeOff: 'Prevents automatic erroneous accounting adjustments when external fees or partial amounts differ from schedule.',
+          status: 'Proposed'
         }
       ],
       learningMilestones: [
@@ -229,12 +234,14 @@ export const projects: Project[] = [
         {
           question: 'How to prevent overlapping rental bookings for serialized equipment?',
           decision: 'Evaluate PostgreSQL exclusion constraints alongside application-level checks.',
-          tradeOff: 'DB-level exclusion constraints guarantee zero double-booking even under concurrent race conditions, compared to fragile application-only validation.'
+          tradeOff: 'DB-level exclusion constraints aim to enforce non-overlapping interval safety under concurrent requests, compared to application-only validation.',
+          status: 'Under evaluation'
         },
         {
           question: 'Relationship with previous private ERP experience?',
           decision: 'Brand new, independent project developed with synthetic equipment data and zero private company code.',
-          tradeOff: 'Protects commercial confidentiality while showcasing advanced domain modeling and architectural rigor.'
+          tradeOff: 'Protects commercial confidentiality while showcasing advanced domain modeling and architectural rigor.',
+          status: 'Accepted'
         }
       ],
       learningMilestones: [

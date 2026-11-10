@@ -179,13 +179,17 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       isDesignLearning ? 'text-purple-300' : isPlanned ? 'text-cyan-300' : 'text-amber-300'
                     }`}>
                       {isDesignLearning 
-                        ? 'Architecture & System Design in Progress' 
+                        ? 'Architecture & System Design' 
                         : isPlanned 
                           ? 'Planned System Sequence' 
                           : 'Capstone ERP Architecture'}
                     </h4>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/5 border-white/10 text-slate-300">
-                      BUILDING PUBLICLY &middot; ARCHITECTURE IN PROGRESS
+                      {isDesignLearning 
+                        ? 'Selected · Design & Learning' 
+                        : isPlanned 
+                          ? 'Planned · Follows Project 01' 
+                          : 'Future Capstone · Scope to Validate'}
                     </span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
@@ -282,7 +286,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
                             <ShieldCheck size={14} className="text-primary" /> DOMAIN RULES &amp; ENGINEERING INVARIANTS
                           </h3>
-                          <span className="text-[10px] modal-label font-mono">Guarantees</span>
+                          <span className="text-[10px] modal-label font-mono">Target Rules</span>
                         </div>
                         {project.details.domainContext && (
                           <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5 italic">
@@ -312,9 +316,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         <div className="space-y-3">
                           {project.details.architecturalDecisions.map((adr, idx) => (
                             <div key={idx} className="p-3.5 rounded-lg bg-white/5 border border-white/5 space-y-1.5 text-xs">
-                              <div className="font-bold modal-heading flex items-center gap-2">
-                                <span className="text-indigo-400 font-mono text-[10px]">ADR-0{idx + 1}</span>
-                                <span>{adr.question}</span>
+                              <div className="font-bold modal-heading flex items-center justify-between gap-2 flex-wrap">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-indigo-400 font-mono text-[10px]">ADR-0{idx + 1}</span>
+                                  <span>{adr.question}</span>
+                                </div>
+                                {adr.status && (
+                                  <span className={`px-2 py-0.5 rounded text-[9px] uppercase font-bold tracking-wider border ${
+                                    adr.status === 'Accepted'
+                                      ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                                      : adr.status === 'Proposed'
+                                        ? 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30'
+                                        : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                                  }`}>
+                                    {adr.status}
+                                  </span>
+                                )}
                               </div>
                               <div className="text-emerald-300/90 font-medium pl-6">
                                 <span className="text-[10px] uppercase tracking-wider text-slate-400 mr-1.5">Decision:</span>
@@ -413,7 +430,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 
                 <div>
                   <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Layers size={12} /> Tech &amp; Domain Focus
+                    <Layers size={12} /> {isArchitectureProject ? 'Candidate Stack & Domain Focus' : 'Tech Stack'}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.details.stack.map((tech) => (
@@ -437,10 +454,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   <div className="space-y-3 pt-2">
                     <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center space-y-1.5">
                       <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
-                        <GitBranch size={14} /> PUBLIC ENGINEERING REPO
+                        <GitBranch size={14} /> REPOSITORY &amp; VERIFICATION
                       </span>
                       <p className="text-[11px] text-slate-400">
-                        Code, test suites, and ADRs will be linked directly to GitHub upon completing Milestone 1.
+                        Source code repository and reproducible test suites will be linked once published and verified.
                       </p>
                     </div>
                     <div className="p-3 rounded-lg bg-black/40 border modal-border text-[11px] text-slate-400 flex items-center gap-2">
