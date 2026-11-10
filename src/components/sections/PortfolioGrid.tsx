@@ -5,7 +5,7 @@ import { projects, type Project } from '../../data/projects';
 
 const categories = [
   'All',
-  'Web Applications',
+  'Systems & Backend',
   'Corporate Websites',
   'Landing Pages',
 ];
@@ -134,6 +134,18 @@ export default function PortfolioGrid() {
           </button>
         ))}
       </div>
+
+      {/* ── Category Explainer Note (when Systems & Backend is selected) ─── */}
+      {selectedCategory === 'Systems & Backend' && (
+        <div className="max-w-2xl mx-auto mb-10 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center">
+          <p className="text-xs text-indigo-300 font-mono uppercase tracking-wider font-semibold mb-1">
+            Where I'm Headed &middot; Public System Architecture
+          </p>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs). Zero synthetic adoption claims.
+          </p>
+        </div>
+      )}
 
       {/* ── Grid ────────────────────────────────────────────────────────── */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

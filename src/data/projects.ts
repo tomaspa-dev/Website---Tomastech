@@ -1,12 +1,21 @@
+export interface ArchitecturalDecision {
+  question: string;
+  decision: string;
+  tradeOff: string;
+}
+
 export interface Project {
   id: string;
   title: string;
-  category: 'Landing Pages' | 'Corporate Websites' | 'Web Applications' | 'WordPress Themes' | 'Extensions';
+  workName?: string;
+  category: 'Systems & Backend' | 'Corporate Websites' | 'Landing Pages' | 'Web Applications' | 'WordPress Themes' | 'Extensions';
   description: string;
   image: string;
   tags: string[];
   link?: string;
-  status?: 'In Development' | 'Planned' | 'Completed';
+  repoLink?: string;
+  status: 'Selected / Design & Learning' | 'Selected / Planned' | 'Future Capstone / Defined Scope' | 'Completed Solution';
+  editorialBadge?: string;
   hidden?: boolean;
   details: {
     concept: string;
@@ -19,274 +28,243 @@ export interface Project {
     plannedStack?: { category: string; value: string }[];
     currentStatus?: string;
     caseStudyNote?: string;
+    // Extended fields for systems architecture & learning milestones:
+    domainContext?: string;
+    coreInvariants?: string[];
+    architecturalDecisions?: ArchitecturalDecision[];
+    learningMilestones?: string[];
   };
 }
 
 export const projects: Project[] = [
-  // --- WEB APPLICATIONS ---
+  // =========================================================================
+  // --- WHERE I'M HEADED: BACKEND & SYSTEMS ARCHITECTURE (3 Core Projects) ---
+  // =========================================================================
+
+  // ── Project 01 ─────────────────────────────────────────────────────────────
   {
-    id: 'distribution-erp',
-    title: 'Distribution ERP',
-    category: 'Web Applications',
-    status: 'In Development',
-    description: 'Full-stack business management system for a wholesale distribution company, covering sales, purchasing, inventory, accounting, logistics and operational reporting.',
+    id: 'api-usage-guard',
+    title: 'API Usage Guard — Quota & Export Controls',
+    workName: 'API Usage Guard',
+    category: 'Systems & Backend',
+    status: 'Selected / Design & Learning',
+    editorialBadge: 'Design & Learning',
+    description: 'Multi-tenant API for a synthetic SaaS platform enforcing per-organization export quotas, atomic balance tracking, concurrency safeguards, and idempotent retries.',
     image: '',
-    tags: ['Business Systems', 'ERP', 'Architecture', 'AI'],
+    tags: ['Backend API', 'Multi-tenant', 'Idempotency', 'Concurrency', 'System Design'],
     link: '#',
     details: {
-      concept: 'Business management platform designed to unify commercial, financial, inventory and logistics operations in a single system.',
+      concept: 'A synthetic SaaS API that allows organizations to request synthetic data exports without exceeding an allocated quota per period, ensuring atomic balance evaluation and idempotent retry safety.',
       features: [
-        'Sales & quotations workflow',
-        'Purchasing & inventory control',
-        'Warehouse & route logistics',
-        'Automated accounting & operational reports',
-        'User roles, permissions & audit trail'
+        'Tenant identity resolution from trusted auth context',
+        'Atomic quota deduction before export admission',
+        'Idempotency-Key support to prevent double consumption on retries',
+        'Safe conflict detection on reused keys with altered payloads',
+        'Clear HTTP contract for quota exhaustion (403/429) and request tracing'
       ],
       scope: [
-        'Sales & quotations',
-        'Purchasing',
-        'Inventory management',
-        'Warehouse operations',
-        'Accounting workflows',
-        'Route management',
-        'Document generation',
-        'Operational reports',
-        'User roles & permissions',
-        'Audit trail'
+        'Tenant identification & synthetic quota allocation',
+        'Synchronous export admission & quota balance checks',
+        'Idempotency store & replay mechanism',
+        'Concurrency race condition prevention',
+        'Failure simulation (lost responses & retries)',
+        'Observable logs & synthetic demo reset'
       ],
       architectureFocus: [
-        'Modular business domains',
-        'PostgreSQL data model',
-        'API-driven backend',
-        'Role-based access control',
-        'Asynchronous processing',
-        'Document generation',
-        'AI-assisted workflows'
+        'Atomic quota accounting at persistence layer',
+        'Application-level quota rules vs. API Gateway rate limiting trade-off',
+        'Idempotent state machine for request deduplication',
+        'Predictable HTTP error modeling & contract safety',
+        'Reproducible automated test suite with edge cases'
       ],
-      plannedStack: [
-        { category: 'Frontend', value: 'React / Next.js' },
-        { category: 'Backend', value: 'Node.js' },
-        { category: 'Database', value: 'PostgreSQL / Neon' },
-        { category: 'Storage', value: 'Supabase' },
-        { category: 'Deployment', value: 'Netlify + Render' }
+      domainContext: 'SaaS export requests must be admitted only if the tenant has remaining quota for the active billing cycle. Network timeouts frequently cause clients to retry; the system must guarantee that a duplicate request returns the previous admission without double-charging the quota.',
+      coreInvariants: [
+        'Quota cannot drop below zero under concurrent requests (atomic lock / transactional balance check).',
+        'Retrying a request with the same Idempotency-Key returns the original result without deducting additional quota.',
+        'Reusing an Idempotency-Key with different payload parameters yields a deterministic 409 Conflict.',
+        'Zero quota immediately returns an explicit HTTP contract without triggering synthetic export generation.'
       ],
-      currentStatus: 'Architecture & domain modeling',
-      caseStudyNote: 'This case study will document the problem, domain modeling, architectural decisions, implementation process and lessons learned as the system evolves.',
-      stack: ['React', 'Next.js', 'Node.js', 'PostgreSQL', 'Neon', 'Supabase', 'Render'],
-      time: 'In Development'
-    }
-  },
-  {
-    id: 'logistics-tms',
-    title: 'Logistics & TMS Platform',
-    category: 'Web Applications',
-    status: 'In Development',
-    description: 'Transportation management platform designed to coordinate orders, vehicles, drivers, routes, GPS tracking and proof of delivery.',
-    image: '',
-    tags: ['Logistics', 'Real-time', 'Maps', 'Architecture'],
-    link: '#',
-    details: {
-      concept: 'A transportation management system designed around the operational workflow of a third-party logistics company handling time-sensitive and perishable goods.',
-      features: [
-        'Transport order coordination',
-        'Vehicle & driver fleet management',
-        'Route planning & live GPS tracking',
-        'Proof of delivery (POD) validation',
-        'Incident handling & customer visibility'
+      architecturalDecisions: [
+        {
+          question: 'Why application-level quota validation instead of an API Gateway rate limiter?',
+          decision: 'Application-level transactional check within the service domain.',
+          tradeOff: 'An API Gateway counts requests efficiently at the edge, but lacks fine-grained multi-tenant billing domain awareness, transactional rollbacks, and business quota invariants.'
+        },
+        {
+          question: 'Why synchronous admission before background export processing?',
+          decision: 'Synchronous quota validation and admission response, decoupled from heavy artifact generation.',
+          tradeOff: 'Immediate client feedback on quota acceptance without maintaining complex job queue states in MVP scope.'
+        }
       ],
-      scope: [
-        'Transport orders',
-        'Vehicle management',
-        'Driver management',
-        'Route planning',
-        'GPS tracking',
-        'Delivery status',
-        'Proof of delivery',
-        'Route incidents',
-        'Customer visibility',
-        'Operational reporting'
+      learningMilestones: [
+        '1. Actor, tenant isolation and quota unit definition',
+        '2. Period rules and predictable HTTP contract specification',
+        '3. Atomic persistence and request idempotency mechanism',
+        '4. Concurrency testing and race condition safeguards',
+        '5. Network failure simulation and retry recovery verification',
+        '6. Local Docker environment, automated tests and demo reset script'
       ],
-      architectureFocus: [
-        'Event-driven workflows',
-        'Real-time location updates',
-        'Geospatial data (PostGIS)',
-        'Background jobs & queues',
-        'Push notifications & webhooks',
-        'Auditability & event logging',
-        'Failure recovery & offline handling'
-      ],
-      plannedStack: [
-        { category: 'Frontend', value: 'React / Next.js / Mapbox' },
-        { category: 'Backend', value: 'Node.js / Express' },
-        { category: 'Database', value: 'PostgreSQL / PostGIS' },
-        { category: 'Realtime', value: 'Redis / WebSockets' },
-        { category: 'Deployment', value: 'Render / AWS' }
-      ],
-      currentStatus: 'Domain design & architecture',
-      caseStudyNote: 'This case study will document the problem, domain modeling, architectural decisions, implementation process and lessons learned as the system evolves.',
-      stack: ['Next.js', 'Node.js', 'PostgreSQL', 'PostGIS', 'Redis', 'WebSockets'],
-      time: 'In Development'
-    }
-  },
-  {
-    id: 'ai-document-intelligence',
-    title: 'AI Document Intelligence',
-    category: 'Web Applications',
-    status: 'In Development',
-    description: 'AI-powered document processing pipeline designed to extract, validate and transform business documents into structured operational data.',
-    image: '',
-    tags: ['AI', 'Automation', 'Document Processing', 'Architecture'],
-    link: '#',
-    details: {
-      concept: 'A document processing system exploring how AI can reduce manual data entry and transform unstructured business documents into structured, verifiable data.',
-      features: [
-        'Automated PDF & invoice ingestion',
-        'AI document classification & OCR',
-        'Structured schema extraction',
-        'Human-in-the-loop review interface',
-        'Direct export to business ERP systems'
-      ],
-      scope: [
-        'PDF ingestion',
-        'Document classification',
-        'OCR / extraction',
-        'Structured data generation',
-        'Validation pipelines',
-        'Human review interface',
-        'Document storage',
-        'Audit trail',
-        'Export to business systems'
-      ],
-      architectureFocus: [
-        'Async processing pipelines',
-        'Queue-based workflows (BullMQ)',
-        'AI model orchestration (LLMs / Vision)',
-        'Validation & confidence scoring',
-        'Human-in-the-loop fallback',
-        'Structured error handling',
-        'Operational observability'
-      ],
-      plannedStack: [
-        { category: 'Frontend', value: 'React / TailwindCSS' },
-        { category: 'Backend', value: 'Node.js / Python' },
-        { category: 'AI Models', value: 'OpenAI / Claude Vision' },
-        { category: 'Database', value: 'PostgreSQL / Supabase' },
-        { category: 'Queues', value: 'Redis / BullMQ' }
-      ],
-      currentStatus: 'Architecture & AI workflow design',
-      caseStudyNote: 'This case study will document the problem, domain modeling, architectural decisions, implementation process and lessons learned as the system evolves.',
-      stack: ['React', 'Node.js', 'Python', 'OpenAI API', 'PostgreSQL', 'Redis'],
-      time: 'In Development'
-    }
-  },
-  {
-    id: 'cold-chain-wms',
-    title: 'Cold Chain & WMS',
-    category: 'Web Applications',
-    status: 'Planned',
-    description: 'Warehouse and cold-chain management system focused on inventory traceability, FEFO, temperature events and operational control.',
-    image: '',
-    tags: ['WMS', 'Cold Chain', 'IoT', 'Security'],
-    link: '#',
-    details: {
-      concept: 'A warehouse and cold-chain platform focused on traceability of temperature-sensitive inventory from receiving to dispatch.',
-      features: [
-        'Warehouse zone & location mapping',
-        'Batch & lot FEFO expiration tracking',
-        'Temperature anomaly alerts',
-        'End-to-end inventory movement logs',
-        'Dispatch control & compliance audits'
-      ],
-      scope: [
-        'Warehouse management',
-        'Batch & lot tracking',
-        'FEFO expiration management',
-        'Inventory movements & transfers',
-        'Storage locations & zones',
-        'Temperature sensor events',
-        'Real-time alerts',
-        'Complete traceability',
-        'Dispatch control & manifests'
-      ],
-      architectureFocus: [
-        'Event-driven architecture',
-        'Time-series data storage',
-        'Inventory consistency & locking',
-        'Threshold alert pipelines',
-        'Immutable audit trails',
-        'System resilience & offline sync',
-        'Operational observability'
-      ],
-      plannedStack: [
-        { category: 'Frontend', value: 'React / Next.js' },
-        { category: 'Backend', value: 'Node.js / Go' },
-        { category: 'Database', value: 'PostgreSQL / TimescaleDB' },
-        { category: 'IoT Protocol', value: 'MQTT / WebSockets' },
-        { category: 'Deployment', value: 'AWS / Docker' }
-      ],
-      currentStatus: 'Planned',
-      caseStudyNote: 'This case study will document the problem, domain modeling, architectural decisions, implementation process and lessons learned as the system evolves.',
-      stack: ['Next.js', 'Node.js', 'PostgreSQL', 'TimescaleDB', 'MQTT', 'Docker'],
-      time: 'Planned'
-    }
-  },
-  {
-    id: 'matchvibe',
-    title: 'MatchVibe - Dating App',
-    category: 'Web Applications',
-    hidden: true,
-    description: 'Dating social network based on real interests (Spotify + Netflix).',
-    image: '/img/matchvibe.webp',
-    tags: ['Next.js', 'Socket.io', 'WebRTC', 'Spotify API'],
-    link: '#',
-    details: {
-      concept: 'Tinder + Spotify + Netflix + Karma system = Dating social network based on real interests.',
-      features: ['Swipe system', 'Spotify integration', 'Watch Party', 'Karma system', 'Video calls'],
-      stack: ['Next.js', 'Node.js', 'PostgreSQL', 'Socket.io', 'WebRTC'],
-      time: '12-16 weeks'
-    }
-  },
-  {
-    id: 'namegenius',
-    title: 'NameGenius - AI Naming',
-    category: 'Web Applications',
-    hidden: true,
-    description: 'AI-powered name generator for babies and pets.',
-    image: '/img/namegenius.webp',
-    tags: ['React', 'OpenAI API', 'Supabase'],
-    link: '#',
-    details: {
-      concept: 'App to generate unique and meaningful names using AI.',
-      features: ['Advanced filters', 'AI generation', 'Meaning and history', 'Favorites'],
-      stack: ['React', 'Node.js', 'PostgreSQL', 'OpenAI API'],
-      time: '2-3 weeks'
-    }
-  },
-  {
-    id: 'storygen',
-    title: 'StoryGen Kids',
-    category: 'Web Applications',
-    hidden: true,
-    description: 'Personalized children\'s story generator with AI illustrations.',
-    image: '/img/storygen.webp',
-    tags: ['Next.js', 'DALL-E 3', 'ElevenLabs'],
-    link: '#',
-    details: {
-      concept: 'Personalized story generator for kids with AI images and animations.',
-      features: ['Text and image generation', 'Reading mode', 'PDF/Video export'],
-      stack: ['Next.js', 'OpenAI API', 'DALL-E 3', 'ElevenLabs'],
-      time: '5-7 weeks'
+      currentStatus: 'Phase: Problem Scoping & Architecture Design. Implementation planned for Milestone 1.',
+      caseStudyNote: 'This case study documents the design decisions, trade-offs, and verification test suite as the system is built in public with zero commercial exaggeration.',
+      stack: ['Python / Node.js', 'PostgreSQL', 'Docker', 'REST API', 'Automated Testing'],
+      time: 'Design & Learning'
     }
   },
 
-  // --- CORPORATE WEBSITES ---
+  // ── Project 02 ─────────────────────────────────────────────────────────────
+  {
+    id: 'loan-payment-reconciliation',
+    title: 'Loan Payment Operations & Reconciliation',
+    workName: 'Loan Payment Operations Simulator',
+    category: 'Systems & Backend',
+    status: 'Selected / Planned',
+    editorialBadge: 'Planned — Follows Project 01',
+    description: 'Financial operations simulator coordinating installment collections with an external provider, handling ambiguous timeouts, and reconciling internal ledgers against synthetic provider statements.',
+    image: '',
+    tags: ['Financial State Machine', 'Payment Operations', 'Pull-first Query', 'Reconciliation', 'Idempotency'],
+    link: '#',
+    details: {
+      concept: 'A non-bank lender simulator managing customer loan obligations. It processes payment outcomes, handles uncertain timeouts through a pull-first polling strategy, and reconciles internal ledgers against synthetic daily provider reports.',
+      features: [
+        'Loan installment state machine (Pending, Paid, Partial, Ambiguous, In Review)',
+        'Single installment targeting per payment attempt',
+        'Pull-first status inquiry upon external provider timeouts',
+        'Prevention of double-application on ambiguous responses',
+        'Automated matching between internal transactions and synthetic provider reports',
+        'Exception routing for operator audit on amount discrepancies'
+      ],
+      scope: [
+        'Installment & loan debt domain model',
+        'Simulated payment provider integration',
+        'Pull-first polling engine for timeout resolution',
+        'Idempotent payment application ledger',
+        'Discrepancy detection & exception flag mechanism',
+        'Synthetic daily report reconciliation tool'
+      ],
+      architectureFocus: [
+        'Financial state transition consistency',
+        'Zero double-application guarantee',
+        'Pull-first vs. Webhook architectural trade-off',
+        'Deterministic transaction ledger & audit trail',
+        'Synthetic data generation for edge-case reconciliation'
+      ],
+      domainContext: 'When customers pay installments, payment provider responses may time out or return ambiguous states. Treating a timeout as a failure risks double-charging the customer; treating it as success risks uncollected funds. The system treats timeouts as "Inconclusive" and uses active inquiry before applying ledger changes.',
+      coreInvariants: [
+        'A loan installment cannot transition to Paid without a confirmed, unique provider reference.',
+        'Timeouts are treated as Inconclusive; never automatically assumed as Failed or Succeeded.',
+        'Ledger balance modifications must be idempotent; querying a settled transaction cannot re-credit the loan.',
+        'Any discrepancy between provider settlement report and internal ledger stops automatic processing and flags the record for audit.'
+      ],
+      architecturalDecisions: [
+        {
+          question: 'Why pull-first status inquiries instead of webhooks in the initial MVP?',
+          decision: 'Pull-first active status query engine.',
+          tradeOff: 'Webhooks require public ingress, webhook secret signatures, replay attack protections, and out-of-order delivery handling. Pull-first dramatically reduces the attack surface and guarantees sequential verification during MVP.'
+        },
+        {
+          question: 'How to handle amount and reference mismatches?',
+          decision: 'Operator exception queue with full audit history.',
+          tradeOff: 'Prevents automatic erroneous accounting adjustments when external fees or partial amounts differ from schedule.'
+        }
+      ],
+      learningMilestones: [
+        '1. Domain glossary: loan, installment, attempt, outcome, application, exception',
+        '2. Conclusive state machine and transition rules',
+        '3. Atomic ledger persistence and idempotency validation',
+        '4. Pull-first inquiry engine for timeout resolution',
+        '5. Transaction matching against synthetic provider statements',
+        '6. Security, operator roles, and synthetic test harness'
+      ],
+      currentStatus: 'Phase: Scope Defined & Architecture Outlined. Scheduled for implementation following Project 01 completion.',
+      caseStudyNote: 'This case study outlines the state machine design and reconciliation strategy prior to coding, built strictly with synthetic financial data.',
+      stack: ['Python / Node.js', 'PostgreSQL', 'State Machines', 'Reconciliation', 'Docker'],
+      time: 'Planned'
+    }
+  },
+
+  // ── Project 03 ─────────────────────────────────────────────────────────────
+  {
+    id: 'construction-equipment-erp',
+    title: 'Construction Equipment Operations ERP',
+    workName: 'Equipment Sales & Fleet Rental Demo',
+    category: 'Systems & Backend',
+    status: 'Future Capstone / Defined Scope',
+    editorialBadge: 'Capstone — Scope Defined',
+    description: 'Operations ERP separating new equipment sales inventory from serialized rental fleet assets, enforcing non-overlapping date reservation invariants and return inspection workflows.',
+    image: '',
+    tags: ['Operations ERP', 'Inventory Segregation', 'Temporal Availability', 'Asset Lifecycle', 'PostgreSQL'],
+    link: '#',
+    details: {
+      concept: 'An operational ERP designed around heavy machinery and construction equipment. It maintains strict domain separation between new equipment stock sold off-the-shelf and serialized physical fleet units rented across temporal windows with mandatory post-return inspection.',
+      features: [
+        'Strict separation between sales inventory and serialized rental fleet units',
+        'Temporal asset reservation preventing date overlaps',
+        'Equipment status lifecycle (Available, Reserved, Dispatched, Returned, Under Inspection, Maintenance)',
+        'Post-return condition check preventing immediate re-rental before clearance',
+        'Machine maintenance history and unit hour tracking'
+      ],
+      scope: [
+        'Dual-catalog domain model (Stock for sale vs. Serialized fleet for rent)',
+        'Direct sale order workflow',
+        'Date-range rental booking & availability engine',
+        'Dispatch & return inspection custody handoff',
+        'Preventive maintenance status lockouts',
+        'Operator roles, audit trail, and synthetic seed data'
+      ],
+      architectureFocus: [
+        'Domain modeling: Sale stock vs. Rental physical assets',
+        'Temporal reservation concurrency & collision avoidance',
+        'PostgreSQL exclusion constraints vs. application-level locks',
+        'Immutable asset custody transition log',
+        'Synthetic equipment dataset and multi-step order workflows'
+      ],
+      domainContext: 'Heavy construction equipment businesses cannot treat rental fleet like retail inventory: each machine has a unique serial number, operating hours, maintenance logs, and rental schedule. A rented unit cannot be booked for overlapping dates, and a returned machine must be inspected before returning to the available fleet pool.',
+      coreInvariants: [
+        'Sales stock cannot be leased, and serialized rental fleet units cannot be depleted through sales orders.',
+        'A serialized rental machine cannot have overlapping active reservations across any date interval.',
+        'Returning a machine places it into "Under Inspection", making it non-reservable until mechanically certified.',
+        'All custody transitions (dispatch, return, maintenance) generate immutable audit records.'
+      ],
+      architecturalDecisions: [
+        {
+          question: 'How to prevent overlapping rental bookings for serialized equipment?',
+          decision: 'Evaluate PostgreSQL exclusion constraints alongside application-level checks.',
+          tradeOff: 'DB-level exclusion constraints guarantee zero double-booking even under concurrent race conditions, compared to fragile application-only validation.'
+        },
+        {
+          question: 'Relationship with previous private ERP experience?',
+          decision: 'Brand new, independent project developed with synthetic equipment data and zero private company code.',
+          tradeOff: 'Protects commercial confidentiality while showcasing advanced domain modeling and architectural rigor.'
+        }
+      ],
+      learningMilestones: [
+        '1. Domain vocabulary, entity model, and workflow state map',
+        '2. Separation of sales catalog vs. serialized fleet assets',
+        '3. Temporal availability and reservation engine',
+        '4. Dispatch, return inspection, and maintenance lockouts',
+        '5. Concurrency validation under simultaneous bookings',
+        '6. Automated seed fixtures and reproducible local demo environment'
+      ],
+      currentStatus: 'Phase: Capstone Initiative — Concept and Core Invariants Approved. Technical design scheduled after Projects 01 & 02.',
+      caseStudyNote: 'This project synthesizes domain experience into a transparent, documented open architecture built entirely from scratch with synthetic business data.',
+      stack: ['TypeScript / Node.js', 'PostgreSQL', 'Temporal Intervals', 'Domain Modeling', 'Docker'],
+      time: 'Planned Capstone'
+    }
+  },
+
+  // =========================================================================
+  // --- PROVEN WORK: CLIENT & PRODUCTION WEB SOLUTIONS (Delivered Work) -----
+  // =========================================================================
+
+  // ── Corporate Websites ───────────────────────────────────────────────────
   {
     id: 'rg-distribuciones',
     title: 'RG Distribuciones Perú',
     category: 'Corporate Websites',
+    status: 'Completed Solution',
     description: 'Corporate website for distribution company with sustainability focus.',
     image: '/img/rg-distribuciones.webp',
-    tags: ['Astro', 'React', 'Corporate'],
+    tags: ['Astro', 'React', 'Corporate', 'SEO'],
     link: 'https://rgdistribucionesperu.com',
     details: {
       concept: 'Professional corporate website for leading ecological distribution company in Peru.',
@@ -300,6 +278,7 @@ export const projects: Project[] = [
     id: 'buildpro',
     title: 'BuildPro - Construction Company',
     category: 'Corporate Websites',
+    status: 'Completed Solution',
     description: 'Robust website for construction company with project portfolio.',
     image: '/img/buildpro.webp',
     tags: ['Astro', 'React', 'TailwindCSS', 'GSAP'],
@@ -313,19 +292,20 @@ export const projects: Project[] = [
     }
   },
 
-  // --- LANDING PAGES ---
+  // ── Landing Pages ────────────────────────────────────────────────────────
   {
     id: 'summerwave',
     title: 'SummerWave - Summer Clothing',
     category: 'Landing Pages',
+    status: 'Completed Solution',
     description: 'Vibrant landing page for summer clothing collection with fluid animations.',
     image: '/img/summerwave.webp',
-    tags: ['Astro', 'React', 'Tailwind', 'Framer Motion'],
+    tags: ['Astro', 'React', 'Tailwind', 'GSAP', 'Framer Motion'],
     link: 'https://summerwave.netlify.app/',
     details: {
       concept: 'Promotional landing page for summer season launch.',
       features: ['Looks carousel', 'Entry animations', 'Countdown banner', 'Smooth scroll', 'Style quiz', 'Product gallery'],
-      stack: ['Astro', 'React', 'TailwindCSS', 'Framer Motion'],
+      stack: ['Astro', 'React', 'TailwindCSS', 'GSAP', 'Framer Motion'],
       time: '5-7 days',
       metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
     }
@@ -334,6 +314,7 @@ export const projects: Project[] = [
     id: 'elegancegala',
     title: 'EleganceGala - Fashion Store',
     category: 'Landing Pages',
+    status: 'Completed Solution',
     description: 'Gala dress boutique with premium user experience.',
     image: '/img/elegancegala.webp',
     tags: ['Astro', 'React', 'Tailwind', 'Framer Motion'],
@@ -350,6 +331,7 @@ export const projects: Project[] = [
     id: 'fitpro',
     title: 'FitPro Tracker',
     category: 'Landing Pages',
+    status: 'Completed Solution',
     description: 'Premium tech landing for smartwatch and fitness app.',
     image: '/img/fitpro.webp',
     tags: ['Astro', 'React', 'GSAP'],
@@ -366,6 +348,7 @@ export const projects: Project[] = [
     id: 'gelatoart',
     title: 'GelatoArt - Ice Cream Shop',
     category: 'Landing Pages',
+    status: 'Completed Solution',
     description: 'Delicious visual experience for artisan ice cream shop.',
     image: '/img/gelatoart.webp',
     tags: ['Astro', 'React', 'GSAP'],
@@ -378,10 +361,13 @@ export const projects: Project[] = [
       metrics: ['Lighthouse Score: >95', 'FCP: <1.5s']
     }
   },
+
+  // ── Archived / Reference Web Applications ────────────────────────────────
   {
     id: 'matchvibe',
     title: 'MatchVibe - Dating App',
     category: 'Web Applications',
+    status: 'Completed Solution',
     hidden: true,
     description: 'Dating social network based on real interests (Spotify + Netflix).',
     image: '/img/matchvibe.webp',
@@ -398,6 +384,7 @@ export const projects: Project[] = [
     id: 'namegenius',
     title: 'NameGenius - AI Naming',
     category: 'Web Applications',
+    status: 'Completed Solution',
     hidden: true,
     description: 'AI-powered name generator for babies and pets.',
     image: '/img/namegenius.webp',
@@ -414,6 +401,7 @@ export const projects: Project[] = [
     id: 'storygen',
     title: 'StoryGen Kids',
     category: 'Web Applications',
+    status: 'Completed Solution',
     hidden: true,
     description: 'Personalized children\'s story generator with AI illustrations.',
     image: '/img/storygen.webp',
@@ -426,30 +414,11 @@ export const projects: Project[] = [
       time: '5-7 weeks'
     }
   },
-
-  // --- WORDPRESS THEMES ---
-  {
-    id: 'fashionhub',
-    title: 'FashionHub Theme',
-    category: 'WordPress Themes',
-    hidden: true,
-    description: 'WooCommerce theme specialized for women\'s fashion stores.',
-    image: '/img/fashionhub.webp',
-    tags: ['WordPress', 'WooCommerce', 'Elementor'],
-    link: '#',
-    details: {
-      concept: 'Premium theme for women\'s clothing stores.',
-      features: ['Interactive lookbook', 'Size guide', 'Color swatches', 'Instagram shop'],
-      stack: ['WordPress', 'WooCommerce', 'Elementor Pro', 'PHP'],
-      time: '4-5 weeks'
-    }
-  },
-
-  // --- EXTENSIONS ---
   {
     id: 'codesnippets',
     title: 'CodeSnippets Pro',
     category: 'Extensions',
+    status: 'Completed Solution',
     hidden: true,
     description: 'VSCode extension for intelligent snippet management with AI.',
     image: '/img/CodeSnippetsPro.webp',

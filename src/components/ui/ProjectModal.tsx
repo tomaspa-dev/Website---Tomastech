@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import type { Project } from '../../data/projects';
-import { X, ChevronDown, ChevronUp, Calendar, Layers, Zap, Trophy, ExternalLink, Cpu, CheckCircle2, Sparkles, Clock } from 'lucide-react';
+import { 
+  X, ChevronDown, ChevronUp, Calendar, Layers, Zap, Trophy, 
+  ExternalLink, Cpu, CheckCircle2, Sparkles, Clock, ShieldCheck, 
+  GitBranch, BookOpen, AlertTriangle, Scale 
+} from 'lucide-react';
 
 interface ProjectModalProps {
   project: Project;
@@ -11,7 +15,7 @@ interface ProjectModalProps {
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const [isContentVisible, setIsContentVisible] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [activeTab, setActiveTab] = useState<'scope' | 'architecture' | 'stack'>('scope');
+  const [activeTab, setActiveTab] = useState<'invariants' | 'decisions' | 'roadmap' | 'scope'>('invariants');
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -24,6 +28,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
       // Stop Lenis so it never hijacks modal wheel scroll
       (window as any).__lenis?.stop();
       setIsContentVisible(true);
+      setActiveTab(project.details.coreInvariants ? 'invariants' : 'scope');
       requestAnimationFrame(() => setIsAnimating(true));
     } else {
       setIsAnimating(false);
@@ -36,13 +41,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
       document.body.style.overflow = 'unset';
       (window as any).__lenis?.start();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, project]);
 
   if (!isOpen) return null;
 
-  const isInDevelopment = project.status === 'In Development';
-  const isPlanned = project.status === 'Planned';
-  const isArchitectureProject = isInDevelopment || isPlanned;
+  const isDesignLearning = project.status === 'Selected / Design & Learning';
+  const isPlanned = project.status === 'Selected / Planned';
+  const isCapstone = project.status === 'Future Capstone / Defined Scope';
+  const isArchitectureProject = isDesignLearning || isPlanned || isCapstone;
 
   return (
     <div 
@@ -77,15 +83,17 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent transition-opacity duration-500 ${isContentVisible ? 'opacity-85' : 'opacity-30'}`} />
             </>
           ) : (
-            /* Sleek Dark Blueprint Mesh for In-Development Projects */
+            /* Sleek Dark Blueprint Mesh for Systems Architecture Projects */
             <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950/50 to-slate-950 flex items-center justify-center">
               <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#818cf8_1px,transparent_1px),linear-gradient(to_bottom,#818cf8_1px,transparent_1px)] bg-[size:32px_32px]" />
               <div className="absolute inset-0 bg-radial-gradient from-indigo-500/20 via-transparent to-black/80" />
-              <div className="text-center p-8 opacity-30 select-none pointer-events-none">
+              <div className="text-center p-8 opacity-25 select-none pointer-events-none">
                 <div className="w-20 h-20 mx-auto rounded-3xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4 shadow-2xl">
-                  <Cpu size={40} />
+                  {project.id === 'api-usage-guard' ? <ShieldCheck size={40} /> : <Cpu size={40} />}
                 </div>
-                <h3 className="text-lg font-mono tracking-widest uppercase text-indigo-300">Software Architecture &amp; Domain Model</h3>
+                <h3 className="text-lg font-mono tracking-widest uppercase text-indigo-300">
+                  {project.workName || 'Backend Architecture & Domain Model'}
+                </h3>
               </div>
               <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-500 ${isContentVisible ? 'opacity-90' : 'opacity-40'}`} />
             </div>
@@ -98,16 +106,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-lg transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
               {project.category}
             </span>
-            {isInDevelopment && (
-              <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-amber-500/25 backdrop-blur-md border border-amber-400/40 rounded-full text-amber-300 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                IN DEVELOPMENT
+            {isDesignLearning && (
+              <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-purple-500/25 backdrop-blur-md border border-purple-400/40 rounded-full text-purple-200 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                DESIGN &amp; LEARNING
               </span>
             )}
             {isPlanned && (
               <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-cyan-500/25 backdrop-blur-md border border-cyan-400/40 rounded-full text-cyan-300 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                PLANNED
+                PLANNED SEQUENCE
+              </span>
+            )}
+            {isCapstone && (
+              <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-amber-500/25 backdrop-blur-md border border-amber-400/40 rounded-full text-amber-300 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                FUTURE CAPSTONE
               </span>
             )}
           </div>
@@ -141,33 +155,41 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             onWheel={(e) => e.stopPropagation()}
           >
             
-            {/* In Development or Planned Announcement Banner */}
+            {/* Architecture Project Announcement Banner */}
             {isArchitectureProject && (
               <div className={`mb-6 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-start gap-3 shadow-sm ${
-                isPlanned 
-                  ? 'bg-cyan-500/10 border border-cyan-500/25' 
-                  : 'bg-amber-500/10 border border-amber-500/25'
+                isDesignLearning 
+                  ? 'bg-purple-500/10 border border-purple-500/25' 
+                  : isPlanned 
+                    ? 'bg-cyan-500/10 border border-cyan-500/25' 
+                    : 'bg-amber-500/10 border border-amber-500/25'
               }`}>
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
-                  isPlanned ? 'bg-cyan-500/20 text-cyan-300' : 'bg-amber-500/20 text-amber-300'
+                  isDesignLearning 
+                    ? 'bg-purple-500/20 text-purple-300' 
+                    : isPlanned 
+                      ? 'bg-cyan-500/20 text-cyan-300' 
+                      : 'bg-amber-500/20 text-amber-300'
                 }`}>
                   <Sparkles size={16} />
                 </div>
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h4 className={`text-sm font-bold font-heading ${isPlanned ? 'text-cyan-300' : 'text-amber-300'}`}>
-                      {isPlanned ? 'Project Planned' : 'Project in development'}
-                    </h4>
-                    <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border ${
-                      isPlanned 
-                        ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' 
-                        : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h4 className={`text-sm font-bold font-heading ${
+                      isDesignLearning ? 'text-purple-300' : isPlanned ? 'text-cyan-300' : 'text-amber-300'
                     }`}>
-                      {isPlanned ? 'ARCHITECTURE PLANNING' : 'CASE STUDY IN PROGRESS'}
+                      {isDesignLearning 
+                        ? 'Architecture & System Design in Progress' 
+                        : isPlanned 
+                          ? 'Planned System Sequence' 
+                          : 'Capstone ERP Architecture'}
+                    </h4>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/5 border-white/10 text-slate-300">
+                      BUILDING PUBLICLY &middot; ZERO SYNTHETIC CLAIMS
                     </span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-                    {project.details.caseStudyNote || "This case study will document the problem, domain modeling, architectural decisions, implementation process and lessons learned as the system evolves."}
+                    {project.details.caseStudyNote || "This case study documents the problem, domain invariants, architectural trade-offs, and verification test suite as the system is constructed in public."}
                   </p>
                 </div>
               </div>
@@ -178,6 +200,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               {/* Main Column */}
               <div className="lg:col-span-2 space-y-6">
                 <div>
+                  {project.workName && (
+                    <span className="text-xs font-mono uppercase tracking-widest text-primary font-bold block mb-1">
+                      {project.workName}
+                    </span>
+                  )}
                   <h2 className="text-2xl md:text-3xl font-bold modal-heading mb-3 leading-tight">
                     {project.title}
                   </h2>
@@ -186,11 +213,53 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   </p>
                 </div>
 
-                {/* If In-Development / Architecture Project: Segmented Tabs */}
-                {isInDevelopment && (project.details.scope || project.details.architectureFocus || project.details.plannedStack) ? (
+                {/* Architecture Project: Segmented Tabs */}
+                {isArchitectureProject ? (
                   <div className="space-y-4">
                     {/* Tab Navigation */}
                     <div className="flex flex-wrap gap-2 p-1.5 bg-black/30 border modal-border rounded-xl w-fit">
+                      {project.details.coreInvariants && (
+                        <button
+                          onClick={() => setActiveTab('invariants')}
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'invariants'
+                              ? 'bg-primary text-white shadow-md'
+                              : 'modal-label hover:modal-heading'
+                          }`}
+                        >
+                          <ShieldCheck size={14} />
+                          <span>Core Invariants</span>
+                        </button>
+                      )}
+
+                      {project.details.architecturalDecisions && (
+                        <button
+                          onClick={() => setActiveTab('decisions')}
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'decisions'
+                              ? 'bg-primary text-white shadow-md'
+                              : 'modal-label hover:modal-heading'
+                          }`}
+                        >
+                          <Scale size={14} />
+                          <span>Decisions &amp; ADRs</span>
+                        </button>
+                      )}
+
+                      {project.details.learningMilestones && (
+                        <button
+                          onClick={() => setActiveTab('roadmap')}
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                            activeTab === 'roadmap'
+                              ? 'bg-primary text-white shadow-md'
+                              : 'modal-label hover:modal-heading'
+                          }`}
+                        >
+                          <BookOpen size={14} />
+                          <span>Learning Roadmap</span>
+                        </button>
+                      )}
+
                       {project.details.scope && (
                         <button
                           onClick={() => setActiveTab('scope')}
@@ -201,40 +270,89 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           }`}
                         >
                           <CheckCircle2 size={14} />
-                          <span>Current Scope ({project.details.scope.length})</span>
-                        </button>
-                      )}
-
-                      {project.details.architectureFocus && (
-                        <button
-                          onClick={() => setActiveTab('architecture')}
-                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
-                            activeTab === 'architecture'
-                              ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
-                          }`}
-                        >
-                          <Cpu size={14} />
-                          <span>Architecture Focus ({project.details.architectureFocus.length})</span>
-                        </button>
-                      )}
-
-                      {project.details.plannedStack && (
-                        <button
-                          onClick={() => setActiveTab('stack')}
-                          className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
-                            activeTab === 'stack'
-                              ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
-                          }`}
-                        >
-                          <Layers size={14} />
-                          <span>Planned Stack</span>
+                          <span>Scope &amp; Modules</span>
                         </button>
                       )}
                     </div>
 
-                    {/* Tab 1: Scope */}
+                    {/* Tab 1: Core Invariants */}
+                    {activeTab === 'invariants' && project.details.coreInvariants && (
+                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                        <div className="flex items-center justify-between pb-2 border-b modal-divider">
+                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
+                            <ShieldCheck size={14} className="text-primary" /> DOMAIN RULES &amp; ENGINEERING INVARIANTS
+                          </h3>
+                          <span className="text-[10px] modal-label font-mono">Guarantees</span>
+                        </div>
+                        {project.details.domainContext && (
+                          <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5 italic">
+                            "{project.details.domainContext}"
+                          </p>
+                        )}
+                        <ul className="space-y-2.5">
+                          {project.details.coreInvariants.map((rule, idx) => (
+                            <li key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading leading-relaxed">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+                              <span>{rule}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Tab 2: Architectural Decisions (ADRs) */}
+                    {activeTab === 'decisions' && project.details.architecturalDecisions && (
+                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                        <div className="flex items-center justify-between pb-2 border-b modal-divider">
+                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
+                            <Scale size={14} className="text-indigo-400" /> ARCHITECTURAL DECISIONS &amp; TRADE-OFFS
+                          </h3>
+                          <span className="text-[10px] modal-label font-mono">{project.details.architecturalDecisions.length} ADRs</span>
+                        </div>
+                        <div className="space-y-3">
+                          {project.details.architecturalDecisions.map((adr, idx) => (
+                            <div key={idx} className="p-3.5 rounded-lg bg-white/5 border border-white/5 space-y-1.5 text-xs">
+                              <div className="font-bold modal-heading flex items-center gap-2">
+                                <span className="text-indigo-400 font-mono text-[10px]">ADR-0{idx + 1}</span>
+                                <span>{adr.question}</span>
+                              </div>
+                              <div className="text-emerald-300/90 font-medium pl-6">
+                                <span className="text-[10px] uppercase tracking-wider text-slate-400 mr-1.5">Decision:</span>
+                                {adr.decision}
+                              </div>
+                              <div className="text-[var(--color-text-secondary)] pl-6 text-[11px] leading-relaxed">
+                                <span className="text-[10px] uppercase tracking-wider text-slate-400 mr-1.5">Trade-off &amp; Rationale:</span>
+                                {adr.tradeOff}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tab 3: Learning Roadmap */}
+                    {activeTab === 'roadmap' && project.details.learningMilestones && (
+                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                        <div className="flex items-center justify-between pb-2 border-b modal-divider">
+                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
+                            <BookOpen size={14} className="text-primary" /> SEQUENCED MILESTONES &amp; VERIFICATION
+                          </h3>
+                          <span className="text-[10px] modal-label font-mono">Progressive</span>
+                        </div>
+                        <ul className="space-y-2">
+                          {project.details.learningMilestones.map((ms, idx) => (
+                            <li key={idx} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading">
+                              <span className="w-5 h-5 rounded-md bg-primary/20 text-primary text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
+                                {idx + 1}
+                              </span>
+                              <span>{ms.replace(/^\d+\.\s*/, '')}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Tab 4: Scope */}
                     {activeTab === 'scope' && project.details.scope && (
                       <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
@@ -253,49 +371,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         </ul>
                       </div>
                     )}
-
-                    {/* Tab 2: Architecture Focus */}
-                    {activeTab === 'architecture' && project.details.architectureFocus && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
-                        <div className="flex items-center justify-between pb-2 border-b modal-divider">
-                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <Cpu size={14} className="text-indigo-400" /> ARCHITECTURAL DECISIONS &amp; CORE PATTERNS
-                          </h3>
-                          <span className="text-[10px] modal-label font-mono">{project.details.architectureFocus.length} Pillars</span>
-                        </div>
-                        <ul className="grid sm:grid-cols-2 gap-2">
-                          {project.details.architectureFocus.map((arch, idx) => (
-                            <li key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading font-medium">
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                              <span>{arch}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Tab 3: Planned Stack */}
-                    {activeTab === 'stack' && project.details.plannedStack && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
-                        <div className="flex items-center justify-between pb-2 border-b modal-divider">
-                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <Layers size={14} className="text-primary" /> TARGET TECHNOLOGIES BY LAYER
-                          </h3>
-                          <span className="text-[10px] modal-label font-mono">5 Layers</span>
-                        </div>
-                        <div className="grid sm:grid-cols-2 gap-2">
-                          {project.details.plannedStack.map((item, idx) => (
-                            <div key={idx} className="flex justify-between items-center p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs">
-                              <span className="modal-label font-mono uppercase text-[10px]">{item.category}</span>
-                              <span className="modal-heading font-bold">{item.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ) : (
-                  /* Standard 2-Column Features & Results Layout */
+                  /* Standard 2-Column Features & Results Layout for Delivered Sites */
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
                       <h3 className="text-xs font-bold modal-label uppercase tracking-wider mb-3 flex items-center gap-2">
@@ -314,7 +392,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     {project.details.metrics && (
                       <div>
                         <h3 className="text-xs font-bold modal-label uppercase tracking-wider mb-3 flex items-center gap-2">
-                          <Trophy size={14} className="text-accent" /> Results
+                          <Trophy size={14} className="text-accent" /> Results &amp; Performance
                         </h3>
                         <div className="space-y-2">
                           {project.details.metrics.map((metric, idx) => (
@@ -335,7 +413,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 
                 <div>
                   <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Layers size={12} /> Tech Stack
+                    <Layers size={12} /> Tech &amp; Domain Focus
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.details.stack.map((tech) => (
@@ -348,24 +426,27 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                 <div>
                   <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Calendar size={12} /> {isInDevelopment ? 'Current Status' : 'Timeline'}
+                    <Calendar size={12} /> Current Phase
                   </h3>
                   <p className="modal-heading text-sm font-medium">
                     {project.details.currentStatus || project.details.time}
                   </p>
                 </div>
 
-                {isInDevelopment ? (
-                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-center">
-                    <span className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
-                      <Clock size={14} /> IN DEVELOPMENT
-                    </span>
-                  </div>
-                ) : isPlanned ? (
-                  <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-center">
-                    <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
-                      <Clock size={14} /> PLANNED
-                    </span>
+                {isArchitectureProject ? (
+                  <div className="space-y-3 pt-2">
+                    <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center space-y-1.5">
+                      <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                        <GitBranch size={14} /> PUBLIC ENGINEERING REPO
+                      </span>
+                      <p className="text-[11px] text-slate-400">
+                        Code, test suites, and ADRs will be linked directly to GitHub upon completing Milestone 1.
+                      </p>
+                    </div>
+                    <div className="p-3 rounded-lg bg-black/40 border modal-border text-[11px] text-slate-400 flex items-center gap-2">
+                      <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
+                      <span>Zero synthetic claims; 100% reproducible local environment.</span>
+                    </div>
                   </div>
                 ) : project.link && project.link !== '#' ? (
                   <a 
@@ -374,7 +455,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     rel="noopener noreferrer"
                     className="group/btn flex items-center justify-center gap-2 w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] mt-2"
                   >
-                    Visit Project <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    Visit Live Site <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                   </a>
                 ) : null}
               </div>

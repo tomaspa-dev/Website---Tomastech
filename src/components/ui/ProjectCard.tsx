@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Project } from '../../data/projects';
-import { ArrowUpRight, Eye } from 'lucide-react';
+import { ArrowUpRight, Eye, ShieldCheck, Cpu, Database, Sparkles } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
@@ -9,6 +9,11 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onOpenModal, index = 0 }: ProjectCardProps) {
+  const isArchitectureProject = 
+    project.status === 'Selected / Design & Learning' || 
+    project.status === 'Selected / Planned' || 
+    project.status === 'Future Capstone / Defined Scope';
+
   return (
     <div 
       className="group relative bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 flex flex-col h-full cursor-pointer project-card-hover"
@@ -53,7 +58,7 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
           </>
         ) : (
-          /* Sleek Architecture Blueprint Placeholder for in-development projects */
+          /* Sleek Architecture Blueprint Placeholder for systems projects */
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center overflow-hidden">
             {/* Grid blueprint lines */}
             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#818cf8_1px,transparent_1px),linear-gradient(to_bottom,#818cf8_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -61,15 +66,19 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
             
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-3 shadow-[0_0_25px_rgba(99,102,241,0.25)] group-hover:scale-110 transition-transform duration-500">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                </svg>
+                {project.id === 'api-usage-guard' ? (
+                  <ShieldCheck size={28} />
+                ) : project.id === 'loan-payment-reconciliation' ? (
+                  <Cpu size={28} />
+                ) : (
+                  <Database size={28} />
+                )}
               </div>
-              <span className="text-xs font-mono tracking-widest text-indigo-300/80 uppercase font-semibold">
-                Architecture &amp; Domain Model
+              <span className="text-xs font-mono tracking-widest text-indigo-300/90 uppercase font-semibold">
+                {project.workName || 'Architecture & Domain Model'}
+              </span>
+              <span className="text-[11px] text-slate-400 mt-1 max-w-xs font-mono">
+                System Design &amp; Learning Case
               </span>
             </div>
           </div>
@@ -79,7 +88,7 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
           <div className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs font-semibold flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-xl">
             <Eye size={16} className="text-primary" />
-            <span>View Case Study</span>
+            <span>{isArchitectureProject ? 'Explore Architecture Case' : 'View Case Study'}</span>
           </div>
         </div>
         
@@ -89,16 +98,28 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {project.category}
           </span>
-          {project.status === 'In Development' && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-amber-500/20 backdrop-blur-md border border-amber-400/30 rounded-full text-amber-300 shadow-lg">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              IN DEVELOPMENT
+          {project.status === 'Selected / Design & Learning' && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-purple-500/25 backdrop-blur-md border border-purple-400/40 rounded-full text-purple-200 shadow-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+              DESIGN &amp; LEARNING
             </span>
           )}
-          {project.status === 'Planned' && (
+          {project.status === 'Selected / Planned' && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 rounded-full text-cyan-300 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              PLANNED
+              PLANNED SEQUENCE
+            </span>
+          )}
+          {project.status === 'Future Capstone / Defined Scope' && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-amber-500/20 backdrop-blur-md border border-amber-400/30 rounded-full text-amber-300 shadow-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              FUTURE CAPSTONE
+            </span>
+          )}
+          {project.status === 'Completed Solution' && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-full text-emerald-300 shadow-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              DELIVERED
             </span>
           )}
         </div>
@@ -107,14 +128,21 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
       {/* Content */}
       <div className="p-6 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-bold text-[var(--color-text-primary)] group-hover:text-primary transition-colors duration-300">
-            {project.title}
-          </h3>
+          <div>
+            {project.workName && (
+              <span className="text-[11px] font-mono uppercase tracking-wider text-primary font-bold block mb-0.5">
+                {project.workName}
+              </span>
+            )}
+            <h3 className="text-xl font-bold text-[var(--color-text-primary)] group-hover:text-primary transition-colors duration-300">
+              {project.title}
+            </h3>
+          </div>
           
           {/* Action Icon / Badge */}
-          {project.status === 'In Development' || project.status === 'Planned' ? (
+          {isArchitectureProject ? (
             <div className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary text-xs font-semibold tracking-wide transition-all duration-300 transform group-hover:-translate-y-0.5 shrink-0 ml-3 flex items-center gap-1.5 shadow-sm">
-              <span>View Case Study</span>
+              <span>Case Study</span>
               <ArrowUpRight size={14} />
             </div>
           ) : project.link && project.link !== '#' ? (
@@ -124,7 +152,7 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className="w-10 h-10 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 transform group-hover:-translate-y-1 group-hover:translate-x-1 shrink-0 ml-3 z-30 arrow-btn"
-              title="Visit Project"
+              title="Visit Live Site"
             >
               <ArrowUpRight size={20} />
             </a>
@@ -161,22 +189,6 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
-        }
-        .project-card-hover {
-          transition: all 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
-        }
-        .project-card-hover:hover {
-          transform: translateY(-4px);
-        }
-        .arrow-btn {
-          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes pulse-soft {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
-          50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
-        }
-        .group:hover .animate-pulse-soft {
-          animation: pulse-soft 2s infinite;
         }
       `}</style>
     </div>
