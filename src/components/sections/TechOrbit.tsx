@@ -87,32 +87,74 @@ export default function TechOrbit() {
       {/* Center dot */}
       <div className="absolute rounded-full pf-orbit-center" style={{ width: 10, height: 10, left: 165, top: 165 }} />
 
-      {/* Tech logo planets — perfectly circular */}
-      {TECHS.map((tech) => (
+      {/* Tech logo planets — rotating around center */}
+      {TECHS.map((tech, i) => (
         <div
           key={tech.name}
-          className="tech-planet absolute rounded-full flex items-center justify-center pointer-events-auto"
-          title={tech.name}
-          data-r={tech.r}
-          data-angle={tech.startAngle}
-          data-speed={tech.speed}
+          className="absolute tech-orbit-badge"
           style={{
-            width: 44,
-            height: 44,
-            backgroundColor: tech.bg,
-            border: `1.5px solid ${tech.border}`,
-            boxShadow: `0 0 14px ${tech.border}`,
-            left: 170 - 22,
-            top: 170 - 22,
-            transform: `translate(${Math.cos(tech.startAngle) * tech.r}px, ${Math.sin(tech.startAngle) * tech.r}px)`,
-          }}
+            left: '50%', top: '50%',
+            animationName: `techOrbit${i}`,
+            animationDuration: `${tech.speed}s`,
+            animationTimingFunction: 'linear',
+            animationIterationCount: 'infinite',
+            animationDelay: `${-(i * tech.speed) / TECHS.length}s`,
+          } as React.CSSProperties}
         >
-          <span
-            className="w-5 h-5 flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5"
-            dangerouslySetInnerHTML={{ __html: tech.svg }}
-          />
+          <div
+            title={tech.name}
+            style={{
+              width: 44, height: 44,
+              borderRadius: '50%',
+              background: tech.bg,
+              border: `1.5px solid ${tech.border}`,
+              boxShadow: `0 0 12px ${tech.bg}, 0 0 6px ${tech.border}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transform: 'translate(-50%, -50%)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              cursor: 'default',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              dangerouslySetInnerHTML={{ __html: tech.svg }}
+            />
+          </div>
         </div>
       ))}
+
+      <style>{`
+        .pf-orbit-ring {
+          border: 1px solid rgba(129,140,248,0.13);
+        }
+        .pf-orbit-center {
+          background: rgba(129,140,248,0.35);
+          box-shadow: 0 0 8px rgba(129,140,248,0.5);
+        }
+        :global(.light) .pf-orbit-ring {
+          border-color: rgba(99,102,241,0.18);
+        }
+        :global(.light) .pf-orbit-center {
+          background: rgba(99,102,241,0.4);
+        }
+        .tech-orbit-badge { width: 0; height: 0; position: absolute; }
+        .tech-orbit-badge > div:hover {
+          transform: translate(-50%, -50%) scale(1.25) !important;
+          box-shadow: 0 0 20px rgba(129,140,248,0.4) !important;
+        }
+        ${TECHS.map((tech, i) => `
+          @keyframes techOrbit${i} {
+            from { transform: rotate(${tech.startAngle}rad) translateX(${tech.r}px) rotate(${-tech.startAngle}rad); }
+            to   { transform: rotate(${tech.startAngle + Math.PI * 2}rad) translateX(${tech.r}px) rotate(${-(tech.startAngle + Math.PI * 2)}rad); }
+          }
+        `).join('')}
+        @media (prefers-reduced-motion: reduce) {
+          .tech-orbit-badge { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
