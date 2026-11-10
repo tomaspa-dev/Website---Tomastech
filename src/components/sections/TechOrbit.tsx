@@ -1,8 +1,9 @@
 import React from 'react';
 
-// Inline SVGs — correct, official mark versions of each logo
+// Inline SVGs — official mark versions of core engineering technologies
 // All use circular containers (border-radius: 50%)
 const TECHS = [
+  // --- Outer Orbit (r: 150) ---
   {
     name: 'React',
     r: 150, startAngle: 0, speed: 32,
@@ -25,44 +26,53 @@ const TECHS = [
     </svg>`,
   },
   {
-    name: 'Astro',
+    name: 'PostgreSQL',
     r: 150, startAngle: Math.PI * 1.1, speed: 32,
-    color: '#FF5D01', bg: 'rgba(255,93,1,0.14)', border: 'rgba(255,93,1,0.42)',
+    color: '#336791', bg: 'rgba(51,103,145,0.18)', border: 'rgba(51,103,145,0.48)',
     svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9.5 3L7 14l2 1.5c1-1.5 2.5-2 3-2l1.5 2L17 14 14.5 3H9.5Z" fill="#FF5D01"/>
-      <path d="M7 14c0 0-1 4 5 4s5-4 5-4l-1.5-2c-.5 0-2 .5-3 2-1-1.5-2.5-2-3-2L7 14Z" fill="#FF9070"/>
+      <circle cx="12" cy="12" r="10" fill="#336791"/>
+      <path d="M12 4.5c-3.5 0-5.5 2.1-5.5 4.8 0 1.8.9 3.2 2.3 4v3.2c0 .6.4 1 1 1h4.4c.6 0 1-.4 1-1v-3.2c1.4-.8 2.3-2.2 2.3-4 0-2.7-2-4.8-5.5-4.8zm-1.8 8.2v-1.9c-.8-.2-1.4-.8-1.4-1.6 0-1 .9-1.8 2-1.8.6 0 1.1.2 1.5.6l.8-.8c-.6-.6-1.4-.9-2.3-.9-1.7 0-3.1 1.2-3.1 2.8 0 1.2.8 2.2 2 2.5v1.9c.9.2 1.6.8 1.6 1.7 0 1-.9 1.8-2.1 1.8-.7 0-1.3-.3-1.8-.8l-.8.8c.7.7 1.6 1.1 2.6 1.1 1.8 0 3.2-1.3 3.2-3 0-1.3-.9-2.3-2.3-2.7z" fill="white"/>
     </svg>`,
   },
   {
-    name: 'Next.js',
+    name: 'Docker',
     r: 150, startAngle: Math.PI * 1.65, speed: 32,
-    color: '#ffffff', bg: 'rgba(255,255,255,0.1)', border: 'rgba(255,255,255,0.28)',
-    svg: `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-1 14H9V9h2v7Zm5.62 0-4.12-5.79V16h-2V8h1.88l4.12 5.79V8h2v8h-1.88Z"/>
+    color: '#2496ED', bg: 'rgba(36,150,237,0.18)', border: 'rgba(36,150,237,0.48)',
+    svg: `<svg viewBox="0 0 24 24" fill="#2496ED" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="8" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <rect x="6" y="8" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <rect x="10" y="8" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <rect x="6" y="4.5" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <rect x="10" y="4.5" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <rect x="14" y="8" width="3" height="3" rx="0.5" fill="#2496ED"/>
+      <path d="M22 11c-.4-.3-1.2-.4-1.8-.2-.3-.5-.8-.8-1.4-.8-.1 0-.3 0-.4.1-.4-1.3-1.5-2.1-2.9-2.1v4H1c0 3.9 3.1 7 7 7 4.2 0 7.8-2.6 9.3-6.4.5-.1 1.4-.4 1.8-1.3.6.1 1.4-.1 1.9-.3.3-.1.7-.5 1-1z" fill="#2496ED"/>
     </svg>`,
   },
+
+  // --- Inner Orbit (r: 105) ---
   {
-    name: 'Tailwind',
+    name: 'Python',
     r: 105, startAngle: Math.PI * 0.2, speed: 24,
-    color: '#38BDF8', bg: 'rgba(56,189,248,0.13)', border: 'rgba(56,189,248,0.4)',
-    svg: `<svg viewBox="0 0 24 24" fill="#38BDF8" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.9 1.35.98 1 2.1 2.15 4.6 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.9-1.35C15.62 7.15 14.5 6 12 6zm-5 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.9 1.35.98 1 2.1 2.15 4.6 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.9-1.35C10.62 13.15 9.5 12 7 12z"/>
+    color: '#3776AB', bg: 'rgba(55,118,171,0.18)', border: 'rgba(55,118,171,0.45)',
+    svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#3776AB" d="M11.9 2C8 2 8.3 3.7 8.3 3.7l.01 1.9h3.8v.6H4.4S1.9 5.8 1.9 9.8c0 4 2.2 3.9 2.2 3.9h1.3v-1.8s-.1-2.2 2.2-2.2h3.7v-.6H7.5s-2.1 0-2.1-2.1c0-2.1 1.9-2.1 1.9-2.1h5.6s1.8 0 1.8-1.7C16.9 2.6 15 2 11.9 2zm-2 1.2a.6.6 0 1 1 0 1.2.6.6 0 0 1 0-1.2z"/>
+      <path fill="#FFD43B" d="M12.1 22c3.9 0 3.6-1.7 3.6-1.7l-.01-1.9H11.9v-.6h7.7s2.5.4 2.5-3.6c0-4-2.2-3.9-2.2-3.9h-1.3v1.8s.1 2.2-2.2 2.2h-3.7v.6h3.8s2.1 0 2.1 2.1c0 2.1-1.9 2.1-1.9 2.1H9.2s-1.8 0-1.8 1.7c0 1.8 1.9 2.4 5 2.4zm2-1.2a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2z"/>
     </svg>`,
   },
   {
     name: 'Node.js',
     r: 105, startAngle: Math.PI * 0.87, speed: 24,
-    color: '#68A063', bg: 'rgba(104,160,99,0.13)', border: 'rgba(104,160,99,0.4)',
+    color: '#68A063', bg: 'rgba(104,160,99,0.15)', border: 'rgba(104,160,99,0.45)',
     svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path fill="#68A063" d="M12 2L2 7.5v9L12 22l10-5.5v-9L12 2zm0 2.18L19.82 8.5 12 12.82 4.18 8.5 12 4.18zM3.5 9.72l8 4.4v7.71L3.5 17.4V9.72zm9.5 12.11v-7.71l8-4.4v7.69l-8 4.42z"/>
     </svg>`,
   },
   {
-    name: 'Three.js',
+    name: 'Next.js',
     r: 105, startAngle: Math.PI * 1.54, speed: 24,
-    color: '#ffffff', bg: 'rgba(255,255,255,0.08)', border: 'rgba(255,255,255,0.22)',
+    color: '#ffffff', bg: 'rgba(255,255,255,0.1)', border: 'rgba(255,255,255,0.28)',
     svg: `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3l7.5 18 3.5-8.5L21 3H3zm3.1 2h11.8l-4.4 8.8L9.9 9.3 6.1 5zm4.6 5.6l2.3 4.6-1.5 3.6L9 11.3l1.7-.7z"/>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-1 14H9V9h2v7Zm5.62 0-4.12-5.79V16h-2V8h1.88l4.12 5.79V8h2v8h-1.88Z"/>
     </svg>`,
   },
 ];
@@ -78,73 +88,31 @@ export default function TechOrbit() {
       <div className="absolute rounded-full pf-orbit-center" style={{ width: 10, height: 10, left: 165, top: 165 }} />
 
       {/* Tech logo planets — perfectly circular */}
-      {TECHS.map((tech, i) => (
+      {TECHS.map((tech) => (
         <div
           key={tech.name}
-          className="absolute tech-orbit-badge"
+          className="tech-planet absolute rounded-full flex items-center justify-center pointer-events-auto"
+          title={tech.name}
+          data-r={tech.r}
+          data-angle={tech.startAngle}
+          data-speed={tech.speed}
           style={{
-            left: '50%', top: '50%',
-            animationName: `techOrbit${i}`,
-            animationDuration: `${tech.speed}s`,
-            animationTimingFunction: 'linear',
-            animationIterationCount: 'infinite',
-            animationDelay: `${-(i * tech.speed) / TECHS.length}s`,
-          } as React.CSSProperties}
+            width: 44,
+            height: 44,
+            backgroundColor: tech.bg,
+            border: `1.5px solid ${tech.border}`,
+            boxShadow: `0 0 14px ${tech.border}`,
+            left: 170 - 22,
+            top: 170 - 22,
+            transform: `translate(${Math.cos(tech.startAngle) * tech.r}px, ${Math.sin(tech.startAngle) * tech.r}px)`,
+          }}
         >
-          <div
-            title={tech.name}
-            style={{
-              width: 42, height: 42,
-              borderRadius: '50%',           // ← PERFECT CIRCLE
-              background: tech.bg,
-              border: `1.5px solid ${tech.border}`,
-              boxShadow: `0 0 12px ${tech.bg}, 0 0 6px ${tech.border}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transform: 'translate(-50%, -50%)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              cursor: 'default',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              dangerouslySetInnerHTML={{ __html: tech.svg }}
-            />
-          </div>
+          <span
+            className="w-5 h-5 flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5"
+            dangerouslySetInnerHTML={{ __html: tech.svg }}
+          />
         </div>
       ))}
-
-      <style>{`
-        .pf-orbit-ring {
-          border: 1px solid rgba(129,140,248,0.13);
-        }
-        .pf-orbit-center {
-          background: rgba(129,140,248,0.35);
-          box-shadow: 0 0 8px rgba(129,140,248,0.5);
-        }
-        :global(.light) .pf-orbit-ring {
-          border-color: rgba(99,102,241,0.18);
-        }
-        :global(.light) .pf-orbit-center {
-          background: rgba(99,102,241,0.4);
-        }
-        .tech-orbit-badge { width: 0; height: 0; position: absolute; }
-        .tech-orbit-badge > div:hover {
-          transform: translate(-50%, -50%) scale(1.25) !important;
-          box-shadow: 0 0 20px rgba(129,140,248,0.4) !important;
-        }
-        ${TECHS.map((tech, i) => `
-          @keyframes techOrbit${i} {
-            from { transform: rotate(${tech.startAngle}rad) translateX(${tech.r}px) rotate(${-tech.startAngle}rad); }
-            to   { transform: rotate(${tech.startAngle + Math.PI * 2}rad) translateX(${tech.r}px) rotate(${-(tech.startAngle + Math.PI * 2)}rad); }
-          }
-        `).join('')}
-        @media (prefers-reduced-motion: reduce) {
-          .tech-orbit-badge { animation: none !important; }
-        }
-      `}</style>
     </div>
   );
 }
