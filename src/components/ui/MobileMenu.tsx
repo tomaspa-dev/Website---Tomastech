@@ -92,10 +92,10 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
 
   return (
     <div className="md:hidden">
-      {/* Click-outside Backdrop */}
+      {/* Click-outside Backdrop with higher z-index than settings button */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px]"
+          className="fixed inset-0 z-[65] bg-black/40 backdrop-blur-[2px]"
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
         />
@@ -104,7 +104,7 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
       {/* Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="relative z-50 p-2 transition-colors duration-300 focus:outline-none"
+        className="relative z-[70] p-2 transition-colors duration-300 focus:outline-none"
         style={{ color: 'var(--color-text-primary)' }}
         aria-label="Toggle menu"
       >
@@ -141,7 +141,7 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-16 right-0 w-64 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right z-50"
+            className="absolute top-16 right-2 sm:right-0 w-64 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right z-[70]"
             style={theme.panel}
           >
             {links.map((link) => (
@@ -171,9 +171,35 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               </a>
             )}
 
+            {/* Language Switcher in Mobile Menu: centered in the middle section so the right-side settings tab never blocks it */}
+            <div className="h-px my-1 mx-2 sm:hidden" style={theme.divider}></div>
+            <div className="p-2 sm:hidden flex items-center justify-between px-3 py-2 rounded-xl bg-surface/40 border border-border/50">
+              <span className="text-xs font-mono font-medium" style={theme.link}>
+                {isEs ? 'Idioma' : 'Language'}:
+              </span>
+              <div className="inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/80 text-xs font-mono shadow-sm">
+                <a
+                  href={isLanding ? '/' : '/portfolio'}
+                  className={`px-3 py-1 rounded-full transition-all duration-200 ${
+                    !isEs ? 'bg-primary text-white font-bold shadow-sm' : 'text-text-muted hover:text-text-primary'
+                  }`}
+                >
+                  EN
+                </a>
+                <a
+                  href={isLanding ? '/es' : '/es/portfolio'}
+                  className={`px-3 py-1 rounded-full transition-all duration-200 ${
+                    isEs ? 'bg-primary text-white font-bold shadow-sm' : 'text-text-muted hover:text-text-primary'
+                  }`}
+                >
+                  ES
+                </a>
+              </div>
+            </div>
+
             <div className="h-px my-1 mx-2" style={theme.divider}></div>
             
-            {/* CTA Button */}
+            {/* CTA Button placed at bottom */}
             <a
               href={contactHref}
               onClick={() => setIsOpen(false)}
@@ -185,32 +211,6 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               {ctaText}
               <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
             </a>
-
-            {/* Language Switcher in Mobile Menu (shown on mobile phones where navbar has no room) */}
-            <div className="h-px my-1 mx-2 sm:hidden" style={theme.divider}></div>
-            <div className="p-2 flex items-center justify-between sm:hidden">
-              <span className="text-xs font-mono" style={theme.link}>
-                {isEs ? 'Idioma' : 'Language'}:
-              </span>
-              <div className="inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/50 text-xs font-mono">
-                <a
-                  href={isLanding ? '/' : '/portfolio'}
-                  className={`px-2.5 py-1 rounded-full transition-all ${
-                    !isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
-                  }`}
-                >
-                  EN
-                </a>
-                <a
-                  href={isLanding ? '/es' : '/es/portfolio'}
-                  className={`px-2.5 py-1 rounded-full transition-all ${
-                    isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
-                  }`}
-                >
-                  ES
-                </a>
-              </div>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
