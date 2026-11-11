@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, User } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 interface MobileMenuProps {
@@ -20,46 +20,18 @@ const landingLinksEs = [
 ];
 
 const portfolioLinksEn = [
+  { name: "Services", href: "/#services" },
   { name: "How I Work", href: "#process" },
   { name: "Portfolio", href: "#work" },
   { name: "About", href: "#about" },
-  { name: "Contact", href: "/#contact" },
 ];
 
 const portfolioLinksEs = [
+  { name: "Servicios", href: "/es/#services" },
   { name: "Cómo Trabajo", href: "#process" },
   { name: "Portafolio", href: "#work" },
   { name: "Sobre Mí", href: "#about" },
-  { name: "Contacto", href: "/es/#contact" },
 ];
-
-const menuVariants: Variants = {
-  closed: {
-    opacity: 0,
-    x: "100%",
-    transition: {
-      duration: 0.4,
-      ease: [0.76, 0, 0.24, 1],
-      staggerChildren: 0.05,
-      staggerDirection: -1
-    }
-  },
-  open: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.4,
-      ease: [0.76, 0, 0.24, 1],
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
-};
-
-const linkVariants: Variants = {
-  closed: { opacity: 0, x: 50 },
-  open: { opacity: 1, x: 0 }
-};
 
 // Theme-aware styles
 const darkStyles = {
@@ -107,8 +79,28 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
     return () => observer.disconnect();
   }, []);
 
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
     <div className="md:hidden">
+      {/* Click-outside Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px]"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
@@ -125,7 +117,7 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               exit={{ opacity: 0, rotate: 90 }}
               transition={{ duration: 0.2 }}
             >
-              <X size={28} />
+              <X size={26} />
             </motion.div>
           ) : (
             <motion.div
@@ -135,12 +127,13 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               exit={{ opacity: 0, rotate: -90 }}
               transition={{ duration: 0.2 }}
             >
-              <Menu size={28} />
+              <Menu size={26} />
             </motion.div>
           )}
         </AnimatePresence>
       </button>
 
+      {/* Dropdown Panel */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -148,7 +141,7 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-16 right-0 w-64 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right"
+            className="absolute top-16 right-0 w-64 rounded-2xl p-2 flex flex-col gap-1 shadow-2xl origin-top-right z-50"
             style={theme.panel}
           >
             {links.map((link) => (
@@ -165,77 +158,54 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               </a>
             ))}
             
-            {isLanding ? (
-              <>
-                <a
-                  href={portfolioHref}
-                  onClick={() => setIsOpen(false)}
-                  onMouseEnter={() => setHoveredLink('portfolio')}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
-                  style={hoveredLink === 'portfolio' ? theme.linkHover : theme.link}
-                >
-                  {portfolioLabel}
-                </a>
-                <div className="h-px my-1 mx-2" style={theme.divider}></div>
-                <a
-                  href={contactHref}
-                  onClick={() => setIsOpen(false)}
-                  onMouseEnter={() => setHoveredCta(true)}
-                  onMouseLeave={() => setHoveredCta(false)}
-                  className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
-                  style={hoveredCta ? theme.ctaHover : theme.cta}
-                >
-                  {ctaText}
-                  <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
-                </a>
-              </>
-            ) : (
-              <>
-                <div className="h-px my-1 mx-2" style={theme.divider}></div>
-                <a
-                  href={contactHref}
-                  onClick={() => setIsOpen(false)}
-                  onMouseEnter={() => setHoveredCta(true)}
-                  onMouseLeave={() => setHoveredCta(false)}
-                  className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
-                  style={hoveredCta ? theme.ctaHover : theme.cta}
-                >
-                  {ctaText}
-                  <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
-                </a>
-              </>
+            {isLanding && (
+              <a
+                href={portfolioHref}
+                onClick={() => setIsOpen(false)}
+                onMouseEnter={() => setHoveredLink('portfolio')}
+                onMouseLeave={() => setHoveredLink(null)}
+                className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
+                style={hoveredLink === 'portfolio' ? theme.linkHover : theme.link}
+              >
+                {portfolioLabel}
+              </a>
             )}
 
-            {/* Language Switcher in Mobile Menu */}
             <div className="h-px my-1 mx-2" style={theme.divider}></div>
-            <div className="p-2 flex items-center justify-between">
-              <span className="text-xs font-mono" style={theme.link}>
-                {isEs ? 'Idioma' : 'Language'}:
+            
+            {/* CTA Button */}
+            <a
+              href={contactHref}
+              onClick={() => setIsOpen(false)}
+              onMouseEnter={() => setHoveredCta(true)}
+              onMouseLeave={() => setHoveredCta(false)}
+              className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
+              style={hoveredCta ? theme.ctaHover : theme.cta}
+            >
+              {ctaText}
+              <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
+            </a>
+
+            {/* Direct Admin Login access on mobile */}
+            <div className="h-px my-1 mx-2" style={theme.divider}></div>
+            <a
+              href="/panel-56Up89"
+              onClick={() => setIsOpen(false)}
+              onMouseEnter={() => setHoveredLink('admin')}
+              onMouseLeave={() => setHoveredLink(null)}
+              className="px-4 py-2.5 rounded-xl transition-all duration-200 text-xs font-mono flex items-center justify-between"
+              style={hoveredLink === 'admin' ? theme.linkHover : theme.link}
+              title={isEs ? 'Acceso Privado Admin' : 'Admin Dashboard Access'}
+            >
+              <span className="flex items-center gap-2">
+                <User size={14} className="text-primary" />
+                {isEs ? 'Acceso Admin' : 'Admin Login'}
               </span>
-              <div className="inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/50 text-xs font-mono">
-                <a
-                  href={isLanding ? '/' : '/portfolio'}
-                  className={`px-2.5 py-1 rounded-full transition-all ${
-                    !isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
-                  }`}
-                >
-                  EN
-                </a>
-                <a
-                  href={isLanding ? '/es' : '/es/portfolio'}
-                  className={`px-2.5 py-1 rounded-full transition-all ${
-                    isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
-                  }`}
-                >
-                  ES
-                </a>
-              </div>
-            </div>
+              <ArrowRight size={13} className="opacity-50" />
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
 }
-

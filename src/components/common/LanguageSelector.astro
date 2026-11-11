@@ -17,10 +17,10 @@ const enHref = cleanPath === '' ? '/' : cleanPath;
 const esHref = cleanPath === '/' ? '/es' : `/es${cleanPath}`;
 ---
 
-<div class={`inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/80 backdrop-blur-md shadow-sm text-xs font-mono select-none ${className}`} aria-label="Language selector">
+<div class={`inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/80 backdrop-blur-md shadow-sm text-[11px] sm:text-xs font-mono select-none ${className}`} aria-label="Language selector">
   <a
     href={enHref}
-    class={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+    class={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-all duration-200 ${
       currentLang === 'en'
         ? 'bg-primary text-white font-bold shadow-sm'
         : 'text-text-muted hover:text-text-primary'
@@ -32,7 +32,7 @@ const esHref = cleanPath === '/' ? '/es' : `/es${cleanPath}`;
   </a>
   <a
     href={esHref}
-    class={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+    class={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full transition-all duration-200 ${
       currentLang === 'es'
         ? 'bg-primary text-white font-bold shadow-sm'
         : 'text-text-muted hover:text-text-primary'
