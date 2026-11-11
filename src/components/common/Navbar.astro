@@ -77,7 +77,9 @@ const contactHref = isLanding ? '#contact' : (lang === 'es' ? '/es/#contact' : '
             <span class="lg:hidden">{t.nav.work}</span>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-full"></span>
           </a>
-          
+
+          <LanguageSelector currentLang={lang} className="ml-1" />
+
           <a 
             href="/panel-56Up89" 
             class="hidden md:flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors ml-1"
@@ -89,23 +91,37 @@ const contactHref = isLanding ? '#contact' : (lang === 'es' ? '/es/#contact' : '
             </div>
           </a>
 
-          <LanguageSelector currentLang={lang} className="ml-1" />
-
-          <Button href={contactHref} variant="primary" size="sm" class="ml-2">
+          <Button href={contactHref} variant="primary" size="sm" class="ml-1">
             {t.nav.startProject}
           </Button>
         </>
       ) : (
         <>
           <LanguageSelector currentLang={lang} className="mr-1" />
-          <Button href={contactHref} variant="primary" size="sm" class="px-6">
+
+          <a 
+            href="/panel-56Up89" 
+            class="hidden md:flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors ml-1"
+            title="Login"
+            aria-label="Login to dashboard"
+          >
+            <div class="p-2 rounded-full bg-surface hover:bg-surface-hover border border-border transition-all">
+              <User size={18} />
+            </div>
+          </a>
+
+          <Button href={contactHref} variant="primary" size="sm" class="px-6 ml-1">
             {t.nav.letsTalk}
           </Button>
         </>
       )}
     </div>
 
-    <MobileMenu client:load isLanding={isLanding} lang={lang} />
+    <!-- Mobile controls: Language selector right in the navbar + Mobile Menu hamburger -->
+    <div class="flex items-center gap-2 md:hidden">
+      <LanguageSelector currentLang={lang} />
+      <MobileMenu client:load isLanding={isLanding} lang={lang} />
+    </div>
   </div>
 </nav>
 
