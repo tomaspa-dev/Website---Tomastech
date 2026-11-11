@@ -171,9 +171,9 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               </a>
             )}
 
-            {/* Language Switcher in Mobile Menu: centered in the middle section so the right-side settings tab never blocks it */}
-            <div className="h-px my-1 mx-2 sm:hidden" style={theme.divider}></div>
-            <div className="p-2 sm:hidden flex items-center justify-between px-3 py-2 rounded-xl bg-surface/40 border border-border/50">
+            {/* Language Switcher in Mobile Menu: only shown on ultra-narrow devices (<340px) where navbar has no room */}
+            <div className="h-px my-1 mx-2 max-[339px]:block hidden" style={theme.divider}></div>
+            <div className="p-2 max-[339px]:flex hidden items-center justify-between px-3 py-2 rounded-xl bg-surface/40 border border-border/50">
               <span className="text-xs font-mono font-medium" style={theme.link}>
                 {isEs ? 'Idioma' : 'Language'}:
               </span>

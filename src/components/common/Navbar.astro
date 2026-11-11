@@ -117,9 +117,9 @@ const contactHref = isLanding ? '#contact' : (lang === 'es' ? '/es/#contact' : '
       )}
     </div>
 
-    <!-- Mobile controls: Language selector on tablet (sm+) + Mobile Menu hamburger -->
+    <!-- Mobile controls: Language selector (visible across mobile screens down to ~340px) + Mobile Menu hamburger -->
     <div class="flex items-center gap-2 md:hidden">
-      <LanguageSelector currentLang={lang} className="hidden sm:inline-flex" />
+      <LanguageSelector currentLang={lang} className="max-[339px]:hidden" />
       <MobileMenu client:load isLanding={isLanding} lang={lang} />
     </div>
   </div>
