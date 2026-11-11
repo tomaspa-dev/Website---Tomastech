@@ -218,7 +218,7 @@ export const translations: Record<Lang, UITranslations> = {
       contact: 'Contacto',
       startProject: 'Iniciar Proyecto',
       letsTalk: 'Conversemos',
-      work: 'Trabajos',
+      work: 'Portafolio',
     },
     heroLanding: {
       badge: 'Disponible para Proyectos',

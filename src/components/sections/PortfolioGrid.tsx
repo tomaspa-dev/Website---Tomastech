@@ -144,13 +144,13 @@ export default function PortfolioGrid({ lang = 'en' }: PortfolioGridProps) {
 
       {/* ── Category Explainer Note (when Systems & Backend is selected) ─── */}
       {selectedCategory === 'Systems & Backend' && (
-        <div className="max-w-2xl mx-auto mb-10 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center">
-          <p className="text-xs text-indigo-300 font-mono uppercase tracking-wider font-semibold mb-1">
-            {isEs ? 'Hacia Dónde Me Dirijo · Arquitectura de Sistemas Pública' : "Where I'm Headed · Public System Architecture"}
+        <div className="max-w-2xl mx-auto mb-10 p-4 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-center">
+          <p className="text-xs text-indigo-700 dark:text-indigo-300 font-mono uppercase tracking-wider font-bold mb-1">
+            {isEs ? 'Casos de Estudio · Arquitectura de Software & Sistemas' : "Case Studies · Software Architecture & Systems Design"}
           </p>
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
             {isEs 
-              ? 'Casos de estudio detallando invariantes de dominio, límites de concurrencia y trade-offs arquitectónicos (ADRs) conforme cada sistema evoluciona.'
+              ? 'Casos de estudio que documentan arquitectura de software, modelado de dominio, reglas de concurrencia y decisiones técnicas (ADRs).'
               : 'Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs) as each system evolves.'}
           </p>
         </div>

@@ -81,10 +81,10 @@ export default function ProjectCard({ project, onOpenModal, index = 0, lang = 'e
                   <Database size={28} />
                 )}
               </div>
-              <span className="text-xs font-mono tracking-widest text-indigo-300/90 uppercase font-semibold">
+              <span className="text-xs font-mono tracking-widest text-indigo-200 uppercase font-bold drop-shadow-sm">
                 {project.workName || 'Architecture & Domain Model'}
               </span>
-              <span className="text-[11px] text-slate-400 mt-1 max-w-xs font-mono">
+              <span className="text-[11px] text-slate-300 mt-1 max-w-xs font-mono font-medium">
                 {isEs ? 'Caso de Aprendizaje y Diseño' : 'System Design & Learning Case'}
               </span>
             </div>

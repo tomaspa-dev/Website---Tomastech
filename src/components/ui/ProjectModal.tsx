@@ -228,14 +228,14 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                 {isArchitectureProject ? (
                   <div className="space-y-4">
                     {/* Tab Navigation */}
-                    <div className="flex flex-wrap gap-2 p-1.5 bg-black/30 border modal-border rounded-xl w-fit">
+                    <div className="flex flex-wrap gap-2 p-1.5 bg-slate-100 dark:bg-black/30 border modal-border rounded-xl w-fit">
                       {project.details.coreInvariants && (
                         <button
                           onClick={() => setActiveTab('invariants')}
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'invariants'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
+                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
                           }`}
                         >
                           <ShieldCheck size={14} />
@@ -249,7 +249,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'decisions'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
+                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
                           }`}
                         >
                           <Scale size={14} />
@@ -263,7 +263,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'roadmap'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
+                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
                           }`}
                         >
                           <BookOpen size={14} />
@@ -277,7 +277,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'scope'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading'
+                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
                           }`}
                         >
                           <CheckCircle2 size={14} />
@@ -288,22 +288,22 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
 
                     {/* Tab 1: Core Invariants */}
                     {activeTab === 'invariants' && project.details.coreInvariants && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
                           <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <ShieldCheck size={14} className="text-primary" /> DOMAIN RULES &amp; ENGINEERING INVARIANTS
+                            <ShieldCheck size={14} className="text-primary" /> {isEs ? 'REGLAS DE DOMINIO E INVARIANTES' : 'DOMAIN RULES & ENGINEERING INVARIANTS'}
                           </h3>
-                          <span className="text-[10px] modal-label font-mono">Target Rules</span>
+                          <span className="text-[10px] modal-label font-mono">{isEs ? 'Reglas Objetivo' : 'Target Rules'}</span>
                         </div>
                         {project.details.domainContext && (
-                          <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5 italic">
+                          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-white dark:bg-white/5 p-3 rounded-lg border border-slate-200 dark:border-white/5 italic">
                             "{project.details.domainContext}"
                           </p>
                         )}
                         <ul className="space-y-2.5">
                           {project.details.coreInvariants.map((rule, idx) => (
-                            <li key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading leading-relaxed">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+                            <li key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 text-xs text-slate-900 dark:text-white leading-relaxed font-medium">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                               <span>{rule}</span>
                             </li>
                           ))}
@@ -313,39 +313,39 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
 
                     {/* Tab 2: Architectural Decisions (ADRs) */}
                     {activeTab === 'decisions' && project.details.architecturalDecisions && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
                           <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <Scale size={14} className="text-indigo-400" /> ARCHITECTURAL DECISIONS &amp; TRADE-OFFS
+                            <Scale size={14} className="text-indigo-500 dark:text-indigo-400" /> {isEs ? 'DECISIONES ARQUITECTÓNICAS (ADRs)' : 'ARCHITECTURAL DECISIONS & TRADE-OFFS'}
                           </h3>
                           <span className="text-[10px] modal-label font-mono">{project.details.architecturalDecisions.length} ADRs</span>
                         </div>
                         <div className="space-y-3">
                           {project.details.architecturalDecisions.map((adr, idx) => (
-                            <div key={idx} className="p-3.5 rounded-lg bg-white/5 border border-white/5 space-y-1.5 text-xs">
-                              <div className="font-bold modal-heading flex items-center justify-between gap-2 flex-wrap">
+                            <div key={idx} className="p-3.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-1.5 text-xs">
+                              <div className="font-bold text-slate-900 dark:text-white flex items-center justify-between gap-2 flex-wrap">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-indigo-400 font-mono text-[10px]">ADR-0{idx + 1}</span>
+                                  <span className="text-indigo-600 dark:text-indigo-400 font-mono text-[10px]">ADR-0{idx + 1}</span>
                                   <span>{adr.question}</span>
                                 </div>
                                 {adr.status && (
                                   <span className={`px-2 py-0.5 rounded text-[9px] uppercase font-bold tracking-wider border ${
                                     adr.status === 'Accepted'
-                                      ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                                      ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
                                       : adr.status === 'Proposed'
-                                        ? 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30'
-                                        : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                                        ? 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30'
+                                        : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
                                   }`}>
                                     {adr.status}
                                   </span>
                                 )}
                               </div>
-                              <div className="text-emerald-300/90 font-medium pl-6">
-                                <span className="text-[10px] uppercase tracking-wider text-slate-400 mr-1.5">Decision:</span>
+                              <div className="text-emerald-700 dark:text-emerald-300 font-semibold pl-6">
+                                <span className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1.5">Decision:</span>
                                 {adr.decision}
                               </div>
-                              <div className="text-[var(--color-text-secondary)] pl-6 text-[11px] leading-relaxed">
-                                <span className="text-[10px] uppercase tracking-wider text-slate-400 mr-1.5">Trade-off &amp; Rationale:</span>
+                              <div className="text-slate-700 dark:text-slate-300 pl-6 text-[11px] leading-relaxed">
+                                <span className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mr-1.5">Trade-off &amp; Rationale:</span>
                                 {adr.tradeOff}
                               </div>
                             </div>
@@ -356,16 +356,16 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
 
                     {/* Tab 3: Learning Roadmap */}
                     {activeTab === 'roadmap' && project.details.learningMilestones && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
                           <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <BookOpen size={14} className="text-primary" /> SEQUENCED MILESTONES &amp; VERIFICATION
+                            <BookOpen size={14} className="text-primary" /> {isEs ? 'HITOS SECUENCIADOS Y VERIFICACIÓN' : 'SEQUENCED MILESTONES & VERIFICATION'}
                           </h3>
                           <span className="text-[10px] modal-label font-mono">Progressive</span>
                         </div>
                         <ul className="space-y-2">
                           {project.details.learningMilestones.map((ms, idx) => (
-                            <li key={idx} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading">
+                            <li key={idx} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 text-xs text-slate-900 dark:text-white font-medium">
                               <span className="w-5 h-5 rounded-md bg-primary/20 text-primary text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
                                 {idx + 1}
                               </span>
@@ -378,16 +378,16 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
 
                     {/* Tab 4: Scope */}
                     {activeTab === 'scope' && project.details.scope && (
-                      <div className="p-4 rounded-xl bg-black/20 border modal-border space-y-3">
+                      <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
                           <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <CheckCircle2 size={14} className="text-primary" /> SYSTEM MODULES &amp; FUNCTIONAL SCOPE
+                            <CheckCircle2 size={14} className="text-primary" /> {isEs ? 'MÓDULOS DEL SISTEMA Y ALCANCE' : 'SYSTEM MODULES & FUNCTIONAL SCOPE'}
                           </h3>
                           <span className="text-[10px] modal-label font-mono">{project.details.scope.length} Modules</span>
                         </div>
                         <ul className="grid sm:grid-cols-2 gap-2">
                           {project.details.scope.map((item, idx) => (
-                            <li key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 border border-white/5 text-xs modal-heading font-medium">
+                            <li key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 text-xs text-slate-900 dark:text-white font-semibold">
                               <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                               <span>{item}</span>
                             </li>
@@ -461,18 +461,18 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
 
                 {isArchitectureProject ? (
                   <div className="space-y-3 pt-2">
-                    <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center space-y-1.5">
-                      <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                    <div className="p-3.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-center space-y-1.5">
+                      <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
                         <GitBranch size={14} /> {isEs ? 'REPOSITORIO Y VERIFICACIÓN' : 'REPOSITORY & VERIFICATION'}
                       </span>
-                      <p className="text-[11px] text-slate-400">
+                      <p className="text-[11px] text-slate-600 dark:text-slate-400">
                         {isEs 
                           ? 'El repositorio de código fuente y suites de pruebas reproducibles se enlazarán al ser verificados y publicados.'
                           : 'Source code repository and reproducible test suites will be linked once published and verified.'}
                       </p>
                     </div>
-                    <div className="p-3 rounded-lg bg-black/40 border modal-border text-[11px] text-slate-400 flex items-center gap-2">
-                      <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
+                    <div className="p-3 rounded-lg bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-[11px] text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                      <ShieldCheck size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
                       <span>{isEs ? 'Modelado de dominio, seguridad de contratos y pruebas automatizadas.' : 'Domain modeling, contract safety, and automated test coverage.'}</span>
                     </div>
                   </div>
