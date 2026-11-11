@@ -166,24 +166,24 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
             {isArchitectureProject && (
               <div className={`mb-6 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-start gap-3 shadow-sm ${
                 isDesignLearning 
-                  ? 'bg-purple-500/10 border border-purple-500/25' 
+                  ? 'bg-purple-100/70 dark:bg-purple-500/10 border border-purple-300 dark:border-purple-500/25' 
                   : isPlanned 
-                    ? 'bg-cyan-500/10 border border-cyan-500/25' 
-                    : 'bg-amber-500/10 border border-amber-500/25'
+                    ? 'bg-cyan-100/70 dark:bg-cyan-500/10 border border-cyan-300 dark:border-cyan-500/25' 
+                    : 'bg-amber-100/70 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25'
               }`}>
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
                   isDesignLearning 
-                    ? 'bg-purple-500/20 text-purple-300' 
+                    ? 'bg-purple-200/80 dark:bg-purple-500/20 text-purple-800 dark:text-purple-300' 
                     : isPlanned 
-                      ? 'bg-cyan-500/20 text-cyan-300' 
-                      : 'bg-amber-500/20 text-amber-300'
+                      ? 'bg-cyan-200/80 dark:bg-cyan-500/20 text-cyan-900 dark:text-cyan-300' 
+                      : 'bg-amber-200/80 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300'
                 }`}>
                   <Sparkles size={16} />
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h4 className={`text-sm font-bold font-heading ${
-                      isDesignLearning ? 'text-purple-300' : isPlanned ? 'text-cyan-300' : 'text-amber-300'
+                      isDesignLearning ? 'text-purple-900 dark:text-purple-200' : isPlanned ? 'text-cyan-950 dark:text-cyan-200' : 'text-amber-950 dark:text-amber-200'
                     }`}>
                       {isDesignLearning 
                         ? (isEs ? 'Arquitectura y Diseño de Sistemas' : 'Architecture & System Design')
@@ -191,7 +191,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           ? (isEs ? 'Secuencia de Sistema Planificada' : 'Planned System Sequence')
                           : (isEs ? 'Arquitectura ERP Capstone' : 'Capstone ERP Architecture')}
                     </h4>
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/5 border-white/10 text-slate-300">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/90 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-800 dark:text-slate-300 shadow-xs">
                       {isDesignLearning 
                         ? (isEs ? 'Seleccionado · Diseño y Aprendizaje' : 'Selected · Design & Learning')
                         : isPlanned 
@@ -199,7 +199,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           : (isEs ? 'Capstone Futuro · Alcance a Validar' : 'Future Capstone · Scope to Validate')}
                     </span>
                   </div>
-                  <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                  <p className="text-xs text-slate-800 dark:text-slate-300 leading-relaxed font-normal">
                     {project.details.caseStudyNote || "This case study documents the problem, domain invariants, architectural trade-offs, and verification test suite as the system is constructed in public."}
                   </p>
                 </div>
@@ -212,14 +212,14 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
               <div className="lg:col-span-2 space-y-6">
                 <div>
                   {project.workName && (
-                    <span className="text-xs font-mono uppercase tracking-widest text-primary font-bold block mb-1">
+                    <span className="text-xs font-mono uppercase tracking-widest text-indigo-600 dark:text-primary font-bold block mb-1">
                       {project.workName}
                     </span>
                   )}
                   <h2 className="text-2xl md:text-3xl font-bold modal-heading mb-3 leading-tight">
                     {project.title}
                   </h2>
-                  <p className="text-base md:text-lg modal-body font-light leading-relaxed border-l-4 border-primary pl-4">
+                  <p className="text-base md:text-lg modal-body font-light leading-relaxed border-l-4 border-indigo-600 dark:border-primary pl-4">
                     {project.details.concept}
                   </p>
                 </div>
@@ -235,7 +235,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'invariants'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
+                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/5'
                           }`}
                         >
                           <ShieldCheck size={14} />
@@ -249,7 +249,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'decisions'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
+                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/5'
                           }`}
                         >
                           <Scale size={14} />
@@ -263,7 +263,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'roadmap'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
+                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/5'
                           }`}
                         >
                           <BookOpen size={14} />
@@ -277,7 +277,7 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                           className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                             activeTab === 'scope'
                               ? 'bg-primary text-white shadow-md'
-                              : 'modal-label hover:modal-heading hover:bg-slate-200/60 dark:hover:bg-white/5'
+                              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-white/5'
                           }`}
                         >
                           <CheckCircle2 size={14} />
@@ -290,10 +290,10 @@ export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: 
                     {activeTab === 'invariants' && project.details.coreInvariants && (
                       <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/20 border modal-border space-y-3">
                         <div className="flex items-center justify-between pb-2 border-b modal-divider">
-                          <h3 className="text-xs font-bold uppercase tracking-wider modal-label flex items-center gap-2">
-                            <ShieldCheck size={14} className="text-primary" /> {isEs ? 'REGLAS DE DOMINIO E INVARIANTES' : 'DOMAIN RULES & ENGINEERING INVARIANTS'}
+                          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                            <ShieldCheck size={14} className="text-indigo-600 dark:text-primary" /> {isEs ? 'REGLAS DE DOMINIO E INVARIANTES' : 'DOMAIN RULES & ENGINEERING INVARIANTS'}
                           </h3>
-                          <span className="text-[10px] modal-label font-mono">{isEs ? 'Reglas Objetivo' : 'Target Rules'}</span>
+                          <span className="text-[10px] text-slate-600 dark:text-slate-400 font-mono font-semibold">{isEs ? 'Reglas Objetivo' : 'Target Rules'}</span>
                         </div>
                         {project.details.domainContext && (
                           <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-white dark:bg-white/5 p-3 rounded-lg border border-slate-200 dark:border-white/5 italic">
