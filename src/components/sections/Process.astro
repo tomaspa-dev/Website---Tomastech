@@ -1,12 +1,20 @@
 ---
 import { ScanSearch, GitBranch, Cpu, RefreshCw } from 'lucide-react';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
 
-const steps = [
-  { number: "01", title: "Understand",     description: "I identify the problem, users, business rules, constraints and failure points before choosing a technical solution.", icon: ScanSearch },
-  { number: "02", title: "Model",           description: "I translate real-world workflows into domains, entities, processes, data and system boundaries.",                    icon: GitBranch  },
-  { number: "03", title: "Architect",       description: "I choose the architecture, technologies, integrations and trade-offs based on the actual requirements of the system.", icon: Cpu        },
-  { number: "04", title: "Build & Improve", description: "I build incrementally, validate assumptions and continuously improve reliability, performance, security and maintainability.", icon: RefreshCw },
-];
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const icons = [ScanSearch, GitBranch, Cpu, RefreshCw];
+const steps = t.process.steps.map((step, idx) => ({
+  ...step,
+  icon: icons[idx],
+}));
 ---
 
 <section id="process" class="py-24 md:py-32 bg-surface border-y border-border">
@@ -14,12 +22,12 @@ const steps = [
 
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-14 md:mb-20">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block proc-label">HOW I WORK</span>
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block proc-label">{t.process.tag}</span>
       <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6 proc-title">
-        My <span class="text-primary">Process</span>
+        {t.process.titlePrefix} <span class="text-primary">{t.process.titleHighlight}</span>
       </h2>
       <p class="text-text-secondary text-lg proc-sub">
-        I start with the problem, model the process, design the system and build it incrementally.
+        {t.process.subtitle}
       </p>
     </div>
 
@@ -44,7 +52,7 @@ const steps = [
               <p class="text-text-secondary text-sm leading-relaxed mb-5">{step.description}</p>
 
               <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20">
-                <span class="text-[10px] font-bold text-primary tracking-widest">STEP {step.number}</span>
+                <span class="text-[10px] font-bold text-primary tracking-widest">{t.process.stepBadge} {step.number}</span>
               </div>
             </div>
           </div>

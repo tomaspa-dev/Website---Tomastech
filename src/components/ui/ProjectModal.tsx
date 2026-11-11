@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import type { Project } from '../../data/projects';
+import type { Lang } from '../../i18n/ui';
 import { 
   X, ChevronDown, ChevronUp, Calendar, Layers, Zap, Trophy, 
-  ExternalLink, Cpu, CheckCircle2, Sparkles, Clock, ShieldCheck, 
-  GitBranch, BookOpen, AlertTriangle, Scale 
+  ExternalLink, Cpu, CheckCircle2, Sparkles, ShieldCheck, 
+  GitBranch, BookOpen, Scale 
 } from 'lucide-react';
 
 interface ProjectModalProps {
   project: Project;
   isOpen: boolean;
   onClose: () => void;
+  lang?: Lang;
 }
 
-export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+export default function ProjectModal({ project, isOpen, onClose, lang = 'en' }: ProjectModalProps) {
+  const isEs = lang === 'es';
   const [isContentVisible, setIsContentVisible] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const [activeTab, setActiveTab] = useState<'invariants' | 'decisions' | 'roadmap' | 'scope'>('invariants');
+
+  const categoryLabel = project.category === 'Systems & Backend' && isEs
+    ? 'Sistemas y Backend'
+    : project.category;
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -104,24 +111,24 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         <div className="absolute top-0 left-0 right-0 p-4 md:p-6 flex justify-between items-start z-50 pointer-events-none">
           <div className="pointer-events-auto flex items-center gap-2.5 flex-wrap">
             <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-lg transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
-              {project.category}
+              {categoryLabel}
             </span>
             {isDesignLearning && (
               <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-purple-500/25 backdrop-blur-md border border-purple-400/40 rounded-full text-purple-200 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                DESIGN &amp; LEARNING
+                {isEs ? 'DISEÑO Y APRENDIZAJE' : 'DESIGN & LEARNING'}
               </span>
             )}
             {isPlanned && (
               <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-cyan-500/25 backdrop-blur-md border border-cyan-400/40 rounded-full text-cyan-300 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                PLANNED SEQUENCE
+                {isEs ? 'SECUENCIA PLANIFICADA' : 'PLANNED SEQUENCE'}
               </span>
             )}
             {isCapstone && (
               <span className={`px-3 py-1 text-[10px] md:text-xs font-bold tracking-widest uppercase bg-amber-500/25 backdrop-blur-md border border-amber-400/40 rounded-full text-amber-300 shadow-lg flex items-center gap-1.5 transition-opacity duration-300 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                FUTURE CAPSTONE
+                {isEs ? 'CAPSTONE FUTURO' : 'FUTURE CAPSTONE'}
               </span>
             )}
           </div>
@@ -179,17 +186,17 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       isDesignLearning ? 'text-purple-300' : isPlanned ? 'text-cyan-300' : 'text-amber-300'
                     }`}>
                       {isDesignLearning 
-                        ? 'Architecture & System Design' 
+                        ? (isEs ? 'Arquitectura y Diseño de Sistemas' : 'Architecture & System Design')
                         : isPlanned 
-                          ? 'Planned System Sequence' 
-                          : 'Capstone ERP Architecture'}
+                          ? (isEs ? 'Secuencia de Sistema Planificada' : 'Planned System Sequence')
+                          : (isEs ? 'Arquitectura ERP Capstone' : 'Capstone ERP Architecture')}
                     </h4>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border bg-white/5 border-white/10 text-slate-300">
                       {isDesignLearning 
-                        ? 'Selected · Design & Learning' 
+                        ? (isEs ? 'Seleccionado · Diseño y Aprendizaje' : 'Selected · Design & Learning')
                         : isPlanned 
-                          ? 'Planned · Follows Project 01' 
-                          : 'Future Capstone · Scope to Validate'}
+                          ? (isEs ? 'Planificado · Sigue al Proyecto 01' : 'Planned · Follows Project 01')
+                          : (isEs ? 'Capstone Futuro · Alcance a Validar' : 'Future Capstone · Scope to Validate')}
                     </span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
@@ -232,7 +239,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           }`}
                         >
                           <ShieldCheck size={14} />
-                          <span>Core Invariants</span>
+                          <span>{isEs ? 'Invariantes Clave' : 'Core Invariants'}</span>
                         </button>
                       )}
 
@@ -246,7 +253,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           }`}
                         >
                           <Scale size={14} />
-                          <span>Decisions &amp; ADRs</span>
+                          <span>{isEs ? 'Decisiones y ADRs' : 'Decisions & ADRs'}</span>
                         </button>
                       )}
 
@@ -260,7 +267,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           }`}
                         >
                           <BookOpen size={14} />
-                          <span>Learning Roadmap</span>
+                          <span>{isEs ? 'Ruta de Aprendizaje' : 'Learning Roadmap'}</span>
                         </button>
                       )}
 
@@ -274,7 +281,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           }`}
                         >
                           <CheckCircle2 size={14} />
-                          <span>Scope &amp; Modules</span>
+                          <span>{isEs ? 'Alcance y Módulos' : 'Scope & Modules'}</span>
                         </button>
                       )}
                     </div>
@@ -430,7 +437,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 
                 <div>
                   <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Layers size={12} /> {isArchitectureProject ? 'Candidate Stack & Domain Focus' : 'Tech Stack'}
+                    <Layers size={12} /> {isArchitectureProject 
+                      ? (isEs ? 'Stack Candidato y Foco de Dominio' : 'Candidate Stack & Domain Focus') 
+                      : (isEs ? 'Stack Tecnológico' : 'Tech Stack')}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.details.stack.map((tech) => (
@@ -443,7 +452,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                 <div>
                   <h3 className="text-[10px] font-bold modal-label uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Calendar size={12} /> Current Phase
+                    <Calendar size={12} /> {isEs ? 'Fase Actual' : 'Current Phase'}
                   </h3>
                   <p className="modal-heading text-sm font-medium">
                     {project.details.currentStatus || project.details.time}
@@ -454,15 +463,17 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   <div className="space-y-3 pt-2">
                     <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center space-y-1.5">
                       <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center justify-center gap-1.5">
-                        <GitBranch size={14} /> REPOSITORY &amp; VERIFICATION
+                        <GitBranch size={14} /> {isEs ? 'REPOSITORIO Y VERIFICACIÓN' : 'REPOSITORY & VERIFICATION'}
                       </span>
                       <p className="text-[11px] text-slate-400">
-                        Source code repository and reproducible test suites will be linked once published and verified.
+                        {isEs 
+                          ? 'El repositorio de código fuente y suites de pruebas reproducibles se enlazarán al ser verificados y publicados.'
+                          : 'Source code repository and reproducible test suites will be linked once published and verified.'}
                       </p>
                     </div>
                     <div className="p-3 rounded-lg bg-black/40 border modal-border text-[11px] text-slate-400 flex items-center gap-2">
                       <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
-                      <span>Domain modeling, contract safety, and automated test coverage.</span>
+                      <span>{isEs ? 'Modelado de dominio, seguridad de contratos y pruebas automatizadas.' : 'Domain modeling, contract safety, and automated test coverage.'}</span>
                     </div>
                   </div>
                 ) : project.link && project.link !== '#' ? (
@@ -472,7 +483,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     rel="noopener noreferrer"
                     className="group/btn flex items-center justify-center gap-2 w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] mt-2"
                   >
-                    Visit Live Site <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    {isEs ? 'Visitar Sitio Web' : 'Visit Live Site'} <ExternalLink size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                   </a>
                 ) : null}
               </div>

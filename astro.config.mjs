@@ -6,6 +6,13 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tomastech.dev',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [tailwind(), react()],
   devToolbar: {
     enabled: false,

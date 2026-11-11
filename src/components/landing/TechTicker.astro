@@ -1,5 +1,13 @@
 ---
-{/* Infinite scrolling tech logo ticker — adds credibility and polish */}
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
 
 const techs = [
   { name: "React", icon: "⚛️" },
@@ -20,10 +28,10 @@ const techs = [
 <section class="relative py-10 md:py-14 overflow-hidden border-t border-b" style="border-color: var(--color-border); background: var(--color-bg);">
   <div class="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 mb-6 text-center">
     <h2 class="text-sm md:text-base font-bold mb-1.5 tracking-wider uppercase text-primary" style="font-family: Space Grotesk, sans-serif">
-      Built With Modern Technology
+      {t.ticker.title}
     </h2>
     <p class="text-xs md:text-sm max-w-lg mx-auto text-text-muted leading-relaxed">
-      Using reliable tools and technologies selected for each project's requirements.
+      {t.ticker.subtitle}
     </p>
   </div>
   

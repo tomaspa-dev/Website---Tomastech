@@ -3,6 +3,18 @@ import { Github, Linkedin, Mail, Instagram, MessageCircle } from 'lucide-react';
 import { Image } from 'astro:assets';
 import logoDark from '../../assets/logo.png';
 import logoLight from '../../assets/logo-light.png';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const homePath = lang === 'es' ? '/es' : '/';
+const portfolioPath = lang === 'es' ? '/es/portfolio' : '/portfolio';
 
 const social = [
   { icon: Github, href: "https://github.com/tomaspa-dev", label: "GitHub" },
@@ -17,7 +29,7 @@ const social = [
       
       <!-- Brand — 2 cols -->
       <div class="lg:col-span-2 footer-col">
-        <a href="/" class="block w-48 mb-4">
+        <a href={homePath} class="block w-48 mb-4">
           <Image 
             src={logoDark} 
             alt="Tomastech Logo" 
@@ -33,9 +45,9 @@ const social = [
             class="logo-light w-full h-auto" 
           />
         </a>
-        <p class="text-text-muted text-xs font-bold uppercase tracking-widest mb-2">Software Engineer</p>
+        <p class="text-text-muted text-xs font-bold uppercase tracking-widest mb-2">{t.footer.role}</p>
         <p class="text-text-secondary text-base mb-8 max-w-md leading-relaxed">
-          Building software systems, business applications and AI-enabled solutions.
+          {t.footer.tagline}
         </p>
         <div class="flex gap-3">
           {social.map((item) => (
@@ -63,16 +75,16 @@ const social = [
 
       <!-- Projects / Navigation — col 3 -->
       <div class="footer-col">
-        <h3 class="text-text-primary font-bold mb-6 font-heading">Projects</h3>
+        <h3 class="text-text-primary font-bold mb-6 font-heading">{t.footer.navigation}</h3>
         <ul class="space-y-3">
           <li>
-            <a href="/portfolio" class="text-text-secondary hover:text-primary transition-colors">Portfolio</a>
+            <a href={portfolioPath} class="text-text-secondary hover:text-primary transition-colors">{t.nav.portfolio}</a>
           </li>
           <li>
-            <a href="/portfolio#about" class="text-text-secondary hover:text-primary transition-colors">About</a>
+            <a href={`${portfolioPath}#about`} class="text-text-secondary hover:text-primary transition-colors">{t.nav.about}</a>
           </li>
           <li>
-            <a href="/portfolio#process" class="text-text-secondary hover:text-primary transition-colors">How I Work</a>
+            <a href={`${portfolioPath}#process`} class="text-text-secondary hover:text-primary transition-colors">{t.nav.process}</a>
           </li>
           <li>
             <a href="https://github.com/tomaspa-dev" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-primary transition-colors">GitHub</a>
@@ -82,15 +94,9 @@ const social = [
 
       <!-- Current Focus — col 4, plain text, no bullets -->
       <div class="footer-col">
-        <h3 class="text-text-primary font-bold mb-6 font-heading">Current Focus</h3>
+        <h3 class="text-text-primary font-bold mb-6 font-heading">{t.footer.focus}</h3>
         <ul class="space-y-3">
-          {[
-            'Software Engineering',
-            'Software Architecture',
-            'Cloud & Infrastructure',
-            'Security',
-            'AI-enabled Systems',
-          ].map(item => (
+          {t.footer.focusItems.map(item => (
             <li class="text-text-secondary text-sm">{item}</li>
           ))}
         </ul>
@@ -98,9 +104,9 @@ const social = [
 
       <!-- Let's Connect -->
       <div class="footer-col">
-        <h3 class="text-text-primary font-bold mb-2 font-heading">Let's Connect</h3>
+        <h3 class="text-text-primary font-bold mb-2 font-heading">{t.footer.connect}</h3>
         <p class="text-text-secondary text-sm mb-6 leading-relaxed">
-          Open to engineering opportunities, technical conversations and international networking.
+          {t.footer.connectText}
         </p>
         <div class="flex gap-4">
 
@@ -110,7 +116,7 @@ const social = [
               class="magnetic-btn w-12 h-12 rounded-xl glass-card flex items-center justify-center text-text-muted hover:text-[#25D366] hover:border-[#25D366]/30 transition-all duration-300 copy-btn"
               data-value="@tomastech.dev"
               data-type="WhatsApp alias"
-              aria-label="Copy WhatsApp alias"
+              aria-label={t.footer.copyWa}
             >
               <MessageCircle size={20} />
             </button>
@@ -130,7 +136,7 @@ const social = [
               <Mail size={20} />
             </button>
             <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-bold px-3 py-1.5 rounded opacity-0 transition-opacity whitespace-nowrap pointer-events-none tooltip z-50 shadow-lg">
-              Click to copy
+              {t.footer.copyEmail}
             </div>
           </div>
           
@@ -140,12 +146,14 @@ const social = [
     </div>
 
     <div class="footer-bottom border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
-      <p>&copy; {new Date().getFullYear()} Tomastech. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} Tomastech. {t.footer.rights}</p>
       <div class="flex gap-8">
-        <a href="/privacy" class="hover:text-text-primary transition-colors">Privacy Policy</a>
-        <a href="/terms" class="hover:text-text-primary transition-colors">Terms of Service</a>
+        <a href="/privacy" class="hover:text-text-primary transition-colors">{t.footer.privacy}</a>
+        <a href="/terms" class="hover:text-text-primary transition-colors">{t.footer.terms}</a>
       </div>
     </div>
+  </div>
+</footer>
   </div>
 </footer>
 

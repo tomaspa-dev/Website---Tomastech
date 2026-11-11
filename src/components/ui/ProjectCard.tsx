@@ -1,18 +1,25 @@
 import React from 'react';
 import type { Project } from '../../data/projects';
+import type { Lang } from '../../i18n/ui';
 import { ArrowUpRight, Eye, ShieldCheck, Cpu, Database, Sparkles } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
   onOpenModal: (project: Project) => void;
   index?: number;
+  lang?: Lang;
 }
 
-export default function ProjectCard({ project, onOpenModal, index = 0 }: ProjectCardProps) {
+export default function ProjectCard({ project, onOpenModal, index = 0, lang = 'en' }: ProjectCardProps) {
+  const isEs = lang === 'es';
   const isArchitectureProject = 
     project.status === 'Selected / Design & Learning' || 
     project.status === 'Selected / Planned' || 
     project.status === 'Future Capstone / Defined Scope';
+
+  const categoryLabel = project.category === 'Systems & Backend' && isEs 
+    ? 'Sistemas y Backend' 
+    : project.category;
 
   return (
     <div 
@@ -78,7 +85,7 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
                 {project.workName || 'Architecture & Domain Model'}
               </span>
               <span className="text-[11px] text-slate-400 mt-1 max-w-xs font-mono">
-                System Design &amp; Learning Case
+                {isEs ? 'Caso de Aprendizaje y Diseño' : 'System Design & Learning Case'}
               </span>
             </div>
           </div>
@@ -88,7 +95,11 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
           <div className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs font-semibold flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-xl">
             <Eye size={16} className="text-primary" />
-            <span>{isArchitectureProject ? 'Explore Architecture Case' : 'View Case Study'}</span>
+            <span>
+              {isArchitectureProject 
+                ? (isEs ? 'Explorar Caso de Arquitectura' : 'Explore Architecture Case') 
+                : (isEs ? 'Ver Caso de Estudio' : 'View Case Study')}
+            </span>
           </div>
         </div>
         
@@ -96,30 +107,30 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
         <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-white">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            {project.category}
+            {categoryLabel}
           </span>
           {project.status === 'Selected / Design & Learning' && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-purple-500/25 backdrop-blur-md border border-purple-400/40 rounded-full text-purple-200 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-              DESIGN &amp; LEARNING
+              {isEs ? 'DISEÑO Y APRENDIZAJE' : 'DESIGN & LEARNING'}
             </span>
           )}
           {project.status === 'Selected / Planned' && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 rounded-full text-cyan-300 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              PLANNED SEQUENCE
+              {isEs ? 'SECUENCIA PLANIFICADA' : 'PLANNED SEQUENCE'}
             </span>
           )}
           {project.status === 'Future Capstone / Defined Scope' && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-amber-500/20 backdrop-blur-md border border-amber-400/30 rounded-full text-amber-300 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              FUTURE CAPSTONE
+              {isEs ? 'CAPSTONE FUTURO' : 'FUTURE CAPSTONE'}
             </span>
           )}
           {project.status === 'Completed Solution' && (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 rounded-full text-emerald-300 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              DELIVERED
+              {isEs ? 'ENTREGADO' : 'DELIVERED'}
             </span>
           )}
         </div>
@@ -142,7 +153,7 @@ export default function ProjectCard({ project, onOpenModal, index = 0 }: Project
           {/* Action Icon / Badge */}
           {isArchitectureProject ? (
             <div className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary text-xs font-semibold tracking-wide transition-all duration-300 transform group-hover:-translate-y-0.5 shrink-0 ml-3 flex items-center gap-1.5 shadow-sm">
-              <span>Case Study</span>
+              <span>{isEs ? 'Caso de Estudio' : 'Case Study'}</span>
               <ArrowUpRight size={14} />
             </div>
           ) : project.link && project.link !== '#' ? (

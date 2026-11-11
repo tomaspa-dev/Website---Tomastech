@@ -1,29 +1,37 @@
 ---
 import Button from '../ui/Button.astro';
 import MobileMenu from '../ui/MobileMenu';
+import LanguageSelector from './LanguageSelector.astro';
 import { User, Briefcase } from 'lucide-react';
 import { Image } from 'astro:assets';
 import logoDark from '../../assets/logo.png';
 import logoLight from '../../assets/logo-light.png';
+import { getTranslations } from '../../i18n/translations';
+import type { Lang } from '../../i18n/ui';
 
 interface Props {
   isLanding?: boolean;
+  lang?: Lang;
 }
 
-const { isLanding = false } = Astro.props;
+const { isLanding = false, lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
 
 const landingLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Scope", href: "#scope" },
+  { name: t.nav.services, href: "#services" },
+  { name: t.nav.scope, href: "#scope" },
 ];
 
 const portfolioLinks = [
-  { name: "How I Work", href: "#process" },
-  { name: "Portfolio", href: "#work" },
-  { name: "About", href: "#about" },
+  { name: t.nav.process, href: "#process" },
+  { name: t.nav.portfolio, href: "#work" },
+  { name: t.nav.about, href: "#about" },
 ];
 
 const links = isLanding ? landingLinks : portfolioLinks;
+const homeHref = lang === 'es' ? '/es' : '/';
+const portfolioHref = lang === 'es' ? '/es/portfolio' : '/portfolio';
+const contactHref = isLanding ? '#contact' : (lang === 'es' ? '/es/#contact' : '/#contact');
 ---
 
 <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent">
@@ -31,7 +39,7 @@ const links = isLanding ? landingLinks : portfolioLinks;
   <div id="scroll-progress" class="absolute top-0 left-0 h-[2px] w-0 z-10 bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 transition-none" style="background-size: 200% 100%;"></div>
 
   <div class="container mx-auto px-6 h-20 lg:h-24 flex items-center justify-between">
-    <a href="/" class="block w-40 lg:w-48 group relative overflow-hidden shrink-0">
+    <a href={homeHref} class="block w-40 lg:w-48 group relative overflow-hidden shrink-0">
       <div class="absolute inset-0 bg-white/40 w-full h-full -translate-x-full skew-x-[-20deg] opacity-0 group-hover:opacity-100 group-hover:animate-shine z-10"></div>
       <!-- Dark mode logo (default) -->
       <Image 
@@ -63,10 +71,10 @@ const links = isLanding ? landingLinks : portfolioLinks;
       
       {isLanding ? (
         <>
-          <a href="/portfolio" class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 relative group py-2">
+          <a href={portfolioHref} class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 relative group py-2">
             <Briefcase size={16} />
-            <span class="hidden lg:inline">Portfolio</span>
-            <span class="lg:hidden">Work</span>
+            <span class="hidden lg:inline">{t.nav.portfolio}</span>
+            <span class="lg:hidden">{t.nav.work}</span>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-full"></span>
           </a>
           
@@ -81,18 +89,23 @@ const links = isLanding ? landingLinks : portfolioLinks;
             </div>
           </a>
 
-          <Button href="#contact" variant="primary" size="sm" class="ml-2">
-            Start Project
+          <LanguageSelector currentLang={lang} className="ml-1" />
+
+          <Button href={contactHref} variant="primary" size="sm" class="ml-2">
+            {t.nav.startProject}
           </Button>
         </>
       ) : (
-        <Button href="/#contact" variant="primary" size="sm" class="px-6">
-          Let's Talk
-        </Button>
+        <>
+          <LanguageSelector currentLang={lang} className="mr-1" />
+          <Button href={contactHref} variant="primary" size="sm" class="px-6">
+            {t.nav.letsTalk}
+          </Button>
+        </>
       )}
     </div>
 
-    <MobileMenu client:load isLanding={isLanding} />
+    <MobileMenu client:load isLanding={isLanding} lang={lang} />
   </div>
 </nav>
 

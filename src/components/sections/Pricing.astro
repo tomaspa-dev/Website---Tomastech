@@ -1,27 +1,36 @@
 ---
 import { MessageSquare, ArrowRight, Compass, Layers, CheckCircle2 } from 'lucide-react';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
 
 const scopeSteps = [
   {
     icon: Compass,
-    title: "1. Understand & Discover",
-    description: "Deep dive into your business workflow, operational bottlenecks, user personas and project goals.",
+    title: t.scope.step1Title,
+    description: t.scope.step1Desc,
     glow: "rgba(129, 140, 248, 0.15)",
     iconColor: "text-indigo-400",
     gradient: "from-indigo-400 to-indigo-600",
   },
   {
     icon: Layers,
-    title: "2. Technical Architecture",
-    description: "Designing the right system model, technology stack, database structure and integration plan.",
+    title: t.scope.step2Title,
+    description: t.scope.step2Desc,
     glow: "rgba(52, 211, 153, 0.15)",
     iconColor: "text-emerald-400",
     gradient: "from-emerald-400 to-emerald-600",
   },
   {
     icon: CheckCircle2,
-    title: "3. Scope & Estimation",
-    description: "A clear engineering proposal with transparent deliverables, realistic milestones and budget options.",
+    title: t.scope.step3Title,
+    description: t.scope.step3Desc,
     glow: "rgba(167, 139, 250, 0.15)",
     iconColor: "text-violet-400",
     gradient: "from-violet-400 to-violet-600",
@@ -37,13 +46,13 @@ const scopeSteps = [
   <div class="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 relative z-10">
     <div class="text-center max-w-3xl mx-auto mb-14 md:mb-16">
       <span class="inline-block text-indigo-400 font-heading font-semibold tracking-wider uppercase text-xs md:text-sm mb-3" style="font-family: Space Grotesk, sans-serif">
-        Let's scope your project
+        {t.scope.tag}
       </span>
       <h2 class="text-3xl md:text-5xl font-bold mb-5 tracking-tight font-heading" style="color: var(--color-text-primary); font-family: Space Grotesk, sans-serif">
-        Let's scope your <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">project</span>
+        {t.scope.titlePrefix} <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">{t.scope.titleHighlight}</span>
       </h2>
       <p class="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style="color: var(--color-text-secondary)">
-        Every business has different requirements. I prefer to understand your goals, workflows and technical needs before proposing the right solution.
+        {t.scope.subtitle}
       </p>
     </div>
 
@@ -85,10 +94,13 @@ const scopeSteps = [
         class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary hover:bg-primary-600 text-white font-bold font-heading rounded-xl transition-all duration-300 hover:scale-105 shadow-glow-primary hover:shadow-[0_0_35px_rgba(129,140,248,0.5)]"
       >
         <MessageSquare size={18} />
-        <span>Request a consultation</span>
+        <span>{t.scope.cta}</span>
         <ArrowRight size={16} />
       </a>
     </div>
+
+  </div>
+</section>
 
   </div>
 </section>

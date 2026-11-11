@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectModal from '../ui/ProjectModal';
-import { projects, type Project } from '../../data/projects';
+import { getLocalizedProjects, type Project } from '../../data/projects';
+import type { Lang } from '../../i18n/ui';
 
-const categories = [
-  'All',
-  'Systems & Backend',
-  'Corporate Websites',
-  'Landing Pages',
-];
+interface PortfolioGridProps {
+  lang?: Lang;
+}
 
 // Attach a one-shot IntersectionObserver to a card so it fades in when visible
 function revealOnScroll(el: HTMLElement, delay: number) {
@@ -34,14 +32,23 @@ function revealOnScroll(el: HTMLElement, delay: number) {
   io.observe(el);
 }
 
-export default function PortfolioGrid() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+export default function PortfolioGrid({ lang = 'en' }: PortfolioGridProps) {
+  const isEs = lang === 'es';
+  const categories = [
+    { id: 'all', label: isEs ? 'Todos' : 'All' },
+    { id: 'Systems & Backend', label: isEs ? 'Sistemas y Backend' : 'Systems & Backend' },
+    { id: 'Corporate Websites', label: isEs ? 'Sitios Corporativos' : 'Corporate Websites' },
+    { id: 'Landing Pages', label: 'Landing Pages' },
+  ];
+
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
+  const projects = getLocalizedProjects(lang);
   const filteredProjects =
-    selectedCategory === 'All'
+    selectedCategory === 'all'
       ? projects.filter((p) => !p.hidden)
       : projects.filter((p) => p.category === selectedCategory && !p.hidden);
 
@@ -122,15 +129,15 @@ export default function PortfolioGrid() {
       <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
         {categories.map((cat) => (
           <button
-            key={cat}
-            onClick={() => handleCategoryChange(cat)}
+            key={cat.id}
+            onClick={() => handleCategoryChange(cat.id)}
             className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              selectedCategory === cat
+              selectedCategory === cat.id
                 ? 'bg-primary text-white shadow-lg shadow-primary/25 scale-105'
                 : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] border border-[var(--color-border)]'
             }`}
           >
-            {cat}
+            {cat.label}
           </button>
         ))}
       </div>
@@ -139,10 +146,12 @@ export default function PortfolioGrid() {
       {selectedCategory === 'Systems & Backend' && (
         <div className="max-w-2xl mx-auto mb-10 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center">
           <p className="text-xs text-indigo-300 font-mono uppercase tracking-wider font-semibold mb-1">
-            Where I'm Headed &middot; Public System Architecture
+            {isEs ? 'Hacia Dónde Me Dirijo · Arquitectura de Sistemas Pública' : "Where I'm Headed · Public System Architecture"}
           </p>
           <p className="text-xs text-slate-300 leading-relaxed">
-            Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs) as each system evolves.
+            {isEs 
+              ? 'Casos de estudio detallando invariantes de dominio, límites de concurrencia y trade-offs arquitectónicos (ADRs) conforme cada sistema evoluciona.'
+              : 'Case studies detailing domain invariants, concurrency boundaries, and architectural trade-offs (ADRs) as each system evolves.'}
           </p>
         </div>
       )}
@@ -167,7 +176,7 @@ export default function PortfolioGrid() {
             </div>
 
             <div className="project-card-inner relative z-10">
-              <ProjectCard project={project} onOpenModal={handleOpenModal} index={index} />
+              <ProjectCard project={project} onOpenModal={handleOpenModal} index={index} lang={lang} />
             </div>
           </div>
         ))}
@@ -176,7 +185,7 @@ export default function PortfolioGrid() {
       {filteredProjects.length === 0 && (
         <div className="text-center py-20">
           <p className="text-[var(--color-text-muted)] text-lg">
-            No projects found in this category yet.
+            {isEs ? 'No se encontraron proyectos en esta categoría aún.' : 'No projects found in this category yet.'}
           </p>
         </div>
       )}
@@ -186,6 +195,7 @@ export default function PortfolioGrid() {
           project={selectedProject}
           isOpen={isModalOpen}
           onClose={handleCloseModal}
+          lang={lang}
         />
       )}
     </div>

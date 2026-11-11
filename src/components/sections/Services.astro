@@ -1,14 +1,50 @@
 ---
 import { Server, Layers, Brain, Network, Cloud, ShieldCheck } from 'lucide-react';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
 
-const services = [
-  { title: "Business Systems",       description: "ERP, operations platforms and workflow-driven applications designed around real business processes.",                                                            icon: Server,       gradient: "from-indigo-400 to-indigo-600",  glow: "99, 102, 241",  iconColor: "text-indigo-400",  number: "01" },
-  { title: "Full-Stack Applications", description: "End-to-end applications covering interfaces, APIs, data, integrations, authentication and business logic.",                                                       icon: Layers,       gradient: "from-violet-400 to-violet-600",  glow: "167, 139, 250", iconColor: "text-violet-400",  number: "02" },
-  { title: "AI-Enabled Software",    description: "AI integrated into workflows where it can automate repetitive work, process information and improve decision-making.",                                              icon: Brain,        gradient: "from-emerald-400 to-emerald-600", glow: "52, 211, 153",  iconColor: "text-emerald-400", number: "03" },
-  { title: "Software Architecture",  description: "Designing system boundaries, data flows, integrations and technical decisions that keep applications maintainable as they grow.",                                   icon: Network,      gradient: "from-amber-400 to-amber-600",    glow: "251, 191, 36",  iconColor: "text-amber-400",   number: "04" },
-  { title: "Cloud & Infrastructure", description: "Building deployable, observable and reliable environments using modern cloud and infrastructure practices.",                                                        icon: Cloud,        gradient: "from-cyan-400 to-cyan-600",      glow: "34, 211, 238",  iconColor: "text-cyan-400",    number: "05" },
-  { title: "Security by Design",     description: "Authentication, authorization, auditability and secure application patterns considered from the architecture stage.",                                               icon: ShieldCheck,  gradient: "from-pink-400 to-pink-600",      glow: "244, 114, 182", iconColor: "text-pink-400",    number: "06" },
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const icons = [Server, Layers, Brain, Network, Cloud, ShieldCheck];
+const gradients = [
+  "from-indigo-400 to-indigo-600",
+  "from-violet-400 to-violet-600",
+  "from-emerald-400 to-emerald-600",
+  "from-amber-400 to-amber-600",
+  "from-cyan-400 to-cyan-600",
+  "from-pink-400 to-pink-600",
 ];
+const glows = [
+  "99, 102, 241",
+  "167, 139, 250",
+  "52, 211, 153",
+  "251, 191, 36",
+  "34, 211, 238",
+  "244, 114, 182",
+];
+const iconColors = [
+  "text-indigo-400",
+  "text-violet-400",
+  "text-emerald-400",
+  "text-amber-400",
+  "text-cyan-400",
+  "text-pink-400",
+];
+
+const services = t.approach.items.map((item, idx) => ({
+  title: item.title,
+  description: item.desc,
+  number: item.number,
+  icon: icons[idx],
+  gradient: gradients[idx],
+  glow: glows[idx],
+  iconColor: iconColors[idx],
+}));
 ---
 
 <section id="services" class="py-32 relative overflow-hidden">
@@ -25,12 +61,12 @@ const services = [
   <div class="container mx-auto px-4 relative z-10">
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-20 svc-header">
-      <span class="text-primary font-medium tracking-wider uppercase mb-4 block svc-label">HOW I APPROACH SOFTWARE</span>
+      <span class="text-primary font-medium tracking-wider uppercase mb-4 block svc-label">{t.approach.tag}</span>
       <h2 class="text-4xl md:text-5xl font-display font-bold text-text-primary mb-6 svc-title">
-        Software <span class="gradient-text">Systems</span>
+        {t.approach.titlePrefix} <span class="gradient-text">{t.approach.titleHighlight}</span>
       </h2>
       <p class="text-text-secondary text-lg svc-sub">
-        I build software systems that turn complex problems into practical, maintainable solutions.
+        {t.approach.subtitle}
       </p>
     </div>
 

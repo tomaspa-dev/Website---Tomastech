@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/common/Navbar.astro';
+import HeroLanding from '../../components/landing/HeroLanding.astro';
+import StatsBar from '../../components/landing/StatsBar.astro';
+import TechTicker from '../../components/landing/TechTicker.astro';
+import ServicesSection from '../../components/landing/ServicesSection';
+import FAQ from '../../components/landing/FAQ';
+import Pricing from '../../components/sections/Pricing.astro';
+import ConversionCTA from '../../components/landing/ConversionCTA.astro';
+import Footer from '../../components/common/Footer.astro';
+
+const pageTitle = "Desarrollo de Software y Aplicaciones Web a Medida | Tomastech";
+const pageDescription = "Aplicaciones web personalizadas, software empresarial, ERP, automatización y soluciones de IA diseñadas para tus procesos de negocio. Desde Perú para todo el mundo.";
+const pageKeywords = "desarrollo de software a medida, aplicaciones web personalizadas, sistemas empresariales, desarrollo ERP, automatizacion con IA, integraciones API, software engineer Peru, Lima Peru";
+---
+
+<BaseLayout 
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  lang="es"
+>
+  <Navbar isLanding={true} lang="es" />
+  <main>
+    <HeroLanding lang="es" />
+    <StatsBar lang="es" />
+    <TechTicker lang="es" />
+    <ServicesSection client:visible lang="es" />
+    <Pricing lang="es" />
+    <FAQ client:visible lang="es" />
+    <ConversionCTA lang="es" />
+  </main>
+  
+  <Footer lang="es" />
+</BaseLayout>
+
+{/* Mouse tracking for service cards */}
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  });
+</script>

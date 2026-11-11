@@ -439,3 +439,212 @@ export const projects: Project[] = [
     }
   }
 ];
+
+// Spanish translations for projects (matching exact technical invariants)
+const SPANISH_OVERRIDES: Record<string, Partial<Project>> = {
+  'api-usage-guard': {
+    title: 'API Usage Guard — Control de Cupos y Exportaciones',
+    description: 'API multi-inquilino para una plataforma SaaS sintética que aplica cupos de exportación por organización, balance atómico, control de concurrencia y reintentos idempotentes.',
+    details: {
+      ...projects[0].details,
+      concept: 'Una API SaaS sintética que permite a las organizaciones solicitar exportaciones de datos sin exceder su cupo por periodo, garantizando evaluación atómica de saldo y seguridad en reintentos.',
+      features: [
+        'Resolución de identidad del inquilino desde contexto de autenticación confiable',
+        'Deducción atómica de cupo previa a la admisión de la exportación',
+        'Soporte de Idempotency-Key para prevenir doble consumo en reintentos de red',
+        'Detección determinista de conflicto ante reutilización de llave con distinta carga',
+        'Evaluación de semántica HTTP para agotamiento de cupo (403 Prohibido vs 429 Demasiadas Solicitudes) y trazabilidad'
+      ],
+      scope: [
+        'Identificación de inquilino y asignación sintética de cupo',
+        'Admisión síncrona de exportación y balance de cupo',
+        'Almacén de idempotencia y mecanismo de repetición segura',
+        'Prevención de condiciones de carrera y concurrencia',
+        'Simulación de fallas de red (respuestas perdidas y reintentos)',
+        'Registros observables y script de reinicio para demo'
+      ],
+      architectureFocus: [
+        'Contabilidad atómica de cupo en capa de persistencia',
+        'Validación en capa de dominio vs. limitador en API Gateway',
+        'Máquina de estados idempotente para deduplicación de solicitudes',
+        'Modelado predecible de errores HTTP y seguridad de contrato',
+        'Suite de pruebas automatizadas reproducibles con casos límite'
+      ],
+      domainContext: 'Las solicitudes de exportación en un SaaS deben admitirse solo si el inquilino cuenta con cupo en su ciclo activo. Tiempos de espera en red provocan reintentos frecuentes; el sistema debe garantizar que una solicitud duplicada retorne la respuesta previa sin descontar cupo dos veces.',
+      coreInvariants: [
+        'El cupo no puede caer bajo cero ante solicitudes concurrentes (bloqueo transaccional atómico).',
+        'Reintentar una solicitud con la misma Idempotency-Key devuelve el resultado original sin descontar cupo adicional.',
+        'Reutilizar una Idempotency-Key con parámetros diferentes produce un 409 Conflict determinista.',
+        'Tener cupo cero devuelve de inmediato un contrato HTTP explícito sin iniciar generación sintética.'
+      ],
+      architecturalDecisions: [
+        {
+          question: '¿Por qué validación a nivel de aplicación en lugar de rate limiter en API Gateway?',
+          decision: 'Verificación transaccional a nivel de aplicación dentro del dominio del servicio.',
+          tradeOff: 'Un API Gateway cuenta peticiones en el borde, pero carece de contexto de negocio multi-inquilino, reversiones transaccionales e invariantes de cupo.',
+          status: 'Proposed'
+        },
+        {
+          question: '¿Por qué admisión síncrona antes del procesamiento pesado en segundo plano?',
+          decision: 'Validación de cupo y respuesta de admisión síncrona, desacoplada de la generación pesada.',
+          tradeOff: 'Respuesta inmediata al cliente sobre la aceptación del cupo sin sobrecargar el alcance del MVP con colas complejas.',
+          status: 'Under evaluation'
+        }
+      ],
+      learningMilestones: [
+        '1. Definición de actores, aislamiento de inquilinos y unidades de cupo',
+        '2. Reglas de periodo y especificación de contrato HTTP predecible',
+        '3. Persistencia atómica y mecanismo de idempotencia para solicitudes',
+        '4. Pruebas de concurrencia y protección contra condiciones de carrera',
+        '5. Simulación de fallas de red y verificación de recuperación en reintentos',
+        '6. Entorno local en Docker, pruebas automatizadas y script de reinicio'
+      ],
+      currentStatus: 'Fase: Definición de Alcance y Diseño de Arquitectura.',
+      caseStudyNote: 'Este caso de estudio documenta el modelo de dominio, trade-offs y pruebas de verificación conforme se construye el sistema.'
+    }
+  },
+  'loan-payment-reconciliation': {
+    title: 'Loan Payment Operations & Reconciliation — Operaciones de Pago y Conciliación',
+    description: 'Simulador de operaciones financieras que coordina cobro de cuotas con un proveedor externo, resuelve tiempos de espera ambiguos mediante consultas activas y concilia libros internos con extractos sintéticos.',
+    details: {
+      ...projects[1].details,
+      concept: 'Simulador de una entidad crediticia que gestiona obligaciones de préstamos. Procesa resultados de pago, maneja tiempos de espera inciertos mediante consulta pull-first y concilia registros internos contra reportes diarios sintéticos.',
+      features: [
+        'Máquina de estados de cuota (Pendiente, Pagada, Parcial, Ambigua, En Revisión)',
+        'Imputación a una única cuota por intento de pago',
+        'Consulta de estado activa (pull-first) ante tiempos de espera del proveedor',
+        'Prevención de doble aplicación ante respuestas ambiguas o reintentos',
+        'Cotejo automatizado entre transacciones internas y reportes del proveedor',
+        'Enrutamiento a cola de excepciones para auditoría ante discrepancias'
+      ],
+      scope: [
+        'Modelo de dominio de cuotas, préstamos y cronogramas',
+        'Integración simulada con proveedor externo de pagos',
+        'Motor de sondeo pull-first para resolución de timeouts',
+        'Libro contable de aplicación de pagos idempotente',
+        'Detección de discrepancias y marcado de excepciones',
+        'Herramienta de conciliación contra extractos diarios sintéticos'
+      ],
+      architectureFocus: [
+        'Consistencia de transiciones en la máquina de estados financiera',
+        'Regla objetivo: Prevención de aplicaciones duplicadas de cuotas',
+        'Evaluación arquitectónica: Enfoque Pull-first vs. Webhooks',
+        'Libro mayor de transacciones determinista y pista de auditoría',
+        'Generación de datos sintéticos para conciliación de casos de borde'
+      ],
+      domainContext: 'Cuando un cliente paga una cuota, la respuesta del proveedor puede sufrir un timeout. Tratar el timeout como fallo arriesga cobrar doble al cliente; tratarlo como éxito arriesga dinero no recaudado. El sistema clasifica el timeout como "Inconcluso" y consulta activamente antes de registrar el abono.',
+      coreInvariants: [
+        'Una cuota de préstamo no puede pasar a Pagada sin una referencia confirmada y única del proveedor.',
+        'Los tiempos de espera de red se tratan como Inconclusos; nunca se asumen automáticamente como Fallidos ni Exitosos.',
+        'Las modificaciones de saldo contable son idempotentes; consultar una transacción liquidada no puede duplicar el abono.',
+        'Cualquier discrepancia entre el reporte del proveedor y el libro interno detiene el procesamiento automático y marca el registro para auditoría.'
+      ],
+      architecturalDecisions: [
+        {
+          question: '¿Por qué consultas de estado pull-first en lugar de webhooks en el MVP inicial?',
+          decision: 'Motor de consulta activa pull-first.',
+          tradeOff: 'Reduce la superficie de ataque inicial al evitar exponer un endpoint receptor de webhooks. Añade consultas de sondeo y latencia; no elimina por sí solo la necesidad de autenticación, protección de secretos, límites de llamadas ni tratamiento de errores.',
+          status: 'Accepted'
+        },
+        {
+          question: '¿Cómo manejar discrepancias de montos y referencias?',
+          decision: 'Cola de excepciones para el operador con historial de auditoría completo.',
+          tradeOff: 'Previene ajustes contables automáticos erróneos cuando comisiones externas o montos parciales difieren del cronograma programado.',
+          status: 'Proposed'
+        }
+      ],
+      learningMilestones: [
+        '1. Glosario de dominio: préstamo, cuota, intento, resultado, abono, excepción',
+        '2. Máquina de estados finitos y reglas de transición deterministas',
+        '3. Persistencia atómica de libros y validación de idempotencia',
+        '4. Motor de consulta pull-first para resolución de estados ambiguos',
+        '5. Cotejo de transacciones contra reportes sintéticos de liquidación',
+        '6. Seguridad, perfiles de operador y banco de pruebas sintéticas'
+      ],
+      currentStatus: 'Fase: Alcance Definido y Arquitectura Esbozada. Programado para implementación tras el Proyecto 01.',
+      caseStudyNote: 'Este caso de estudio describe el diseño de la máquina de estados y la estrategia de conciliación previo a la codificación, basado en datos financieros sintéticos.'
+    }
+  },
+  'construction-equipment-erp': {
+    title: 'Construction Equipment Operations ERP — ERP Demo de Venta y Alquiler',
+    description: 'ERP de operaciones que separa el inventario de venta de maquinaria nueva de la flota de unidades físicas serializadas para alquiler, aplicando invariantes de disponibilidad temporal sin solapamiento e inspección técnica de retorno.',
+    details: {
+      ...projects[2].details,
+      concept: 'Un ERP operativo diseñado para maquinaria pesada y equipos de construcción. Mantiene separación estricta de dominio entre el inventario de venta y las unidades físicas serializadas alquiladas por ventanas de fecha con inspección técnica obligatoria post-devolución.',
+      features: [
+        'Separación estricta entre inventario de venta y flota física de alquiler',
+        'Reserva temporal de activos que previene solapamiento de fechas',
+        'Ciclo de vida de maquinaria (Disponible, Reservada, Despachada, Retornada, En Inspección, Mantenimiento)',
+        'Inspección técnica post-devolución que impide re-alquiler inmediato sin visto bueno',
+        'Historial de mantenimiento y horómetro por unidad serializada'
+      ],
+      scope: [
+        'Catálogo dual (Stock para venta vs. Flota serializada para alquiler)',
+        'Flujo de órdenes de venta directa',
+        'Motor de disponibilidad y reservas por rango de fechas',
+        'Control de custodia en despacho e inspección de retorno',
+        'Bloqueo operativo por mantenimientos preventivos',
+        'Roles de operador, registro de auditoría y datos sintéticos de prueba'
+      ],
+      architectureFocus: [
+        'Modelado de dominio: Stock de venta vs. Unidades físicas de alquiler',
+        'Concurrencia en reservas temporales y prevención de colisiones',
+        'Restricciones de exclusión en PostgreSQL vs. bloqueos en aplicación',
+        'Registro inmutable de transiciones de custodia del activo',
+        'Conjunto sintético de maquinaria y flujos de órdenes en múltiples etapas'
+      ],
+      domainContext: 'Una empresa de maquinaria pesada no puede gestionar el alquiler como inventario común: cada máquina tiene número de serie único, horómetro, historial mecánico y calendario. Una máquina alquilada no puede solaparse en fechas, y una retornada debe pasar inspección antes de volver a la flota disponible.',
+      coreInvariants: [
+        'El stock de venta no puede alquilarse, y las unidades serializadas de la flota de alquiler no pueden descontarse como ventas.',
+        'Una máquina de alquiler serializada no puede tener reservas activas solapadas en ningún intervalo de fechas.',
+        'El retorno de una unidad la coloca en "Bajo Inspección", impidiendo nueva reserva hasta contar con certificación técnica.',
+        'Toda transición de custodia (despacho, retorno, mantenimiento) genera registros inmutables de auditoría.'
+      ],
+      architecturalDecisions: [
+        {
+          question: '¿Cómo prevenir reservas solapadas de alquiler en maquinaria serializada?',
+          decision: 'Evaluar restricciones de exclusión en PostgreSQL junto a verificaciones a nivel de aplicación.',
+          tradeOff: 'Las restricciones de exclusión a nivel de base de datos buscan garantizar intervalos sin solapamientos ante concurrencia, frente a validaciones solo en memoria.',
+          status: 'Under evaluation'
+        },
+        {
+          question: '¿Relación con experiencia previa en ERPs privados?',
+          decision: 'Proyecto nuevo e independiente desarrollado con datos sintéticos y cero código de empresas privadas.',
+          tradeOff: 'Protege la confidencialidad comercial demostrando modelado de dominio riguroso y arquitectura abierta.',
+          status: 'Accepted'
+        }
+      ],
+      learningMilestones: [
+        '1. Vocabulario de dominio, modelo de entidades y mapa de estados',
+        '2. Separación de catálogo de venta y activos serializados de alquiler',
+        '3. Motor de reservas y cálculo de disponibilidad temporal',
+        '4. Despacho, inspección de retorno y bloqueos de mantenimiento',
+        '5. Validación de concurrencia bajo intentos simultáneos de reserva',
+        '6. Fixtures de prueba automatizados y entorno local reproducible'
+      ],
+      currentStatus: 'Fase: Iniciativa Capstone — Concepto e Invariantes Aprobados. Diseño técnico detallado tras Proyectos 01 y 02.',
+      caseStudyNote: 'Este proyecto sintetiza experiencia de dominio en una arquitectura abierta y documentada, desarrollada desde cero con datos empresariales sintéticos.'
+    }
+  }
+};
+
+/**
+ * Returns the localized project list.
+ * Fallback is English.
+ */
+export function getLocalizedProjects(lang: 'en' | 'es' = 'en'): Project[] {
+  if (lang === 'en') return projects;
+  
+  return projects.map((p) => {
+    const override = SPANISH_OVERRIDES[p.id];
+    if (!override) return p;
+    return {
+      ...p,
+      ...override,
+      details: {
+        ...p.details,
+        ...(override.details || {})
+      }
+    };
+  });
+}

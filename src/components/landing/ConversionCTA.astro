@@ -1,6 +1,15 @@
 ---
 import { MessageCircle, Mail } from 'lucide-react';
 import ContactForm from './ContactForm';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
 ---
 
 <section id="contact" class="py-24 lg:py-32 relative overflow-hidden">
@@ -12,12 +21,12 @@ import ContactForm from './ContactForm';
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       {/* Text on LEFT */}
       <div class="cta-text text-left">
-        <span class="cta-el inline-block text-primary font-heading font-semibold tracking-wider uppercase text-sm mb-4">Contact Us</span>
+        <span class="cta-el inline-block text-primary font-heading font-semibold tracking-wider uppercase text-sm mb-4">{t.contact.tag}</span>
         <h2 class="cta-el text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6 tracking-tight font-heading">
-          Ready to Start Your <span class="gradient-text">Project?</span>
+          {t.contact.titlePrefix} <span class="gradient-text">{t.contact.titleHighlight}</span>
         </h2>
         <p class="cta-el text-lg text-text-secondary mb-10 leading-relaxed">
-          Let's discuss how we can help you achieve your digital goals. Fill out the form or chat with us directly.
+          {t.contact.subtitle}
         </p>
         
         <div class="cta-el flex items-center gap-4">
@@ -34,14 +43,14 @@ import ContactForm from './ContactForm';
             class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl border border-border text-text-primary hover:bg-surface-hover transition-all hover:scale-105 hover:border-border-hover font-heading font-semibold h-14"
           >
             <Mail className="w-5 h-5" />
-            <span>Send Email</span>
+            <span>{t.contact.sendEmail}</span>
           </a>
         </div>
       </div>
       
       {/* Form on RIGHT */}
       <div class="cta-form">
-        <ContactForm client:load />
+        <ContactForm client:load lang={lang} />
       </div>
     </div>
   </div>

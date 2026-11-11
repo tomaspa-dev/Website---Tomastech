@@ -1,0 +1,45 @@
+---
+interface Props {
+  currentLang?: 'en' | 'es';
+  currentPath?: string;
+  className?: string;
+}
+
+const { 
+  currentLang = 'en',
+  currentPath = Astro.url.pathname,
+  className = ''
+} = Astro.props;
+
+// Calculate target paths
+const cleanPath = currentPath.replace(/^\/es(\/|$)/, '/');
+const enHref = cleanPath === '' ? '/' : cleanPath;
+const esHref = cleanPath === '/' ? '/es' : `/es${cleanPath}`;
+---
+
+<div class={`inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/80 backdrop-blur-md shadow-sm text-xs font-mono select-none ${className}`} aria-label="Language selector">
+  <a
+    href={enHref}
+    class={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+      currentLang === 'en'
+        ? 'bg-primary text-white font-bold shadow-sm'
+        : 'text-text-muted hover:text-text-primary'
+    }`}
+    title="Switch to English"
+    aria-current={currentLang === 'en' ? 'page' : undefined}
+  >
+    EN
+  </a>
+  <a
+    href={esHref}
+    class={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+      currentLang === 'es'
+        ? 'bg-primary text-white font-bold shadow-sm'
+        : 'text-text-muted hover:text-text-primary'
+    }`}
+    title="Cambiar a Español"
+    aria-current={currentLang === 'es' ? 'page' : undefined}
+  >
+    ES
+  </a>
+</div>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
 	title: string;
@@ -8,6 +9,7 @@ interface Props {
 	keywords?: string;
 	ogType?: string;
 	schema?: Record<string, any>;
+	lang?: Lang;
 }
 
 const { 
@@ -16,10 +18,16 @@ const {
 	image = "/logo.png",
 	keywords = "custom web applications, custom software development, business software, ERP, automation, AI, software engineer, Peru",
 	ogType = "website",
-	schema
+	schema,
+	lang = 'en'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const currentPath = Astro.url.pathname;
+const isSpanishRoute = currentPath.startsWith('/es');
+const enPath = isSpanishRoute ? currentPath.replace(/^\/es/, '') || '/' : currentPath;
+const esPath = isSpanishRoute ? currentPath : ('/es' + (currentPath === '/' ? '' : currentPath)).replace(/\/$/, '') || '/es';
 
 const defaultSchema = {
 	"@context": "https://schema.org",
@@ -30,7 +38,7 @@ const defaultSchema = {
 			"name": "Tomastech",
 			"url": "https://tomastech.dev",
 			"description": description,
-			"inLanguage": "en"
+			"inLanguage": lang
 		},
 		{
 			"@type": "Organization",
@@ -38,7 +46,9 @@ const defaultSchema = {
 			"name": "Tomastech",
 			"url": "https://tomastech.dev",
 			"logo": "https://tomastech.dev/logo.png",
-			"description": "Custom web applications, business software and AI-enabled systems development.",
+			"description": lang === 'es' 
+				? "Desarrollo de aplicaciones web personalizadas, software empresarial y sistemas habilitados con IA."
+				: "Custom web applications, business software and AI-enabled systems development.",
 			"address": {
 				"@type": "PostalAddress",
 				"addressCountry": "PE"
@@ -56,7 +66,7 @@ const defaultSchema = {
 			"@id": "https://tomastech.dev/#person",
 			"name": "Tomas Eduardo Pozu Asalde",
 			"url": "https://tomastech.dev",
-			"jobTitle": "Software Engineer",
+			"jobTitle": lang === 'es' ? "Ingeniero de Software" : "Software Engineer",
 			"sameAs": [
 				"https://github.com/tomaspa-dev",
 				"https://www.linkedin.com/company/tomastechdev"
@@ -82,7 +92,7 @@ import { ViewTransitions } from 'astro:transitions';
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -93,6 +103,9 @@ import { ViewTransitions } from 'astro:transitions';
 		
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURL} />
+		<link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+		<link rel="alternate" hreflang="es" href={new URL(esPath, Astro.site)} />
+		<link rel="alternate" hreflang="x-default" href={new URL(enPath, Astro.site)} />
 		
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -106,7 +119,7 @@ import { ViewTransitions } from 'astro:transitions';
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(image, Astro.site)} />
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale" content={lang === 'es' ? 'es_PE' : 'en_US'} />
 		<meta property="og:site_name" content="Tomastech | Software Engineering & Business Systems" />
 		
 		<!-- Twitter Card -->

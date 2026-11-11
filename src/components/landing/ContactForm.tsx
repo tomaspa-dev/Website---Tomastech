@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import type { Lang } from '../../i18n/ui';
 
 interface FieldState {
   focused: boolean;
@@ -47,7 +48,30 @@ function FloatingInput({
   );
 }
 
-export default function ContactForm() {
+interface ContactFormProps {
+  lang?: Lang;
+}
+
+export default function ContactForm({ lang = 'en' }: ContactFormProps) {
+  const isEs = lang === 'es';
+  const t = {
+    title: isEs ? 'Construyamos Algo Extraordinario' : "Let's Build Something Great",
+    subtitle: isEs
+      ? 'Completa el formulario y responderemos en menos de 24 horas.'
+      : "Fill out the form and we'll get back to you within 24 hours.",
+    nameLabel: isEs ? 'Tu Nombre' : 'Your Name',
+    emailLabel: isEs ? 'Correo Electrónico' : 'Email Address',
+    messageLabel: isEs ? 'Cuéntanos sobre tu proyecto' : 'Tell us about your project',
+    submit: isEs ? 'Enviar Mensaje' : 'Send Message',
+    sending: isEs ? 'Enviando...' : 'Sending...',
+    sent: isEs ? '¡Mensaje Enviado!' : 'Message Sent!',
+    fillRequired: isEs ? 'Por favor completa todos los campos requeridos.' : 'Please fill in all required fields.',
+    successToast: isEs ? '¡Mensaje enviado! Responderemos en menos de 24 horas.' : "Message sent! We'll reply within 24 hours.",
+    fallbackError: isEs
+      ? 'No se pudo enviar el mensaje. Puedes escribir directamente a hello@tomastech.dev.'
+      : 'Could not send message. Please try emailing hello@tomastech.dev directly.',
+  };
+
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -76,7 +100,7 @@ export default function ContactForm() {
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       if (typeof (window as any).showToast === 'function') {
-        (window as any).showToast('Please fill in all required fields.', 'error');
+        (window as any).showToast(t.fillRequired, 'error');
       }
       return;
     }
@@ -101,7 +125,7 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message. Please try again.');
+        throw new Error(result.error || t.fallbackError);
       }
 
       setFormStatus('success');
@@ -114,14 +138,14 @@ export default function ContactForm() {
       });
 
       if (typeof (window as any).showToast === 'function') {
-        (window as any).showToast("Message sent! We'll reply within 24 hours.", 'success', 6000);
+        (window as any).showToast(t.successToast, 'success', 6000);
       }
 
       setTimeout(() => setFormStatus('idle'), 5000);
     } catch (err: any) {
       console.error('Contact Form Error:', err);
       setFormStatus('error');
-      const msg = err.message || 'Could not send message. Please try emailing hello@tomastech.dev directly.';
+      const msg = err.message || t.fallbackError;
       setErrorMessage(msg);
       if (typeof (window as any).showToast === 'function') {
         (window as any).showToast(msg, 'error', 6000);
@@ -186,10 +210,10 @@ export default function ContactForm() {
         {/* Icon + Heading */}
         <div className="mb-6">
           <h3 className="cf-title text-xl md:text-2xl font-bold tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-            Let's Build Something Great
+            {t.title}
           </h3>
           <p className="cf-subtitle mt-1.5 text-sm">
-            Fill out the form and we'll get back to you within 24 hours.
+            {t.subtitle}
           </p>
         </div>
 
@@ -206,7 +230,7 @@ export default function ContactForm() {
           />
 
           <FloatingInput
-            id="name" label="Your Name" required
+            id="name" label={t.nameLabel} required
             value={formData.name}
             field={fields.name}
             onFocus={() => setFocused('name', true)}
@@ -222,7 +246,7 @@ export default function ContactForm() {
           />
 
           <FloatingInput
-            id="email" label="Email Address" type="email" required
+            id="email" label={t.emailLabel} type="email" required
             value={formData.email}
             field={fields.email}
             onFocus={() => setFocused('email', true)}
@@ -239,7 +263,7 @@ export default function ContactForm() {
 
           <div className="relative">
             <FloatingInput
-              id="message" label="Tell us about your project" required rows={4}
+              id="message" label={t.messageLabel} required rows={4}
               value={formData.message}
               field={fields.message}
               onFocus={() => setFocused('message', true)}
@@ -275,16 +299,16 @@ export default function ContactForm() {
             {isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Sending...</span>
+                <span>{t.sending}</span>
               </>
             ) : formStatus === 'success' ? (
               <>
                 <CheckCircle className="w-4 h-4" />
-                <span>Message Sent!</span>
+                <span>{t.sent}</span>
               </>
             ) : (
               <>
-                <span>Send Message</span>
+                <span>{t.submit}</span>
                 <Send className="w-4 h-4" />
               </>
             )}

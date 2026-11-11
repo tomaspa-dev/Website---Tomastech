@@ -4,19 +4,33 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 interface MobileMenuProps {
   isLanding?: boolean;
+  lang?: 'en' | 'es';
 }
 
-const landingLinks = [
+const landingLinksEn = [
   { name: "Services", href: "#services" },
   { name: "Scope", href: "#scope" },
   { name: "Contact", href: "#contact" },
 ];
 
-const portfolioLinks = [
+const landingLinksEs = [
+  { name: "Servicios", href: "#services" },
+  { name: "Alcance", href: "#scope" },
+  { name: "Contacto", href: "#contact" },
+];
+
+const portfolioLinksEn = [
   { name: "How I Work", href: "#process" },
   { name: "Portfolio", href: "#work" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "/#contact" },
+];
+
+const portfolioLinksEs = [
+  { name: "Cómo Trabajo", href: "#process" },
+  { name: "Portafolio", href: "#work" },
+  { name: "Sobre Mí", href: "#about" },
+  { name: "Contacto", href: "/es/#contact" },
 ];
 
 const menuVariants: Variants = {
@@ -66,12 +80,22 @@ const lightStyles = {
   ctaHover: { color: '#0f172a', background: 'rgba(99,102,241,0.08)' },
 };
 
-export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
+export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLight, setIsLight] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [hoveredCta, setHoveredCta] = useState(false);
-  const links = isLanding ? landingLinks : portfolioLinks;
+
+  const isEs = lang === 'es';
+  const links = isLanding 
+    ? (isEs ? landingLinksEs : landingLinksEn)
+    : (isEs ? portfolioLinksEs : portfolioLinksEn);
+
+  const portfolioHref = isEs ? '/es/portfolio' : '/portfolio';
+  const contactHref = isLanding ? '#contact' : (isEs ? '/es/#contact' : '/#contact');
+  const ctaText = isEs ? 'Conversemos' : "Let's Talk";
+  const portfolioLabel = isEs ? 'Portafolio' : 'Portfolio';
+
   const theme = isLight ? lightStyles : darkStyles;
 
   useEffect(() => {
@@ -144,25 +168,25 @@ export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
             {isLanding ? (
               <>
                 <a
-                  href="/portfolio"
+                  href={portfolioHref}
                   onClick={() => setIsOpen(false)}
                   onMouseEnter={() => setHoveredLink('portfolio')}
                   onMouseLeave={() => setHoveredLink(null)}
                   className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-medium"
                   style={hoveredLink === 'portfolio' ? theme.linkHover : theme.link}
                 >
-                  Portfolio
+                  {portfolioLabel}
                 </a>
                 <div className="h-px my-1 mx-2" style={theme.divider}></div>
                 <a
-                  href="#contact"
+                  href={contactHref}
                   onClick={() => setIsOpen(false)}
                   onMouseEnter={() => setHoveredCta(true)}
                   onMouseLeave={() => setHoveredCta(false)}
                   className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
                   style={hoveredCta ? theme.ctaHover : theme.cta}
                 >
-                  Let's Talk
+                  {ctaText}
                   <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
                 </a>
               </>
@@ -170,18 +194,44 @@ export default function MobileMenu({ isLanding = false }: MobileMenuProps) {
               <>
                 <div className="h-px my-1 mx-2" style={theme.divider}></div>
                 <a
-                  href="/#contact"
+                  href={contactHref}
                   onClick={() => setIsOpen(false)}
                   onMouseEnter={() => setHoveredCta(true)}
                   onMouseLeave={() => setHoveredCta(false)}
                   className="px-4 py-3 rounded-xl transition-all duration-200 text-base font-bold flex items-center justify-between group"
                   style={hoveredCta ? theme.ctaHover : theme.cta}
                 >
-                  Let's Talk
+                  {ctaText}
                   <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
                 </a>
               </>
             )}
+
+            {/* Language Switcher in Mobile Menu */}
+            <div className="h-px my-1 mx-2" style={theme.divider}></div>
+            <div className="p-2 flex items-center justify-between">
+              <span className="text-xs font-mono" style={theme.link}>
+                {isEs ? 'Idioma' : 'Language'}:
+              </span>
+              <div className="inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/50 text-xs font-mono">
+                <a
+                  href={isLanding ? '/' : '/portfolio'}
+                  className={`px-2.5 py-1 rounded-full transition-all ${
+                    !isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
+                  }`}
+                >
+                  EN
+                </a>
+                <a
+                  href={isLanding ? '/es' : '/es/portfolio'}
+                  className={`px-2.5 py-1 rounded-full transition-all ${
+                    isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
+                  }`}
+                >
+                  ES
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

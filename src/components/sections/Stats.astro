@@ -1,9 +1,19 @@
 ---
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
 const stats = [
-  { value: 15, label: "Delivered Solutions", suffix: "+" },
-  { value: 5,  label: "Industries Served",   suffix: "+" },
-  { value: 5,  label: "Years Experience",    suffix: "+" },
-  { value: 100,label: "Delivery Commitment", suffix: "%" },
+  { value: 15, label: t.stats.delivered, suffix: "+" },
+  { value: 5,  label: t.stats.industries, suffix: "+" },
+  { value: 5,  label: t.stats.experience, suffix: "+" },
+  { value: 100,label: t.stats.commitment, suffix: "%" },
 ];
 ---
 

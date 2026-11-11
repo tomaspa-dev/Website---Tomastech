@@ -1,5 +1,14 @@
 ---
 import Button from '../ui/Button.astro';
+import type { Lang } from '../../i18n/ui';
+import { getTranslations } from '../../i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
 ---
 
 <section id="about" class="py-24 relative overflow-hidden bg-surface">
@@ -22,14 +31,14 @@ import Button from '../ui/Button.astro';
 
         <!-- Floating accent badge: Software Engineer -->
         <div class="absolute -top-4 -right-4 sm:right-0 lg:-right-6 px-3 py-1.5 rounded-xl glass-card border border-primary/30 text-xs font-bold text-primary shadow-lg about-badge-1">
-          ✦ Software Engineer
+          {t.about.badgeRole}
         </div>
         <div class="absolute -bottom-4 -left-4 sm:left-0 lg:-left-6 px-3 py-1.5 rounded-xl glass-card border border-secondary/30 text-xs font-bold text-secondary shadow-lg about-badge-2">
-          🇵🇪 Based in Peru
+          {t.about.badgeLocation}
         </div>
         <div class="absolute top-1/2 -right-4 sm:right-0 lg:-right-8 -translate-y-1/2 px-3 py-1.5 rounded-xl glass-card border border-emerald-500/30 text-xs font-bold text-emerald-400 shadow-lg about-badge-3 flex items-center gap-1.5">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          Open to Projects
+          {t.about.badgeStatus}
         </div>
       </div>
 
@@ -37,26 +46,26 @@ import Button from '../ui/Button.astro';
       <div class="about-text relative">
         <!-- Label -->
         <div class="about-el inline-block mb-5 px-4 py-1.5 rounded-full border border-border bg-surface backdrop-blur-sm">
-          <span class="text-sm font-medium text-primary tracking-wide">ABOUT ME</span>
+          <span class="text-sm font-medium text-primary tracking-wide">{t.about.tag}</span>
         </div>
 
         <!-- Heading -->
         <h2 class="about-el text-4xl md:text-5xl font-bold text-text-primary mb-6 leading-tight font-display tracking-tight">
-          More than just code,<br/>
-          <span class="gradient-text">I build solutions.</span>
+          {t.about.headingPrefix}<br/>
+          <span class="gradient-text">{t.about.headingHighlight}</span>
         </h2>
 
         <!-- Body text -->
         <div class="about-el text-base md:text-lg text-text-secondary leading-relaxed mb-8 about-body space-y-4">
-          <p>Backed by over 5 years of experience delivering production web applications, my work has purposefully focused into backend systems, domain-driven design, and operational reliability.</p>
-          <p>I care about understanding the problem first, making thoughtful technical decisions and building systems that can evolve over time.</p>
+          <p>{t.about.p1}</p>
+          <p>{t.about.p2}</p>
         </div>
 
         <!-- Currently Exploring -->
         <div class="about-el mb-8">
-          <span class="text-xs font-mono tracking-widest text-primary uppercase mb-3 block opacity-70">Currently Exploring</span>
+          <span class="text-xs font-mono tracking-widest text-primary uppercase mb-3 block opacity-70">{t.about.exploringTitle}</span>
           <p class="text-text-secondary text-sm leading-relaxed">
-            Software Architecture &middot; Distributed Systems &middot; Cloud Infrastructure &middot; Platform Engineering &middot; Application Security &middot; AI-assisted Development
+            {t.about.exploringText}
           </p>
         </div>
 
@@ -67,8 +76,8 @@ import Button from '../ui/Button.astro';
           </div>
           <div>
             <h4 class="text-text-primary font-bold leading-none mb-0.5">Tomas Eduardo Pozu Asalde</h4>
-            <span class="text-sm text-primary font-medium">Software Engineer</span>
-            <p class="text-xs text-text-secondary mt-1 leading-snug">Designing reliable backend systems, business logic<br/>and scalable software.</p>
+            <span class="text-sm text-primary font-medium">{t.about.role}</span>
+            <p class="text-xs text-text-secondary mt-1 leading-snug whitespace-pre-line">{t.about.cardTagline}</p>
           </div>
         </div>
       </div>

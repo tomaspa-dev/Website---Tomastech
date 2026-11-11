@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/common/Navbar.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Stats from '../../components/sections/Stats.astro';
+import Services from '../../components/sections/Services.astro';
+import Process from '../../components/sections/Process.astro';
+import Portfolio from '../../components/sections/Portfolio.astro';
+import About from '../../components/sections/About.astro';
+import Footer from '../../components/common/Footer.astro';
+
+const portfolioTitle = "Portafolio de Ingeniero de Software | Arquitectura, Cloud y Seguridad | Tomastech";
+const portfolioDesc = "Portafolio de ingeniería de software con casos en sistemas de negocio, ERP, plataformas logísticas, IA y arquitectura de sistemas con enfoque en cloud y seguridad.";
+const portfolioKeywords = "portafolio ingeniero de software, arquitectura de software, sistemas distribuidos, infraestructura cloud, seguridad de aplicaciones, ingenieria de software Peru, full stack engineer Peru";
+
+const portfolioSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://tomastech.dev/es/portfolio#profilepage",
+      "name": portfolioTitle,
+      "url": "https://tomastech.dev/es/portfolio",
+      "description": portfolioDesc,
+      "inLanguage": "es",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://tomastech.dev/#person",
+        "name": "Tomas Eduardo Pozu Asalde",
+        "alternateName": "Tomas Pozu",
+        "jobTitle": "Ingeniero de Software",
+        "url": "https://tomastech.dev",
+        "sameAs": [
+          "https://github.com/tomaspa-dev",
+          "https://www.linkedin.com/company/tomastechdev"
+        ],
+        "knowsAbout": [
+          "Software Engineering",
+          "Software Architecture",
+          "Distributed Systems",
+          "Cloud Infrastructure",
+          "Application Security",
+          "Business Systems",
+          "AI-assisted Development"
+        ]
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout 
+  title={portfolioTitle}
+  description={portfolioDesc}
+  keywords={portfolioKeywords}
+  ogType="profile"
+  schema={portfolioSchema}
+  lang="es"
+>
+  <Navbar lang="es" />
+  <main>
+    <Hero lang="es" />
+    <Stats lang="es" />
+    <Services lang="es" />
+    <Process lang="es" />
+    <Portfolio lang="es" />
+    <About lang="es" />
+  </main>
+  
+  <Footer lang="es" />
+</BaseLayout>

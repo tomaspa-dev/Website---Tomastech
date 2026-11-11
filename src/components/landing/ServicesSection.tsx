@@ -1,103 +1,18 @@
 import React, { useState } from 'react';
-import { X, ArrowRight, Monitor, Smartphone, Database, Globe, MapPin, Palette, ExternalLink } from 'lucide-react';
+import { X, ArrowRight, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { Lang } from '../../i18n/ui';
+import { getServicesContent, type ServiceDetail } from '../../data/servicesData';
 
-interface ServiceDetail {
-  icon: React.ElementType;
-  title: string;
-  shortDesc: string;
-  gradient: string;
-  glow: string;
-  iconColor: string;
-  modalTitle: string;
-  modalDesc: string;
-  features: string[];
-  techStack: string[];
-  useCases: string[];
-}
-
-const services: ServiceDetail[] = [
-  {
-    icon: Monitor,
-    title: "Web Applications",
-    shortDesc: "Custom web applications, dashboards, client portals and business platforms built for scalability and performance.",
-    gradient: "from-indigo-400 to-indigo-600",
-    glow: "rgba(129, 140, 248, 0.15)",
-    iconColor: "text-indigo-400",
-    modalTitle: "Web Applications & Platforms",
-    modalDesc: "Custom web applications tailored to your business processes — from client portals and operational dashboards to complex multi-role platforms with real-time updates and high reliability.",
-    features: ["Custom web app development", "Real-time dashboards & analytics", "Role-based access control (RBAC)", "Authentication & security", "API integrations", "Scalable cloud architecture"],
-    techStack: ["React / Next.js", "Node.js / TypeScript", "PostgreSQL / Redis", "TailwindCSS"],
-    useCases: ["Business management platforms", "Client & vendor portals", "Operational dashboards", "SaaS products"],
-  },
-  {
-    icon: Database,
-    title: "Business Systems",
-    shortDesc: "ERP, inventory, sales, logistics and operational systems built around how your business works.",
-    gradient: "from-emerald-400 to-emerald-600",
-    glow: "rgba(52, 211, 153, 0.15)",
-    iconColor: "text-emerald-400",
-    modalTitle: "Business Systems & Custom ERP",
-    modalDesc: "End-to-end business management platforms designed around your specific operational workflows — unifying sales, inventory, purchasing, logistics and accounting.",
-    features: ["Custom ERP development", "Inventory & warehouse tracking", "Purchasing & sales workflows", "Route & delivery management", "Automated report generation", "Audit trail & compliance"],
-    techStack: ["Node.js / TypeScript", "PostgreSQL / PostGIS", "React / Next.js", "Redis / WebSockets"],
-    useCases: ["Distribution companies", "Wholesale & retail operations", "Supply chain & logistics", "Manufacturing workflows"],
-  },
-  {
-    icon: Database,
-    title: "AI & Automation",
-    shortDesc: "Document processing, workflow automation and intelligent data pipelines to increase operational efficiency.",
-    gradient: "from-violet-400 to-violet-600",
-    glow: "rgba(167, 139, 250, 0.15)",
-    iconColor: "text-violet-400",
-    modalTitle: "Intelligent Automation & Data Workflows",
-    modalDesc: "We implement practical automation and data processing solutions — from automated document extraction and classification to event-driven business workflow pipelines.",
-    features: ["Document data extraction & validation", "Event-driven workflow pipelines", "API & LLM integration where practical", "Queue-based background processing", "Human-in-the-loop review flows", "Operational audit logging"],
-    techStack: ["Python / Node.js", "BullMQ / Redis", "PostgreSQL", "REST / Webhooks"],
-    useCases: ["Automated document & invoice processing", "Operational data pipelines", "System integration queues", "Workflow automation"],
-  },
-  {
-    icon: Database,
-    title: "API & Integrations",
-    shortDesc: "Connect existing tools, APIs and business systems into a more efficient digital workflow.",
-    gradient: "from-amber-400 to-amber-600",
-    glow: "rgba(251, 191, 36, 0.15)",
-    iconColor: "text-amber-400",
-    modalTitle: "API Development & System Integrations",
-    modalDesc: "Connect disparate software, third-party APIs, payment gateways and legacy databases into unified, secure and observable backend workflows.",
-    features: ["REST & GraphQL API design", "Third-party system integrations", "Webhook & event-driven architecture", "Database modeling & migrations", "Authentication & rate limiting", "Monitoring & logging"],
-    techStack: ["Node.js / Express", "PostgreSQL", "Docker", "REST / Webhooks"],
-    useCases: ["CRM & ERP integrations", "Payment gateway connectivity", "External data feeds", "Microservices communication"],
-  },
-  {
-    icon: Globe,
-    title: "Websites",
-    shortDesc: "Fast, modern websites designed to attract customers, build credibility and support your business.",
-    gradient: "from-pink-400 to-pink-600",
-    glow: "rgba(244, 114, 182, 0.15)",
-    iconColor: "text-pink-400",
-    modalTitle: "Modern Websites & High-Performance Pages",
-    modalDesc: "High-performance, beautifully crafted corporate websites and landing pages built with modern web architecture to maximize visibility and conversion.",
-    features: ["SEO-first architecture", "Lightning-fast loading (95+ Lighthouse)", "Responsive mobile-first design", "Fluid micro-animations", "Contact & lead capture forms", "Analytics & tracking setup"],
-    techStack: ["Astro / React", "TailwindCSS", "GSAP / Framer Motion", "Netlify / Cloudflare"],
-    useCases: ["Corporate websites", "Product & service landing pages", "Portfolio & showcase sites", "Campaign pages"],
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    shortDesc: "Clear, intuitive interfaces designed around how people actually use your product.",
-    gradient: "from-cyan-400 to-cyan-600",
-    glow: "rgba(34, 211, 238, 0.15)",
-    iconColor: "text-cyan-400",
-    modalTitle: "UI/UX Design & Product Experience",
-    modalDesc: "User-centered design backed by usability principles — crafting intuitive layouts, interactive prototypes and consistent design systems that make software a joy to use.",
-    features: ["User research & workflows", "Wireframing & interactive prototypes", "Design systems & component libraries", "Accessibility & responsiveness", "Design-to-code handoff", "Brand consistency"],
-    techStack: ["Figma", "Design Systems", "Prototyping"],
-    useCases: ["Web app interfaces", "Dashboard UI/UX", "Mobile-responsive layouts", "Design system creation"],
-  },
-];
-
-function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: () => void }) {
+function ServiceModal({
+  service,
+  onClose,
+  labels,
+}: {
+  service: ServiceDetail;
+  onClose: () => void;
+  labels: { keyFeatures: string; useCases: string; discussCta: string };
+}) {
   const Icon = service.icon;
   
   return (
@@ -172,7 +87,7 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
 
           {/* Features */}
           <div className="mb-6">
-            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Key Features</h4>
+            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{labels.keyFeatures}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {service.features.map((f, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm svc-modal-p">
@@ -185,7 +100,7 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
 
           {/* Use Cases */}
           <div className="mb-6">
-            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Use Cases</h4>
+            <h4 className="svc-modal-label text-sm font-bold uppercase tracking-wider mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{labels.useCases}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {service.useCases.map((u, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm svc-modal-muted">
@@ -205,7 +120,7 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
             className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(129,140,248,0.3)]"
             style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
-            Discuss This Service
+            {labels.discussCta}
             <ExternalLink size={14} />
           </a>
         </div>
@@ -214,7 +129,8 @@ function ServiceModal({ service, onClose }: { service: ServiceDetail; onClose: (
   );
 }
 
-export default function ServicesSection() {
+export default function ServicesSection({ lang = 'en' }: { lang?: Lang }) {
+  const content = getServicesContent(lang);
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
 
   return (
@@ -228,21 +144,21 @@ export default function ServicesSection() {
         <div className="w-full max-w-7xl mx-auto px-8 sm:px-10 md:px-14 lg:px-20 relative z-10">
           {/* Header */}
           <div className="text-center mb-16 md:mb-20">
-            <span className="inline-block text-indigo-400 font-semibold tracking-wider uppercase text-xs md:text-sm mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>What We Build</span>
+            <span className="inline-block text-indigo-400 font-semibold tracking-wider uppercase text-xs md:text-sm mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{content.tag}</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 tracking-tight leading-[1.1]" style={{ color: 'var(--color-text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
-              From websites to <br className="hidden sm:block" />
+              {content.titlePrefix} <br className="hidden sm:block" />
               <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                business software
+                {content.titleHighlight}
               </span>
             </h2>
             <p className="max-w-2xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-              Whether you need a high-performance website, a customer portal, an internal system or a custom business application, I design and build the right solution for your needs.
+              {content.subtitle}
             </p>
           </div>
           
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-            {services.map((service, index) => {
+            {content.items.map((service, index) => {
               const Icon = service.icon;
               return (
                 <button
@@ -285,7 +201,7 @@ export default function ServicesSection() {
 
                     {/* Learn More indicator */}
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 group-hover:gap-2.5 transition-all duration-300">
-                      Learn More <ArrowRight size={12} />
+                      {content.learnMore} <ArrowRight size={12} />
                     </div>
 
                     {/* Bottom accent line */}
@@ -301,7 +217,15 @@ export default function ServicesSection() {
       {/* Modal */}
       <AnimatePresence>
         {selectedService && (
-          <ServiceModal service={selectedService} onClose={() => setSelectedService(null)} />
+          <ServiceModal 
+            service={selectedService} 
+            onClose={() => setSelectedService(null)} 
+            labels={{
+              keyFeatures: content.keyFeatures,
+              useCases: content.useCasesLabel,
+              discussCta: content.discussCta
+            }}
+          />
         )}
       </AnimatePresence>
     </>

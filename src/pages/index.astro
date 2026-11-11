@@ -18,19 +18,20 @@ const pageKeywords = "custom web applications, custom software development, busi
   title={pageTitle}
   description={pageDescription}
   keywords={pageKeywords}
+  lang="en"
 >
-  <Navbar isLanding={true} />
+  <Navbar isLanding={true} lang="en" />
   <main>
-    <HeroLanding />
-    <StatsBar />
-    <TechTicker />
-    <ServicesSection client:visible />
-    <Pricing />
-    <FAQ client:visible />
-    <ConversionCTA />
+    <HeroLanding lang="en" />
+    <StatsBar lang="en" />
+    <TechTicker lang="en" />
+    <ServicesSection client:visible lang="en" />
+    <Pricing lang="en" />
+    <FAQ client:visible lang="en" />
+    <ConversionCTA lang="en" />
   </main>
   
-  <Footer />
+  <Footer lang="en" />
 </BaseLayout>
 
 {/* Mouse tracking for service cards */}
