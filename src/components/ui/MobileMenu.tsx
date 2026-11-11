@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, User } from 'lucide-react';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface MobileMenuProps {
   isLanding?: boolean;
@@ -186,23 +186,31 @@ export default function MobileMenu({ isLanding = false, lang = 'en' }: MobileMen
               <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
             </a>
 
-            {/* Direct Admin Login access on mobile */}
-            <div className="h-px my-1 mx-2" style={theme.divider}></div>
-            <a
-              href="/panel-56Up89"
-              onClick={() => setIsOpen(false)}
-              onMouseEnter={() => setHoveredLink('admin')}
-              onMouseLeave={() => setHoveredLink(null)}
-              className="px-4 py-2.5 rounded-xl transition-all duration-200 text-xs font-mono flex items-center justify-between"
-              style={hoveredLink === 'admin' ? theme.linkHover : theme.link}
-              title={isEs ? 'Acceso Privado Admin' : 'Admin Dashboard Access'}
-            >
-              <span className="flex items-center gap-2">
-                <User size={14} className="text-primary" />
-                {isEs ? 'Acceso Admin' : 'Admin Login'}
+            {/* Language Switcher in Mobile Menu (shown on mobile phones where navbar has no room) */}
+            <div className="h-px my-1 mx-2 sm:hidden" style={theme.divider}></div>
+            <div className="p-2 flex items-center justify-between sm:hidden">
+              <span className="text-xs font-mono" style={theme.link}>
+                {isEs ? 'Idioma' : 'Language'}:
               </span>
-              <ArrowRight size={13} className="opacity-50" />
-            </a>
+              <div className="inline-flex items-center p-0.5 rounded-full border border-border/80 bg-surface/50 text-xs font-mono">
+                <a
+                  href={isLanding ? '/' : '/portfolio'}
+                  className={`px-2.5 py-1 rounded-full transition-all ${
+                    !isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
+                  }`}
+                >
+                  EN
+                </a>
+                <a
+                  href={isLanding ? '/es' : '/es/portfolio'}
+                  className={`px-2.5 py-1 rounded-full transition-all ${
+                    isEs ? 'bg-primary text-white font-bold' : 'text-text-muted'
+                  }`}
+                >
+                  ES
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

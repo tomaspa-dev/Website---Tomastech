@@ -117,17 +117,9 @@ const contactHref = isLanding ? '#contact' : (lang === 'es' ? '/es/#contact' : '
       )}
     </div>
 
-    <!-- Mobile controls: Language selector + Admin Login button + Mobile Menu hamburger -->
-    <div class="flex items-center gap-1.5 sm:gap-2 md:hidden">
-      <LanguageSelector currentLang={lang} />
-      <a 
-        href="/panel-56Up89" 
-        class="p-1.5 sm:p-2 rounded-full bg-surface hover:bg-surface-hover border border-border text-text-secondary hover:text-text-primary transition-all flex items-center justify-center shrink-0"
-        title={lang === 'es' ? 'Acceso Admin' : 'Admin Login'}
-        aria-label="Admin Login"
-      >
-        <User size={16} />
-      </a>
+    <!-- Mobile controls: Language selector on tablet (sm+) + Mobile Menu hamburger -->
+    <div class="flex items-center gap-2 md:hidden">
+      <LanguageSelector currentLang={lang} className="hidden sm:inline-flex" />
       <MobileMenu client:load isLanding={isLanding} lang={lang} />
     </div>
   </div>
